@@ -9,6 +9,7 @@ target 'ColdCrypto' do
   pod 'MBProgressHUD'
   pod 'Alamofire'
   pod 'HandyJSON'
+  pod 'HockeySDK'
   pod 'QRCode'
   pod 'Malert'
 
