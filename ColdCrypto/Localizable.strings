@@ -1,0 +1,22 @@
+/* 
+  Localizable.strings
+  MultiMask
+
+  Created by Kirill Kozhuhar on 01/08/2018.
+  Copyright © 2018 Kirill Kozhuhar. All rights reserved.
+*/
+"scan" = "Scan";
+"scan_title" = "Scan QR code";
+"new_wallet" = "Create wallet";
+"import_prof" = "Import wallet";
+"create_code" = "Create access code";
+"cretae_hint" = "You need it for signung in\nand confirming operations";
+"cretae_rpt"  = "Repeat new access code";
+"ask_use_face" = "Will you use Face ID for access?";
+"ask_use_touch" = "Will you use Touch ID for access?";
+"yes" = "Yes, please";
+"no" = "No, thanks";
+"touch_id" = "Use your finger for access";
+"enter_hint" = "For getting access\nto the wallet";
+"enter_access_code" = "Enter the access code";
+"scan_line_2" = "Scan QR code";

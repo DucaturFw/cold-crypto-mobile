@@ -7,21 +7,199 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A4C7EEFDE2D214A0BE9F822B /* Pods_ColdCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B511BE577741365521F8A2AA /* Pods_ColdCrypto.framework */; };
+		EB976CEC217BA6CE00B8DC95 /* ApiWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB976CEB217BA6CE00B8DC95 /* ApiWallet.swift */; };
+		EB976CEE217BA75900B8DC95 /* ApiDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB976CED217BA75900B8DC95 /* ApiDestination.swift */; };
+		EBA5938B217A813F00F3CB65 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA5938A217A813F00F3CB65 /* Button.swift */; };
+		EBA59393217A815300F3CB65 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA59392217A815300F3CB65 /* Extensions.swift */; };
+		EBA59399217A816800F3CB65 /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = EBA59395217A816800F3CB65 /* SF-Pro-Display-Regular.otf */; };
+		EBA5939A217A816800F3CB65 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EBA59396217A816800F3CB65 /* SF-Pro-Display-Bold.otf */; };
+		EBA5939B217A816800F3CB65 /* SF-Pro-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = EBA59397217A816800F3CB65 /* SF-Pro-Display-Medium.otf */; };
+		EBA5939C217A816800F3CB65 /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EBA59398217A816800F3CB65 /* SF-Pro-Display-Semibold.otf */; };
+		EBA593AD217A831900F3CB65 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EBA593A6217A831800F3CB65 /* Localizable.strings */; };
+		EBA593AF217A844E00F3CB65 /* ScannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593AE217A844E00F3CB65 /* ScannerVC.swift */; };
+		EBA593B1217A845E00F3CB65 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA593B0217A845E00F3CB65 /* AVFoundation.framework */; };
+		EBA593B3217A84A000F3CB65 /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593B2217A84A000F3CB65 /* ScanView.swift */; };
+		EBA593BA217A88EF00F3CB65 /* ETHTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593B5217A88EF00F3CB65 /* ETHTransaction.swift */; };
+		EBA593BB217A88EF00F3CB65 /* ETHWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593B6217A88EF00F3CB65 /* ETHWallet.swift */; };
+		EBA593BD217A88EF00F3CB65 /* EthereumAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593B8217A88EF00F3CB65 /* EthereumAddress.swift */; };
+		EBA593BE217A88EF00F3CB65 /* ETHNet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593B9217A88EF00F3CB65 /* ETHNet.swift */; };
+		EBA593C0217A890500F3CB65 /* IWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593BF217A890500F3CB65 /* IWallet.swift */; };
+		EBA593C2217A892900F3CB65 /* Blockchain.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593C1217A892900F3CB65 /* Blockchain.swift */; };
+		EBA593C4217A897E00F3CB65 /* IViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593C3217A897E00F3CB65 /* IViewable.swift */; };
+		EBA593C8217A89B800F3CB65 /* ITransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593C7217A89B800F3CB65 /* ITransaction.swift */; };
+		EBA593CA217A8AC900F3CB65 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593C9217A8AC900F3CB65 /* Settings.swift */; };
+		EBA593CC217A8AF800F3CB65 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593CB217A8AF800F3CB65 /* Profile.swift */; };
+		EBA593CE217A8B6400F3CB65 /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593CD217A8B6400F3CB65 /* Chain.swift */; };
+		EBA593D0217A8BF700F3CB65 /* CheckCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593CF217A8BF700F3CB65 /* CheckCodeVC.swift */; };
+		EBA593D2217A8BFE00F3CB65 /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593D1217A8BFE00F3CB65 /* AuthVC.swift */; };
+		EBA593D4217A8C0300F3CB65 /* NewCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593D3217A8C0300F3CB65 /* NewCodeVC.swift */; };
+		EBA593D6217A8C1B00F3CB65 /* CodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593D5217A8C1B00F3CB65 /* CodeVC.swift */; };
+		EBA593D8217A8CA300F3CB65 /* BioAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593D7217A8CA300F3CB65 /* BioAuth.swift */; };
+		EBA593DA217A8CB500F3CB65 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */; };
+		EBA593DC217A8CCC00F3CB65 /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DB217A8CCC00F3CB65 /* CodeView.swift */; };
+		EBA593DE217A8CDC00F3CB65 /* NumberPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */; };
+		EBA593E0217A8D1900F3CB65 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DF217A8D1900F3CB65 /* Alert.swift */; };
 		EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D0217928BF006879F7 /* AppDelegate.swift */; };
 		EBE484D3217928BF006879F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D2217928BF006879F7 /* ViewController.swift */; };
-		EBE484D6217928BF006879F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBE484D4217928BF006879F7 /* Main.storyboard */; };
 		EBE484D8217928C0006879F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBE484D7217928C0006879F7 /* Assets.xcassets */; };
 		EBE484DB217928C0006879F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBE484D9217928C0006879F7 /* LaunchScreen.storyboard */; };
+		EBE4850721792FF3006879F7 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE484FE21792FEC006879F7 /* CryptoSwift.framework */; };
+		EBE4850821792FF3006879F7 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EBE484FE21792FEC006879F7 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EBE4850B21792FF3006879F7 /* CryptoEthereumSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE484F021792FE5006879F7 /* CryptoEthereumSwift.framework */; };
+		EBE4850C21792FF3006879F7 /* CryptoEthereumSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EBE484F021792FE5006879F7 /* CryptoEthereumSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EBE4850F21792FF3006879F7 /* EthereumKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE484E821792FCB006879F7 /* EthereumKit.framework */; };
+		EBE4851021792FF3006879F7 /* EthereumKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EBE484E821792FCB006879F7 /* EthereumKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		EBE484E721792FCB006879F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBE484E321792FCB006879F7 /* EthereumKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AEBA90D51FFA21ED003EA2BA;
+			remoteInfo = EthereumKit;
+		};
+		EBE484EF21792FE5006879F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBE484E921792FE5006879F7 /* CryptoEthereumSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1AD1D61B20B7E822007AFF80;
+			remoteInfo = CryptoEthereumSwift;
+		};
+		EBE484F121792FE5006879F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBE484E921792FE5006879F7 /* CryptoEthereumSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1AD1D62420B7E822007AFF80;
+			remoteInfo = CryptoEthereumSwiftTests;
+		};
+		EBE484F321792FE5006879F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBE484E921792FE5006879F7 /* CryptoEthereumSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1AD1D63E20B7EF2F007AFF80;
+			remoteInfo = Example;
+		};
+		EBE484FD21792FEC006879F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBE484F521792FEC006879F7 /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 754BE45519693E190098E6F3;
+			remoteInfo = CryptoSwift;
+		};
+		EBE484FF21792FEC006879F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBE484F521792FEC006879F7 /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 75211F92207249D8004E41F8;
+			remoteInfo = "CryptoSwift-TestHostApp";
+		};
+		EBE4850121792FEC006879F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBE484F521792FEC006879F7 /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 754BE46019693E190098E6F3;
+			remoteInfo = Tests;
+		};
+		EBE4850321792FEC006879F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBE484F521792FEC006879F7 /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7595C14A2072E48C00EA1A5F;
+			remoteInfo = "TestsPerformance-Mac";
+		};
+		EBE4850521792FEC006879F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBE484F521792FEC006879F7 /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7564F0602072EAEB00CA5A96;
+			remoteInfo = "TestsPerformance-iOS";
+		};
+		EBE4850921792FF3006879F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBE484F521792FEC006879F7 /* CryptoSwift.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 754BE45419693E190098E6F3;
+			remoteInfo = CryptoSwift;
+		};
+		EBE4850D21792FF3006879F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBE484E921792FE5006879F7 /* CryptoEthereumSwift.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1AD1D61A20B7E822007AFF80;
+			remoteInfo = CryptoEthereumSwift;
+		};
+		EBE4851121792FF3006879F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBE484E321792FCB006879F7 /* EthereumKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = AEBA90D41FFA21ED003EA2BA;
+			remoteInfo = EthereumKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EBE4851321792FF3006879F7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EBE4850C21792FF3006879F7 /* CryptoEthereumSwift.framework in Embed Frameworks */,
+				EBE4850821792FF3006879F7 /* CryptoSwift.framework in Embed Frameworks */,
+				EBE4851021792FF3006879F7 /* EthereumKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2564A9F9434EDC7F695A47C1 /* Pods-ColdCrypto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColdCrypto.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto.debug.xcconfig"; sourceTree = "<group>"; };
+		7CCFBA6F1971B8E07FB05360 /* Pods-ColdCrypto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColdCrypto.release.xcconfig"; path = "Pods/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto.release.xcconfig"; sourceTree = "<group>"; };
+		B511BE577741365521F8A2AA /* Pods_ColdCrypto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColdCrypto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB976CEB217BA6CE00B8DC95 /* ApiWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiWallet.swift; sourceTree = "<group>"; };
+		EB976CED217BA75900B8DC95 /* ApiDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiDestination.swift; sourceTree = "<group>"; };
+		EBA5938A217A813F00F3CB65 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		EBA59392217A815300F3CB65 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		EBA59395217A816800F3CB65 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
+		EBA59396217A816800F3CB65 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
+		EBA59397217A816800F3CB65 /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; };
+		EBA59398217A816800F3CB65 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
+		EBA593A6217A831800F3CB65 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		EBA593AE217A844E00F3CB65 /* ScannerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerVC.swift; sourceTree = "<group>"; };
+		EBA593B0217A845E00F3CB65 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		EBA593B2217A84A000F3CB65 /* ScanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
+		EBA593B5217A88EF00F3CB65 /* ETHTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETHTransaction.swift; sourceTree = "<group>"; };
+		EBA593B6217A88EF00F3CB65 /* ETHWallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETHWallet.swift; sourceTree = "<group>"; };
+		EBA593B8217A88EF00F3CB65 /* EthereumAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumAddress.swift; sourceTree = "<group>"; };
+		EBA593B9217A88EF00F3CB65 /* ETHNet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETHNet.swift; sourceTree = "<group>"; };
+		EBA593BF217A890500F3CB65 /* IWallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IWallet.swift; sourceTree = "<group>"; };
+		EBA593C1217A892900F3CB65 /* Blockchain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blockchain.swift; sourceTree = "<group>"; };
+		EBA593C3217A897E00F3CB65 /* IViewable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IViewable.swift; sourceTree = "<group>"; };
+		EBA593C7217A89B800F3CB65 /* ITransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ITransaction.swift; sourceTree = "<group>"; };
+		EBA593C9217A8AC900F3CB65 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		EBA593CB217A8AF800F3CB65 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		EBA593CD217A8B6400F3CB65 /* Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chain.swift; sourceTree = "<group>"; };
+		EBA593CF217A8BF700F3CB65 /* CheckCodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckCodeVC.swift; sourceTree = "<group>"; };
+		EBA593D1217A8BFE00F3CB65 /* AuthVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthVC.swift; sourceTree = "<group>"; };
+		EBA593D3217A8C0300F3CB65 /* NewCodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCodeVC.swift; sourceTree = "<group>"; };
+		EBA593D5217A8C1B00F3CB65 /* CodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeVC.swift; sourceTree = "<group>"; };
+		EBA593D7217A8CA300F3CB65 /* BioAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BioAuth.swift; sourceTree = "<group>"; };
+		EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		EBA593DB217A8CCC00F3CB65 /* CodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CodeView.swift; path = "../../MultiMask-ios/MultiMask/Classes/View/CodeView.swift"; sourceTree = "<group>"; };
+		EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberPad.swift; sourceTree = "<group>"; };
+		EBA593DF217A8D1900F3CB65 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		EBE484CD217928BF006879F7 /* ColdCrypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColdCrypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE484D0217928BF006879F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EBE484D2217928BF006879F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		EBE484D5217928BF006879F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EBE484D7217928C0006879F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EBE484DA217928C0006879F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EBE484DC217928C0006879F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EBE484E321792FCB006879F7 /* EthereumKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EthereumKit.xcodeproj; path = EthereumKit/EthereumKit.xcodeproj; sourceTree = "<group>"; };
+		EBE484E921792FE5006879F7 /* CryptoEthereumSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoEthereumSwift.xcodeproj; path = EthereumKit/Carthage/Checkouts/CryptoEthereumSwift/CryptoEthereumSwift.xcodeproj; sourceTree = "<group>"; };
+		EBE484F521792FEC006879F7 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = EthereumKit/Carthage/Checkouts/CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +207,82 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBA593DA217A8CB500F3CB65 /* LocalAuthentication.framework in Frameworks */,
+				EBA593B1217A845E00F3CB65 /* AVFoundation.framework in Frameworks */,
+				EBE4850F21792FF3006879F7 /* EthereumKit.framework in Frameworks */,
+				EBE4850B21792FF3006879F7 /* CryptoEthereumSwift.framework in Frameworks */,
+				A4C7EEFDE2D214A0BE9F822B /* Pods_ColdCrypto.framework in Frameworks */,
+				EBE4850721792FF3006879F7 /* CryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A2741F217BD81CB5F16F23D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */,
+				EBA593B0217A845E00F3CB65 /* AVFoundation.framework */,
+				B511BE577741365521F8A2AA /* Pods_ColdCrypto.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D8A5F3620388EE0AFE58B8D8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2564A9F9434EDC7F695A47C1 /* Pods-ColdCrypto.debug.xcconfig */,
+				7CCFBA6F1971B8E07FB05360 /* Pods-ColdCrypto.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		EB976CE4217BA6B400B8DC95 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				EB976CEB217BA6CE00B8DC95 /* ApiWallet.swift */,
+				EB976CED217BA75900B8DC95 /* ApiDestination.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		EBA59394217A816800F3CB65 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				EBA59395217A816800F3CB65 /* SF-Pro-Display-Regular.otf */,
+				EBA59396217A816800F3CB65 /* SF-Pro-Display-Bold.otf */,
+				EBA59397217A816800F3CB65 /* SF-Pro-Display-Medium.otf */,
+				EBA59398217A816800F3CB65 /* SF-Pro-Display-Semibold.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		EBA593B4217A88E700F3CB65 /* ETH */ = {
+			isa = PBXGroup;
+			children = (
+				EBA593C7217A89B800F3CB65 /* ITransaction.swift */,
+				EBA593C3217A897E00F3CB65 /* IViewable.swift */,
+				EBA593C1217A892900F3CB65 /* Blockchain.swift */,
+				EBA593BF217A890500F3CB65 /* IWallet.swift */,
+				EBA593B8217A88EF00F3CB65 /* EthereumAddress.swift */,
+				EBA593B9217A88EF00F3CB65 /* ETHNet.swift */,
+				EBA593B5217A88EF00F3CB65 /* ETHTransaction.swift */,
+				EBA593B6217A88EF00F3CB65 /* ETHWallet.swift */,
+			);
+			path = ETH;
+			sourceTree = "<group>";
+		};
 		EBE484C4217928BF006879F7 = {
 			isa = PBXGroup;
 			children = (
+				EBE484F521792FEC006879F7 /* CryptoSwift.xcodeproj */,
+				EBE484E921792FE5006879F7 /* CryptoEthereumSwift.xcodeproj */,
+				EBE484E321792FCB006879F7 /* EthereumKit.xcodeproj */,
 				EBE484CF217928BF006879F7 /* ColdCrypto */,
 				EBE484CE217928BF006879F7 /* Products */,
+				D8A5F3620388EE0AFE58B8D8 /* Pods */,
+				1A2741F217BD81CB5F16F23D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +297,62 @@
 		EBE484CF217928BF006879F7 /* ColdCrypto */ = {
 			isa = PBXGroup;
 			children = (
+				EB976CE4217BA6B400B8DC95 /* Entities */,
+				EBA593B4217A88E700F3CB65 /* ETH */,
+				EBA593A6217A831800F3CB65 /* Localizable.strings */,
+				EBA59394217A816800F3CB65 /* Fonts */,
 				EBE484D0217928BF006879F7 /* AppDelegate.swift */,
+				EBA593AE217A844E00F3CB65 /* ScannerVC.swift */,
 				EBE484D2217928BF006879F7 /* ViewController.swift */,
-				EBE484D4217928BF006879F7 /* Main.storyboard */,
+				EBA593D7217A8CA300F3CB65 /* BioAuth.swift */,
 				EBE484D7217928C0006879F7 /* Assets.xcassets */,
 				EBE484D9217928C0006879F7 /* LaunchScreen.storyboard */,
 				EBE484DC217928C0006879F7 /* Info.plist */,
+				EBA593DB217A8CCC00F3CB65 /* CodeView.swift */,
+				EBA593B2217A84A000F3CB65 /* ScanView.swift */,
+				EBA5938A217A813F00F3CB65 /* Button.swift */,
+				EBA59392217A815300F3CB65 /* Extensions.swift */,
+				EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */,
+				EBA593CF217A8BF700F3CB65 /* CheckCodeVC.swift */,
+				EBA593D3217A8C0300F3CB65 /* NewCodeVC.swift */,
+				EBA593D5217A8C1B00F3CB65 /* CodeVC.swift */,
+				EBA593C9217A8AC900F3CB65 /* Settings.swift */,
+				EBA593D1217A8BFE00F3CB65 /* AuthVC.swift */,
+				EBA593CB217A8AF800F3CB65 /* Profile.swift */,
+				EBA593CD217A8B6400F3CB65 /* Chain.swift */,
+				EBA593DF217A8D1900F3CB65 /* Alert.swift */,
 			);
 			path = ColdCrypto;
+			sourceTree = "<group>";
+		};
+		EBE484E421792FCB006879F7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EBE484E821792FCB006879F7 /* EthereumKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EBE484EA21792FE5006879F7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EBE484F021792FE5006879F7 /* CryptoEthereumSwift.framework */,
+				EBE484F221792FE5006879F7 /* CryptoEthereumSwiftTests.xctest */,
+				EBE484F421792FE5006879F7 /* Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EBE484F621792FEC006879F7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EBE484FE21792FEC006879F7 /* CryptoSwift.framework */,
+				EBE4850021792FEC006879F7 /* CryptoSwift-TestHostApp.app */,
+				EBE4850221792FEC006879F7 /* Tests.xctest */,
+				EBE4850421792FEC006879F7 /* TestsPerformance-Mac.xctest */,
+				EBE4850621792FEC006879F7 /* TestsPerformance-iOS.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,13 +362,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EBE484DF217928C0006879F7 /* Build configuration list for PBXNativeTarget "ColdCrypto" */;
 			buildPhases = (
+				B33D9B7B27027B4D878D5AEF /* [CP] Check Pods Manifest.lock */,
 				EBE484C9217928BF006879F7 /* Sources */,
 				EBE484CA217928BF006879F7 /* Frameworks */,
 				EBE484CB217928BF006879F7 /* Resources */,
+				5468F8BFA76CD929B4E45DE5 /* [CP] Embed Pods Frameworks */,
+				EBE4851321792FF3006879F7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				EBE4850A21792FF3006879F7 /* PBXTargetDependency */,
+				EBE4850E21792FF3006879F7 /* PBXTargetDependency */,
+				EBE4851221792FF3006879F7 /* PBXTargetDependency */,
 			);
 			name = ColdCrypto;
 			productName = ColdCrypto;
@@ -110,6 +407,20 @@
 			mainGroup = EBE484C4217928BF006879F7;
 			productRefGroup = EBE484CE217928BF006879F7 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = EBE484EA21792FE5006879F7 /* Products */;
+					ProjectRef = EBE484E921792FE5006879F7 /* CryptoEthereumSwift.xcodeproj */;
+				},
+				{
+					ProductGroup = EBE484F621792FEC006879F7 /* Products */;
+					ProjectRef = EBE484F521792FEC006879F7 /* CryptoSwift.xcodeproj */;
+				},
+				{
+					ProductGroup = EBE484E421792FCB006879F7 /* Products */;
+					ProjectRef = EBE484E321792FCB006879F7 /* EthereumKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				EBE484CC217928BF006879F7 /* ColdCrypto */,
@@ -117,40 +428,194 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		EBE484E821792FCB006879F7 /* EthereumKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = EthereumKit.framework;
+			remoteRef = EBE484E721792FCB006879F7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EBE484F021792FE5006879F7 /* CryptoEthereumSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CryptoEthereumSwift.framework;
+			remoteRef = EBE484EF21792FE5006879F7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EBE484F221792FE5006879F7 /* CryptoEthereumSwiftTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = CryptoEthereumSwiftTests.xctest;
+			remoteRef = EBE484F121792FE5006879F7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EBE484F421792FE5006879F7 /* Example.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Example.app;
+			remoteRef = EBE484F321792FE5006879F7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EBE484FE21792FEC006879F7 /* CryptoSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CryptoSwift.framework;
+			remoteRef = EBE484FD21792FEC006879F7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EBE4850021792FEC006879F7 /* CryptoSwift-TestHostApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "CryptoSwift-TestHostApp.app";
+			remoteRef = EBE484FF21792FEC006879F7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EBE4850221792FEC006879F7 /* Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Tests.xctest;
+			remoteRef = EBE4850121792FEC006879F7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EBE4850421792FEC006879F7 /* TestsPerformance-Mac.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "TestsPerformance-Mac.xctest";
+			remoteRef = EBE4850321792FEC006879F7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EBE4850621792FEC006879F7 /* TestsPerformance-iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "TestsPerformance-iOS.xctest";
+			remoteRef = EBE4850521792FEC006879F7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		EBE484CB217928BF006879F7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBA5939C217A816800F3CB65 /* SF-Pro-Display-Semibold.otf in Resources */,
 				EBE484DB217928C0006879F7 /* LaunchScreen.storyboard in Resources */,
+				EBA59399217A816800F3CB65 /* SF-Pro-Display-Regular.otf in Resources */,
+				EBA593AD217A831900F3CB65 /* Localizable.strings in Resources */,
+				EBA5939A217A816800F3CB65 /* SF-Pro-Display-Bold.otf in Resources */,
 				EBE484D8217928C0006879F7 /* Assets.xcassets in Resources */,
-				EBE484D6217928BF006879F7 /* Main.storyboard in Resources */,
+				EBA5939B217A816800F3CB65 /* SF-Pro-Display-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5468F8BFA76CD929B4E45DE5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/Malert/Malert.framework",
+				"${BUILT_PRODUCTS_DIR}/QRCode/QRCode.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Malert.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCode.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B33D9B7B27027B4D878D5AEF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ColdCrypto-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EBE484C9217928BF006879F7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBA593AF217A844E00F3CB65 /* ScannerVC.swift in Sources */,
+				EBA593BD217A88EF00F3CB65 /* EthereumAddress.swift in Sources */,
+				EBA593DE217A8CDC00F3CB65 /* NumberPad.swift in Sources */,
+				EBA593C0217A890500F3CB65 /* IWallet.swift in Sources */,
+				EB976CEE217BA75900B8DC95 /* ApiDestination.swift in Sources */,
+				EBA593DC217A8CCC00F3CB65 /* CodeView.swift in Sources */,
+				EBA593CA217A8AC900F3CB65 /* Settings.swift in Sources */,
 				EBE484D3217928BF006879F7 /* ViewController.swift in Sources */,
+				EBA5938B217A813F00F3CB65 /* Button.swift in Sources */,
+				EBA593CE217A8B6400F3CB65 /* Chain.swift in Sources */,
+				EBA593E0217A8D1900F3CB65 /* Alert.swift in Sources */,
+				EBA593BE217A88EF00F3CB65 /* ETHNet.swift in Sources */,
+				EBA593D6217A8C1B00F3CB65 /* CodeVC.swift in Sources */,
+				EBA593CC217A8AF800F3CB65 /* Profile.swift in Sources */,
 				EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */,
+				EB976CEC217BA6CE00B8DC95 /* ApiWallet.swift in Sources */,
+				EBA593D4217A8C0300F3CB65 /* NewCodeVC.swift in Sources */,
+				EBA593D8217A8CA300F3CB65 /* BioAuth.swift in Sources */,
+				EBA593D0217A8BF700F3CB65 /* CheckCodeVC.swift in Sources */,
+				EBA593BB217A88EF00F3CB65 /* ETHWallet.swift in Sources */,
+				EBA593C4217A897E00F3CB65 /* IViewable.swift in Sources */,
+				EBA593C2217A892900F3CB65 /* Blockchain.swift in Sources */,
+				EBA593C8217A89B800F3CB65 /* ITransaction.swift in Sources */,
+				EBA59393217A815300F3CB65 /* Extensions.swift in Sources */,
+				EBA593D2217A8BFE00F3CB65 /* AuthVC.swift in Sources */,
+				EBA593B3217A84A000F3CB65 /* ScanView.swift in Sources */,
+				EBA593BA217A88EF00F3CB65 /* ETHTransaction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		EBE484D4217928BF006879F7 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EBE484D5217928BF006879F7 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
+/* Begin PBXTargetDependency section */
+		EBE4850A21792FF3006879F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CryptoSwift;
+			targetProxy = EBE4850921792FF3006879F7 /* PBXContainerItemProxy */;
 		};
+		EBE4850E21792FF3006879F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CryptoEthereumSwift;
+			targetProxy = EBE4850D21792FF3006879F7 /* PBXContainerItemProxy */;
+		};
+		EBE4851221792FF3006879F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = EthereumKit;
+			targetProxy = EBE4851121792FF3006879F7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
 		EBE484D9217928C0006879F7 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -278,16 +743,19 @@
 		};
 		EBE484E0217928C0006879F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2564A9F9434EDC7F695A47C1 /* Pods-ColdCrypto.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6KV7BZVZVP;
 				INFOPLIST_FILE = ColdCrypto/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.multimask.ios.ColdCrypto;
+				PRODUCT_BUNDLE_IDENTIFIER = com.coldcrypto.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -296,16 +764,19 @@
 		};
 		EBE484E1217928C0006879F7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7CCFBA6F1971B8E07FB05360 /* Pods-ColdCrypto.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6KV7BZVZVP;
 				INFOPLIST_FILE = ColdCrypto/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.multimask.ios.ColdCrypto;
+				PRODUCT_BUNDLE_IDENTIFIER = com.coldcrypto.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
