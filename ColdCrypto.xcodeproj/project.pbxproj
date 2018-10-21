@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		A4C7EEFDE2D214A0BE9F822B /* Pods_ColdCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B511BE577741365521F8A2AA /* Pods_ColdCrypto.framework */; };
+		EB74B442217C75DA006AE00F /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74B441217C75DA006AE00F /* CodeView.swift */; };
+		EB74B451217CB3CA006AE00F /* bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB74B44F217CB3CA006AE00F /* bg@3x.png */; };
+		EB74B452217CB3CA006AE00F /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB74B450217CB3CA006AE00F /* bg@2x.png */; };
 		EB976CEC217BA6CE00B8DC95 /* ApiWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB976CEB217BA6CE00B8DC95 /* ApiWallet.swift */; };
 		EB976CEE217BA75900B8DC95 /* ApiDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB976CED217BA75900B8DC95 /* ApiDestination.swift */; };
 		EBA5938B217A813F00F3CB65 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA5938A217A813F00F3CB65 /* Button.swift */; };
@@ -37,7 +40,6 @@
 		EBA593D6217A8C1B00F3CB65 /* CodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593D5217A8C1B00F3CB65 /* CodeVC.swift */; };
 		EBA593D8217A8CA300F3CB65 /* BioAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593D7217A8CA300F3CB65 /* BioAuth.swift */; };
 		EBA593DA217A8CB500F3CB65 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */; };
-		EBA593DC217A8CCC00F3CB65 /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DB217A8CCC00F3CB65 /* CodeView.swift */; };
 		EBA593DE217A8CDC00F3CB65 /* NumberPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */; };
 		EBA593E0217A8D1900F3CB65 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DF217A8D1900F3CB65 /* Alert.swift */; };
 		EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D0217928BF006879F7 /* AppDelegate.swift */; };
@@ -159,6 +161,10 @@
 		2564A9F9434EDC7F695A47C1 /* Pods-ColdCrypto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColdCrypto.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto.debug.xcconfig"; sourceTree = "<group>"; };
 		7CCFBA6F1971B8E07FB05360 /* Pods-ColdCrypto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColdCrypto.release.xcconfig"; path = "Pods/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto.release.xcconfig"; sourceTree = "<group>"; };
 		B511BE577741365521F8A2AA /* Pods_ColdCrypto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColdCrypto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB74B440217C75BB006AE00F /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
+		EB74B441217C75DA006AE00F /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodeView.swift; path = "../../../MultiMask-ios/MultiMask/Classes/View/CodeView.swift"; sourceTree = "<group>"; };
+		EB74B44F217CB3CA006AE00F /* bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@3x.png"; sourceTree = "<group>"; };
+		EB74B450217CB3CA006AE00F /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
 		EB976CEB217BA6CE00B8DC95 /* ApiWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiWallet.swift; sourceTree = "<group>"; };
 		EB976CED217BA75900B8DC95 /* ApiDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiDestination.swift; sourceTree = "<group>"; };
 		EBA5938A217A813F00F3CB65 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -188,7 +194,6 @@
 		EBA593D5217A8C1B00F3CB65 /* CodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeVC.swift; sourceTree = "<group>"; };
 		EBA593D7217A8CA300F3CB65 /* BioAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BioAuth.swift; sourceTree = "<group>"; };
 		EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
-		EBA593DB217A8CCC00F3CB65 /* CodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CodeView.swift; path = "../../MultiMask-ios/MultiMask/Classes/View/CodeView.swift"; sourceTree = "<group>"; };
 		EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberPad.swift; sourceTree = "<group>"; };
 		EBA593DF217A8D1900F3CB65 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		EBE484CD217928BF006879F7 /* ColdCrypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColdCrypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -236,6 +241,60 @@
 				7CCFBA6F1971B8E07FB05360 /* Pods-ColdCrypto.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		EB74B437217C7599006AE00F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				EBA593DF217A8D1900F3CB65 /* Alert.swift */,
+				EBA593CF217A8BF700F3CB65 /* CheckCodeVC.swift */,
+				EBA593D5217A8C1B00F3CB65 /* CodeVC.swift */,
+				EBA593D3217A8C0300F3CB65 /* NewCodeVC.swift */,
+				EBA593AE217A844E00F3CB65 /* ScannerVC.swift */,
+				EBA593D1217A8BFE00F3CB65 /* AuthVC.swift */,
+				EBE484D2217928BF006879F7 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		EB74B43E217C75AA006AE00F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EBA593B4217A88E700F3CB65 /* ETH */,
+				EB976CE4217BA6B400B8DC95 /* Entities */,
+				EBA593D7217A8CA300F3CB65 /* BioAuth.swift */,
+				EBA593C9217A8AC900F3CB65 /* Settings.swift */,
+				EBA59392217A815300F3CB65 /* Extensions.swift */,
+				EBA593CB217A8AF800F3CB65 /* Profile.swift */,
+				EBA593CD217A8B6400F3CB65 /* Chain.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EB74B43F217C75B2006AE00F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EB74B440217C75BB006AE00F /* CodeView.swift */,
+				EBA593B2217A84A000F3CB65 /* ScanView.swift */,
+				EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */,
+				EB74B441217C75DA006AE00F /* CodeView.swift */,
+				EBA5938A217A813F00F3CB65 /* Button.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EB74B443217C75E8006AE00F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EBA593A6217A831800F3CB65 /* Localizable.strings */,
+				EBA59394217A816800F3CB65 /* Fonts */,
+				EBE484D7217928C0006879F7 /* Assets.xcassets */,
+				EBE484D9217928C0006879F7 /* LaunchScreen.storyboard */,
+				EB74B450217CB3CA006AE00F /* bg@2x.png */,
+				EB74B44F217CB3CA006AE00F /* bg@3x.png */,
+				EBE484DC217928C0006879F7 /* Info.plist */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		EB976CE4217BA6B400B8DC95 /* Entities */ = {
@@ -297,30 +356,11 @@
 		EBE484CF217928BF006879F7 /* ColdCrypto */ = {
 			isa = PBXGroup;
 			children = (
-				EB976CE4217BA6B400B8DC95 /* Entities */,
-				EBA593B4217A88E700F3CB65 /* ETH */,
-				EBA593A6217A831800F3CB65 /* Localizable.strings */,
-				EBA59394217A816800F3CB65 /* Fonts */,
+				EB74B443217C75E8006AE00F /* Resources */,
+				EB74B43F217C75B2006AE00F /* Views */,
+				EB74B43E217C75AA006AE00F /* Model */,
+				EB74B437217C7599006AE00F /* Controllers */,
 				EBE484D0217928BF006879F7 /* AppDelegate.swift */,
-				EBA593AE217A844E00F3CB65 /* ScannerVC.swift */,
-				EBE484D2217928BF006879F7 /* ViewController.swift */,
-				EBA593D7217A8CA300F3CB65 /* BioAuth.swift */,
-				EBE484D7217928C0006879F7 /* Assets.xcassets */,
-				EBE484D9217928C0006879F7 /* LaunchScreen.storyboard */,
-				EBE484DC217928C0006879F7 /* Info.plist */,
-				EBA593DB217A8CCC00F3CB65 /* CodeView.swift */,
-				EBA593B2217A84A000F3CB65 /* ScanView.swift */,
-				EBA5938A217A813F00F3CB65 /* Button.swift */,
-				EBA59392217A815300F3CB65 /* Extensions.swift */,
-				EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */,
-				EBA593CF217A8BF700F3CB65 /* CheckCodeVC.swift */,
-				EBA593D3217A8C0300F3CB65 /* NewCodeVC.swift */,
-				EBA593D5217A8C1B00F3CB65 /* CodeVC.swift */,
-				EBA593C9217A8AC900F3CB65 /* Settings.swift */,
-				EBA593D1217A8BFE00F3CB65 /* AuthVC.swift */,
-				EBA593CB217A8AF800F3CB65 /* Profile.swift */,
-				EBA593CD217A8B6400F3CB65 /* Chain.swift */,
-				EBA593DF217A8D1900F3CB65 /* Alert.swift */,
 			);
 			path = ColdCrypto;
 			sourceTree = "<group>";
@@ -501,6 +541,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB74B452217CB3CA006AE00F /* bg@2x.png in Resources */,
+				EB74B451217CB3CA006AE00F /* bg@3x.png in Resources */,
 				EBA5939C217A816800F3CB65 /* SF-Pro-Display-Semibold.otf in Resources */,
 				EBE484DB217928C0006879F7 /* LaunchScreen.storyboard in Resources */,
 				EBA59399217A816800F3CB65 /* SF-Pro-Display-Regular.otf in Resources */,
@@ -607,7 +649,6 @@
 				EBA593DE217A8CDC00F3CB65 /* NumberPad.swift in Sources */,
 				EBA593C0217A890500F3CB65 /* IWallet.swift in Sources */,
 				EB976CEE217BA75900B8DC95 /* ApiDestination.swift in Sources */,
-				EBA593DC217A8CCC00F3CB65 /* CodeView.swift in Sources */,
 				EBA593CA217A8AC900F3CB65 /* Settings.swift in Sources */,
 				EBE484D3217928BF006879F7 /* ViewController.swift in Sources */,
 				EBA5938B217A813F00F3CB65 /* Button.swift in Sources */,
@@ -629,6 +670,7 @@
 				EBA593D2217A8BFE00F3CB65 /* AuthVC.swift in Sources */,
 				EBA593B3217A84A000F3CB65 /* ScanView.swift in Sources */,
 				EBA593BA217A88EF00F3CB65 /* ETHTransaction.swift in Sources */,
+				EB74B442217C75DA006AE00F /* CodeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -786,7 +828,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6KV7BZVZVP;
-				INFOPLIST_FILE = ColdCrypto/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ColdCrypto/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -807,7 +849,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6KV7BZVZVP;
-				INFOPLIST_FILE = ColdCrypto/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ColdCrypto/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

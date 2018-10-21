@@ -24,6 +24,10 @@ extension UIFont {
         return UIFont(name: "SFProDisplay-Semibold", size: size) ?? UIFont.boldSystemFont(ofSize: size)
     }
     
+    static func hnMedium(_ size: CGFloat) -> UIFont {
+        return UIFont(name: "HelveticaNeue-Medium", size: size) ?? UIFont.boldSystemFont(ofSize: size)
+    }
+
     static func sfProBold(_ size: CGFloat) -> UIFont {
         return UIFont(name: "SFProDisplay-Bold", size: size) ?? UIFont.boldSystemFont(ofSize: size)
     }
