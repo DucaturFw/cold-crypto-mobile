@@ -25,12 +25,8 @@ class Button : UIButton {
     }
     
     @objc private func clicked() {
-        let old = self.backgroundColor
-        self.backgroundColor = old?.darker()
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(100)) {
-            self.backgroundColor = old
-            self.click()
-        }
+        addTint()
+        click()
     }
     
 }

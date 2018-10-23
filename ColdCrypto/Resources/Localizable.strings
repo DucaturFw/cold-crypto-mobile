@@ -5,7 +5,6 @@
   Created by Kirill Kozhuhar on 01/08/2018.
   Copyright © 2018 Kirill Kozhuhar. All rights reserved.
 */
-"scan" = "Scan";
 "scan_title" = "Scan QR code";
 "new_wallet" = "CREATE NEW WALLET";
 "import_prof" = "Import wallet";
@@ -21,3 +20,8 @@
 "enter_access_code" = "Enter the access code";
 "scan_line_2" = "Scan QR code";
 "restore" = "RESTORE WALLET >";
+"scan" = "SCAN TO CONNECT";
+"scan_hint" = "1. Go to coldcrypto.io on your computer and choose Send Ether and Token option.\n\n2. Select ColdCrypto connect option on How would you like access your wallet screen.\n\n3. Ckick access with ColdCrypto and scan the QR code on the screen that will flow";
+"verify" = "Verify\ntransaction";
+"decline" = "DECLINE";
+"confirm" = "CONFIRM";

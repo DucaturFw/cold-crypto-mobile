@@ -11,6 +11,8 @@
 		EB74B442217C75DA006AE00F /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74B441217C75DA006AE00F /* CodeView.swift */; };
 		EB74B451217CB3CA006AE00F /* bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB74B44F217CB3CA006AE00F /* bg@3x.png */; };
 		EB74B452217CB3CA006AE00F /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB74B450217CB3CA006AE00F /* bg@2x.png */; };
+		EB74B455217CCEFE006AE00F /* ChainPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74B454217CCEFE006AE00F /* ChainPicker.swift */; };
+		EB74B457217CCFFB006AE00F /* ScanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74B456217CCFFB006AE00F /* ScanButton.swift */; };
 		EB976CEC217BA6CE00B8DC95 /* ApiWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB976CEB217BA6CE00B8DC95 /* ApiWallet.swift */; };
 		EB976CEE217BA75900B8DC95 /* ApiDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB976CED217BA75900B8DC95 /* ApiDestination.swift */; };
 		EBA5938B217A813F00F3CB65 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA5938A217A813F00F3CB65 /* Button.swift */; };
@@ -42,8 +44,9 @@
 		EBA593DA217A8CB500F3CB65 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */; };
 		EBA593DE217A8CDC00F3CB65 /* NumberPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */; };
 		EBA593E0217A8D1900F3CB65 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DF217A8D1900F3CB65 /* Alert.swift */; };
+		EBDCD55C217FD85E00B6EF5B /* ConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */; };
 		EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D0217928BF006879F7 /* AppDelegate.swift */; };
-		EBE484D3217928BF006879F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D2217928BF006879F7 /* ViewController.swift */; };
+		EBE484D3217928BF006879F7 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D2217928BF006879F7 /* ProfileVC.swift */; };
 		EBE484D8217928C0006879F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBE484D7217928C0006879F7 /* Assets.xcassets */; };
 		EBE484DB217928C0006879F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBE484D9217928C0006879F7 /* LaunchScreen.storyboard */; };
 		EBE4850721792FF3006879F7 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE484FE21792FEC006879F7 /* CryptoSwift.framework */; };
@@ -165,6 +168,8 @@
 		EB74B441217C75DA006AE00F /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodeView.swift; path = "../../../MultiMask-ios/MultiMask/Classes/View/CodeView.swift"; sourceTree = "<group>"; };
 		EB74B44F217CB3CA006AE00F /* bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@3x.png"; sourceTree = "<group>"; };
 		EB74B450217CB3CA006AE00F /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
+		EB74B454217CCEFE006AE00F /* ChainPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainPicker.swift; sourceTree = "<group>"; };
+		EB74B456217CCFFB006AE00F /* ScanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanButton.swift; sourceTree = "<group>"; };
 		EB976CEB217BA6CE00B8DC95 /* ApiWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiWallet.swift; sourceTree = "<group>"; };
 		EB976CED217BA75900B8DC95 /* ApiDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiDestination.swift; sourceTree = "<group>"; };
 		EBA5938A217A813F00F3CB65 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -196,9 +201,10 @@
 		EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberPad.swift; sourceTree = "<group>"; };
 		EBA593DF217A8D1900F3CB65 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationVC.swift; sourceTree = "<group>"; };
 		EBE484CD217928BF006879F7 /* ColdCrypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColdCrypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE484D0217928BF006879F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EBE484D2217928BF006879F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EBE484D2217928BF006879F7 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		EBE484D7217928C0006879F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EBE484DA217928C0006879F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EBE484DC217928C0006879F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -252,7 +258,8 @@
 				EBA593D3217A8C0300F3CB65 /* NewCodeVC.swift */,
 				EBA593AE217A844E00F3CB65 /* ScannerVC.swift */,
 				EBA593D1217A8BFE00F3CB65 /* AuthVC.swift */,
-				EBE484D2217928BF006879F7 /* ViewController.swift */,
+				EBE484D2217928BF006879F7 /* ProfileVC.swift */,
+				EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -279,6 +286,8 @@
 				EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */,
 				EB74B441217C75DA006AE00F /* CodeView.swift */,
 				EBA5938A217A813F00F3CB65 /* Button.swift */,
+				EB74B454217CCEFE006AE00F /* ChainPicker.swift */,
+				EB74B456217CCFFB006AE00F /* ScanButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -645,18 +654,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBA593AF217A844E00F3CB65 /* ScannerVC.swift in Sources */,
+				EB74B455217CCEFE006AE00F /* ChainPicker.swift in Sources */,
 				EBA593BD217A88EF00F3CB65 /* EthereumAddress.swift in Sources */,
 				EBA593DE217A8CDC00F3CB65 /* NumberPad.swift in Sources */,
 				EBA593C0217A890500F3CB65 /* IWallet.swift in Sources */,
 				EB976CEE217BA75900B8DC95 /* ApiDestination.swift in Sources */,
 				EBA593CA217A8AC900F3CB65 /* Settings.swift in Sources */,
-				EBE484D3217928BF006879F7 /* ViewController.swift in Sources */,
+				EBE484D3217928BF006879F7 /* ProfileVC.swift in Sources */,
 				EBA5938B217A813F00F3CB65 /* Button.swift in Sources */,
 				EBA593CE217A8B6400F3CB65 /* Chain.swift in Sources */,
+				EB74B457217CCFFB006AE00F /* ScanButton.swift in Sources */,
 				EBA593E0217A8D1900F3CB65 /* Alert.swift in Sources */,
 				EBA593BE217A88EF00F3CB65 /* ETHNet.swift in Sources */,
 				EBA593D6217A8C1B00F3CB65 /* CodeVC.swift in Sources */,
 				EBA593CC217A8AF800F3CB65 /* Profile.swift in Sources */,
+				EBDCD55C217FD85E00B6EF5B /* ConfirmationVC.swift in Sources */,
 				EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */,
 				EB976CEC217BA6CE00B8DC95 /* ApiWallet.swift in Sources */,
 				EBA593D4217A8C0300F3CB65 /* NewCodeVC.swift in Sources */,

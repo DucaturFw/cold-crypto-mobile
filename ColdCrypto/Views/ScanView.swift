@@ -27,25 +27,15 @@ class ScanView : UIView {
         lineLayer.shadowOpacity = 0.8
         lineLayer.shadowRadius  = 6.0
         layer.addSublayer(lineLayer)
-
-        lineLayer.path = getFrom()
-        pathAnimation.toValue   = getTo()
-        pathAnimation.fromValue = getFrom()
-        pathAnimation.duration  = 2.0
-        pathAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        pathAnimation.repeatCount = .infinity
-        pathAnimation.isRemovedOnCompletion = false
-        pathAnimation.autoreverses = true
-        lineLayer.add(pathAnimation, forKey: "pathAnimation")
     }
     
-    func pause(){
+    func pause() {
         let pausedTime = lineLayer.convertTime(CACurrentMediaTime(), from: nil)
         lineLayer.speed = 0.0
         lineLayer.timeOffset = pausedTime
     }
     
-    func resume(){
+    func resume() {
         let pausedTime = lineLayer.timeOffset
         lineLayer.speed = 1.0
         lineLayer.timeOffset = 0.0
@@ -57,15 +47,19 @@ class ScanView : UIView {
         return nil
     }
     
+    private var side: CGFloat {
+        return min(width, height) - 40.0
+    }
+    
     override func draw(_ rect: CGRect) {
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
 
         ctx.setFillColor(UIColor.black.withAlphaComponent(0.3).cgColor)
         ctx.fill(bounds)
 
-        let s = width - 40
+        
 
-        let p = UIBezierPath(roundedRect: CGRect(x: (width - s)/2.0, y: (height - s)/2.0, width: s, height: s),
+        let p = UIBezierPath(roundedRect: CGRect(x: (width - side)/2.0, y: (height - side)/2.0, width: side, height: side),
                              byRoundingCorners: UIRectCorner.allCorners,
                              cornerRadii: CGSize(width: 6.0, height: 6.0))
 
@@ -83,7 +77,6 @@ class ScanView : UIView {
     }
     
     func getTo() -> CGPath {
-        let side = UIScreen.main.bounds.width-40
         let path = CGMutablePath()
         path.move(to: CGPoint(x: 0, y: side - 10))
         path.addLine(to: CGPoint(x: side, y: side - 10))
@@ -91,7 +84,6 @@ class ScanView : UIView {
     }
     
     func getFrom() -> CGPath {
-        let side = UIScreen.main.bounds.width-40
         let path = CGMutablePath()
         path.move(to: CGPoint(x: 0, y: 10))
         path.addLine(to: CGPoint(x: side, y: 10))
@@ -100,8 +92,19 @@ class ScanView : UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let side = UIScreen.main.bounds.width-40
-        lineLayer.frame = CGRect(x: 20, y: (height - side)/2.0, width: side, height: side)
+        lineLayer.frame = CGRect(x: (width - side)/2.0, y: (height - side)/2.0, width: side, height: side)
+        
+        pathAnimation.toValue   = getTo()
+        pathAnimation.fromValue = getFrom()
+        pathAnimation.duration  = 2.0
+        pathAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        pathAnimation.repeatCount = .infinity
+        pathAnimation.isRemovedOnCompletion = false
+        pathAnimation.autoreverses = true
+        
+        lineLayer.path = getFrom()
+        lineLayer.removeAllAnimations()
+        lineLayer.add(pathAnimation, forKey: "pathAnimation")
     }
     
 }

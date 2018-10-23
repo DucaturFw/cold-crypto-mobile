@@ -16,8 +16,8 @@ extension UIFont {
         return UIFont(name: "SFProDisplay-Medium", size: size) ?? UIFont.boldSystemFont(ofSize: size)
     }
     
-    static func sfProRegular(_ size: CGFloat) -> UIFont {
-        return UIFont(name: "SFProDisplay-Regular", size: size) ?? UIFont.systemFont(ofSize: size)
+    static func hnRegular(_ size: CGFloat) -> UIFont {
+        return UIFont(name: "HelveticaNeue", size: size) ?? UIFont.systemFont(ofSize: size)
     }
     
     static func sfProSemibold(_ size: CGFloat) -> UIFont {
@@ -27,13 +27,12 @@ extension UIFont {
     static func hnMedium(_ size: CGFloat) -> UIFont {
         return UIFont(name: "HelveticaNeue-Medium", size: size) ?? UIFont.boldSystemFont(ofSize: size)
     }
-
-    static func sfProBold(_ size: CGFloat) -> UIFont {
-        return UIFont(name: "SFProDisplay-Bold", size: size) ?? UIFont.boldSystemFont(ofSize: size)
+    
+    static func hnBold(_ size: CGFloat) -> UIFont {
+        return UIFont(name: "HelveticaNeue-Bold", size: size) ?? UIFont.boldSystemFont(ofSize: size)
     }
     
 }
-
 
 extension UIColor {
     
@@ -115,8 +114,23 @@ extension Double {
     }
 }
 
+protocol HasApply {}
 
-extension UIView {
+extension HasApply {
+    func apply(_ block: (Self)->Void) -> Self {
+        block(self)
+        return self
+    }
+}
+
+extension UIView: HasApply {
+
+    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
+    }
     
     func shake() {
         let animation = CABasicAnimation(keyPath: "position")
@@ -210,10 +224,27 @@ extension UIView {
     }
     
     @objc fileprivate func handleTapGesture(sender: UITapGestureRecognizer) {
+        addTint()
         if let action = self.tapGestureRecognizerAction {
             action?()
         } else {
             print("no action")
+        }
+    }
+    
+    func addTint(_ time: Int = 100) {
+        let tmp = UIView(frame: bounds)
+        tmp.backgroundColor = .black
+        tmp.alpha = 0.1
+        tmp.mask = self.snapshotView(afterScreenUpdates: true)
+        tmp.isUserInteractionEnabled = false
+        tmp.tag = 105365
+        if let v = viewWithTag(tmp.tag) {
+            v.removeFromSuperview()
+        }
+        addSubview(tmp)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(time)) {
+            tmp.removeFromSuperview()
         }
     }
     

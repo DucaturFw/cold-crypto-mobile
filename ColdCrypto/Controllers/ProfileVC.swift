@@ -10,18 +10,17 @@ import Malert
 import QRCode
 import UIKit
 
-class ViewController: UIViewController {
+class ProfileVC: UIViewController {
 
-    private lazy var scan: Button = {
-        let tmp = Button()
-        tmp.backgroundColor = 0x1888FE.color
-        tmp.setTitle("scan".loc, for: UIControlState.normal)
-        tmp.layer.shadowColor  = 0xB8CEFD.color.cgColor
-        tmp.layer.shadowOffset = CGSize(width: 0, height: 5.scaled)
-        tmp.layer.shadowRadius = 40.scaled
-        tmp.layer.shadowOpacity = 1.0
-        return tmp
-    }()
+    private let mBG = UIImageView(image: UIImage(named: "mainBG")).apply({
+        $0.contentMode = .scaleAspectFill
+    })
+    
+    private let mPicker = ChainPicker()
+    
+    private lazy var mScan = ScanButton().tap({ [weak self] in
+        self?.startScanning()
+    })
     
     private let mProfile: Profile
     
@@ -36,20 +35,34 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(scan)
+        navigationItem.titleView = UIImageView(image: UIImage(named: "smallLogo"))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "add")).tap({ [weak self] in
+            self?.addNewWallet()
+        }).apply({
+            $0.contentMode = .center
+            $0.frame = $0.frame.insetBy(dx: -10, dy: -10)
+        }))
         view.backgroundColor = .white
-        scan.tap({ [weak self] in
-            self?.startScanning()
-        })
+        view.addSubview(mBG)
+        view.addSubview(mPicker)
+        view.addSubview(mScan)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        scan.frame = CGRect(x: (view.width - 100)/2.0, y: (view.height - 100)/2.0, width: 100, height: 100)
+        mBG.frame  = view.bounds
+        mPicker.frame = CGRect(x: 0, y: navigationController?.navigationBar.maxY ?? 0, width: view.width, height: view.width / 270.0 * 160.0)
+        mScan.frame = CGRect(x: (view.width - 300.scaled)/2.0, y: view.height - 27.scaled - 58.scaled,
+                             width: 300.scaled, height: 58.scaled)
     }
 
     private func startScanning() {
-        let vc = ScannerVC(backStyle: .toPrevious, hintStyle: .address)
+        let vc = ScannerVC()
         vc.onFound = { [weak self, weak vc] json in
             let parts = json.split(separator: "|")
             if parts.count >= 2 {
@@ -71,13 +84,19 @@ class ViewController: UIViewController {
         guard let to = ApiDestination.deserialize(from: s[0]) else { return }
         guard let blockchain = Blockchain(rawValue: b.blockchain.uppercased()) else { return }
         guard let wallet = mProfile.chains.first(where: { $0.id == blockchain })?.wallets.first(where: { $0.address == b.address }) else { return }
+        
+        scanner?.stop()
+        scanner?.dismiss(animated: true, completion: nil)
+        present(ConfirmationVC(to: to, onConfirm: { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+            self?.sign(to: to, b: b, wallet: wallet)
+        }), animated: true, completion: nil)
+    }
+    
+    private func sign(to: ApiDestination, b: ApiWallet, wallet: IWallet) {
         guard let tx = wallet.getTransaction(to: to, with: b) else { return }
         guard var qr = QRCode(tx) else { return }
         qr.size = CGSize(width: 300, height: 300)
-
-        scanner?.stop()
-        scanner?.dismiss(animated: true, completion: nil)
-        
         let malert = Malert(customView: UIImageView(image: qr.image))
         let action = MalertAction(title: "OK")
         action.tintColor = UIColor(red:0.15, green:0.64, blue:0.85, alpha:1.0)
@@ -107,6 +126,10 @@ class ViewController: UIViewController {
         action.tintColor = UIColor(red:0.15, green:0.64, blue:0.85, alpha:1.0)
         malert.addAction(action)
         present(malert, animated: true)
+    }
+    
+    private func addNewWallet() {
+        print("asd")
     }
     
 }

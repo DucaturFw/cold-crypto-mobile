@@ -16,11 +16,9 @@ class CheckCodeVC: CodeVC {
     
     private let mPasscode: String
     
-    private let mBack: UIImageView = {
-        let tmp = UIImageView()
-        tmp.contentMode = .center
-        return tmp
-    }()
+    private let mBack = UIImageView().apply({
+        $0.contentMode = .center
+    })
 
     private let onSuccess: (CheckCodeVC)->Void
     

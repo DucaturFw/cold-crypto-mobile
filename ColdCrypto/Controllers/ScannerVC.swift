@@ -11,171 +11,88 @@ import AVFoundation
 
 class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
-    enum BackStyle {
-        case toRoot, toPrevious
-    }
-    
-    enum HintStyle {
-        case newImport, export, address
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     private let captureSession = AVCaptureSession()
     
     private lazy var previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
-    
-    private let mHint = UILabel.new(font: .sfProMedium(14), lines: 0, color: .white, alignment: .center)
-    
-    private let mContainer: UIView = {
-        let tmp = UIView()
-        tmp.layer.cornerRadius = 6
-        tmp.layer.masksToBounds = true
-        return tmp
-    }()
-    
-    private let mBlur: UIVisualEffectView = {
-        let tmp = UIVisualEffectView()
-        tmp.effect = UIBlurEffect(style: .regular)
-        return tmp
-    }()
-    
-    private let mDown: UIImageView = {
-        let tmp = UIImageView(image: UIImage(named: "arrowTopWhite"))
-        tmp.contentMode = .center
-        tmp.frame = tmp.frame.insetBy(dx: -20, dy: -20)
-        tmp.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
-        tmp.tintColor = .white
-        return tmp
-    }()
 
-    private let mTitle = UILabel.new(font: .sfProSemibold(17),
-                                     text: "scan_title".loc,
-                                     lines: 1,
-                                     color: UIColor.white,
-                                     alignment: .center)
-    
     var onFound: (String)->Void = { privKey in }
-    
-    private let mLogic: BackStyle
     
     private let mOverlay = ScanView()
     
-    private let mHintStyle: HintStyle
+    private let mBG = UIImageView(image: UIImage(named: "mainBG")).apply({
+        $0.contentMode = .scaleAspectFill
+    })
     
-    private var mBackButton: UIView?
+    private let mHint = UILabel.new(font: UIFont.hnRegular(18.scaled), text: "scan_hint".loc, lines: 0, color: .black, alignment: .left)
     
-    init(backStyle: BackStyle = .toPrevious, hintStyle: HintStyle = .newImport) {
-        mLogic = backStyle
-        mHintStyle = hintStyle
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        return nil
-    }
+    private lazy var mClose = UIImageView(image: UIImage(named: "scanClose")).apply {
+        $0.contentMode = .center
+        $0.frame = $0.frame.insetBy(dx: -20, dy: -20)
+    }.tap({ [weak self] in
+        self?.dismiss(animated: true, completion: nil)
+    })
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        navigationItem.titleView = UIImageView(image: UIImage(named: "scan"))
+        view.backgroundColor = .white
         previewLayer.videoGravity = .resizeAspectFill
+        previewLayer.backgroundColor = UIColor.black.cgColor
+        view.addSubview(mBG)
         view.layer.addSublayer(previewLayer)
+        view.addSubview(mClose)
+        view.addSubview(mHint)
         view.addSubview(mOverlay)
-        view.addSubview(mTitle)
 
-        mBackButton = UIImageView(image: UIImage(named: navigationController?.viewControllers.count != 1 ? "backWhite" : "arrowTopWhite"))
-        mBackButton?.contentMode = .left
-        mBackButton?.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        mBackButton?.tap({ [weak self] in self?.backAction() })
-        if (navigationController?.viewControllers.count ?? 0) <= 1 {
-            mBackButton?.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
-        }
-        if let v = mBackButton {
-            view.addSubview(v)
-        }
-        
-        mDown.tap({ [weak self] in self?.backAction() })
-        
-        mContainer.addSubview(mBlur)
-        mContainer.addSubview(mHint)
-        view.addSubview(mContainer)
-        view.addSubview(mDown)
-        
-        let gesture = UISwipeGestureRecognizer(target: self, action: #selector(ScannerVC.backAction))
-        gesture.direction = .down
-        view.addGestureRecognizer(gesture)
-        
-        switch mHintStyle {
-        case .newImport: mHint.text = "scan_new_import".loc
-        case .export: mHint.text = "scan_line_1".loc
-        case .address: mHint.text = "scan_line_2".loc
-        }
-
+        let tmp = UISwipeGestureRecognizer(target: self, action: #selector(ScannerVC.close))
+        tmp.direction = .down
+        mClose.addGestureRecognizer(tmp)
+    
         guard let device = AVCaptureDevice.default(for: .video) else { return }
         let videoInput: AVCaptureDeviceInput
         do {
             videoInput = try AVCaptureDeviceInput(device: device)
-        } catch {
-            return
+            if (captureSession.canAddInput(videoInput)) {
+                captureSession.addInput(videoInput)
+            }
+        } catch let e {
+            print("\(e)")
         }
-        
-        if (captureSession.canAddInput(videoInput)) {
-            captureSession.addInput(videoInput)
-        } else { return }
-        
+
         let metadataOutput = AVCaptureMetadataOutput()
         if (captureSession.canAddOutput(metadataOutput)) {
             captureSession.addOutput(metadataOutput)
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             metadataOutput.metadataObjectTypes = [.qr]
-        } else { return }
-    }
-
-    @objc func backAction() {
-        if navigationController?.viewControllers.count != 1 {
-            if mLogic == .toRoot {
-                navigationController?.popToRootViewController(animated: true)
-            } else {
-                navigationController?.popViewController(animated: true)
-            }
-        } else {
-            dismiss(animated: true, completion: nil)
         }
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        previewLayer.frame = view.layer.bounds
-
-        let w = min(mHint.text?.width(with: mHint.font) ?? 0.0, view.width - 60)
-        let h = mHint.text?.heightFor(width: w, font: mHint.font) ?? 0.0
-        mHint.frame = CGRect(x: 10, y: 10, width: w, height: h)
-
-        mDown.isHidden = mLogic == .toRoot
-        mDown.origin = CGPoint(x: (view.width - mDown.width)/2.0, y: view.height - mDown.height - view.bottomGap - 20)
+        mBG.frame = view.bounds
         
-        mContainer.frame = CGRect(x: (view.width - w - 20)/2.0, y: (mDown.isVisible ? mDown.minY : view.height) - h - 30 - view.bottomGap, width: w + 20, height: h + 20)
-        mBlur.frame = mContainer.bounds
-        mOverlay.frame = view.bounds
-        mTitle.center = CGPoint(x: view.width / 2.0, y: UIApplication.shared.statusBarFrame.height + 22)
-        mBackButton?.origin = CGPoint(x: 16, y: UIApplication.shared.statusBarFrame.height + 2.0)
+        let t = navigationController?.navigationBar.maxY ?? 0
+        
+        previewLayer.frame = CGRect(x: 0, y: t, width: view.width, height: view.width / 376.0 * 275.0)
+        mClose.origin = CGPoint(x: (view.width - mClose.width)/2.0, y: view.height - mClose.height)
+        
+        let s = previewLayer.frame.height
+        let c = CGPoint(x: view.width/2.0, y: previewLayer.frame.height/2.0)
+        mOverlay.frame = CGRect(x: 0, y: t + c.y - s/2.0, width: view.width, height: s)
+        
+        let w = view.width - 36.scaled
+        mHint.frame = CGRect(x: 18.scaled, y: previewLayer.frame.maxY + 33.scaled,
+                             width: w, height: mHint.text?.heightFor(width: w, font: mHint.font) ?? 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        
-        if mLogic == .toRoot {
-            navigationController?.interactivePopGestureRecognizer?.delegate  = nil
-            navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        }
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if !captureSession.isRunning {
+        if !captureSession.isRunning && captureSession.outputs.count > 0 {
             captureSession.startRunning()
         }
     }
@@ -194,10 +111,14 @@ class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
 
     func stop() {
+        mOverlay.pause()
         if captureSession.isRunning {
             captureSession.stopRunning()
         }
-        mOverlay.pause()
+    }
+    
+    @objc private func close() {
+        dismiss(animated: true, completion: nil)
     }
     
 }

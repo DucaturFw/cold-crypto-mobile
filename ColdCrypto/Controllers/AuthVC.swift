@@ -12,17 +12,15 @@ class AuthVC : UIViewController {
     
     private let mLogo = UIImageView(image: UIImage(named: "logo"))
     
-    private lazy var mNewOne: Button = {
-        let tmp = Button()
-        tmp.setTitleColor(0x007AFF.color, for: .normal)
-        tmp.backgroundColor = UIColor.white
-        tmp.setTitle("new_wallet".loc, for: UIControlState.normal)
-        tmp.layer.shadowColor   = 0x000000.color.cgColor
-        tmp.layer.shadowOffset  = CGSize(width: 0, height: 2)
-        tmp.layer.shadowOpacity = 0.22
-        tmp.layer.shadowRadius  = 17.scaled
-        return tmp
-    }()
+    private let mNewOne = Button().apply({
+        $0.setTitleColor(0x007AFF.color, for: .normal)
+        $0.backgroundColor = UIColor.white
+        $0.setTitle("new_wallet".loc, for: UIControlState.normal)
+        $0.layer.shadowColor   = 0x000000.color.cgColor
+        $0.layer.shadowOffset  = CGSize(width: 0, height: 2)
+        $0.layer.shadowOpacity = 0.22
+        $0.layer.shadowRadius  = 17.scaled
+    })
     
     private let mRestore = UILabel.new(font: UIFont.hnMedium(18.scaled),
                                        text: "restore".loc,
@@ -34,11 +32,9 @@ class AuthVC : UIViewController {
         return .lightContent
     }
     
-    private let mBG: UIImageView = {
-        let tmp = UIImageView(image: UIImage(named: "bg"))
-        tmp.contentMode = .scaleAspectFill
-        return tmp
-    }()
+    private let mBG = UIImageView(image: UIImage(named: "bg")).apply({
+        $0.contentMode = .scaleAspectFill
+    })
     
     private let mTop = UIImageView(image: UIImage(named: "logoTop"))
     

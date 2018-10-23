@@ -15,16 +15,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        window = UIWindow(frame: UIScreen.main.bounds)
-
+        
         BITHockeyManager.shared().configure(withIdentifier: "fd96c74c233a4c328c2d4f7df741ab9a")
         BITHockeyManager.shared().start()
         BITHockeyManager.shared().authenticator.authenticateInstallation()
-
+        
+        if Settings.isFirstStart {
+            Settings.isFirstStart = false
+            Settings.clear()
+        }
+        
+        UINavigationBar.appearance().shadowImage   = UIImage()
+        UINavigationBar.appearance().isTranslucent = true
+        UINavigationBar.appearance().barTintColor  = .white
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
         if let code = Settings.passcode, let p = Settings.profile {
             let nc = UINavigationController()
             nc.viewControllers = [CheckCodeVC(passcode: code, style: .normal, onSuccess: { vc in
-                vc.navigationController?.setViewControllers([ViewController(profile: p)], animated: true)
+                vc.navigationController?.setViewControllers([ProfileVC(profile: p)], animated: true)
             })]
             window?.rootViewController = nc
         } else {
