@@ -81,7 +81,7 @@ class ETHWallet : IWallet {
     
     // MARK:- IWallet methods
     // -------------------------------------------------------------------------
-    func getTransaction(to: ApiDestination, with: ApiWallet) -> String? {
+    func getTransaction(to: ApiParamsTx, with: ApiParamsWallet) -> String? {
         guard let v = Wei(to.value) else { return nil }
         guard let p = Int(to.gasPrice) else { return nil }
         let n = Network.private(chainID: with.chainId, testUse: true)

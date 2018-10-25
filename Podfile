@@ -5,8 +5,11 @@ target 'ColdCrypto' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
+  # Pods for ColdCrypto
   pod 'KeychainAccess'
   pod 'MBProgressHUD'
+  pod 'GoogleWebRTC'
+  pod 'Starscream'
   pod 'Alamofire'
   pod 'HandyJSON'
   pod 'HockeySDK'

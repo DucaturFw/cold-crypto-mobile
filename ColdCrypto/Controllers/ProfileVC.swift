@@ -10,13 +10,15 @@ import Malert
 import QRCode
 import UIKit
 
-class ProfileVC: UIViewController {
+class ProfileVC: UIViewController, Signer {
 
     private let mBG = UIImageView(image: UIImage(named: "mainBG")).apply({
         $0.contentMode = .scaleAspectFill
     })
     
     private let mPicker = ChainPicker()
+    
+    private var mWebRTC: RTC? = nil
     
     private lazy var mScan = ScanButton().tap({ [weak self] in
         self?.startScanning()
@@ -27,6 +29,7 @@ class ProfileVC: UIViewController {
     init(profile: Profile) {
         mProfile = profile
         super.init(nibName: nil, bundle: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(close), name: .UIApplicationDidEnterBackground, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,6 +51,10 @@ class ProfileVC: UIViewController {
         view.addSubview(mScan)
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -60,76 +67,91 @@ class ProfileVC: UIViewController {
         mScan.frame = CGRect(x: (view.width - 300.scaled)/2.0, y: view.height - 27.scaled - 58.scaled,
                              width: 300.scaled, height: 58.scaled)
     }
-
+    
     private func startScanning() {
+        let block: (String)->Void = { [weak self] qr in
+            self?.showQR(text: qr)
+        }
         let vc = ScannerVC()
         vc.onFound = { [weak self, weak vc] json in
-            let parts = json.split(separator: "|")
-            if parts.count >= 2 {
-                let params = String(parts.count > 2 ? parts[2] : parts[1])
-                switch parts[0] {
-                case "signTransferTx": self?.signTransferTx(json: params, scanner: vc)
-                case "getWalletList": self?.getWalletList(json: params, scanner: vc)
-                default: break
-                }
+            if self?.parse(request: json, supportRTC: true, block: block) == true {
+                vc?.stop()
+                vc?.dismiss(animated: true, completion: nil)
             }
         }
         present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
-    
-    private func signTransferTx(json: String, scanner: ScannerVC?) {
-        guard let j = try? JSONSerialization.jsonObject(with: json.toData(), options: []) else { return }
-        guard let s = j as? [[String: Any]], s.count >= 2 else { return }
-        guard let b = ApiWallet.deserialize(from: s[1]) else { return }
-        guard let to = ApiDestination.deserialize(from: s[0]) else { return }
-        guard let blockchain = Blockchain(rawValue: b.blockchain.uppercased()) else { return }
-        guard let wallet = mProfile.chains.first(where: { $0.id == blockchain })?.wallets.first(where: { $0.address == b.address }) else { return }
-        
-        scanner?.stop()
-        scanner?.dismiss(animated: true, completion: nil)
-        present(ConfirmationVC(to: to, onConfirm: { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
-            self?.sign(to: to, b: b, wallet: wallet)
-        }), animated: true, completion: nil)
-    }
-    
-    private func sign(to: ApiDestination, b: ApiWallet, wallet: IWallet) {
-        guard let tx = wallet.getTransaction(to: to, with: b) else { return }
-        guard var qr = QRCode(tx) else { return }
-        qr.size = CGSize(width: 300, height: 300)
-        let malert = Malert(customView: UIImageView(image: qr.image))
-        let action = MalertAction(title: "OK")
-        action.tintColor = UIColor(red:0.15, green:0.64, blue:0.85, alpha:1.0)
-        malert.addAction(action)
-        present(malert, animated: true)
-    }
-    
-    private func getWalletList(json: String, scanner: ScannerVC?) {
-        guard let j = try? JSONSerialization.jsonObject(with: json.toData(), options: []) else { return }
-        guard let p = j as? [[String]], p.count > 0 else { return }
 
-        let s = p[0].compactMap({ Blockchain(rawValue: $0.uppercased()) })
-        let c = mProfile.chains.filter({ s.contains($0.id) })
-        guard c.count > 0, let str = c.flatMap({ oc in
-            oc.wallets.compactMap({ ow in
-                ApiWallet(b: ow.blockchain.rawValue.lowercased(), a: ow.address, c: 4)
-            })
-        }).toJSONString() else { return }
-        guard var qr = QRCode(str) else { return }
+    private func webrtcLogin(json: String) -> Bool {
+        guard let obj = ApiWebRTC.deserialize(from: json) else { return false }
+        guard let sid = obj.sid, let str = obj.url, let url = URL(string: str) else { return false }
+//        guard let final = URL(string: "/", relativeTo: url)?.absoluteURL else { return false }
+        guard let final = URL(string: "ws://192.168.0.105:3077")?.absoluteURL else { return false }
+        mWebRTC?.close()
+        mWebRTC = RTC(url: final, sid: sid, delegate: self)
+        mWebRTC?.connect()
+        return true
+    }
+    
+    private func showQR(text: String) {
+        guard var qr = QRCode(text) else { return }
         qr.size = CGSize(width: 300, height: 300)
-        
-        scanner?.stop()
-        scanner?.dismiss(animated: true, completion: nil)
-        
         let malert = Malert(customView: UIImageView(image: qr.image))
         let action = MalertAction(title: "OK")
         action.tintColor = UIColor(red:0.15, green:0.64, blue:0.85, alpha:1.0)
         malert.addAction(action)
         present(malert, animated: true)
     }
-    
+
     private func addNewWallet() {
         print("asd")
+    }
+    
+    @objc private func close() {
+        dismiss(animated: true, completion: nil)
+        mWebRTC?.close()
+        mWebRTC = nil
+    }
+    
+    // MARK: - Signer methods
+    // -------------------------------------------------------------------------
+    func parse(request: String, supportRTC: Bool, block: @escaping (String)->Void) -> Bool {
+        let parts = request.split(separator: "|", maxSplits: Int.max, omittingEmptySubsequences: false)
+        var catched: Bool = false
+        if parts.count > 2, let id = Int(parts[1]) {
+            let json = String(parts[2])
+            switch parts[0] {
+            case "signTransferTx": catched = signTransferTx(json: json, id: id, completion: block)
+            case "getWalletList": catched = getWalletList(id: id, completion: block)
+            case "webrtcLogin": if supportRTC { catched = webrtcLogin(json: json) }
+            default: catched = false
+            }
+        }
+        return catched
+    }
+    
+    func getWalletList(id: Int, completion: @escaping (String)->Void) -> Bool {
+        guard let str = mProfile.chains.flatMap({ oc in
+            oc.wallets.compactMap({ ow in
+                ApiParamsWallet(b: ow.blockchain.rawValue.lowercased(), a: ow.address, c: 4)
+            })
+        }).toJSONString() else { return false }
+        completion("|\(id)|\(str)")
+        return true
+    }
+    
+    func signTransferTx(json: String, id: Int, completion: @escaping (String)->Void) -> Bool {
+        guard let tx = ApiSign.deserialize(from: json) else { return false }
+        guard let b = tx.wallet, let to = tx.tx else { return false }
+        guard let blockchain = Blockchain(rawValue: b.blockchain.uppercased()) else { return false }
+        guard let wallet = mProfile.chains.first(where: { $0.id == blockchain })?.wallets.first(where: { $0.address == b.address }) else { return false }
+        
+        present(ConfirmationVC(to: to, onConfirm: { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+            guard let tx = wallet.getTransaction(to: to, with: b) else { return }
+            completion("|\(id)|\"\(tx)\"")
+        }), animated: true, completion: nil)
+        return true
     }
     
 }

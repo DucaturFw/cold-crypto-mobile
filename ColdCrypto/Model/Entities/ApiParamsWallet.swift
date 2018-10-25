@@ -8,7 +8,7 @@
 
 import HandyJSON
 
-class ApiWallet: HandyJSON {
+class ApiParamsWallet: HandyJSON {
     
     var blockchain: String = ""
     var address: String = ""

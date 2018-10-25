@@ -20,6 +20,6 @@ protocol IWallet : class {
     var data: String { get }
     var name: String { get }
     
-    func getTransaction(to: ApiDestination, with: ApiWallet) -> String?
+    func getTransaction(to: ApiParamsTx, with: ApiParamsWallet) -> String?
     
 }

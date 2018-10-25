@@ -6,8 +6,9 @@
 //  Copyright © 2018 Kirill Kozhuhar. All rights reserved.
 //
 
-import Foundation
 import MBProgressHUD
+import Foundation
+import HandyJSON
 import UIKit
 
 extension UIFont {
@@ -350,4 +351,11 @@ struct Utils {
         return tmp
     }()
     
+}
+
+extension HandyJSON {
+    func apply(_ block: (Self)->Void) -> Self {
+        block(self)
+        return self
+    }
 }

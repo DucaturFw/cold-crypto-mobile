@@ -37,12 +37,22 @@ class ConfirmationVC: UIViewController {
     })
     
     private let mName = UILabel.new(font: UIFont.hnBold(30.scaled), text: "verify".loc, lines: 0, color: 0x007AFF.color, alignment: .left)
-    
     private let mOnConfirm: ()->Void
+    private let mAddress: Checkbox
+    private let mAmount: Checkbox
     
-    init(to: ApiDestination, onConfirm: @escaping ()->Void) {
+    init(to: ApiParamsTx, onConfirm: @escaping ()->Void) {
         mOnConfirm = onConfirm
+        mAddress = Checkbox(name: "check_address".loc, value: to.to)
+        mAmount = Checkbox(name: "check_amount".loc, value: to.amountFormatted)
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    private var isConfirmEnabled: Bool = false {
+        didSet {
+            mConfirm.isEnabled = isConfirmEnabled
+            mConfirm.backgroundColor = isConfirmEnabled ? 0x007AFF.color : 0xDCDCDC.color
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -57,13 +67,27 @@ class ConfirmationVC: UIViewController {
         mBox.addSubview(mName)
         mBox.addSubview(mDecline)
         mBox.addSubview(mConfirm)
+        mBox.addSubview(mAddress)
+        mBox.addSubview(mAmount)
         
+        mAmount.onChecked = { [weak self] _ in
+            self?.checkConfirm()
+        }
+        mAddress.onChecked = { [weak self] _ in
+            self?.checkConfirm()
+        }
         mDecline.click = { [weak self] in
             self?.dismiss(animated: true, completion: nil)
         }
         mConfirm.click = { [weak self] in
             self?.mOnConfirm()
         }
+        
+        isConfirmEnabled = false
+    }
+    
+    private func checkConfirm() {
+        isConfirmEnabled = mAmount.isChecked && mAddress.isChecked
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,7 +109,9 @@ class ConfirmationVC: UIViewController {
         mBox.round(corners: [.topLeft, .topRight], radius: 10.scaled)
         mBox.transform = tmp
         
-        mName.origin = CGPoint(x: 18.scaled, y: 48.scaled)
+        mName.origin   = CGPoint(x: 18.scaled, y: 48.scaled)
+        mAddress.frame = CGRect(x: 25.scaled, y: mName.maxY + 45.scaled, width: view.width - 60.scaled, height: 0)
+        mAmount.frame  = CGRect(x: 25.scaled, y: mAddress.maxY + 17.scaled, width: mAddress.width, height: 0)
         
         let w = (view.width - 76.scaled)/2.0
         mDecline.frame = CGRect(x: 30.scaled, y: mBox.height - 100.scaled, width: w, height: 64.scaled)
