@@ -10,7 +10,7 @@ import Foundation
 
 protocol Signer: class {
     @discardableResult
-    func getWalletList(id: Int, completion: @escaping (String)->Void) -> Bool
+    func getWalletList(json: String, id: Int, completion: @escaping (String)->Void) -> Bool
     
     @discardableResult
     func signTransferTx(json: String, id: Int, completion: @escaping (String)->Void) -> Bool

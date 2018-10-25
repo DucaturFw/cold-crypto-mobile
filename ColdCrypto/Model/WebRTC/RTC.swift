@@ -105,12 +105,14 @@ class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelD
     func dataChannel(_ dataChannel: RTCDataChannel, didReceiveMessageWith buffer: RTCDataBuffer) {
         if let request = String(data: buffer.data, encoding: String.Encoding.utf8) {
             print("request = \(request)")
-            mDelegate?.parse(request: request, supportRTC: false, block: { [weak dataChannel] send in
-                
-                print("send to server = \(send)")
-                
-                dataChannel?.sendData(RTCDataBuffer(data: send.toData(), isBinary: false))
-            })
+            DispatchQueue.main.async {
+                self.mDelegate?.parse(request: request, supportRTC: false, block: { [weak dataChannel] send in
+                    
+                    print("send to server = \(send)")
+                    
+                    dataChannel?.sendData(RTCDataBuffer(data: send.toData(), isBinary: false))
+                })
+            }
         }
     }
     

@@ -78,7 +78,7 @@ class ETHWallet : IWallet {
         self.address  = w.address().lowercased()
         self.blockchain = blockchain
     }
-    
+
     // MARK:- IWallet methods
     // -------------------------------------------------------------------------
     func getTransaction(to: ApiParamsTx, with: ApiParamsWallet) -> String? {

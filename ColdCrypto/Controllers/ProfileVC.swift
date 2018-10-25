@@ -70,7 +70,9 @@ class ProfileVC: UIViewController, Signer {
     
     private func startScanning() {
         let block: (String)->Void = { [weak self] qr in
-            self?.showQR(text: qr)
+            DispatchQueue.main.async {
+                self?.showQR(text: qr)
+            }
         }
         let vc = ScannerVC()
         vc.onFound = { [weak self, weak vc] json in
@@ -85,10 +87,8 @@ class ProfileVC: UIViewController, Signer {
     private func webrtcLogin(json: String) -> Bool {
         guard let obj = ApiWebRTC.deserialize(from: json) else { return false }
         guard let sid = obj.sid, let str = obj.url, let url = URL(string: str) else { return false }
-//        guard let final = URL(string: "/", relativeTo: url)?.absoluteURL else { return false }
-        guard let final = URL(string: "ws://192.168.0.105:3077")?.absoluteURL else { return false }
         mWebRTC?.close()
-        mWebRTC = RTC(url: final, sid: sid, delegate: self)
+        mWebRTC = RTC(url: url, sid: sid, delegate: self)
         mWebRTC?.connect()
         return true
     }
@@ -122,7 +122,7 @@ class ProfileVC: UIViewController, Signer {
             let json = String(parts[2])
             switch parts[0] {
             case "signTransferTx": catched = signTransferTx(json: json, id: id, completion: block)
-            case "getWalletList": catched = getWalletList(id: id, completion: block)
+            case "getWalletList": catched = getWalletList(json: json, id: id, completion: block)
             case "webrtcLogin": if supportRTC { catched = webrtcLogin(json: json) }
             default: catched = false
             }
@@ -130,8 +130,10 @@ class ProfileVC: UIViewController, Signer {
         return catched
     }
     
-    func getWalletList(id: Int, completion: @escaping (String)->Void) -> Bool {
-        guard let str = mProfile.chains.flatMap({ oc in
+    func getWalletList(json: String, id: Int, completion: @escaping (String)->Void) -> Bool {
+        guard let c = ApiChains.deserialize(from: json) else { return false }
+        let chains = mProfile.chains.filter({ c.blockchains.contains($0.id.rawValue.lowercased()) })
+        guard let str = chains.flatMap({ oc in
             oc.wallets.compactMap({ ow in
                 ApiParamsWallet(b: ow.blockchain.rawValue.lowercased(), a: ow.address, c: 4)
             })
@@ -145,12 +147,13 @@ class ProfileVC: UIViewController, Signer {
         guard let b = tx.wallet, let to = tx.tx else { return false }
         guard let blockchain = Blockchain(rawValue: b.blockchain.uppercased()) else { return false }
         guard let wallet = mProfile.chains.first(where: { $0.id == blockchain })?.wallets.first(where: { $0.address == b.address }) else { return false }
-        
-        present(ConfirmationVC(to: to, onConfirm: { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
-            guard let tx = wallet.getTransaction(to: to, with: b) else { return }
-            completion("|\(id)|\"\(tx)\"")
-        }), animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(ConfirmationVC(to: to, onConfirm: { [weak self] in
+                self?.dismiss(animated: true, completion: nil)
+                guard let tx = wallet.getTransaction(to: to, with: b) else { return }
+                completion("|\(id)|\"\(tx)\"")
+            }), animated: true, completion: nil)
+        }
         return true
     }
     

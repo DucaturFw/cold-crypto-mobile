@@ -57,6 +57,7 @@
 		EBC9F77C21822F4900150883 /* ApiAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC9F77B21822F4900150883 /* ApiAnswer.swift */; };
 		EBC9F78421822FC000150883 /* ApiMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC9F78321822FC000150883 /* ApiMessage.swift */; };
 		EBC9F7862182321600150883 /* ApiIce.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC9F7852182321600150883 /* ApiIce.swift */; };
+		EBC9F79421824F2B00150883 /* ApiChains.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC9F79321824F2B00150883 /* ApiChains.swift */; };
 		EBDCD55C217FD85E00B6EF5B /* ConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */; };
 		EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D0217928BF006879F7 /* AppDelegate.swift */; };
 		EBE484D3217928BF006879F7 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D2217928BF006879F7 /* ProfileVC.swift */; };
@@ -227,6 +228,7 @@
 		EBC9F77B21822F4900150883 /* ApiAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiAnswer.swift; sourceTree = "<group>"; };
 		EBC9F78321822FC000150883 /* ApiMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiMessage.swift; sourceTree = "<group>"; };
 		EBC9F7852182321600150883 /* ApiIce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiIce.swift; sourceTree = "<group>"; };
+		EBC9F79321824F2B00150883 /* ApiChains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiChains.swift; sourceTree = "<group>"; };
 		EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationVC.swift; sourceTree = "<group>"; };
 		EBE484CD217928BF006879F7 /* ColdCrypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColdCrypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE484D0217928BF006879F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 				EBC9F77B21822F4900150883 /* ApiAnswer.swift */,
 				EBC9F78321822FC000150883 /* ApiMessage.swift */,
 				EBC9F7852182321600150883 /* ApiIce.swift */,
+				EBC9F79321824F2B00150883 /* ApiChains.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -727,6 +730,7 @@
 				EBA593CE217A8B6400F3CB65 /* Chain.swift in Sources */,
 				EB74B457217CCFFB006AE00F /* ScanButton.swift in Sources */,
 				EB64509721810A82008397DF /* Signer.swift in Sources */,
+				EBC9F79421824F2B00150883 /* ApiChains.swift in Sources */,
 				EB6450952181074D008397DF /* RTCStates.swift in Sources */,
 				EBA593E0217A8D1900F3CB65 /* Alert.swift in Sources */,
 				EBA593BE217A88EF00F3CB65 /* ETHNet.swift in Sources */,
