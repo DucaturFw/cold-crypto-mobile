@@ -10,13 +10,13 @@ import Malert
 import QRCode
 import UIKit
 
-class ProfileVC: UIViewController, Signer {
+class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
 
     private let mBG = UIImageView(image: UIImage(named: "mainBG")).apply({
         $0.contentMode = .scaleAspectFill
     })
     
-    private let mPicker = ChainPicker()
+    private let mPicker: WalletPicker
     
     private var mWebRTC: RTC? = nil
     
@@ -24,12 +24,21 @@ class ProfileVC: UIViewController, Signer {
         self?.startScanning()
     })
     
+    private let mPages = UIPageControl().apply({
+        $0.pageIndicatorTintColor = 0xC7CCD7.color
+        $0.currentPageIndicatorTintColor = 0x1888FE.color
+        $0.hidesForSinglePage = true
+    })
+    
     private let mProfile: Profile
     
     init(profile: Profile) {
         mProfile = profile
+        mPicker  = WalletPicker(profile: mProfile)
         super.init(nibName: nil, bundle: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(close), name: .UIApplicationDidEnterBackground, object: nil)
+        mPages.numberOfPages = mPicker.count
+        mPicker.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,6 +58,7 @@ class ProfileVC: UIViewController, Signer {
         view.addSubview(mBG)
         view.addSubview(mPicker)
         view.addSubview(mScan)
+        view.addSubview(mPages)
     }
     
     deinit {
@@ -66,6 +76,7 @@ class ProfileVC: UIViewController, Signer {
         mPicker.frame = CGRect(x: 0, y: navigationController?.navigationBar.maxY ?? 0, width: view.width, height: view.width / 270.0 * 160.0)
         mScan.frame = CGRect(x: (view.width - 300.scaled)/2.0, y: view.height - 27.scaled - 58.scaled,
                              width: 300.scaled, height: 58.scaled)
+        mPages.center = CGPoint(x: view.width/2.0, y: mPicker.maxY + 10.scaled)
     }
     
     private func startScanning() {
@@ -107,7 +118,17 @@ class ProfileVC: UIViewController, Signer {
     }
 
     private func addNewWallet() {
-        print("asd")
+        guard let c = mProfile.chains.first(where: { $0.id == Blockchain.ETH }) else { return }
+        let index = c.wallets.max(by: { $0.index < $1.index })?.index ?? 0
+        guard let w = mProfile.newWallet(chain: c.id,
+                                         name: "",
+                                         data: String(format: "02%02x", index + 1),
+                                         segwit: false) else { return }
+        Settings.profile = mProfile
+        mPicker.append(wallet: w)
+        mPages.numberOfPages = mPicker.count
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
     }
     
     @objc private func close() {
@@ -158,6 +179,14 @@ class ProfileVC: UIViewController, Signer {
             }), animated: true, completion: nil)
         }
         return true
+    }
+    
+    // MARK: - UIScrollViewDelegate methods
+    // -------------------------------------------------------------------------
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard mPicker.width > 0 else { return }
+        let p = mPicker.contentOffset.x / mPicker.width
+        mPages.currentPage = Int((p - floor(p) > 0.9) ? ceil(p) : floor(p))
     }
     
 }

@@ -58,18 +58,11 @@ class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelD
     // MARK: - SignalClientDelegate methods
     // -------------------------------------------------------------------------
     func signalClientDidConnect(_ signalClient: SignalClient) {
-        print("connected. sending = \(ApiJoin(sid: mSID).full())")
         signalClient.send(json: ApiJoin(sid: mSID).full())
     }
     
     func signalClient(_ client: SignalClient, receive: String) {
-        
-        print("receive = \(receive)")
-        
         let parts = receive.split(separator: "|", maxSplits: Int.max, omittingEmptySubsequences: false)
-        
-//        print("\(parts.count)")
-        
         if parts.count >= 3, parts[0] == "" && Int(parts[1]) == ApiJoin.id,
             let offer = ApiOffer.deserialize(from: String(parts[2])), let str = offer.offer {
             received(offer: str)
@@ -93,7 +86,7 @@ class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelD
                                        sdpMid: candidate.sdpMid ?? "").full())
     }
     
-    func webRTCClient(_ client: WebRTCClient, didOpenChannel channel: RTCDataChannel) {
+    func webRTCClient(_ client: WebRTCClient, didOpenChannel channel: RTCDataChannel) {        
         mChannel = channel
         mChannel?.delegate = self
     }
@@ -104,12 +97,8 @@ class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelD
     
     func dataChannel(_ dataChannel: RTCDataChannel, didReceiveMessageWith buffer: RTCDataBuffer) {
         if let request = String(data: buffer.data, encoding: String.Encoding.utf8) {
-            print("request = \(request)")
             DispatchQueue.main.async {
                 self.mDelegate?.parse(request: request, supportRTC: false, block: { [weak dataChannel] send in
-                    
-                    print("send to server = \(send)")
-                    
                     dataChannel?.sendData(RTCDataBuffer(data: send.toData(), isBinary: false))
                 })
             }

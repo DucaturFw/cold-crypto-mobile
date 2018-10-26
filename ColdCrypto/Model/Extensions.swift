@@ -118,6 +118,7 @@ extension Double {
 protocol HasApply {}
 
 extension HasApply {
+    @discardableResult
     func apply(_ block: (Self)->Void) -> Self {
         block(self)
         return self
@@ -354,6 +355,7 @@ struct Utils {
 }
 
 extension HandyJSON {
+    @discardableResult
     func apply(_ block: (Self)->Void) -> Self {
         block(self)
         return self
