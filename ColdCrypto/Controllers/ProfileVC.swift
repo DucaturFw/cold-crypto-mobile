@@ -94,6 +94,9 @@ class ProfileVC: UIViewController, Signer {
     }
     
     private func showQR(text: String) {
+        
+        print(text)
+        
         guard var qr = QRCode(text) else { return }
         qr.size = CGSize(width: 300, height: 300)
         let malert = Malert(customView: UIImageView(image: qr.image))
