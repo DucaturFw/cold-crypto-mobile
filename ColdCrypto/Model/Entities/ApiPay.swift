@@ -8,6 +8,7 @@
 
 import Foundation
 import HandyJSON
+import EthereumKit
 
 class ApiPay: HandyJSON {
     
@@ -17,6 +18,13 @@ class ApiPay: HandyJSON {
     var data: String?
     var callback: String?
     var blockchain: String?
+    
+    var amountFormatted: String {
+        if let d = Wei(value), let eth = try? Converter.toEther(wei: d) {
+            return "\(eth.description) FTM"
+        }
+        return "--"
+    }
     
     required init() {}
     

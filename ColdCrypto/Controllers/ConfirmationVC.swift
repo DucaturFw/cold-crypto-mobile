@@ -41,10 +41,10 @@ class ConfirmationVC: UIViewController {
     private let mAddress: Checkbox
     private let mAmount: Checkbox
     
-    init(to: ApiParamsTx, onConfirm: @escaping ()->Void) {
+    init(to: String, amount: String, onConfirm: @escaping ()->Void) {
         mOnConfirm = onConfirm
-        mAddress = Checkbox(name: "check_address".loc, value: to.to)
-        mAmount = Checkbox(name: "check_amount".loc, value: to.amountFormatted)
+        mAddress = Checkbox(name: "check_address".loc, value: to)
+        mAmount = Checkbox(name: "check_amount".loc, value: amount)
         super.init(nibName: nil, bundle: nil)
     }
     

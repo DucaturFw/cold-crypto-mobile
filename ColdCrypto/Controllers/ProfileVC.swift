@@ -181,20 +181,23 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
         guard let wallets = mProfile.chains.first(where: { $0.id == b })?.wallets, wallets.count > 0 else { return false }
         let w = mPages.currentPage < wallets.count ? wallets[mPages.currentPage] : wallets[0]
         DispatchQueue.main.async {
-            let hud = self.view.window?.hud
-            w.pay(to: c, completion: { txHash in
-                hud?.hide(animated: true)
-                if let tx = txHash {
-                    if let callback = c.callback, let url = URL(string: callback) {
-                        UIApplication.shared.open(url.append("txHash", value: tx), options: [:], completionHandler: nil)
+            self.present(ConfirmationVC(to: c.to, amount: c.amountFormatted, onConfirm: { [weak self] in
+                guard let s = self else { return }
+                s.dismiss(animated: true, completion: nil)
+                let hud = s.view.window?.hud
+                w.pay(to: c, completion: { txHash in
+                    hud?.hide(animated: true)
+                    if let tx = txHash {
+                        if let callback = c.callback, let url = URL(string: callback) {
+                            UIApplication.shared.open(url.append("txHash", value: tx), options: [:], completionHandler: nil)
+                        } else {
+                            completion("|\(id)|\"\(tx)\"")
+                        }
                     } else {
-                        completion("|\(id)|\"\(tx)\"")
+                        s.show(text: "Can't pay")
                     }
-                    print("\(tx)")
-                } else {
-                    self.show(text: "Can't pay")
-                }
-            })
+                })
+            }), animated: true, completion: nil)
         }
         return true
     }
@@ -219,7 +222,7 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
         guard let blockchain = Blockchain(rawValue: b.blockchain.uppercased()) else { return false }
         guard let wallet = mProfile.chains.first(where: { $0.id == blockchain })?.wallets.first(where: { $0.address == b.address }) else { return false }
         DispatchQueue.main.async {
-            self.present(ConfirmationVC(to: to, onConfirm: { [weak self] in
+            self.present(ConfirmationVC(to: to.to, amount: to.amountFormatted, onConfirm: { [weak self] in
                 self?.dismiss(animated: true, completion: nil)
                 guard let tx = wallet.getTransaction(to: to, with: b) else { return }
                 completion("|\(id)|\"\(tx)\"")
