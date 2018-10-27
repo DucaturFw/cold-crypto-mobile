@@ -29,6 +29,6 @@
 10. run `carthage update --platform ios`
 11. move back `cd ../`
 12. open xCode workspace by `open ColdCrypto.xcworkspace`
-13. select `ColdCrypto` in targets in top left corners
+13. select `ColdCrypto` in targets in the top left corner on the panel
 14. clear project by `shift + cmd + K`
 15. run project (by default it's `cmd + R`) on a device (required Apple developer account) or in simulator
