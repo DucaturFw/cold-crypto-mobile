@@ -183,19 +183,20 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
         DispatchQueue.main.async {
             self.present(ConfirmationVC(to: c.to, amount: c.amountFormatted, onConfirm: { [weak self] in
                 guard let s = self else { return }
-                s.dismiss(animated: true, completion: nil)
-                let hud = s.view.window?.hud
-                w.pay(to: c, completion: { txHash in
-                    hud?.hide(animated: true)
-                    if let tx = txHash {
-                        if let callback = c.callback, let url = URL(string: callback) {
-                            UIApplication.shared.open(url.append("txHash", value: tx), options: [:], completionHandler: nil)
+                s.dismiss(animated: true, completion: {
+                    let hud = s.view.window?.hud
+                    w.pay(to: c, completion: { txHash in
+                        hud?.hide(animated: true)
+                        if let tx = txHash {
+                            if let callback = c.callback, let url = URL(string: callback) {
+                                UIApplication.shared.open(url.append("txHash", value: tx), options: [:], completionHandler: nil)
+                            } else {
+                                completion("|\(id)|\"\(tx)\"")
+                            }
                         } else {
-                            completion("|\(id)|\"\(tx)\"")
+                            s.show(text: "Can't pay")
                         }
-                    } else {
-                        s.show(text: "Can't pay")
-                    }
+                    })
                 })
             }), animated: true, completion: nil)
         }
