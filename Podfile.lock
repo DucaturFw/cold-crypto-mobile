@@ -1,5 +1,4 @@
 PODS:
-  - Alamofire (4.7.3)
   - GoogleWebRTC (1.1.25102)
   - HandyJSON (4.2.0)
   - HockeySDK (5.1.4):
@@ -12,7 +11,6 @@ PODS:
   - Starscream (3.0.6)
 
 DEPENDENCIES:
-  - Alamofire
   - GoogleWebRTC
   - HandyJSON
   - HockeySDK
@@ -24,7 +22,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Alamofire
     - GoogleWebRTC
     - HandyJSON
     - HockeySDK
@@ -35,7 +32,6 @@ SPEC REPOS:
     - Starscream
 
 SPEC CHECKSUMS:
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   GoogleWebRTC: 5cd390bc24c272fb7ca2b8765e4a7578a770b279
   HandyJSON: 9dfc026c7d7adc1f0f8ba8b181495f0e0763b0f4
   HockeySDK: 15afe6bc0a5bfe3a531fd73dbf082095f37dac3b
@@ -45,6 +41,6 @@ SPEC CHECKSUMS:
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
 
-PODFILE CHECKSUM: a085d6d22a2691377587ba0ef1b3b4d05e4c1c8c
+PODFILE CHECKSUM: 93787f671fe4df77f8eccc82ac7cc987e1a4072c
 
 COCOAPODS: 1.5.3

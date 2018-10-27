@@ -10,7 +10,6 @@ target 'ColdCrypto' do
   pod 'MBProgressHUD'
   pod 'GoogleWebRTC'
   pod 'Starscream'
-  pod 'Alamofire'
   pod 'HandyJSON'
   pod 'HockeySDK'
   pod 'QRCode'
