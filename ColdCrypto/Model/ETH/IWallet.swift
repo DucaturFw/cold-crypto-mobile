@@ -21,5 +21,6 @@ protocol IWallet : class {
     var name: String { get }
     
     func getTransaction(to: ApiParamsTx, with: ApiParamsWallet) -> String?
+    func pay(to: ApiPay, completion: @escaping (String?)->Void)
     
 }

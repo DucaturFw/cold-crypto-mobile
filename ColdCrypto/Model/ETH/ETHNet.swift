@@ -65,14 +65,18 @@ class ETHNet {
         }
     }
     
-    func send(value: Wei, to: String, gasPrice: Wei, gasLimit: Wei, completion: @escaping (String?, Error?)->Void) {
+    func send(value: Wei,
+              to: String,
+              gasPrice: Int,
+              gasLimit: Int,
+              data: Data, completion: @escaping (String?, Error?)->Void) {
         guard let w = mWallet else {
             completion(nil, ETHNet.UnknownWallet)
             return
         }
         getNonce(completion: { nonce, error in
-            if let nonce = nonce, let p = Int(gasPrice.description), let l = Int(gasLimit.description) {
-                let t = RawTransaction(value: value, to: to, gasPrice: p+1, gasLimit: l+1, nonce: nonce)
+            if let nonce = nonce {
+                let t = RawTransaction(value: value, to: to, gasPrice: gasPrice, gasLimit: gasLimit, nonce: nonce, data: data)
                 do {
                     let tx = try w.wallet.sign(rawTransaction: t)
                     self.mGeth.sendRawTransaction(rawTransaction: tx, completionHandler: { (result) in

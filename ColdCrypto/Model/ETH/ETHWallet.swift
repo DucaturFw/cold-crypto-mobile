@@ -86,9 +86,23 @@ class ETHWallet : IWallet {
         guard let p = Int(to.gasPrice) else { return nil }
         let n = Network.private(chainID: with.chainId, testUse: true)
         let w = Wallet(network: n, privateKey: wallet.privateKey().toHexString(), debugPrints: false)
-        let d = to.data.starts(with: "0x") ? Data(hex: to.data) : Data()
+        let dd = to.data ?? "0x"
+        let d = dd.starts(with: "0x") ? Data(hex: dd) : Data()
         let t = RawTransaction(value: v, to: to.to, gasPrice: p, gasLimit: gasLimit, nonce: to.nonce, data: d)
         return try? w.sign(rawTransaction: t)
+    }
+    
+    func pay(to: ApiPay, completion: @escaping (String?)->Void) {
+        guard let v = Wei(to.value), let p = Int(to.gasPrice) else {
+            completion(nil)
+            return
+        }
+        
+        let dd = to.data ?? "0x"
+        let d = dd.starts(with: "0x") ? Data(hex: dd) : Data()
+        ETHNet(wallet: self).send(value: v, to: to.to, gasPrice: p, gasLimit: 100000, data: d, completion: { tx, error in
+            completion(tx)
+        })
     }
     
     var data: String

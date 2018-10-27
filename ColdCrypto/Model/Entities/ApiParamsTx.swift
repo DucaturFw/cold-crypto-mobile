@@ -16,7 +16,7 @@ class ApiParamsTx: HandyJSON {
     var nonce: Int = 0
     var gasPrice: String = ""
     var value: String = ""
-    var data: String = "0x"
+    var data: String?
     
     required init() {}
     

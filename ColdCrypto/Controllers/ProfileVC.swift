@@ -127,6 +127,12 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
         malert.addAction(action)
         present(malert, animated: true)
     }
+    
+    private func show(text: String) {
+        let tmp = UIAlertController(title: nil, message: text, preferredStyle: .alert)
+        tmp.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(tmp, animated: true, completion: nil)
+    }
 
     private func addNewWallet() {
         guard let c = mProfile.chains.first(where: { $0.id == Blockchain.ETH }) else { return }
@@ -157,6 +163,7 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
         if parts.count > 2, let id = Int(parts[1]) {
             let json = String(parts[2])
             switch parts[0] {
+            case "payToAddress": catched = payToAddress(json: json, id: id, completion: block)
             case "signTransferTx": catched = signTransferTx(json: json, id: id, completion: block)
             case "getWalletList": catched = getWalletList(json: json, id: id, completion: block)
             case "webrtcLogin": if supportRTC { catched = webrtcLogin(json: json) }
@@ -164,6 +171,32 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
             }
         }
         return catched
+    }
+    
+    @discardableResult
+    func payToAddress(json: String, id: Int, completion: @escaping (String)->Void) -> Bool {
+        guard let c = ApiPay.deserialize(from: json) else { return false }
+        let bb = (c.blockchain ?? "eth").uppercased()
+        guard let b = Blockchain(rawValue: bb) else { return false }
+        guard let wallets = mProfile.chains.first(where: { $0.id == b })?.wallets, wallets.count > 0 else { return false }
+        let w = mPages.currentPage < wallets.count ? wallets[mPages.currentPage] : wallets[0]
+        DispatchQueue.main.async {
+            let hud = self.view.window?.hud
+            w.pay(to: c, completion: { txHash in
+                hud?.hide(animated: true)
+                if let tx = txHash {
+                    if let callback = c.callback, let url = URL(string: callback) {
+                        UIApplication.shared.open(url.append("txHash", value: tx), options: [:], completionHandler: nil)
+                    } else {
+                        completion("|\(id)|\"\(tx)\"")
+                    }
+                    print("\(tx)")
+                } else {
+                    self.show(text: "Can't pay")
+                }
+            })
+        }
+        return true
     }
     
     @discardableResult
