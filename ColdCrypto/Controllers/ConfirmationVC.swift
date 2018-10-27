@@ -114,7 +114,7 @@ class ConfirmationVC: UIViewController {
         mAmount.frame  = CGRect(x: 25.scaled, y: mAddress.maxY + 17.scaled, width: mAddress.width, height: 0)
         
         let w = (view.width - 76.scaled)/2.0
-        mDecline.frame = CGRect(x: 30.scaled, y: mBox.height - 100.scaled, width: w, height: 64.scaled)
+        mDecline.frame = CGRect(x: 30.scaled, y: mBox.height - view.bottomGap - 100.scaled, width: w, height: 64.scaled)
         mConfirm.frame = CGRect(x: mDecline.maxX + 16.scaled, y: mDecline.minY, width: mDecline.width, height: mDecline.height)
     }
     

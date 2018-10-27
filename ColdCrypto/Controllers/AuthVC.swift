@@ -55,9 +55,9 @@ class AuthVC : UIViewController {
         super.viewDidLayoutSubviews()
         mBG.frame = view.bounds
         mLogo.center = CGPoint(x: view.width/2.0, y: view.height/2.0)
-        mNewOne.frame = CGRect(x: floor((view.width - 307.scaled)/2.0), y: floor(view.height - 57.scaled - 78.scaled), width: 307.scaled, height: 57.scaled)
-        mTop.origin = CGPoint(x: floor((view.width - mTop.width)/2.0), y: floor(29.scaled))
-        mRestore.center = CGPoint(x: view.width/2.0, y: view.height - 33.scaled)
+        mNewOne.frame = CGRect(x: floor((view.width - 307.scaled)/2.0), y: floor(view.height - view.bottomGap - 57.scaled - 78.scaled), width: 307.scaled, height: 57.scaled)
+        mTop.origin = CGPoint(x: floor((view.width - mTop.width)/2.0), y: floor(29.scaled + UIApplication.shared.statusBarFrame.maxY))
+        mRestore.center = CGPoint(x: view.width/2.0, y: view.height - 33.scaled - view.bottomGap)
     }
     
     override func viewWillAppear(_ animated: Bool) {

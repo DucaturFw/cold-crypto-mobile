@@ -18,10 +18,7 @@ class WalletPicker: UIScrollView {
     
     init(profile: Profile) {
         super.init(frame: .zero)
-        isPagingEnabled = true
-        layer.borderWidth = 1.0
-        layer.borderColor = UIColor.red.cgColor
-        
+        isPagingEnabled = true        
         profile.chains.forEach({
             $0.wallets.forEach({
                 WalletView(wallet: $0).apply({
@@ -30,6 +27,8 @@ class WalletPicker: UIScrollView {
                 })
             })
         })
+        showsHorizontalScrollIndicator = false
+        showsVerticalScrollIndicator = false
     }
     
     required init?(coder aDecoder: NSCoder) {

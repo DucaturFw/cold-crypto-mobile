@@ -16,12 +16,13 @@ class ApiParamsTx: HandyJSON {
     var nonce: Int = 0
     var gasPrice: String = ""
     var value: String = ""
+    var data: String = "0x"
     
     required init() {}
     
     var amountFormatted: String {
         if let d = Wei(value), let eth = try? Converter.toEther(wei: d) {
-            return "\(eth.description) ETH"
+            return "\(eth.description) FTM"
         }
         return "--"
     }

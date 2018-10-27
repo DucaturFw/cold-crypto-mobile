@@ -33,6 +33,15 @@ extension RawTransaction {
         self.data = Data()
     }
     
+    public init(value: Wei, to: String, gasPrice: Int, gasLimit: Int, nonce: Int, data: Data = Data()) {
+        self.value = value
+        self.to = Address(string: to)
+        self.gasPrice = gasPrice
+        self.gasLimit = gasLimit
+        self.nonce = nonce
+        self.data = Data()
+    }
+    
     public init(wei: String, to: String, gasPrice: Int, gasLimit: Int, nonce: Int, data: Data = Data()) {
         self.value = Wei(wei)!
         self.to = Address(string: to)

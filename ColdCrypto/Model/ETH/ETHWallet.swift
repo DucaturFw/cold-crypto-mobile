@@ -86,7 +86,8 @@ class ETHWallet : IWallet {
         guard let p = Int(to.gasPrice) else { return nil }
         let n = Network.private(chainID: with.chainId, testUse: true)
         let w = Wallet(network: n, privateKey: wallet.privateKey().toHexString(), debugPrints: false)
-        let t = RawTransaction(value: v, to: to.to, gasPrice: p, gasLimit: gasLimit, nonce: to.nonce)
+        let d = to.data.starts(with: "0x") ? Data(hex: to.data) : Data()
+        let t = RawTransaction(value: v, to: to.to, gasPrice: p, gasLimit: gasLimit, nonce: to.nonce, data: d)
         return try? w.sign(rawTransaction: t)
     }
     

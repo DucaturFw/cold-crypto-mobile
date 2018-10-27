@@ -21,12 +21,12 @@ class WalletView: UIView {
     })
     
     private let mAmount = UILabel.new(font: UIFont.hnMedium(28.scaled), text: "0", lines: 1, color: .white, alignment: .left)
-    private let mUnits  = UILabel.new(font: UIFont.hnMedium(22.scaled), text: "ETH", lines: 1, color: .white, alignment: .left)
+    private let mUnits  = UILabel.new(font: UIFont.hnMedium(22.scaled), text: "FTM", lines: 1, color: .white, alignment: .left)
     private let mHint   = UILabel.new(font: .hnMedium(16.scaled), text: "wallet_hint".loc, lines: 1, color: 0xFFFFFF.color.withAlphaComponent(0.6), alignment: .left)
     private let mAddress = UILabel.new(font: UIFont.hnMedium(22.scaled), lines: 0, color: .white, alignment: .left)
     
     private let mHint2 = UILabel.new(font: UIFont.hnMedium(12),
-                                     text: "$0.00 USD @ $208.14/ETH",
+                                     text: "$0.00 USD @ $208.14/FTM",
                                      lines: 1,
                                      color: UIColor.white.withAlphaComponent(0.6),
                                      alignment: .left)

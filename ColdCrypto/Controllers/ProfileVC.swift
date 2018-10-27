@@ -74,7 +74,7 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
         super.viewDidLayoutSubviews()
         mBG.frame  = view.bounds
         mPicker.frame = CGRect(x: 0, y: navigationController?.navigationBar.maxY ?? 0, width: view.width, height: view.width / 270.0 * 160.0)
-        mScan.frame = CGRect(x: (view.width - 300.scaled)/2.0, y: view.height - 27.scaled - 58.scaled,
+        mScan.frame = CGRect(x: (view.width - 300.scaled)/2.0, y: view.height - 27.scaled - 58.scaled - view.bottomGap,
                              width: 300.scaled, height: 58.scaled)
         mPages.center = CGPoint(x: view.width/2.0, y: mPicker.maxY + 10.scaled)
     }

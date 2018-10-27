@@ -18,16 +18,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="vOi-E1-mqy">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="vOi-E1-mqy">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="vOi-E1-mqy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="4jk-cv-97q"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vOi-E1-mqy" secondAttribute="trailing" id="TdF-q4-RfC"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="vOi-E1-mqy" secondAttribute="top" constant="20" id="U0u-UC-2Xw"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vOi-E1-mqy" secondAttribute="bottom" id="u27-bj-giN"/>
+                            <constraint firstItem="vOi-E1-mqy" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="2WJ-c0-c3T"/>
+                            <constraint firstItem="vOi-E1-mqy" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" id="nQO-oX-tiT"/>
+                            <constraint firstItem="vOi-E1-mqy" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="ols-zv-AKD"/>
+                            <constraint firstAttribute="top" secondItem="vOi-E1-mqy" secondAttribute="top" id="w5h-uh-9tc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

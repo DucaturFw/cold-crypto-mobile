@@ -74,7 +74,7 @@ class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         let t = navigationController?.navigationBar.maxY ?? 0
         
         previewLayer.frame = CGRect(x: 0, y: t, width: view.width, height: view.width / 376.0 * 275.0)
-        mClose.origin = CGPoint(x: (view.width - mClose.width)/2.0, y: view.height - mClose.height)
+        mClose.origin = CGPoint(x: (view.width - mClose.width)/2.0, y: view.height - mClose.height - view.bottomGap)
         
         let s = previewLayer.frame.height
         let c = CGPoint(x: view.width/2.0, y: previewLayer.frame.height/2.0)
