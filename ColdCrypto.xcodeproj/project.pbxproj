@@ -20,7 +20,6 @@
 		EB64509B21810CAD008397DF /* ApiWebRTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64509A21810CAD008397DF /* ApiWebRTC.swift */; };
 		EB64509D2181152E008397DF /* ApiOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64509C2181152E008397DF /* ApiOffer.swift */; };
 		EB64509F21811684008397DF /* ApiJoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64509E21811684008397DF /* ApiJoin.swift */; };
-		EB74B442217C75DA006AE00F /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74B441217C75DA006AE00F /* CodeView.swift */; };
 		EB74B451217CB3CA006AE00F /* bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB74B44F217CB3CA006AE00F /* bg@3x.png */; };
 		EB74B452217CB3CA006AE00F /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB74B450217CB3CA006AE00F /* bg@2x.png */; };
 		EB74B457217CCFFB006AE00F /* ScanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74B456217CCFFB006AE00F /* ScanButton.swift */; };
@@ -56,6 +55,7 @@
 		EBA593DA217A8CB500F3CB65 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */; };
 		EBA593DE217A8CDC00F3CB65 /* NumberPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */; };
 		EBA593E0217A8D1900F3CB65 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DF217A8D1900F3CB65 /* Alert.swift */; };
+		EBB15F872184EEF600F6370E /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB15F862184EEF600F6370E /* CodeView.swift */; };
 		EBC9F77C21822F4900150883 /* ApiAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC9F77B21822F4900150883 /* ApiAnswer.swift */; };
 		EBC9F78421822FC000150883 /* ApiMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC9F78321822FC000150883 /* ApiMessage.swift */; };
 		EBC9F7862182321600150883 /* ApiIce.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC9F7852182321600150883 /* ApiIce.swift */; };
@@ -193,7 +193,6 @@
 		EB64509C2181152E008397DF /* ApiOffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiOffer.swift; sourceTree = "<group>"; };
 		EB64509E21811684008397DF /* ApiJoin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiJoin.swift; sourceTree = "<group>"; };
 		EB74B440217C75BB006AE00F /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
-		EB74B441217C75DA006AE00F /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodeView.swift; path = "../../../MultiMask-ios/MultiMask/Classes/View/CodeView.swift"; sourceTree = "<group>"; };
 		EB74B44F217CB3CA006AE00F /* bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@3x.png"; sourceTree = "<group>"; };
 		EB74B450217CB3CA006AE00F /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
 		EB74B456217CCFFB006AE00F /* ScanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanButton.swift; sourceTree = "<group>"; };
@@ -229,6 +228,7 @@
 		EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberPad.swift; sourceTree = "<group>"; };
 		EBA593DF217A8D1900F3CB65 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		EBB15F862184EEF600F6370E /* CodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
 		EBC9F77B21822F4900150883 /* ApiAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiAnswer.swift; sourceTree = "<group>"; };
 		EBC9F78321822FC000150883 /* ApiMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiMessage.swift; sourceTree = "<group>"; };
 		EBC9F7852182321600150883 /* ApiIce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiIce.swift; sourceTree = "<group>"; };
@@ -329,7 +329,7 @@
 				EB74B440217C75BB006AE00F /* CodeView.swift */,
 				EBA593B2217A84A000F3CB65 /* ScanView.swift */,
 				EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */,
-				EB74B441217C75DA006AE00F /* CodeView.swift */,
+				EBB15F862184EEF600F6370E /* CodeView.swift */,
 				EBA5938A217A813F00F3CB65 /* Button.swift */,
 				EB3F8AFB218357C2004E6CFB /* WalletPicker.swift */,
 				EB74B456217CCFFB006AE00F /* ScanButton.swift */,
@@ -749,6 +749,7 @@
 				EB3ECC652180F74600D14656 /* ApiSign.swift in Sources */,
 				EB3F8AFC218357C2004E6CFB /* WalletPicker.swift in Sources */,
 				EB64509D2181152E008397DF /* ApiOffer.swift in Sources */,
+				EBB15F872184EEF600F6370E /* CodeView.swift in Sources */,
 				EBA593D4217A8C0300F3CB65 /* NewCodeVC.swift in Sources */,
 				EBA593D8217A8CA300F3CB65 /* BioAuth.swift in Sources */,
 				EBA593D0217A8BF700F3CB65 /* CheckCodeVC.swift in Sources */,
@@ -762,7 +763,6 @@
 				EBA593D2217A8BFE00F3CB65 /* AuthVC.swift in Sources */,
 				EBA593B3217A84A000F3CB65 /* ScanView.swift in Sources */,
 				EBA593BA217A88EF00F3CB65 /* ETHTransaction.swift in Sources */,
-				EB74B442217C75DA006AE00F /* CodeView.swift in Sources */,
 				EB91A2352184983F001788FA /* ApiPay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
