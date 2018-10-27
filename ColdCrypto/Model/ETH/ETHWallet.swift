@@ -9,7 +9,6 @@
 import HandyJSON
 import Foundation
 import EthereumKit
-import Alamofire
 
 extension Blockchain {
     func ethConfig() -> ETHWallet.Config? {
