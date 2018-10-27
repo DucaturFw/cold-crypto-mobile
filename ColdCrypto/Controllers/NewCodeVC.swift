@@ -54,7 +54,7 @@ class NewCodeVC : CodeVC {
     private func createProfile(name: String, segwit: Bool) {
         if let p = Profile.new(name: name, segwit: segwit) {
             Settings.profile = p
-            navigationController?.setViewControllers([ProfileVC(profile: p)], animated: true)
+            navigationController?.setViewControllers([ProfileVC(profile: p, params: AppDelegate.params)], animated: true)
         }
     }
     

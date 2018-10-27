@@ -21,7 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
     
     private var mLock: CheckCodeVC?
-
+    
+    static var params: String? = nil
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         BITHockeyManager.shared().configure(withIdentifier: "fd96c74c233a4c328c2d4f7df741ab9a")
@@ -41,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let code = Settings.passcode, let p = Settings.profile {
             let nc = UINavigationController()
             nc.viewControllers = [CheckCodeVC(passcode: code, style: .normal, onSuccess: { vc in
-                vc.navigationController?.setViewControllers([ProfileVC(profile: p)], animated: true)
+                vc.navigationController?.setViewControllers([ProfileVC(profile: p, params: AppDelegate.params)], animated: true)
             })]
             window?.rootViewController = nc
         } else {
@@ -76,6 +78,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.mBlur.alpha = 1.0
             self.mLock?.view.removeFromSuperview()
             self.mLock = nil
+            ((self.window?.rootViewController as? UINavigationController)?.viewControllers.first as? ProfileVC)?.check(params: AppDelegate.params)
+            AppDelegate.params = nil
         })
     }
     
@@ -88,6 +92,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.mLock?.startBioAuth()
             })
         }
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        if url.host == "connect", let params = url.allParams["qr"] {
+            AppDelegate.params = params
+        }
+        return true
     }
 
 }

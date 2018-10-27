@@ -354,6 +354,19 @@ struct Utils {
     
 }
 
+extension URL {
+    public var allParams: [String: String] {
+        guard let components = URLComponents(url: self, resolvingAgainstBaseURL: true), let queryItems = components.queryItems else {
+            return [:]
+        }
+        var parameters = [String: String]()
+        for item in queryItems {
+            parameters[item.name] = item.value
+        }
+        return parameters
+    }
+}
+
 extension HandyJSON {
     @discardableResult
     func apply(_ block: (Self)->Void) -> Self {

@@ -32,9 +32,20 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
     
     private let mProfile: Profile
     
-    init(profile: Profile) {
+    private var mParams: String?
+    
+    private var defaultCatchBlock: (String)->Void {
+        return { [weak self] qr in
+            DispatchQueue.main.async {
+                self?.showQR(text: qr)
+            }
+        }
+    }
+    
+    init(profile: Profile, params: String?) {
         mProfile = profile
         mPicker  = WalletPicker(profile: mProfile)
+        mParams  = params
         super.init(nibName: nil, bundle: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(close), name: .UIApplicationDidEnterBackground, object: nil)
         mPages.numberOfPages = mPicker.count
@@ -68,6 +79,14 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        check(params: mParams)
+        mParams = nil
+    }
+    
+    func check(params: String?) {
+        if let p = params {
+            parse(request: p, supportRTC: true, block: defaultCatchBlock)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -80,14 +99,9 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
     }
     
     private func startScanning() {
-        let block: (String)->Void = { [weak self] qr in
-            DispatchQueue.main.async {
-                self?.showQR(text: qr)
-            }
-        }
         let vc = ScannerVC()
         vc.onFound = { [weak self, weak vc] json in
-            if self?.parse(request: json, supportRTC: true, block: block) == true {
+            if let s = self, s.parse(request: json, supportRTC: true, block: s.defaultCatchBlock) == true {
                 vc?.stop()
                 vc?.dismiss(animated: true, completion: nil)
             }
@@ -105,9 +119,6 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
     }
     
     private func showQR(text: String) {
-        
-        print(text)
-        
         guard var qr = QRCode(text) else { return }
         qr.size = CGSize(width: 300, height: 300)
         let malert = Malert(customView: UIImageView(image: qr.image))
@@ -139,6 +150,7 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
     
     // MARK: - Signer methods
     // -------------------------------------------------------------------------
+    @discardableResult
     func parse(request: String, supportRTC: Bool, block: @escaping (String)->Void) -> Bool {
         let parts = request.split(separator: "|", maxSplits: Int.max, omittingEmptySubsequences: false)
         var catched: Bool = false
@@ -154,6 +166,7 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
         return catched
     }
     
+    @discardableResult
     func getWalletList(json: String, id: Int, completion: @escaping (String)->Void) -> Bool {
         guard let c = ApiChains.deserialize(from: json) else { return false }
         let chains = mProfile.chains.filter({ c.blockchains.contains($0.id.rawValue.lowercased()) })
@@ -166,6 +179,7 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
         return true
     }
     
+    @discardableResult
     func signTransferTx(json: String, id: Int, completion: @escaping (String)->Void) -> Bool {
         guard let tx = ApiSign.deserialize(from: json) else { return false }
         guard let b = tx.wallet, let to = tx.tx else { return false }
