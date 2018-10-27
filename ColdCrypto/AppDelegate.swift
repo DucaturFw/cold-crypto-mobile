@@ -95,7 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        if url.host == "connect", let params = url.allParams["qr"] {
+        if let params = url.allParams["qr"] {
             AppDelegate.params = params
         }
         return true

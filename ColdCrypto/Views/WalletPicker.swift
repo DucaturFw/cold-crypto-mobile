@@ -16,14 +16,17 @@ class WalletPicker: UIScrollView {
         return mViews.count
     }
     
+    var onTap: (IWallet)->Void = { _ in }
+    
     init(profile: Profile) {
         super.init(frame: .zero)
         isPagingEnabled = true        
         profile.chains.forEach({
-            $0.wallets.forEach({
-                WalletView(wallet: $0).apply({
+            $0.wallets.forEach({ w in
+                WalletView(wallet: w).apply({
                     mViews.append($0)
                     addSubview($0)
+                    $0.tap({ [weak self] in self?.onTap(w) })
                 })
             })
         })
@@ -49,6 +52,7 @@ class WalletPicker: UIScrollView {
         WalletView(wallet: wallet).apply({
             mViews.append($0)
             addSubview($0)
+            $0.tap({ [weak self] in self?.onTap(wallet) })
         })
         setNeedsLayout()
         layoutIfNeeded()

@@ -70,6 +70,9 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
         view.addSubview(mPicker)
         view.addSubview(mScan)
         view.addSubview(mPages)
+        mPicker.onTap = { [weak self] w in
+            self?.share(image: nil, text: w.address)
+        }
     }
     
     deinit {
@@ -152,6 +155,14 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
         dismiss(animated: true, completion: nil)
         mWebRTC?.close()
         mWebRTC = nil
+    }
+    
+    private func share(image: UIImage?, text: String) {
+        var shareItems: [Any] = [text]
+        if let i = image {
+            shareItems.append(i)
+        }
+        present(UIActivityViewController(activityItems: shareItems, applicationActivities: nil), animated: true, completion: nil)
     }
     
     // MARK: - Signer methods
