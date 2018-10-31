@@ -20,10 +20,6 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
     
     private var mWebRTC: RTC? = nil
     
-    private lazy var mScan = ScanButton().tap({ [weak self] in
-        self?.startScanning()
-    })
-    
     private let mPages = UIPageControl().apply({
         $0.pageIndicatorTintColor = 0xC7CCD7.color
         $0.currentPageIndicatorTintColor = 0x1888FE.color
@@ -42,6 +38,15 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
         }
     }
     
+    private lazy var mView = CardsList(frame: UIScreen.main.bounds).apply({ [weak self] v in
+        v.onBackUp = { [weak self] w in
+            self?.backup(wallet: w)
+        }
+        v.onDelete = { [weak self] w in
+            self?.delete(wallet: w)
+        }
+    })
+    
     init(profile: Profile, params: String?) {
         mProfile = profile
         mPicker  = WalletPicker(profile: mProfile)
@@ -50,6 +55,7 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(close), name: .UIApplicationDidEnterBackground, object: nil)
         mPages.numberOfPages = mPicker.count
         mPicker.delegate = self
+        mView.wallets = mProfile.chains.flatMap({ $0.wallets })
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,20 +65,31 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.titleView = UIImageView(image: UIImage(named: "smallLogo"))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "add")).tap({ [weak self] in
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightIcon())
+        navigationItem.leftBarButtonItem  = UIBarButtonItem(customView: leftIcon())
+        view.backgroundColor = .white
+        view.addSubview(mBG)
+        view.addSubview(mView)
+        mPicker.onTap = { [weak self] w in
+            self?.share(image: nil, text: w.address)
+        }
+    }
+    
+    private func rightIcon() -> UIView {
+        return UIImageView(image: UIImage(named: "add")).tap({ [weak self] in
             self?.addNewWallet()
         }).apply({
             $0.contentMode = .center
             $0.frame = $0.frame.insetBy(dx: -10, dy: -10)
-        }))
-        view.backgroundColor = .white
-        view.addSubview(mBG)
-        view.addSubview(mPicker)
-        view.addSubview(mScan)
-        view.addSubview(mPages)
-        mPicker.onTap = { [weak self] w in
-            self?.share(image: nil, text: w.address)
-        }
+        })
+    }
+    
+    private func leftIcon() -> UIView {
+        return UIImageView(image: UIImage(named: "qrIcon")?.withRenderingMode(.alwaysTemplate)).apply({
+            $0.tintColor = 0x007AFF.color
+        }).tap({ [weak self] in
+            self?.startScanning()
+        })
     }
     
     deinit {
@@ -94,11 +111,8 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        mBG.frame  = view.bounds
-        mPicker.frame = CGRect(x: 0, y: navigationController?.navigationBar.maxY ?? 0, width: view.width, height: view.width / 270.0 * 160.0)
-        mScan.frame = CGRect(x: (view.width - 300.scaled)/2.0, y: view.height - 27.scaled - 58.scaled - view.bottomGap,
-                             width: 300.scaled, height: 58.scaled)
-        mPages.center = CGPoint(x: view.width/2.0, y: mPicker.maxY + 10.scaled)
+        mBG.frame = view.bounds
+        mView.frame = view.bounds
     }
     
     private func startScanning() {
@@ -145,10 +159,36 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
                                          data: String(format: "02%02x", index + 1),
                                          segwit: false) else { return }
         Settings.profile = mProfile
-        mPicker.append(wallet: w)
-        mPages.numberOfPages = mPicker.count
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
+        mView.add(wallet: w)
+    }
+    
+    private func delete(wallet: IWallet) {
+        mProfile.chains.forEach({
+            $0.wallets.removeAll(where: { $0.privateKey == wallet.privateKey })
+        })
+        Settings.profile = mProfile
+        mView.delete(wallet: wallet)
+    }
+    
+    private func backup(wallet: IWallet) {
+        guard var qr = QRCode(wallet.privateKey) else { return }
+        qr.size = CGSize(width: 300, height: 300)
+        let malert = Malert(customView: UIImageView(image: qr.image))
+        malert.addAction({ [weak self] in
+            let action = MalertAction(title: "Share") { [weak self] in
+                DispatchQueue.main.async {
+                    self?.share(image: qr.image, text: wallet.privateKey)
+                }
+            }
+            action.tintColor = UIColor(red:0.15, green:0.64, blue:0.85, alpha:1.0)
+            return action
+        }())
+        malert.addAction({
+            let action = MalertAction(title: "OK")
+            action.tintColor = UIColor(red:0.15, green:0.64, blue:0.85, alpha:1.0)
+            return action
+        }())
+        present(malert, animated: true)
     }
     
     @objc private func close() {

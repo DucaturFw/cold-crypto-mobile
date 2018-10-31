@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A4C7EEFDE2D214A0BE9F822B /* Pods_ColdCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B511BE577741365521F8A2AA /* Pods_ColdCrypto.framework */; };
+		EB1A0BF0218A27D300C43E72 /* CardsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1A0BEF218A27D300C43E72 /* CardsList.swift */; };
 		EB3ECC5D2180E8CD00D14656 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */; };
 		EB3ECC652180F74600D14656 /* ApiSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC642180F74600D14656 /* ApiSign.swift */; };
 		EB3F8AFC218357C2004E6CFB /* WalletPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3F8AFB218357C2004E6CFB /* WalletPicker.swift */; };
@@ -180,6 +181,7 @@
 		2564A9F9434EDC7F695A47C1 /* Pods-ColdCrypto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColdCrypto.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto.debug.xcconfig"; sourceTree = "<group>"; };
 		7CCFBA6F1971B8E07FB05360 /* Pods-ColdCrypto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColdCrypto.release.xcconfig"; path = "Pods/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto.release.xcconfig"; sourceTree = "<group>"; };
 		B511BE577741365521F8A2AA /* Pods_ColdCrypto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColdCrypto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB1A0BEF218A27D300C43E72 /* CardsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsList.swift; sourceTree = "<group>"; };
 		EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		EB3ECC642180F74600D14656 /* ApiSign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSign.swift; sourceTree = "<group>"; };
 		EB3F8AFB218357C2004E6CFB /* WalletPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletPicker.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				EB74B456217CCFFB006AE00F /* ScanButton.swift */,
 				EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */,
 				EB3F8AFD218357D5004E6CFB /* WalletView.swift */,
+				EB1A0BEF218A27D300C43E72 /* CardsList.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -640,6 +643,7 @@
 				"${BUILT_PRODUCTS_DIR}/Malert/Malert.framework",
 				"${BUILT_PRODUCTS_DIR}/QRCode/QRCode.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+				"${BUILT_PRODUCTS_DIR}/TGLStackedViewController/TGLStackedViewController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -650,6 +654,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Malert.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCode.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TGLStackedViewController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -718,6 +723,7 @@
 			files = (
 				EBA593AF217A844E00F3CB65 /* ScannerVC.swift in Sources */,
 				EB6450892181069F008397DF /* SignalClient.swift in Sources */,
+				EB1A0BF0218A27D300C43E72 /* CardsList.swift in Sources */,
 				EBC9F7862182321600150883 /* ApiIce.swift in Sources */,
 				EBA593BD217A88EF00F3CB65 /* EthereumAddress.swift in Sources */,
 				EB64509921810BBC008397DF /* RTC.swift in Sources */,

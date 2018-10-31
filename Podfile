@@ -6,6 +6,7 @@ target 'ColdCrypto' do
   use_frameworks!
 
   # Pods for ColdCrypto
+  pod 'TGLStackedViewController', '~> 2.2'
   pod 'KeychainAccess'
   pod 'MBProgressHUD'
   pod 'GoogleWebRTC'

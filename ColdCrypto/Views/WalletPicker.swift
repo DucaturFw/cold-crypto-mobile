@@ -21,15 +21,15 @@ class WalletPicker: UIScrollView {
     init(profile: Profile) {
         super.init(frame: .zero)
         isPagingEnabled = true        
-        profile.chains.forEach({
-            $0.wallets.forEach({ w in
-                WalletView(wallet: w).apply({
-                    mViews.append($0)
-                    addSubview($0)
-                    $0.tap({ [weak self] in self?.onTap(w) })
-                })
-            })
-        })
+//        profile.chains.forEach({
+//            $0.wallets.forEach({ w in
+//                WalletView(wallet: w).apply({
+//                    mViews.append($0)
+//                    addSubview($0)
+//                    $0.tap({ [weak self] in self?.onTap(w) })
+//                })
+//            })
+//        })
         showsHorizontalScrollIndicator = false
         showsVerticalScrollIndicator = false
     }
@@ -49,14 +49,14 @@ class WalletPicker: UIScrollView {
     }
     
     func append(wallet: IWallet) {
-        WalletView(wallet: wallet).apply({
-            mViews.append($0)
-            addSubview($0)
-            $0.tap({ [weak self] in self?.onTap(wallet) })
-        })
-        setNeedsLayout()
-        layoutIfNeeded()
-        setContentOffset(CGPoint(x: contentSize.width - width, y: 0), animated: true)
+//        WalletView(wallet: wallet).apply({
+//            mViews.append($0)
+//            addSubview($0)
+//            $0.tap({ [weak self] in self?.onTap(wallet) })
+//        })
+//        setNeedsLayout()
+//        layoutIfNeeded()
+//        setContentOffset(CGPoint(x: contentSize.width - width, y: 0), animated: true)
     }
     
 }

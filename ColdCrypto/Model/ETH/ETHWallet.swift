@@ -127,4 +127,8 @@ class ETHWallet : IWallet {
         return cachedRate ?? 0.0
     }
     
+    var privateKey: String {
+        return wallet.privateKey().toHexString()
+    }
+    
 }

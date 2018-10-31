@@ -27,4 +27,5 @@
 "confirm" = "CONFIRM";
 "check_address" = "Check address you are sending to:";
 "check_amount" = "Check the ammount:";
-"wallet_hint" = "Your public Fantom address";
+"delete" = "DELETE";
+"backup" = "BACKUP";

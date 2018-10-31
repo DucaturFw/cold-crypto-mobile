@@ -12,6 +12,7 @@ protocol IWallet : class {
     
     var isSupportTokens: Bool { get }
     var blockchain: Blockchain { get }
+    var privateKey: String { get }
     var balance: Decimal? { get }
     var exchange: Double { get }
     var address: String { get }
