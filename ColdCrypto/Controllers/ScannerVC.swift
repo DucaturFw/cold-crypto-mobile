@@ -43,20 +43,15 @@ class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         view.addSubview(mClose)
         view.addSubview(mHint)
         view.addSubview(mOverlay)
-
+        
         let tmp = UISwipeGestureRecognizer(target: self, action: #selector(ScannerVC.close))
         tmp.direction = .down
         mClose.addGestureRecognizer(tmp)
-    
-        guard let device = AVCaptureDevice.default(for: .video) else { return }
-        let videoInput: AVCaptureDeviceInput
-        do {
-            videoInput = try AVCaptureDeviceInput(device: device)
-            if (captureSession.canAddInput(videoInput)) {
-                captureSession.addInput(videoInput)
-            }
-        } catch let e {
-            print("\(e)")
+
+        if let device = AVCaptureDevice.default(for: .video),
+            let input = try? AVCaptureDeviceInput(device: device),
+            captureSession.canAddInput(input) {
+            captureSession.addInput(input)
         }
 
         let metadataOutput = AVCaptureMetadataOutput()

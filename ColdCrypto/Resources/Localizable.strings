@@ -29,3 +29,13 @@
 "check_amount" = "Check the ammount:";
 "delete" = "DELETE";
 "backup" = "BACKUP";
+"cancel" = "Cancel";
+"pick_pass" = "Pick a\npassword";
+"pass_hint" = "So no one else but you can unlock your wallet";
+"pass_placeholder" = "Password";
+"pass_bottom" = "Best passwords are long contain letters, numbers and special characters";
+"next" = "Next";
+"rest_pass" = "There will be NO ‘Restore password’ button. Make sure you remember it.";
+"type_pass" = "Type your\npassword again";
+"repeat_pass_bot" = "Since you’re going to be your own bank, we won’t be able to help if you lose your password.";
+"back" = "Back";

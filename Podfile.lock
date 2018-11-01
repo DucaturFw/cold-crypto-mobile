@@ -8,6 +8,7 @@ PODS:
   - Malert (3.0)
   - MBProgressHUD (1.1.0)
   - QRCode (2.0)
+  - RNCryptor (5.0.3)
   - Starscream (3.0.6)
   - TGLStackedViewController (2.2.3)
 
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - Malert
   - MBProgressHUD
   - QRCode
+  - RNCryptor (~> 5.0)
   - Starscream
   - TGLStackedViewController (~> 2.2)
 
@@ -31,6 +33,7 @@ SPEC REPOS:
     - Malert
     - MBProgressHUD
     - QRCode
+    - RNCryptor
     - Starscream
     - TGLStackedViewController
 
@@ -42,9 +45,10 @@ SPEC CHECKSUMS:
   Malert: 945f3ac9176cf99bc22d025a2589ab336cd030dc
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
+  RNCryptor: c93d19029dcf7ff160aca0f24d6c9e7b0d82f664
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
   TGLStackedViewController: 3853e3eaf938a0baab9ad7e63d83d6e8aa576665
 
-PODFILE CHECKSUM: 34aee62c9bae07a945549b50e10c241f85df8e04
+PODFILE CHECKSUM: 9a14bd1f909cae336c3cb9df762a410e667dc55b
 
 COCOAPODS: 1.5.3

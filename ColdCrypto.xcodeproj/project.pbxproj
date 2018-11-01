@@ -72,6 +72,8 @@
 		EBE4850C21792FF3006879F7 /* CryptoEthereumSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EBE484F021792FE5006879F7 /* CryptoEthereumSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EBE4850F21792FF3006879F7 /* EthereumKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE484E821792FCB006879F7 /* EthereumKit.framework */; };
 		EBE4851021792FF3006879F7 /* EthereumKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EBE484E821792FCB006879F7 /* EthereumKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EBF620BA218B9134005C6141 /* PasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF620B9218B9134005C6141 /* PasswordVC.swift */; };
+		EBF620C2218BA2AA005C6141 /* RepeatPassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF620C1218BA2AA005C6141 /* RepeatPassVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -245,6 +247,8 @@
 		EBE484E321792FCB006879F7 /* EthereumKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EthereumKit.xcodeproj; path = EthereumKit/EthereumKit.xcodeproj; sourceTree = "<group>"; };
 		EBE484E921792FE5006879F7 /* CryptoEthereumSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoEthereumSwift.xcodeproj; path = EthereumKit/Carthage/Checkouts/CryptoEthereumSwift/CryptoEthereumSwift.xcodeproj; sourceTree = "<group>"; };
 		EBE484F521792FEC006879F7 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = EthereumKit/Carthage/Checkouts/CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
+		EBF620B9218B9134005C6141 /* PasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordVC.swift; sourceTree = "<group>"; };
+		EBF620C1218BA2AA005C6141 /* RepeatPassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatPassVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,6 +309,8 @@
 				EBA593D1217A8BFE00F3CB65 /* AuthVC.swift */,
 				EBE484D2217928BF006879F7 /* ProfileVC.swift */,
 				EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */,
+				EBF620B9218B9134005C6141 /* PasswordVC.swift */,
+				EBF620C1218BA2AA005C6141 /* RepeatPassVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -642,6 +648,7 @@
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Malert/Malert.framework",
 				"${BUILT_PRODUCTS_DIR}/QRCode/QRCode.framework",
+				"${BUILT_PRODUCTS_DIR}/RNCryptor/RNCryptor.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/TGLStackedViewController/TGLStackedViewController.framework",
 			);
@@ -653,6 +660,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Malert.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCode.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNCryptor.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TGLStackedViewController.framework",
 			);
@@ -728,6 +736,7 @@
 				EBA593BD217A88EF00F3CB65 /* EthereumAddress.swift in Sources */,
 				EB64509921810BBC008397DF /* RTC.swift in Sources */,
 				EB64509321810736008397DF /* WebRTCClient.swift in Sources */,
+				EBF620BA218B9134005C6141 /* PasswordVC.swift in Sources */,
 				EBA593DE217A8CDC00F3CB65 /* NumberPad.swift in Sources */,
 				EBA593C0217A890500F3CB65 /* IWallet.swift in Sources */,
 				EB976CEE217BA75900B8DC95 /* ApiParamsTx.swift in Sources */,
@@ -764,6 +773,7 @@
 				EBC9F77C21822F4900150883 /* ApiAnswer.swift in Sources */,
 				EB64509F21811684008397DF /* ApiJoin.swift in Sources */,
 				EBA59393217A815300F3CB65 /* Extensions.swift in Sources */,
+				EBF620C2218BA2AA005C6141 /* RepeatPassVC.swift in Sources */,
 				EBA593D2217A8BFE00F3CB65 /* AuthVC.swift in Sources */,
 				EBA593B3217A84A000F3CB65 /* ScanView.swift in Sources */,
 				EBA593BA217A88EF00F3CB65 /* ETHTransaction.swift in Sources */,

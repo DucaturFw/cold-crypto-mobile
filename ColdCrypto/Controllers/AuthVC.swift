@@ -22,12 +22,6 @@ class AuthVC : UIViewController {
         $0.layer.shadowRadius  = 17.scaled
     })
     
-    private let mRestore = UILabel.new(font: UIFont.hnMedium(18.scaled),
-                                       text: "restore".loc,
-                                       lines: 1,
-                                       color: .white,
-                                       alignment: .center)
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -45,9 +39,8 @@ class AuthVC : UIViewController {
         view.addSubview(mNewOne)
         view.addSubview(mLogo)
         view.addSubview(mTop)
-        view.addSubview(mRestore)
         mNewOne.click = { [weak self] in
-            self?.navigationController?.pushViewController(NewCodeVC(purpose: .createWallet), animated: true)
+            self?.navigationController?.pushViewController(NewCodeVC(), animated: true)
         }
     }
     
@@ -57,7 +50,6 @@ class AuthVC : UIViewController {
         mLogo.center = CGPoint(x: view.width/2.0, y: view.height/2.0)
         mNewOne.frame = CGRect(x: floor((view.width - 307.scaled)/2.0), y: floor(view.height - view.bottomGap - 57.scaled - 78.scaled), width: 307.scaled, height: 57.scaled)
         mTop.origin = CGPoint(x: floor((view.width - mTop.width)/2.0), y: floor(29.scaled + UIApplication.shared.statusBarFrame.maxY))
-        mRestore.center = CGPoint(x: view.width/2.0, y: view.height - 33.scaled - view.bottomGap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
