@@ -9,6 +9,7 @@
 import Malert
 import QRCode
 import UIKit
+import JTHamburgerButton
 
 class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
 
@@ -29,6 +30,15 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
     private let mProfile: Profile
     
     private var mParams: String?
+    
+    private lazy var mLeftMenu = JTHamburgerButton(frame: CGRect(x: 0, y: 0, width: 18, height: 16)).apply({
+        $0.lineColor = 0x007AFF.color
+        $0.lineSpacing = 5.0
+        $0.lineWidth = 24
+        $0.lineHeight = 2
+    }).tap({ [weak self] in
+        self?.present(AppDelegate.menu, animated: true, completion: nil)
+    })
     
     private var defaultCatchBlock: (String)->Void {
         return { [weak self] qr in
@@ -66,7 +76,7 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
         super.viewDidLoad()
         navigationItem.titleView = UIImageView(image: UIImage(named: "smallLogo"))
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightIcon())
-        navigationItem.leftBarButtonItem  = UIBarButtonItem(customView: leftIcon())
+        navigationItem.leftBarButtonItem  = UIBarButtonItem(customView: mLeftMenu)
         view.backgroundColor = .white
         view.addSubview(mBG)
         view.addSubview(mView)
@@ -75,20 +85,20 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
         }
     }
     
+    override func sideMenuDidAppear(animated: Bool) {
+        mLeftMenu.setCurrentModeWithAnimation(JTHamburgerButtonMode.arrow)
+    }
+    
+    override func sideMenuDidDisappear(animated: Bool) {
+        mLeftMenu.setCurrentModeWithAnimation(JTHamburgerButtonMode.hamburger)
+    }
+    
     private func rightIcon() -> UIView {
         return UIImageView(image: UIImage(named: "add")).tap({ [weak self] in
             self?.addNewWallet()
         }).apply({
             $0.contentMode = .center
             $0.frame = $0.frame.insetBy(dx: -10, dy: -10)
-        })
-    }
-    
-    private func leftIcon() -> UIView {
-        return UIImageView(image: UIImage(named: "qrIcon")?.withRenderingMode(.alwaysTemplate)).apply({
-            $0.tintColor = 0x007AFF.color
-        }).tap({ [weak self] in
-            self?.startScanning()
         })
     }
     

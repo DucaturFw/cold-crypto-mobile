@@ -7,11 +7,22 @@
 //
 
 import UIKit
+import SideMenu
 import HockeySDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    public static var version: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+    }
+    
+    public static var build: String? {
+        return Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String
+    }
+    
+    static let menu = UISideMenuNavigationController(rootViewController: MenuVC())
+    
     var window: UIWindow?
     
     private let mBlur: UIVisualEffectView = {
@@ -34,6 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Settings.isFirstStart = false
             Settings.clear()
         }
+        
+        SideMenuManager.default.menuLeftNavigationController = AppDelegate.menu
+        SideMenuManager.default.menuFadeStatusBar = false
         
         UINavigationBar.appearance().shadowImage   = UIImage()
         UINavigationBar.appearance().isTranslucent = true
@@ -99,6 +113,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             AppDelegate.params = params
         }
         return true
+    }
+    
+    static func resetWallet() {
+        Settings.profile  = nil
+        Settings.passcode = nil
+        ((UIApplication.shared.delegate as? AppDelegate)?.window?.rootViewController as? UINavigationController)?.setViewControllers([AuthVC()], animated: true)
     }
 
 }

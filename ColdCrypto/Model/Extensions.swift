@@ -10,6 +10,7 @@ import MBProgressHUD
 import Foundation
 import HandyJSON
 import UIKit
+import SideMenu
 
 extension UIFont {
     
@@ -397,4 +398,53 @@ extension HandyJSON {
         block(self)
         return self
     }
+}
+
+extension UIViewController: UISideMenuNavigationControllerDelegate {
+
+    @objc public func sideMenuWillAppear(menu: UISideMenuNavigationController, animated: Bool) {
+        sideMenuWillAppear(animated: animated)
+    }
+    
+    @objc public func sideMenuDidAppear(menu: UISideMenuNavigationController, animated: Bool) {
+        sideMenuDidAppear(animated: animated)
+    }
+    
+    @objc public func sideMenuWillDisappear(menu: UISideMenuNavigationController, animated: Bool) {
+        sideMenuWillDisappear(animated: animated)
+    }
+    
+    @objc public func sideMenuDidDisappear(menu: UISideMenuNavigationController, animated: Bool) {
+        sideMenuDidDisappear(animated: animated)
+    }
+    
+    @objc public func sideMenuWillAppear(animated: Bool) {}
+    
+    @objc public func sideMenuDidAppear(animated: Bool) {}
+    
+    @objc public func sideMenuWillDisappear(animated: Bool) {}
+    
+    @objc public func sideMenuDidDisappear(animated: Bool) {}
+    
+}
+
+protocol Tmp: class {
+    
+}
+
+extension Tmp {
+    
+    static func register(in table: UITableView) {
+        table.register(self, forCellReuseIdentifier: ObjectIdentifier(self).debugDescription)
+    }
+    
+    static func get(from table: UITableView, at position: IndexPath) -> Self {
+        return table.dequeueReusableCell(withIdentifier: ObjectIdentifier(self).debugDescription, for: position) as! Self
+    }
+}
+
+extension UITableViewCell: Tmp {
+    
+
+    
 }

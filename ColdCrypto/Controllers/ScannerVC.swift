@@ -48,17 +48,46 @@ class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         tmp.direction = .down
         mClose.addGestureRecognizer(tmp)
 
+        if AVCaptureDevice.authorizationStatus(for: .video) == .authorized {
+            request()
+        } else {
+            AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { [weak self] result in
+                DispatchQueue.main.async {
+                    if result {
+                        self?.request()
+                    } else {
+                        self?.presentCameraSettings()
+                    }
+                }
+            })
+        }
+    }
+    
+    func presentCameraSettings() {
+        let alert = UIAlertController(title: "error".loc,
+                                      message: "error_desc".loc,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "cancel".loc, style: .default))
+        alert.addAction(UIAlertAction(title: "go_settings".loc, style: .cancel) { _ in
+            if let url = URL(string: UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        })
+        present(alert, animated: true)
+    }
+    
+    private func request() {
+        let metadataOutput = AVCaptureMetadataOutput()
         if let device = AVCaptureDevice.default(for: .video),
             let input = try? AVCaptureDeviceInput(device: device),
-            captureSession.canAddInput(input) {
+            captureSession.canAddInput(input),
+            captureSession.canAddOutput(metadataOutput) {
             captureSession.addInput(input)
-        }
-
-        let metadataOutput = AVCaptureMetadataOutput()
-        if (captureSession.canAddOutput(metadataOutput)) {
             captureSession.addOutput(metadataOutput)
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-            metadataOutput.metadataObjectTypes = [.qr]
+            if metadataOutput.availableMetadataObjectTypes.contains(.qr) {
+                metadataOutput.metadataObjectTypes = [.qr]
+            }
         }
     }
 
@@ -87,9 +116,7 @@ class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if !captureSession.isRunning && captureSession.outputs.count > 0 {
-            captureSession.startRunning()
-        }
+        start()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -105,6 +132,12 @@ class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
 
+    func start() {
+        if !captureSession.isRunning && captureSession.outputs.count > 0 {
+            captureSession.startRunning()
+        }
+    }
+    
     func stop() {
         mOverlay.pause()
         if captureSession.isRunning {

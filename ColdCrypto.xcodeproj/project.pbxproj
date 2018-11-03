@@ -61,6 +61,8 @@
 		EBC9F78421822FC000150883 /* ApiMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC9F78321822FC000150883 /* ApiMessage.swift */; };
 		EBC9F7862182321600150883 /* ApiIce.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC9F7852182321600150883 /* ApiIce.swift */; };
 		EBC9F79421824F2B00150883 /* ApiChains.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC9F79321824F2B00150883 /* ApiChains.swift */; };
+		EBD0B11C218DFBED00FD1B37 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0B11B218DFBED00FD1B37 /* MenuVC.swift */; };
+		EBD0B12F218E3D9A00FD1B37 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0B12E218E3D9A00FD1B37 /* MenuCell.swift */; };
 		EBDCD55C217FD85E00B6EF5B /* ConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */; };
 		EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D0217928BF006879F7 /* AppDelegate.swift */; };
 		EBE484D3217928BF006879F7 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D2217928BF006879F7 /* ProfileVC.swift */; };
@@ -237,6 +239,8 @@
 		EBC9F78321822FC000150883 /* ApiMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiMessage.swift; sourceTree = "<group>"; };
 		EBC9F7852182321600150883 /* ApiIce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiIce.swift; sourceTree = "<group>"; };
 		EBC9F79321824F2B00150883 /* ApiChains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiChains.swift; sourceTree = "<group>"; };
+		EBD0B11B218DFBED00FD1B37 /* MenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
+		EBD0B12E218E3D9A00FD1B37 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationVC.swift; sourceTree = "<group>"; };
 		EBE484CD217928BF006879F7 /* ColdCrypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColdCrypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE484D0217928BF006879F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -311,6 +315,7 @@
 				EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */,
 				EBF620B9218B9134005C6141 /* PasswordVC.swift */,
 				EBF620C1218BA2AA005C6141 /* RepeatPassVC.swift */,
+				EBD0B11B218DFBED00FD1B37 /* MenuVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 				EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */,
 				EB3F8AFD218357D5004E6CFB /* WalletView.swift */,
 				EB1A0BEF218A27D300C43E72 /* CardsList.swift */,
+				EBD0B12E218E3D9A00FD1B37 /* MenuCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -644,11 +650,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto-frameworks.sh",
 				"${PODS_ROOT}/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework",
 				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/JTHamburgerButton/JTHamburgerButton.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Malert/Malert.framework",
 				"${BUILT_PRODUCTS_DIR}/QRCode/QRCode.framework",
 				"${BUILT_PRODUCTS_DIR}/RNCryptor/RNCryptor.framework",
+				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/TGLStackedViewController/TGLStackedViewController.framework",
 			);
@@ -656,11 +664,13 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTHamburgerButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Malert.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCode.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNCryptor.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TGLStackedViewController.framework",
 			);
@@ -748,6 +758,7 @@
 				EBA5938B217A813F00F3CB65 /* Button.swift in Sources */,
 				EBA593CE217A8B6400F3CB65 /* Chain.swift in Sources */,
 				EB74B457217CCFFB006AE00F /* ScanButton.swift in Sources */,
+				EBD0B11C218DFBED00FD1B37 /* MenuVC.swift in Sources */,
 				EB64509721810A82008397DF /* Signer.swift in Sources */,
 				EBC9F79421824F2B00150883 /* ApiChains.swift in Sources */,
 				EB6450952181074D008397DF /* RTCStates.swift in Sources */,
@@ -760,6 +771,7 @@
 				EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */,
 				EB976CEC217BA6CE00B8DC95 /* ApiParamsWallet.swift in Sources */,
 				EB3ECC652180F74600D14656 /* ApiSign.swift in Sources */,
+				EBD0B12F218E3D9A00FD1B37 /* MenuCell.swift in Sources */,
 				EB3F8AFC218357C2004E6CFB /* WalletPicker.swift in Sources */,
 				EB64509D2181152E008397DF /* ApiOffer.swift in Sources */,
 				EBB15F872184EEF600F6370E /* CodeView.swift in Sources */,

@@ -39,3 +39,17 @@
 "type_pass" = "Type your\npassword again";
 "repeat_pass_bot" = "Since you’re going to be your own bank, we won’t be able to help if you lose your password.";
 "back" = "Back";
+"error" = "Error";
+"error_desc" = "Camera access is denied";
+"go_settings" = "Go to settings";
+
+"contact" = "Contact";
+"user_guide" = "User guide";
+"knowledge" = "Knowledge base";
+"privacy" = "Privacy and terms";
+"website" = "ColdCrypto.io";
+"about" = "About";
+"reset" = "Reset wallet";
+"sure_reset" = "You can lose your account and funds forever.\nDon't reset if you didn't make a backup, as there will be no way to restore your account after that. Resetting wallet will remove all keys saved in the local vault and bring you back to the app's start screen.";
+"reset_yes" = "Reset wallet";
+"reset_no" = "Cancel";

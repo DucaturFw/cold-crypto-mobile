@@ -32,7 +32,7 @@ class PasswordVC: UIViewController {
                                             $0.frame = $0.frame.insetBy(dx: -18.0, dy: -2.0)
                                          }).tap({ [weak self] in
                                             if let pass = self?.mField.text, pass.count > 0 {
-                                                self?.navigationController?.setViewControllers([RepeatPassVC(password: pass)], animated: true)
+                                                self?.navigationController?.pushViewController(RepeatPassVC(password: pass), animated: true)
                                             }
                                          })
     

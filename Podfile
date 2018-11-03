@@ -8,12 +8,14 @@ target 'ColdCrypto' do
   # Pods for ColdCrypto
   pod 'TGLStackedViewController', '~> 2.2'
   pod 'RNCryptor', '~> 5.0'
+  pod 'JTHamburgerButton'
   pod 'KeychainAccess'
   pod 'MBProgressHUD'
   pod 'GoogleWebRTC'
   pod 'Starscream'
   pod 'HandyJSON'
   pod 'HockeySDK'
+  pod 'SideMenu'
   pod 'QRCode'
   pod 'Malert'
 
