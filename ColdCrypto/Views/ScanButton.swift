@@ -10,7 +10,9 @@ import UIKit
 
 class ScanButton: UIView {
     
-    private let mIcon = UIImageView(image: UIImage(named: "qrIcon")?.withRenderingMode(.alwaysTemplate))
+    private let mIcon = UIImageView(image: UIImage(named: "qrIcon")?.withRenderingMode(.alwaysTemplate)).apply({
+        $0.tintColor = .white
+    })
     
     private let mText = UILabel.new(font: UIFont.hnMedium(18.scaled), text: "scan".loc, lines: 1, color: .white, alignment: .center)
     

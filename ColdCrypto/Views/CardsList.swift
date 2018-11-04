@@ -17,6 +17,8 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
     
     var onDelete: (IWallet)->Void = { _ in }
     
+    var onActive: (IWallet?)->Void = { _ in }
+    
     private var mReversedWallets: [IWallet] = [IWallet]()
     var wallets: [IWallet] = [] {
         didSet {
@@ -85,6 +87,7 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
     
     private func set(selected: IndexPath?, completion: @escaping ()->Void) {
         if let s = selected, let newLayout = TGLExposedLayout(exposedItemIndex: s.item) {
+            onActive(wallets[s.row])
             mLayout.contentOffset = contentOffset;
             (cellForItem(at: s) as? WalletView)?.fullVisible = true
             newLayout.layoutMargin = mLayout.layoutMargin
@@ -98,6 +101,7 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
                 completion()
             })
         } else if let s = mSelected {
+            onActive(nil)
             (cellForItem(at: s) as? WalletView)?.fullVisible = false
             UIApplication.shared.beginIgnoringInteractionEvents()
             setCollectionViewLayout(mLayout, animated: true, completion: { finished in

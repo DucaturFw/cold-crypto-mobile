@@ -11,7 +11,6 @@
 		EB1A0BF0218A27D300C43E72 /* CardsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1A0BEF218A27D300C43E72 /* CardsList.swift */; };
 		EB3ECC5D2180E8CD00D14656 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */; };
 		EB3ECC652180F74600D14656 /* ApiSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC642180F74600D14656 /* ApiSign.swift */; };
-		EB3F8AFC218357C2004E6CFB /* WalletPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3F8AFB218357C2004E6CFB /* WalletPicker.swift */; };
 		EB3F8AFE218357D5004E6CFB /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3F8AFD218357D5004E6CFB /* WalletView.swift */; };
 		EB6450892181069F008397DF /* SignalClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6450882181069F008397DF /* SignalClient.swift */; };
 		EB64509321810736008397DF /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64509221810736008397DF /* WebRTCClient.swift */; };
@@ -188,7 +187,6 @@
 		EB1A0BEF218A27D300C43E72 /* CardsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsList.swift; sourceTree = "<group>"; };
 		EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		EB3ECC642180F74600D14656 /* ApiSign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSign.swift; sourceTree = "<group>"; };
-		EB3F8AFB218357C2004E6CFB /* WalletPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletPicker.swift; sourceTree = "<group>"; };
 		EB3F8AFD218357D5004E6CFB /* WalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
 		EB6450882181069F008397DF /* SignalClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalClient.swift; sourceTree = "<group>"; };
 		EB64509221810736008397DF /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
@@ -344,7 +342,6 @@
 				EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */,
 				EBB15F862184EEF600F6370E /* CodeView.swift */,
 				EBA5938A217A813F00F3CB65 /* Button.swift */,
-				EB3F8AFB218357C2004E6CFB /* WalletPicker.swift */,
 				EB74B456217CCFFB006AE00F /* ScanButton.swift */,
 				EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */,
 				EB3F8AFD218357D5004E6CFB /* WalletView.swift */,
@@ -772,7 +769,6 @@
 				EB976CEC217BA6CE00B8DC95 /* ApiParamsWallet.swift in Sources */,
 				EB3ECC652180F74600D14656 /* ApiSign.swift in Sources */,
 				EBD0B12F218E3D9A00FD1B37 /* MenuCell.swift in Sources */,
-				EB3F8AFC218357C2004E6CFB /* WalletPicker.swift in Sources */,
 				EB64509D2181152E008397DF /* ApiOffer.swift in Sources */,
 				EBB15F872184EEF600F6370E /* CodeView.swift in Sources */,
 				EBA593D4217A8C0300F3CB65 /* NewCodeVC.swift in Sources */,

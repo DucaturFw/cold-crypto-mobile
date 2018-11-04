@@ -11,25 +11,26 @@ import QRCode
 import UIKit
 import JTHamburgerButton
 
-class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
+class ProfileVC: UIViewController, Signer {
 
     private let mBG = UIImageView(image: UIImage(named: "mainBG")).apply({
         $0.contentMode = .scaleAspectFill
     })
-    
-    private let mPicker: WalletPicker
-    
+        
     private var mWebRTC: RTC? = nil
     
-    private let mPages = UIPageControl().apply({
-        $0.pageIndicatorTintColor = 0xC7CCD7.color
-        $0.currentPageIndicatorTintColor = 0x1888FE.color
-        $0.hidesForSinglePage = true
-    })
-    
+    private let mScan = ScanButton()
+
     private let mProfile: Profile
     
     private var mParams: String?
+    
+    private lazy var mRightAdd = UIImageView(image: UIImage(named: "add")).tap({ [weak self] in
+        self?.addNewWallet()
+    }).apply({
+        $0.contentMode = .center
+        $0.frame = $0.frame.insetBy(dx: -10, dy: -10)
+    })
     
     private lazy var mLeftMenu = JTHamburgerButton(frame: CGRect(x: 0, y: 0, width: 18, height: 16)).apply({
         $0.lineColor = 0x007AFF.color
@@ -55,16 +56,29 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
         v.onDelete = { [weak self] w in
             self?.delete(wallet: w)
         }
+        v.onActive = { [weak self] w in
+            self?.mActiveWallet = w
+        }
     })
+    
+    private var mActiveWallet: IWallet? {
+        didSet {
+            let w = mActiveWallet
+            UIView.animate(withDuration: 0.25, animations: {
+                self.mScan.transform = CGAffineTransform(translationX: 0, y: w == nil  ? 84.scaled : 0)
+                self.mLeftMenu.isUserInteractionEnabled = (w == nil)
+                self.mRightAdd.isUserInteractionEnabled = self.mLeftMenu.isUserInteractionEnabled
+                self.mLeftMenu.alpha = (w == nil ? 1.0 : 0.0)
+                self.mRightAdd.alpha = self.mLeftMenu.alpha
+            })
+        }
+    }
     
     init(profile: Profile, params: String?) {
         mProfile = profile
-        mPicker  = WalletPicker(profile: mProfile)
         mParams  = params
         super.init(nibName: nil, bundle: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(close), name: .UIApplicationDidEnterBackground, object: nil)
-        mPages.numberOfPages = mPicker.count
-        mPicker.delegate = self
         mView.wallets = mProfile.chains.flatMap({ $0.wallets })
     }
     
@@ -75,14 +89,18 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.titleView = UIImageView(image: UIImage(named: "smallLogo"))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightIcon())
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: mRightAdd)
         navigationItem.leftBarButtonItem  = UIBarButtonItem(customView: mLeftMenu)
         view.backgroundColor = .white
         view.addSubview(mBG)
         view.addSubview(mView)
-        mPicker.onTap = { [weak self] w in
-            self?.share(image: nil, text: w.address)
+        view.addSubview(mScan)
+        UIView.performWithoutAnimation {
+            self.mActiveWallet = nil
         }
+        mScan.tap({ [weak self] in
+            self?.startScanning()
+        })
     }
     
     override func sideMenuDidAppear(animated: Bool) {
@@ -92,16 +110,7 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
     override func sideMenuDidDisappear(animated: Bool) {
         mLeftMenu.setCurrentModeWithAnimation(JTHamburgerButtonMode.hamburger)
     }
-    
-    private func rightIcon() -> UIView {
-        return UIImageView(image: UIImage(named: "add")).tap({ [weak self] in
-            self?.addNewWallet()
-        }).apply({
-            $0.contentMode = .center
-            $0.frame = $0.frame.insetBy(dx: -10, dy: -10)
-        })
-    }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -123,6 +132,11 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
         super.viewDidLayoutSubviews()
         mBG.frame = view.bounds
         mView.frame = view.bounds
+        
+        let t = mScan.transform
+        mScan.transform = .identity
+        mScan.frame = CGRect(x: 34.scaled, y: view.height - 84.scaled, width: view.width - 68.scaled, height: 57.scaled)
+        mScan.transform = t
     }
     
     private func startScanning() {
@@ -237,10 +251,10 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
     @discardableResult
     func payToAddress(json: String, id: Int, completion: @escaping (String)->Void) -> Bool {
         guard let c = ApiPay.deserialize(from: json) else { return false }
-        let bb = (c.blockchain ?? "eth").uppercased()
-        guard let b = Blockchain(rawValue: bb) else { return false }
-        guard let wallets = mProfile.chains.first(where: { $0.id == b })?.wallets, wallets.count > 0 else { return false }
-        let w = mPages.currentPage < wallets.count ? wallets[mPages.currentPage] : wallets[0]
+//        let bb = (c.blockchain ?? "eth").uppercased()
+//        guard let b = Blockchain(rawValue: bb) else { return false }
+//        guard let wallets = mProfile.chains.first(where: { $0.id == b })?.wallets, wallets.count > 0 else { return false }
+        guard let w = mActiveWallet else { return false }
         DispatchQueue.main.async {
             self.present(ConfirmationVC(to: c.to, amount: c.amountFormatted, onConfirm: { [weak self] in
                 guard let s = self else { return }
@@ -291,14 +305,6 @@ class ProfileVC: UIViewController, Signer, UIScrollViewDelegate {
             }), animated: true, completion: nil)
         }
         return true
-    }
-    
-    // MARK: - UIScrollViewDelegate methods
-    // -------------------------------------------------------------------------
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard mPicker.width > 0 else { return }
-        let p = mPicker.contentOffset.x / mPicker.width
-        mPages.currentPage = Int((p - floor(p) > 0.9) ? ceil(p) : floor(p))
     }
     
 }
