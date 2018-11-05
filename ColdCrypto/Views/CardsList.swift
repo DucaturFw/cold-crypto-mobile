@@ -94,19 +94,19 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
             newLayout.itemSize = mLayout.itemSize
             newLayout.bottomPinningCount = 0
             newLayout.topPinningCount = 0
-            UIApplication.shared.beginIgnoringInteractionEvents()
+            AppDelegate.lock()
             setCollectionViewLayout(newLayout, animated: true, completion: { finished in
                 self.mLayout.overwriteContentOffset = true
-                UIApplication.shared.endIgnoringInteractionEvents()
+                AppDelegate.unlock()
                 completion()
             })
         } else if let s = mSelected {
             onActive(nil)
             (cellForItem(at: s) as? WalletView)?.fullVisible = false
-            UIApplication.shared.beginIgnoringInteractionEvents()
+            AppDelegate.lock()
             setCollectionViewLayout(mLayout, animated: true, completion: { finished in
-                UIApplication.shared.endIgnoringInteractionEvents()
                 self.mLayout.overwriteContentOffset = false
+                AppDelegate.unlock()
                 completion()
             })
         } else {

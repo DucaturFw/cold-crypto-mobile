@@ -62,6 +62,9 @@
 		EBC9F79421824F2B00150883 /* ApiChains.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC9F79321824F2B00150883 /* ApiChains.swift */; };
 		EBD0B11C218DFBED00FD1B37 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0B11B218DFBED00FD1B37 /* MenuVC.swift */; };
 		EBD0B12F218E3D9A00FD1B37 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0B12E218E3D9A00FD1B37 /* MenuCell.swift */; };
+		EBD4FCC82190BBBF0080D1A9 /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4FCC72190BBBF0080D1A9 /* PopAnimator.swift */; };
+		EBD4FCCA2190BFC20080D1A9 /* IPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4FCC92190BFC20080D1A9 /* IPopover.swift */; };
+		EBD4FCCC2190D4D50080D1A9 /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4FCCB2190D4D50080D1A9 /* PopupVC.swift */; };
 		EBDCD55C217FD85E00B6EF5B /* ConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */; };
 		EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D0217928BF006879F7 /* AppDelegate.swift */; };
 		EBE484D3217928BF006879F7 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D2217928BF006879F7 /* ProfileVC.swift */; };
@@ -239,6 +242,9 @@
 		EBC9F79321824F2B00150883 /* ApiChains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiChains.swift; sourceTree = "<group>"; };
 		EBD0B11B218DFBED00FD1B37 /* MenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
 		EBD0B12E218E3D9A00FD1B37 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		EBD4FCC72190BBBF0080D1A9 /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
+		EBD4FCC92190BFC20080D1A9 /* IPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPopover.swift; sourceTree = "<group>"; };
+		EBD4FCCB2190D4D50080D1A9 /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
 		EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationVC.swift; sourceTree = "<group>"; };
 		EBE484CD217928BF006879F7 /* ColdCrypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColdCrypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE484D0217928BF006879F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -314,6 +320,7 @@
 				EBF620B9218B9134005C6141 /* PasswordVC.swift */,
 				EBF620C1218BA2AA005C6141 /* RepeatPassVC.swift */,
 				EBD0B11B218DFBED00FD1B37 /* MenuVC.swift */,
+				EBD4FCCB2190D4D50080D1A9 /* PopupVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -330,6 +337,8 @@
 				EBA593CB217A8AF800F3CB65 /* Profile.swift */,
 				EBA593CD217A8B6400F3CB65 /* Chain.swift */,
 				EB64509621810A82008397DF /* Signer.swift */,
+				EBD4FCC72190BBBF0080D1A9 /* PopAnimator.swift */,
+				EBD4FCC92190BFC20080D1A9 /* IPopover.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -757,6 +766,7 @@
 				EB74B457217CCFFB006AE00F /* ScanButton.swift in Sources */,
 				EBD0B11C218DFBED00FD1B37 /* MenuVC.swift in Sources */,
 				EB64509721810A82008397DF /* Signer.swift in Sources */,
+				EBD4FCCA2190BFC20080D1A9 /* IPopover.swift in Sources */,
 				EBC9F79421824F2B00150883 /* ApiChains.swift in Sources */,
 				EB6450952181074D008397DF /* RTCStates.swift in Sources */,
 				EBA593E0217A8D1900F3CB65 /* Alert.swift in Sources */,
@@ -782,6 +792,8 @@
 				EB64509F21811684008397DF /* ApiJoin.swift in Sources */,
 				EBA59393217A815300F3CB65 /* Extensions.swift in Sources */,
 				EBF620C2218BA2AA005C6141 /* RepeatPassVC.swift in Sources */,
+				EBD4FCC82190BBBF0080D1A9 /* PopAnimator.swift in Sources */,
+				EBD4FCCC2190D4D50080D1A9 /* PopupVC.swift in Sources */,
 				EBA593D2217A8BFE00F3CB65 /* AuthVC.swift in Sources */,
 				EBA593B3217A84A000F3CB65 /* ScanView.swift in Sources */,
 				EBA593BA217A88EF00F3CB65 /* ETHTransaction.swift in Sources */,

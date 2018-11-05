@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class ScannerVC: PopupVC, AVCaptureMetadataOutputObjectsDelegate {
     
     private let captureSession = AVCaptureSession()
     
@@ -19,10 +19,6 @@ class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     private let mOverlay = ScanView()
     
-    private let mBG = UIImageView(image: UIImage(named: "mainBG")).apply({
-        $0.contentMode = .scaleAspectFill
-    })
-    
     private let mHint = UILabel.new(font: UIFont.hnRegular(18.scaled), text: "scan_hint".loc, lines: 0, color: .black, alignment: .left)
     
     private lazy var mClose = UIImageView(image: UIImage(named: "scanClose")).apply {
@@ -31,22 +27,16 @@ class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }.tap({ [weak self] in
         self?.dismiss(animated: true, completion: nil)
     })
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.titleView = UIImageView(image: UIImage(named: "scan"))
-        view.backgroundColor = .white
         previewLayer.videoGravity = .resizeAspectFill
         previewLayer.backgroundColor = UIColor.black.cgColor
-        view.addSubview(mBG)
-        view.layer.addSublayer(previewLayer)
-        view.addSubview(mClose)
-        view.addSubview(mHint)
-        view.addSubview(mOverlay)
-        
-        let tmp = UISwipeGestureRecognizer(target: self, action: #selector(ScannerVC.close))
-        tmp.direction = .down
-        mClose.addGestureRecognizer(tmp)
+        content.layer.addSublayer(previewLayer)
+        content.addSubview(mClose)
+        content.addSubview(mHint)
+        content.addSubview(mOverlay)
+        mClose.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ScannerVC.close)))
 
         if AVCaptureDevice.authorizationStatus(for: .video) == .authorized {
             request()
@@ -62,7 +52,7 @@ class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             })
         }
     }
-    
+
     func presentCameraSettings() {
         let alert = UIAlertController(title: "error".loc,
                                       message: "error_desc".loc,
@@ -93,18 +83,17 @@ class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        mBG.frame = view.bounds
+        let width  = content.width
+        let height = content.height
         
-        let t = navigationController?.navigationBar.maxY ?? 0
-        
-        previewLayer.frame = CGRect(x: 0, y: t, width: view.width, height: view.width / 376.0 * 275.0)
-        mClose.origin = CGPoint(x: (view.width - mClose.width)/2.0, y: view.height - mClose.height - view.bottomGap)
+        previewLayer.frame = CGRect(x: 0, y: 0, width: width, height: width / 376.0 * 275.0)
+        mClose.origin = CGPoint(x: (width - mClose.width)/2.0, y: height - mClose.height - view.bottomGap)
         
         let s = previewLayer.frame.height
-        let c = CGPoint(x: view.width/2.0, y: previewLayer.frame.height/2.0)
-        mOverlay.frame = CGRect(x: 0, y: t + c.y - s/2.0, width: view.width, height: s)
+        let c = CGPoint(x: width/2.0, y: previewLayer.frame.height/2.0)
+        mOverlay.frame = CGRect(x: 0, y: c.y - s/2.0, width: width, height: s)
         
-        let w = view.width - 36.scaled
+        let w = width - 36.scaled
         mHint.frame = CGRect(x: 18.scaled, y: previewLayer.frame.maxY + 33.scaled,
                              width: w, height: mHint.text?.heightFor(width: w, font: mHint.font) ?? 0)
     }
@@ -148,5 +137,5 @@ class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     @objc private func close() {
         dismiss(animated: true, completion: nil)
     }
-    
+
 }

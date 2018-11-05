@@ -41,6 +41,10 @@ class ProfileVC: UIViewController, Signer {
         self?.present(AppDelegate.menu, animated: true, completion: nil)
     })
     
+    private var scanMinY: CGFloat {
+        return 84.scaled + view.bottomGap
+    }
+    
     private var defaultCatchBlock: (String)->Void {
         return { [weak self] qr in
             DispatchQueue.main.async {
@@ -65,7 +69,7 @@ class ProfileVC: UIViewController, Signer {
         didSet {
             let w = mActiveWallet
             UIView.animate(withDuration: 0.25, animations: {
-                self.mScan.transform = CGAffineTransform(translationX: 0, y: w == nil  ? 84.scaled : 0)
+                self.mScan.transform = CGAffineTransform(translationX: 0, y: w == nil  ? self.scanMinY : 0)
                 self.mLeftMenu.isUserInteractionEnabled = (w == nil)
                 self.mRightAdd.isUserInteractionEnabled = self.mLeftMenu.isUserInteractionEnabled
                 self.mLeftMenu.alpha = (w == nil ? 1.0 : 0.0)
@@ -135,7 +139,7 @@ class ProfileVC: UIViewController, Signer {
         
         let t = mScan.transform
         mScan.transform = .identity
-        mScan.frame = CGRect(x: 34.scaled, y: view.height - 84.scaled, width: view.width - 68.scaled, height: 57.scaled)
+        mScan.frame = CGRect(x: 34.scaled, y: view.height - scanMinY, width: view.width - 68.scaled, height: 57.scaled)
         mScan.transform = t
     }
     
@@ -147,7 +151,7 @@ class ProfileVC: UIViewController, Signer {
                 vc?.dismiss(animated: true, completion: nil)
             }
         }
-        present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+        present(vc, animated: true, completion: nil)
     }
 
     private func webrtcLogin(json: String) -> Bool {

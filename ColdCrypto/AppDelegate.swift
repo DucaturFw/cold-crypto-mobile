@@ -120,5 +120,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Settings.passcode = nil
         ((UIApplication.shared.delegate as? AppDelegate)?.window?.rootViewController as? UINavigationController)?.setViewControllers([AuthVC()], animated: true)
     }
+    
+    static func lock() {
+        UIApplication.shared.beginIgnoringInteractionEvents()
+    }
+    
+    static func unlock() {
+        UIApplication.shared.endIgnoringInteractionEvents()
+    }
 
 }

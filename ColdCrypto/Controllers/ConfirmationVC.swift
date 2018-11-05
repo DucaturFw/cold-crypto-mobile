@@ -8,21 +8,7 @@
 
 import UIKit
 
-class ConfirmationVC: UIViewController {
-    
-    private let mLogo = UIImageView(image: UIImage(named: "topWhite"))
-    
-    private let mBG = UIImageView(image: UIImage(named: "bg")).apply({
-        $0.contentMode = .scaleAspectFill
-    })
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    private let mBox = UIView().apply({
-        $0.backgroundColor = UIColor.white
-    })
+class ConfirmationVC: PopupVC {
     
     private let mDecline = Button().apply({
         $0.setTitleColor(UIColor.white, for: .normal)
@@ -61,14 +47,11 @@ class ConfirmationVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(mBG)
-        view.addSubview(mLogo)
-        view.addSubview(mBox)
-        mBox.addSubview(mName)
-        mBox.addSubview(mDecline)
-        mBox.addSubview(mConfirm)
-        mBox.addSubview(mAddress)
-        mBox.addSubview(mAmount)
+        content.addSubview(mName)
+        content.addSubview(mDecline)
+        content.addSubview(mConfirm)
+        content.addSubview(mAddress)
+        content.addSubview(mAmount)
         
         mAmount.onChecked = { [weak self] _ in
             self?.checkConfirm()
@@ -90,39 +73,16 @@ class ConfirmationVC: UIViewController {
         isConfirmEnabled = mAmount.isChecked && mAddress.isChecked
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        mBox.transform = CGAffineTransform(translationX: 0, y: view.height)
-    }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        mBG.frame = view.bounds
-        let t = UIApplication.shared.statusBarFrame.maxY
-        let b = 58.scaled
-        mLogo.origin = CGPoint(x: (view.width - mLogo.width)/2.0, y: t + (b - mLogo.height)/2.0)
-        
-        let tmp = mBox.transform
-        mBox.transform = .identity
-        mBox.frame = CGRect(x: 0, y: t + b, width: view.width, height: view.height - t - b)
-        mBox.round(corners: [.topLeft, .topRight], radius: 10.scaled)
-        mBox.transform = tmp
-        
+
         mName.origin   = CGPoint(x: 18.scaled, y: 48.scaled)
-        mAddress.frame = CGRect(x: 25.scaled, y: mName.maxY + 45.scaled, width: view.width - 60.scaled, height: 0)
+        mAddress.frame = CGRect(x: 25.scaled, y: mName.maxY + 45.scaled, width: content.width - 60.scaled, height: 0)
         mAmount.frame  = CGRect(x: 25.scaled, y: mAddress.maxY + 17.scaled, width: mAddress.width, height: 0)
         
-        let w = (view.width - 76.scaled)/2.0
-        mDecline.frame = CGRect(x: 30.scaled, y: mBox.height - view.bottomGap - 100.scaled, width: w, height: 64.scaled)
+        let w = (content.width - 76.scaled)/2.0
+        mDecline.frame = CGRect(x: 30.scaled, y: content.height - view.bottomGap - 100.scaled, width: w, height: 64.scaled)
         mConfirm.frame = CGRect(x: mDecline.maxX + 16.scaled, y: mDecline.minY, width: mDecline.width, height: mDecline.height)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        UIView.animate(withDuration: 0.35, animations: {
-            self.mBox.transform = .identity
-        })
     }
     
 }
