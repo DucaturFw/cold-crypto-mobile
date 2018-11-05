@@ -53,7 +53,7 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
     }
 
     @objc private func panned(_ s: UIPanGestureRecognizer) {
-        let newFraction = s.translation(in: mContent).y / mContent.height
+        let newFraction = s.translation(in: view).y / view.height
         if newFraction < 0 {
             mAnimator.fractionComplete = 0.0
             s.setTranslation(.zero, in: mContent)
