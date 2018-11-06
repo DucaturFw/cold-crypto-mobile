@@ -10,6 +10,7 @@ target 'ColdCrypto' do
   pod 'RNCryptor', '~> 5.0'
   pod 'JTHamburgerButton'
   pod 'KeychainAccess'
+  pod 'BlockiesSwift'
   pod 'MBProgressHUD'
   pod 'GoogleWebRTC'
   pod 'Starscream'

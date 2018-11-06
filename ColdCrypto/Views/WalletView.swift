@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BlockiesSwift
 
 class WalletView: UICollectionViewCell {
     
@@ -21,16 +22,18 @@ class WalletView: UICollectionViewCell {
         $0.isUserInteractionEnabled = true
     })
     
+    private let mTint = UIView().apply({
+        $0.backgroundColor = UIColor.black.withAlphaComponent(0.15)
+    })
+    
     var fullVisible: Bool = false {
         didSet {
             mDelete.isUserInteractionEnabled = fullVisible
             mBackup.isUserInteractionEnabled = fullVisible
-            UIView.animate(withDuration: 0.25, animations: {
-                self.mDelete.alpha = self.fullVisible ? 1.0 : 0.0
-                self.mBackup.alpha = self.fullVisible ? 1.0 : 0.0
-                let s = self.width / (self.width - 12)
-                self.mContent.transform = self.fullVisible ? CGAffineTransform(scaleX: s, y: s) : .identity
-            })
+            mDelete.alpha = fullVisible ? 1.0 : 0.0
+            mBackup.alpha = fullVisible ? 1.0 : 0.0
+            let s = width / (width - 12)
+            mContent.transform = fullVisible ? CGAffineTransform(scaleX: s, y: s) : .identity
         }
     }
     
@@ -60,12 +63,20 @@ class WalletView: UICollectionViewCell {
     var wallet: IWallet? {
         didSet {
             mAddress.text = wallet?.address
+            if let seed = mAddress.text {
+                let b = Blockies(seed: seed, size: 8, scale: 3,
+                                 color: 0x63DBF6.color,
+                                 bgColor: 0x0089E6.color,
+                                 spotColor: 0xD6F5FD.color)
+                mContent.image = b.createImage(customScale: 20)
+            }
         }
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(mContent)
+        mContent.addSubview(mTint)
         mContent.addSubview(mIcon)
         mContent.addSubview(mAddress)
         mContent.addSubview(mUnits)
@@ -95,6 +106,7 @@ class WalletView: UICollectionViewCell {
         mContent.transform = .identity
         mContent.frame = bounds.insetBy(dx: 6, dy: 6)
 
+        mTint.frame  = mContent.bounds
         mIcon.origin = CGPoint(x: mContent.width - 11.scaled - mIcon.width, y: 14.scaled)
         
         mAmount.sizeToFit()

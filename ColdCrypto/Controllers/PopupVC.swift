@@ -54,11 +54,6 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
 
     @objc private func panned(_ s: UIPanGestureRecognizer) {
         let newFraction = s.translation(in: view).y / view.height
-        if newFraction < 0 {
-            mAnimator.fractionComplete = 0.0
-            s.setTranslation(.zero, in: mContent)
-            return
-        }
         switch s.state {
         case .began:
             mCloseAnimation = false
@@ -71,16 +66,24 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
             mAnimator.startAnimation()
             mAnimator.pauseAnimation()
         case .changed:
-            mCloseAnimation = mAnimator.fractionComplete < newFraction
-            mAnimator.fractionComplete = newFraction
+            if newFraction < 0 {
+                mCloseAnimation = false
+                mAnimator.fractionComplete = 0.0
+                s.setTranslation(.zero, in: mContent)
+            } else {
+                mCloseAnimation = mAnimator.fractionComplete < newFraction
+                mAnimator.fractionComplete = newFraction
+            }
         case .cancelled: fallthrough
         case .ended:
             mAnimator.isReversed = !mCloseAnimation
             if mCloseAnimation {
+                AppDelegate.lock()
                 mAnimator.addCompletion { [weak self] (p) in
                     if let s = self, s.mCloseAnimation {
                         s.dismiss(animated: false, completion: nil)
                     }
+                    AppDelegate.unlock()
                 }
             }
             mAnimator.startAnimation()

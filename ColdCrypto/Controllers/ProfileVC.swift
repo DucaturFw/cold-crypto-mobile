@@ -68,13 +68,11 @@ class ProfileVC: UIViewController, Signer {
     private var mActiveWallet: IWallet? {
         didSet {
             let w = mActiveWallet
-            UIView.animate(withDuration: 0.25, animations: {
-                self.mScan.transform = CGAffineTransform(translationX: 0, y: w == nil  ? self.scanMinY : 0)
-                self.mLeftMenu.isUserInteractionEnabled = (w == nil)
-                self.mRightAdd.isUserInteractionEnabled = self.mLeftMenu.isUserInteractionEnabled
-                self.mLeftMenu.alpha = (w == nil ? 1.0 : 0.0)
-                self.mRightAdd.alpha = self.mLeftMenu.alpha
-            })
+            mScan.transform = CGAffineTransform(translationX: 0, y: w == nil  ? self.scanMinY : 0)
+            mLeftMenu.isUserInteractionEnabled = (w == nil)
+            mRightAdd.isUserInteractionEnabled = mLeftMenu.isUserInteractionEnabled
+            mLeftMenu.alpha = (w == nil ? 1.0 : 0.0)
+            mRightAdd.alpha = mLeftMenu.alpha
         }
     }
     
@@ -99,9 +97,7 @@ class ProfileVC: UIViewController, Signer {
         view.addSubview(mBG)
         view.addSubview(mView)
         view.addSubview(mScan)
-        UIView.performWithoutAnimation {
-            self.mActiveWallet = nil
-        }
+        mActiveWallet = nil
         mScan.tap({ [weak self] in
             self?.startScanning()
         })

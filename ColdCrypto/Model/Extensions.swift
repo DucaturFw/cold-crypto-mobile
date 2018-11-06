@@ -428,11 +428,9 @@ extension UIViewController: UISideMenuNavigationControllerDelegate {
     
 }
 
-protocol Tmp: class {
-    
-}
+protocol ReusableForTable: class { }
 
-extension Tmp {
+extension ReusableForTable {
     
     static func register(in table: UITableView) {
         table.register(self, forCellReuseIdentifier: ObjectIdentifier(self).debugDescription)
@@ -441,10 +439,23 @@ extension Tmp {
     static func get(from table: UITableView, at position: IndexPath) -> Self {
         return table.dequeueReusableCell(withIdentifier: ObjectIdentifier(self).debugDescription, for: position) as! Self
     }
-}
-
-extension UITableViewCell: Tmp {
-    
-
     
 }
+
+extension UITableViewCell: ReusableForTable {}
+
+protocol ReusableForCollection: class { }
+
+extension ReusableForCollection {
+    
+    static func register(in table: UICollectionView) {
+        table.register(self, forCellWithReuseIdentifier: ObjectIdentifier(self).debugDescription)
+    }
+    
+    static func get(from table: UICollectionView, at position: IndexPath) -> Self {
+        return table.dequeueReusableCell(withReuseIdentifier: ObjectIdentifier(self).debugDescription, for: position) as! Self
+    }
+    
+}
+
+extension UICollectionViewCell: ReusableForCollection {}

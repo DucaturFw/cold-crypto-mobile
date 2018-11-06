@@ -27,6 +27,10 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
         }
     }
     
+    private lazy var mTap = UITapGestureRecognizer(target: self, action: #selector(hideTapped))
+    
+    private lazy var mPan = UIPanGestureRecognizer(target: self, action: #selector(panned(_:)))
+    
     private let mLayout: TGLStackedLayout = {
         let wid = UIScreen.main.bounds.width
         let tmp = TGLStackedLayout()
@@ -44,6 +48,7 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
         dataSource = self
         delegate = self
         register(WalletView.self, forCellWithReuseIdentifier: "cell")
+        WalletView.register(in: self)
         contentInsetAdjustmentBehavior = .never
     }
     
@@ -52,7 +57,7 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
     }
     
     func add(wallet: IWallet) {
-        set(selected: nil, completion: {
+        let completion = {
             UIApplication.shared.beginIgnoringInteractionEvents()
             self.performBatchUpdates({
                 self.mReversedWallets.insert(wallet, at: 0)
@@ -60,10 +65,17 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
                 self.insertItems(at: [IndexPath(item: 0, section: 0)])
             }, completion: { _ in
                 UIApplication.shared.endIgnoringInteractionEvents()
-//                self.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
                 self.setContentOffset(.zero, animated: true)
             })
-        })
+        }
+        
+        if let a = set(selected: nil) {
+            a.addCompletion({ _ in
+                completion()
+            })
+        } else {
+            completion()
+        }
     }
     
     func delete(wallet: IWallet) {
@@ -85,34 +97,119 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
         })
     }
     
-    private func set(selected: IndexPath?, completion: @escaping ()->Void) {
+    @discardableResult
+    private func set(selected: IndexPath?) -> UIViewPropertyAnimator? {
+        let anim: UIViewPropertyAnimator?
         if let s = selected, let newLayout = TGLExposedLayout(exposedItemIndex: s.item) {
-            onActive(wallets[s.row])
             mLayout.contentOffset = contentOffset;
-            (cellForItem(at: s) as? WalletView)?.fullVisible = true
+            mActive = wallets[s.row]
+            mPrevLayout = newLayout
             newLayout.layoutMargin = mLayout.layoutMargin
             newLayout.itemSize = mLayout.itemSize
             newLayout.bottomPinningCount = 0
             newLayout.topPinningCount = 0
             AppDelegate.lock()
-            setCollectionViewLayout(newLayout, animated: true, completion: { finished in
-                self.mLayout.overwriteContentOffset = true
-                AppDelegate.unlock()
-                completion()
+            anim = UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut, animations: { [weak self] in
+                self?.showFirst(newLayout: newLayout, s: s, wallet: self?.mActive)
             })
+            anim?.addCompletion({ [weak self] _ in
+                self?.showLast(s: s)
+                AppDelegate.unlock()
+            })
+            anim?.startAnimation()
+            addGestureRecognizer(mTap)
+            addGestureRecognizer(mPan)
         } else if let s = mSelected {
-            onActive(nil)
-            (cellForItem(at: s) as? WalletView)?.fullVisible = false
             AppDelegate.lock()
-            setCollectionViewLayout(mLayout, animated: true, completion: { finished in
-                self.mLayout.overwriteContentOffset = false
-                AppDelegate.unlock()
-                completion()
+            mActive = nil
+            anim = UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut, animations: { [weak self] in
+                self?.hideFirst(s: s)
             })
+            anim?.addCompletion({ [weak self] _ in
+                self?.hideLast()
+                AppDelegate.unlock()
+            })
+            anim?.startAnimation()
+            removeGestureRecognizer(mTap)
+            removeGestureRecognizer(mPan)
         } else {
-            completion()
+            anim = nil
         }
-        mSelected = selected
+        return anim
+    }
+
+    private func hideFirst(s: IndexPath) {
+        (cellForItem(at: s) as? WalletView)?.fullVisible = false
+        setCollectionViewLayout(mLayout, animated: true, completion: nil)
+        onActive(nil)
+    }
+    
+    private func hideLast() {
+        mLayout.overwriteContentOffset = false
+        mSelected = nil
+    }
+    
+    private func showFirst(newLayout: TGLExposedLayout, s: IndexPath, wallet: IWallet?) {
+        (cellForItem(at: s) as? WalletView)?.fullVisible = true
+        setCollectionViewLayout(newLayout, animated: true, completion: nil)
+        onActive(wallet)
+    }
+    
+    private func showLast(s: IndexPath) {
+        mLayout.overwriteContentOffset = true
+        mSelected = s
+    }
+    
+    @objc private func hideTapped() {
+        set(selected: nil)
+    }
+    
+    private var mCloseAnimation = false
+    private var mAnimator = UIViewPropertyAnimator()
+    private var mPrevLayout: TGLExposedLayout?
+    private var mActive: IWallet?
+    
+    @objc private func panned(_ s: UIPanGestureRecognizer) {
+        guard let selected = mSelected else { return }
+        let newFraction = s.translation(in: self).y / height
+        switch s.state {
+        case .began:
+            mCloseAnimation = false
+            mAnimator = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut, animations: { [weak self] in
+                self?.hideFirst(s: selected)
+            })
+            mAnimator.startAnimation()
+            mAnimator.pauseAnimation()
+        case .changed:
+            if newFraction < 0 {
+                mCloseAnimation = false
+                mAnimator.fractionComplete = 0.0
+                s.setTranslation(.zero, in: self)
+            } else {
+                mCloseAnimation = mAnimator.fractionComplete < newFraction
+                mAnimator.fractionComplete = newFraction
+            }
+        case .ended:
+            mAnimator.isReversed = !mCloseAnimation
+            AppDelegate.lock()
+            if mCloseAnimation {
+                mAnimator.addCompletion { [weak self] (p) in
+                    self?.hideLast()
+                    AppDelegate.unlock()
+                }
+                removeGestureRecognizer(mPan)
+                removeGestureRecognizer(mTap)
+            } else {
+                mAnimator.addCompletion { [weak self] (p) in
+                    if let cv = self?.mPrevLayout {
+                        self?.showFirst(newLayout: cv, s: selected, wallet: self?.mActive)
+                    }
+                    AppDelegate.unlock()
+                }
+            }
+            mAnimator.startAnimation()
+        default: break
+        }
     }
 
     // MARK: - UICollectionViewDataSource methods
@@ -125,14 +222,14 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
         return wallets.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! WalletView
-        cell.wallet = mReversedWallets[indexPath.row]
+    func collectionView(_ cv: UICollectionView, cellForItemAt p: IndexPath) -> UICollectionViewCell {
+        let cell = WalletView.get(from: cv, at: p)
+        cell.wallet = mReversedWallets[p.row]
         cell.onBackUp = { [weak self] w in
             self?.onBackUp(w)
         }
         cell.onDelete = { [weak self] w in
-            self?.set(selected: nil, completion: { [weak self] in
+            self?.set(selected: nil)?.addCompletion({ [weak self] _ in
                 self?.onDelete(w)
             })
         }
@@ -140,7 +237,7 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        set(selected: indexPath.item == mSelected?.item ? nil : indexPath, completion: {})
+        set(selected: indexPath.item == mSelected?.item ? nil : indexPath)
     }
     
 }
