@@ -27,9 +27,29 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
         }
     }
     
+    var detailsForCard: Bool = true
+    
     private lazy var mTap = UITapGestureRecognizer(target: self, action: #selector(hideTapped))
     
     private lazy var mPan = UIPanGestureRecognizer(target: self, action: #selector(panned(_:)))
+    
+    var bottom: CGFloat {
+        get {
+            return mLayout.layoutMargin.bottom
+        }
+        set {
+            mLayout.layoutMargin.bottom = newValue
+        }
+    }
+    
+    var top: CGFloat {
+        get {
+            return mLayout.layoutMargin.top
+        }
+        set {
+            mLayout.layoutMargin.top = newValue
+        }
+    }
     
     private let mLayout: TGLStackedLayout = {
         let wid = UIScreen.main.bounds.width
@@ -150,7 +170,7 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
     }
     
     private func showFirst(newLayout: TGLExposedLayout, s: IndexPath, wallet: IWallet?) {
-        (cellForItem(at: s) as? WalletView)?.fullVisible = true
+        (cellForItem(at: s) as? WalletView)?.fullVisible = detailsForCard
         setCollectionViewLayout(newLayout, animated: true, completion: nil)
         onActive(wallet)
     }

@@ -49,7 +49,10 @@
 "privacy" = "Privacy and terms";
 "website" = "ColdCrypto.io";
 "about" = "About";
-"reset" = "Reset wallet";
+"reset" = "Reset wallets";
 "sure_reset" = "You can lose your account and funds forever.\nDon't reset if you didn't make a backup, as there will be no way to restore your account after that. Resetting wallet will remove all keys saved in the local vault and bring you back to the app's start screen.";
 "reset_yes" = "Reset wallet";
 "reset_no" = "Cancel";
+"select_wallet" = "Select the desired wallet";
+"use" = "USE";
+"no_wallets" = "You have no wallets\nfor selected blockchain";

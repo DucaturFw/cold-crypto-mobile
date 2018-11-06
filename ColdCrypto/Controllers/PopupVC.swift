@@ -30,6 +30,10 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         return mContent
     }
     
+    var dragable: Bool {
+        return true
+    }
+    
     private let mBlur: UIVisualEffectView = UIVisualEffectView(effect: nil)
     
     private var mAnimator = UIViewPropertyAnimator()
@@ -49,14 +53,17 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         view.addSubview(mBlur)
         mBlur.contentView.addSubview(mContent)
         mContent.addSubview(mBG)
-        mContent.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(PopupVC.panned(_:))))
+        if dragable {
+            mContent.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(PopupVC.panned(_:))))
+        }
     }
 
-    @objc private func panned(_ s: UIPanGestureRecognizer) {
+    @objc func panned(_ s: UIPanGestureRecognizer) {
         let newFraction = s.translation(in: view).y / view.height
         switch s.state {
         case .began:
             mCloseAnimation = false
+            mAnimator.stopAnimation(true)
             mAnimator = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut, animations: { [weak self] in
                 if let s = self {
                     s.mBlur.effect = nil

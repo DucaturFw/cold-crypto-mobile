@@ -251,31 +251,43 @@ class ProfileVC: UIViewController, Signer {
     @discardableResult
     func payToAddress(json: String, id: Int, completion: @escaping (String)->Void) -> Bool {
         guard let c = ApiPay.deserialize(from: json) else { return false }
-//        let bb = (c.blockchain ?? "eth").uppercased()
-//        guard let b = Blockchain(rawValue: bb) else { return false }
-//        guard let wallets = mProfile.chains.first(where: { $0.id == b })?.wallets, wallets.count > 0 else { return false }
-        guard let w = mActiveWallet else { return false }
-        DispatchQueue.main.async {
-            self.present(ConfirmationVC(to: c.to, amount: c.amountFormatted, onConfirm: { [weak self] in
-                guard let s = self else { return }
-                s.dismiss(animated: true, completion: {
-                    let hud = s.view.window?.hud
-                    w.pay(to: c, completion: { txHash in
-                        hud?.hide(animated: true)
-                        if let tx = txHash {
-                            if let callback = c.callback, let url = URL(string: callback) {
-                                UIApplication.shared.open(url.append("txHash", value: tx), options: [:], completionHandler: nil)
-                            } else {
-                                completion("|\(id)|\"\(tx)\"")
-                            }
-                        } else {
-                            s.show(text: "Can't pay")
-                        }
-                    })
-                })
-            }), animated: true, completion: nil)
+        let bb = (c.blockchain ?? "eth").uppercased()
+        guard let b = Blockchain(rawValue: bb) else { return false }
+        if let w = mActiveWallet {
+            DispatchQueue.main.async {
+                self.pay(c: c, from: w, json: json, id: id, completion: completion)
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.present(CardPickVC(profile: self.mProfile, blockchain: b, completion: { [weak self] w in
+                    if let w = w {
+                        self?.pay(c: c, from: w, json: json, id: id, completion: completion)
+                    }
+                }), animated: true, completion: nil)
+            }
         }
         return true
+    }
+    
+    private func pay(c: ApiPay, from: IWallet, json: String, id: Int, completion: @escaping (String)->Void) {
+        self.present(ConfirmationVC(to: c.to, amount: c.amountFormatted, onConfirm: { [weak self] in
+            guard let s = self else { return }
+            s.dismiss(animated: true, completion: {
+                let hud = s.view.window?.hud
+                from.pay(to: c, completion: { txHash in
+                    hud?.hide(animated: true)
+                    if let tx = txHash {
+                        if let callback = c.callback, let url = URL(string: callback) {
+                            UIApplication.shared.open(url.append("txHash", value: tx), options: [:], completionHandler: nil)
+                        } else {
+                            completion("|\(id)|\"\(tx)\"")
+                        }
+                    } else {
+                        s.show(text: "Can't pay")
+                    }
+                })
+            })
+        }), animated: true, completion: nil)
     }
     
     @discardableResult
