@@ -36,5 +36,5 @@ class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             })
         }
     }
+    
 }
-

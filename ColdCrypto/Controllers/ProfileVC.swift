@@ -67,12 +67,7 @@ class ProfileVC: UIViewController, Signer {
     
     private var mActiveWallet: IWallet? {
         didSet {
-            let w = mActiveWallet
-            mScan.transform = CGAffineTransform(translationX: 0, y: w == nil  ? self.scanMinY : 0)
-            mLeftMenu.isUserInteractionEnabled = (w == nil)
-            mRightAdd.isUserInteractionEnabled = mLeftMenu.isUserInteractionEnabled
-            mLeftMenu.alpha = (w == nil ? 1.0 : 0.0)
-            mRightAdd.alpha = mLeftMenu.alpha
+            refreshLayout()
         }
     }
     
@@ -97,7 +92,6 @@ class ProfileVC: UIViewController, Signer {
         view.addSubview(mBG)
         view.addSubview(mView)
         view.addSubview(mScan)
-        mActiveWallet = nil
         mScan.tap({ [weak self] in
             self?.startScanning()
         })
@@ -128,11 +122,22 @@ class ProfileVC: UIViewController, Signer {
         }
     }
     
+    private func refreshLayout() {
+        let w = mActiveWallet
+        mScan.transform = CGAffineTransform(translationX: 0, y: w == nil  ? self.scanMinY : 0)
+        mLeftMenu.isUserInteractionEnabled = (w == nil)
+        mRightAdd.isUserInteractionEnabled = mLeftMenu.isUserInteractionEnabled
+        mLeftMenu.alpha = (w == nil ? 1.0 : 0.0)
+        mRightAdd.alpha = mLeftMenu.alpha
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         mBG.frame = view.bounds
         mView.frame = view.bounds
         
+        refreshLayout()
+
         let t = mScan.transform
         mScan.transform = .identity
         mScan.frame = CGRect(x: 34.scaled, y: view.height - scanMinY, width: view.width - 68.scaled, height: 57.scaled)
@@ -175,7 +180,7 @@ class ProfileVC: UIViewController, Signer {
         present(tmp, animated: true, completion: nil)
     }
 
-    private func addNewWallet() {
+    private func addNewWallet2() {
         guard let c = mProfile.chains.first(where: { $0.id == Blockchain.ETH }) else { return }
         let index = c.wallets.max(by: { $0.index < $1.index })?.index ?? 0
         guard let w = mProfile.newWallet(chain: c.id,
@@ -184,6 +189,14 @@ class ProfileVC: UIViewController, Signer {
                                          segwit: false) else { return }
         Settings.profile = mProfile
         mView.add(wallet: w)
+    }
+    
+    private func addNewWallet() {
+        let vc = BlockchainPickerVC()
+        vc.onSelected = { [weak self] in
+            self?.addNewWallet2()
+        }
+        present(vc, animated: true, completion: nil)
     }
     
     private func delete(wallet: IWallet) {

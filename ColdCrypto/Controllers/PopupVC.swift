@@ -108,6 +108,8 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         mContent.transform = trans
     }
 
+    // MARK: - UIViewControllerTransitioningDelegate methods
+    // -------------------------------------------------------------------------
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         mTransition.presenting = true
         return mTransition
