@@ -31,8 +31,9 @@ class PasswordVC: UIViewController {
                                          alignment: .center).apply({
                                             $0.frame = $0.frame.insetBy(dx: -18.0, dy: -2.0)
                                          }).tap({ [weak self] in
-                                            if let pass = self?.mField.text, pass.count > 0 {
-                                                self?.navigationController?.pushViewController(RepeatPassVC(password: pass), animated: true)
+                                            if let pass = self?.mField.text, pass.count > 0, let passcode = self?.mPasscode {
+                                                self?.navigationController?.pushViewController(RepeatPassVC(password: pass,
+                                                                                                            passcode: passcode), animated: true)
                                             }
                                          })
     
@@ -57,6 +58,17 @@ class PasswordVC: UIViewController {
     })
     
     private let mBottom = UILabel.new(font: UIFont.hnRegular(18.scaled), text: "pass_bottom".loc, lines: 0, color: 0x9B9B9B.color, alignment: .left)
+    
+    private let mPasscode: String
+    
+    init(passcode: String) {
+        mPasscode = passcode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        return nil
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

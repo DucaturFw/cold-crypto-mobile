@@ -35,10 +35,19 @@ class CheckCodeVC: CodeVC {
         return nil
     }
     
+    var hintText: String? {
+        get {
+            return hint.text
+        }
+        set {
+            hint.text = newValue
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        mBack.image = UIImage(named: navigationController != nil ? "back" : "hide")
+        mBack.image = UIImage(named: navigationController != nil ? "back" : "close")
         mBack.isVisible = isBeingPresented
     }
 

@@ -36,9 +36,10 @@ class RepeatPassVC: UIViewController {
                                          alignment: .center).apply({
                                             $0.frame = $0.frame.insetBy(dx: -18.0, dy: -2.0)
                                          }).tap({ [weak self] in
-                                            if let p = Profile.new(name: "Test", segwit: false) {
+                                            if let p = Profile.new(name: "Test", segwit: false), let pass = self?.mPasscode {
                                                 Settings.profile = p
                                                 self?.navigationController?.setViewControllers([ProfileVC(profile: p,
+                                                                                                          passcode: pass,
                                                                                                           params: AppDelegate.params)],
                                                                                                animated: true)
                                             }
@@ -67,9 +68,11 @@ class RepeatPassVC: UIViewController {
     private let mBottom = UILabel.new(font: UIFont.hnRegular(18.scaled), text: "repeat_pass_bot".loc, lines: 0, color: 0x9B9B9B.color, alignment: .left)
     
     private let mPassword: String
+    private let mPasscode: String
     
-    init(password: String) {
+    init(password: String, passcode: String) {
         mPassword = password
+        mPasscode = passcode
         super.init(nibName: nil, bundle: nil)
     }
     

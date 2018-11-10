@@ -23,7 +23,7 @@ class WalletView: UICollectionViewCell {
     })
     
     private let mTint = UIView().apply({
-        $0.backgroundColor = UIColor.black.withAlphaComponent(0.15)
+        $0.backgroundColor = UIColor.black.withAlphaComponent(0.2)
     })
     
     var fullVisible: Bool = false {
@@ -38,8 +38,12 @@ class WalletView: UICollectionViewCell {
     }
     
     private let mAmount = UILabel.new(font: UIFont.hnMedium(28.scaled), text: "0", lines: 1, color: .white, alignment: .left)
-    private let mUnits  = UILabel.new(font: UIFont.hnMedium(22.scaled), text: "FTM", lines: 1, color: .white, alignment: .left)
+    private let mUnits  = UILabel.new(font: UIFont.hnMedium(22.scaled), text: "", lines: 1, color: .white, alignment: .left)
     private let mAddress = UILabel.new(font: UIFont.hnMedium(22.scaled), lines: 1, color: .white, alignment: .left)
+    
+    private let mHUD = UIActivityIndicatorView(activityIndicatorStyle: .white).apply({
+        $0.hidesWhenStopped = true
+    })
     
     var onBackUp: (IWallet)->Void = { _ in }
     var onDelete: (IWallet)->Void = { _ in }
@@ -60,16 +64,44 @@ class WalletView: UICollectionViewCell {
         $0.alpha = 0.0
     })
     
+    private var mCache: String = UUID().uuidString
+    
     var wallet: IWallet? {
         didSet {
             mAddress.text = wallet?.address
+            mUnits.text   = wallet?.blockchain.symbol()
+            mUnits.sizeToFit()
             if let seed = mAddress.text {
-                let b = Blockies(seed: seed, size: 8, scale: 3,
+                let i = MyBlockiesHelper.createRandSeed(seed: seed)
+                let b: Blockies
+                if i.count >= 4 {
+                    b = Blockies(seed: seed, size: 8, scale: 3,
+                                 color: (Int(i[2] % 255) << 16 | Int(i[1] % 255) << 8 | Int(i[0] % 255)).color,
+                                 bgColor: (Int(i[0] % 255) << 16 | Int(i[2] % 255) << 8 | Int(i[1] % 255)).color,
+                                 spotColor: (Int(i[1] % 255) << 16 | Int(i[0] % 255) << 8 | Int(i[2] % 255)).color)
+                } else {
+                    b = Blockies(seed: seed, size: 8, scale: 3,
                                  color: 0x63DBF6.color,
                                  bgColor: 0x0089E6.color,
                                  spotColor: 0xD6F5FD.color)
+                }
                 mContent.image = b.createImage(customScale: 20)
             }
+            
+            mAmount.isHidden = true
+            mUnits.isHidden  = true
+            mHUD.startAnimating()
+            let cache = UUID().uuidString
+            mCache = cache
+            wallet?.getBalance(completion: { [weak self] b in
+                if let s = self, cache == s.mCache {
+                    s.mAmount.isHidden = false
+                    s.mUnits.isHidden  = false
+                    s.mHUD.stopAnimating()
+                    s.mAmount.text = b ?? "--"
+                    s.adjustAmount()
+                }
+            })
         }
     }
     
@@ -83,6 +115,7 @@ class WalletView: UICollectionViewCell {
         mContent.addSubview(mAmount)
         mContent.addSubview(mBackup)
         mContent.addSubview(mDelete)
+        mContent.addSubview(mHUD)
         mBackup.tap({ [weak self] in
             if let s = self, let w = s.wallet {
                 s.onBackUp(w)
@@ -109,9 +142,7 @@ class WalletView: UICollectionViewCell {
         mTint.frame  = mContent.bounds
         mIcon.origin = CGPoint(x: mContent.width - 11.scaled - mIcon.width, y: 14.scaled)
         
-        mAmount.sizeToFit()
-        mAmount.origin = CGPoint(x: 19.scaled, y: 14.scaled)
-        mUnits.origin  = CGPoint(x: mAmount.maxX + 4.scaled, y: mAmount.maxY + mAmount.font.descender - mUnits.height - mUnits.font.descender)
+        adjustAmount()
         mAddress.frame = CGRect(x: 22.scaled, y: mAmount.maxY + 7.scaled, width: mIcon.minX - 32.scaled, height: mAddress.font.lineHeight)
         
         let p = 15.scaled
@@ -122,4 +153,11 @@ class WalletView: UICollectionViewCell {
         mContent.transform = old
     }
 
+    private func adjustAmount() {
+        mAmount.sizeToFit()
+        mAmount.origin = CGPoint(x: 19.scaled, y: 14.scaled)
+        mUnits.origin  = CGPoint(x: mAmount.maxX + 4.scaled, y: mAmount.maxY + mAmount.font.descender - mUnits.height - mUnits.font.descender)
+        mHUD.origin    = CGPoint(x: 19.scaled, y: 14.scaled)
+    }
+    
 }

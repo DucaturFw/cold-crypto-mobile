@@ -42,7 +42,7 @@ class BlockchainPickerVC: UIViewController, IPopover, UIViewControllerTransition
     
     private var mAnimator = UIViewPropertyAnimator()
     
-    var onSelected: ()->Void = {}
+    var onSelected: (Blockchain)->Void = { _ in }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -176,7 +176,7 @@ class BlockchainPickerVC: UIViewController, IPopover, UIViewControllerTransition
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         DispatchQueue.main.async {
             self.dismiss(animated: true, completion: {
-                self.onSelected()
+                self.onSelected(.ETH)
             })
         }
     }

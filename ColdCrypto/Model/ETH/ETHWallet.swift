@@ -36,6 +36,8 @@ class ETHWallet : IWallet {
     private var cachedBalance: Wei?
     private var cachedIncome:  [IViewable]?
     private var cachedOutcome: [IViewable]?
+    private var mBalance: String?
+    private lazy var mNet = ETHNet(wallet: self)
     
     var isSupportTokens: Bool {
         return true
@@ -90,16 +92,28 @@ class ETHWallet : IWallet {
         let t = RawTransaction(value: v, to: to.to, gasPrice: p, gasLimit: gasLimit, nonce: to.nonce, data: d)
         return try? w.sign(rawTransaction: t)
     }
+
+    func getBalance(completion: @escaping (String?)->Void) {
+        if let b = mBalance {
+            completion(b)
+        } else {
+            mNet.getBalance { [weak self] (b, e) in
+                self?.mBalance = (try? b?.ether())??.compactValue?.trimmed
+                DispatchQueue.main.async {
+                    completion(self?.mBalance)
+                }
+            }
+        }
+    }
     
     func pay(to: ApiPay, completion: @escaping (String?)->Void) {
         guard let v = Wei(to.value), let p = Int(to.gasPrice) else {
             completion(nil)
             return
         }
-        
         let dd = to.data ?? "0x"
-        let d = dd.starts(with: "0x") ? Data(hex: dd) : Data()
-        ETHNet(wallet: self).send(value: v, to: to.to, gasPrice: p, gasLimit: 100000, data: d, completion: { tx, error in
+        let d  = dd.starts(with: "0x") ? Data(hex: dd) : Data()
+        mNet.send(value: v, to: to.to, gasPrice: p, gasLimit: 100000, data: d, completion: { tx, error in
             completion(tx)
         })
     }

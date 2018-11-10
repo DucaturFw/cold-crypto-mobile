@@ -17,6 +17,7 @@
 "no" = "No, thanks";
 "touch_id" = "Use your finger for access";
 "enter_hint" = "For getting access\nto the wallet";
+"confirm_hint" = "For guaranteeing\nyour authority";
 "enter_access_code" = "Enter the access code";
 "scan_line_2" = "Scan QR code";
 "restore" = "RESTORE WALLET >";
@@ -47,7 +48,7 @@
 "user_guide" = "User guide";
 "knowledge" = "Knowledge base";
 "privacy" = "Privacy and terms";
-"website" = "ColdCrypto.io";
+"website" = "ColdCrypto.app";
 "about" = "About";
 "reset" = "Reset wallets";
 "sure_reset" = "You can lose your account and funds forever.\nDon't reset if you didn't make a backup, as there will be no way to restore your account after that. Resetting wallet will remove all keys saved in the local vault and bring you back to the app's start screen.";
@@ -56,3 +57,17 @@
 "select_wallet" = "Select the desired wallet";
 "use" = "USE";
 "no_wallets" = "You have no wallets\nfor selected blockchain";
+
+"sure_delete" = "You can lose your wallet and funds on it forever.\nDon't delete it if you didn't make a backup, as there will be no way to restore your wallet after deletion without backup. Deleting wallet will remove all keys saved in the local vault.";
+"delete_yes" = "Delete wallet";
+"delete_no" = "Cancel";
+
+"import_seed_phrase" = "Import a seed phrase";
+"import_private_key" = "Import a private key";
+"new_hd_wallet" = "HD Wallet";
+"phrase_text" = "Enter seed phrase:";
+"import" = "Import";
+"key_text" = "Enter private key:";
+"incorrect_seed" = "Incorrect seed phrase";
+"incorrect_key" = "Incorrect private key";
+"ok" = "OK";

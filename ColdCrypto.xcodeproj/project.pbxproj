@@ -43,7 +43,6 @@
 		EBA593BB217A88EF00F3CB65 /* ETHWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593B6217A88EF00F3CB65 /* ETHWallet.swift */; };
 		EBA593BD217A88EF00F3CB65 /* EthereumAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593B8217A88EF00F3CB65 /* EthereumAddress.swift */; };
 		EBA593BE217A88EF00F3CB65 /* ETHNet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593B9217A88EF00F3CB65 /* ETHNet.swift */; };
-		EBA593C0217A890500F3CB65 /* IWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593BF217A890500F3CB65 /* IWallet.swift */; };
 		EBA593C2217A892900F3CB65 /* Blockchain.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593C1217A892900F3CB65 /* Blockchain.swift */; };
 		EBA593C4217A897E00F3CB65 /* IViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593C3217A897E00F3CB65 /* IViewable.swift */; };
 		EBA593C8217A89B800F3CB65 /* ITransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593C7217A89B800F3CB65 /* ITransaction.swift */; };
@@ -68,6 +67,10 @@
 		EBD4FCC82190BBBF0080D1A9 /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4FCC72190BBBF0080D1A9 /* PopAnimator.swift */; };
 		EBD4FCCA2190BFC20080D1A9 /* IPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4FCC92190BFC20080D1A9 /* IPopover.swift */; };
 		EBD4FCCC2190D4D50080D1A9 /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4FCCB2190D4D50080D1A9 /* PopupVC.swift */; };
+		EBDB8847219742B3000AF045 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDB8846219742B3000AF045 /* Field.swift */; };
+		EBDB884F21974500000AF045 /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDB884E21974500000AF045 /* Sheet.swift */; };
+		EBDB8851219745F1000AF045 /* ImportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDB8850219745F1000AF045 /* ImportManager.swift */; };
+		EBDB885D21976AC1000AF045 /* IWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDB885C21976AC1000AF045 /* IWallet.swift */; };
 		EBDCD55C217FD85E00B6EF5B /* ConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */; };
 		EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D0217928BF006879F7 /* AppDelegate.swift */; };
 		EBE484D3217928BF006879F7 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D2217928BF006879F7 /* ProfileVC.swift */; };
@@ -226,7 +229,6 @@
 		EBA593B6217A88EF00F3CB65 /* ETHWallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETHWallet.swift; sourceTree = "<group>"; };
 		EBA593B8217A88EF00F3CB65 /* EthereumAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumAddress.swift; sourceTree = "<group>"; };
 		EBA593B9217A88EF00F3CB65 /* ETHNet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETHNet.swift; sourceTree = "<group>"; };
-		EBA593BF217A890500F3CB65 /* IWallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IWallet.swift; sourceTree = "<group>"; };
 		EBA593C1217A892900F3CB65 /* Blockchain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blockchain.swift; sourceTree = "<group>"; };
 		EBA593C3217A897E00F3CB65 /* IViewable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IViewable.swift; sourceTree = "<group>"; };
 		EBA593C7217A89B800F3CB65 /* ITransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ITransaction.swift; sourceTree = "<group>"; };
@@ -251,6 +253,10 @@
 		EBD4FCC72190BBBF0080D1A9 /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
 		EBD4FCC92190BFC20080D1A9 /* IPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPopover.swift; sourceTree = "<group>"; };
 		EBD4FCCB2190D4D50080D1A9 /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
+		EBDB8846219742B3000AF045 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
+		EBDB884E21974500000AF045 /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
+		EBDB8850219745F1000AF045 /* ImportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportManager.swift; sourceTree = "<group>"; };
+		EBDB885C21976AC1000AF045 /* IWallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IWallet.swift; sourceTree = "<group>"; };
 		EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationVC.swift; sourceTree = "<group>"; };
 		EBE484CD217928BF006879F7 /* ColdCrypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColdCrypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE484D0217928BF006879F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -336,6 +342,7 @@
 		EB74B43E217C75AA006AE00F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EBDB8852219766B6000AF045 /* Protocols */,
 				EB6450872181068F008397DF /* WebRTC */,
 				EBA593B4217A88E700F3CB65 /* ETH */,
 				EB976CE4217BA6B400B8DC95 /* Entities */,
@@ -347,6 +354,7 @@
 				EB64509621810A82008397DF /* Signer.swift */,
 				EBD4FCC72190BBBF0080D1A9 /* PopAnimator.swift */,
 				EBD4FCC92190BFC20080D1A9 /* IPopover.swift */,
+				EBDB8850219745F1000AF045 /* ImportManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -365,6 +373,8 @@
 				EB1A0BEF218A27D300C43E72 /* CardsList.swift */,
 				EBD0B12E218E3D9A00FD1B37 /* MenuCell.swift */,
 				EB0DD63C21938BC700DCE412 /* BlockchainCell.swift */,
+				EBDB8846219742B3000AF045 /* Field.swift */,
+				EBDB884E21974500000AF045 /* Sheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -415,16 +425,23 @@
 		EBA593B4217A88E700F3CB65 /* ETH */ = {
 			isa = PBXGroup;
 			children = (
-				EBA593C7217A89B800F3CB65 /* ITransaction.swift */,
-				EBA593C3217A897E00F3CB65 /* IViewable.swift */,
-				EBA593C1217A892900F3CB65 /* Blockchain.swift */,
-				EBA593BF217A890500F3CB65 /* IWallet.swift */,
 				EBA593B8217A88EF00F3CB65 /* EthereumAddress.swift */,
 				EBA593B9217A88EF00F3CB65 /* ETHNet.swift */,
 				EBA593B5217A88EF00F3CB65 /* ETHTransaction.swift */,
 				EBA593B6217A88EF00F3CB65 /* ETHWallet.swift */,
 			);
 			path = ETH;
+			sourceTree = "<group>";
+		};
+		EBDB8852219766B6000AF045 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				EBA593C7217A89B800F3CB65 /* ITransaction.swift */,
+				EBA593C3217A897E00F3CB65 /* IViewable.swift */,
+				EBA593C1217A892900F3CB65 /* Blockchain.swift */,
+				EBDB885C21976AC1000AF045 /* IWallet.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		EBE484C4217928BF006879F7 = {
@@ -765,7 +782,6 @@
 				EB64509321810736008397DF /* WebRTCClient.swift in Sources */,
 				EBF620BA218B9134005C6141 /* PasswordVC.swift in Sources */,
 				EBA593DE217A8CDC00F3CB65 /* NumberPad.swift in Sources */,
-				EBA593C0217A890500F3CB65 /* IWallet.swift in Sources */,
 				EB976CEE217BA75900B8DC95 /* ApiParamsTx.swift in Sources */,
 				EBA593CA217A8AC900F3CB65 /* Settings.swift in Sources */,
 				EBE484D3217928BF006879F7 /* ProfileVC.swift in Sources */,
@@ -785,6 +801,7 @@
 				EBA593D6217A8C1B00F3CB65 /* CodeVC.swift in Sources */,
 				EBA593CC217A8AF800F3CB65 /* Profile.swift in Sources */,
 				EBDCD55C217FD85E00B6EF5B /* ConfirmationVC.swift in Sources */,
+				EBDB8847219742B3000AF045 /* Field.swift in Sources */,
 				EBC9F78421822FC000150883 /* ApiMessage.swift in Sources */,
 				EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */,
 				EB976CEC217BA6CE00B8DC95 /* ApiParamsWallet.swift in Sources */,
@@ -799,7 +816,9 @@
 				EBA593C4217A897E00F3CB65 /* IViewable.swift in Sources */,
 				EB26C31C21924083005D3525 /* CardPickVC.swift in Sources */,
 				EBA593C2217A892900F3CB65 /* Blockchain.swift in Sources */,
+				EBDB8851219745F1000AF045 /* ImportManager.swift in Sources */,
 				EBA593C8217A89B800F3CB65 /* ITransaction.swift in Sources */,
+				EBDB884F21974500000AF045 /* Sheet.swift in Sources */,
 				EBC9F77C21822F4900150883 /* ApiAnswer.swift in Sources */,
 				EB64509F21811684008397DF /* ApiJoin.swift in Sources */,
 				EBA59393217A815300F3CB65 /* Extensions.swift in Sources */,
@@ -812,6 +831,7 @@
 				EB0DD63D21938BC700DCE412 /* BlockchainCell.swift in Sources */,
 				EBA593BA217A88EF00F3CB65 /* ETHTransaction.swift in Sources */,
 				EB91A2352184983F001788FA /* ApiPay.swift in Sources */,
+				EBDB885D21976AC1000AF045 /* IWallet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

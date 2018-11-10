@@ -9,6 +9,7 @@
 import UIKit
 import SideMenu
 import HockeySDK
+import EthereumKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,7 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var params: String? = nil
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
         BITHockeyManager.shared().configure(withIdentifier: "fd96c74c233a4c328c2d4f7df741ab9a")
         BITHockeyManager.shared().start()
         BITHockeyManager.shared().authenticator.authenticateInstallation()
@@ -57,7 +57,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let code = Settings.passcode, let p = Settings.profile {
             let nc = UINavigationController()
             nc.viewControllers = [CheckCodeVC(passcode: code, style: .normal, onSuccess: { vc in
-                vc.navigationController?.setViewControllers([ProfileVC(profile: p, params: AppDelegate.params)], animated: true)
+                vc.navigationController?.setViewControllers([ProfileVC(profile: p,
+                                                                       passcode: code,
+                                                                       params: AppDelegate.params)], animated: true)
             })]
             window?.rootViewController = nc
         } else {
@@ -66,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         return true
     }
-    
+
     func applicationDidEnterBackground(_ application: UIApplication) {
         window?.endEditing(true)
         guard (window?.rootViewController as? UINavigationController)?.viewControllers.first as? ProfileVC != nil else { return }
@@ -83,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         mBlur.contentView.addSubview(vc.view)
         window?.addSubview(mBlur)
     }
-    
+
     private func removeLock() {
         UIView.animate(withDuration: 0.25, animations: {
             self.mBlur.alpha = 0.0

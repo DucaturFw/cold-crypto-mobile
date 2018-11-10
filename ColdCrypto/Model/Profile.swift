@@ -15,6 +15,7 @@ class Profile {
     var seed: String = ""
     var version: String = ""
     var chains: [Chain] = []
+    var index: Int64 = 0
     
     static func new(name: String, segwit: Bool) -> Profile? {
         let s = Mnemonic.create(strength: .normal, language: .english)

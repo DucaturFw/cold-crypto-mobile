@@ -11,7 +11,7 @@ import QRCode
 import UIKit
 import JTHamburgerButton
 
-class ProfileVC: UIViewController, Signer {
+class ProfileVC: UIViewController, Signer, ImportDelegate {
 
     private let mBG = UIImageView(image: UIImage(named: "mainBG")).apply({
         $0.contentMode = .scaleAspectFill
@@ -26,7 +26,7 @@ class ProfileVC: UIViewController, Signer {
     private var mParams: String?
     
     private lazy var mRightAdd = UIImageView(image: UIImage(named: "add")).tap({ [weak self] in
-        self?.addNewWallet()
+        self?.mImportManager.addNewWallet()
     }).apply({
         $0.contentMode = .center
         $0.frame = $0.frame.insetBy(dx: -10, dy: -10)
@@ -71,9 +71,14 @@ class ProfileVC: UIViewController, Signer {
         }
     }
     
-    init(profile: Profile, params: String?) {
-        mProfile = profile
-        mParams  = params
+    private let mPasscode: String
+    
+    private lazy var mImportManager = ImportManager(parent: self)
+    
+    init(profile: Profile, passcode: String, params: String?) {
+        mPasscode = passcode
+        mProfile  = profile
+        mParams   = params
         super.init(nibName: nil, bundle: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(close), name: .UIApplicationDidEnterBackground, object: nil)
         mView.wallets = mProfile.chains.flatMap({ $0.wallets })
@@ -180,31 +185,28 @@ class ProfileVC: UIViewController, Signer {
         present(tmp, animated: true, completion: nil)
     }
 
-    private func addNewWallet2() {
-        guard let c = mProfile.chains.first(where: { $0.id == Blockchain.ETH }) else { return }
-        let index = c.wallets.max(by: { $0.index < $1.index })?.index ?? 0
-        guard let w = mProfile.newWallet(chain: c.id,
-                                         name: "",
-                                         data: String(format: "02%02x", index + 1),
-                                         segwit: false) else { return }
-        Settings.profile = mProfile
-        mView.add(wallet: w)
-    }
-    
-    private func addNewWallet() {
-        let vc = BlockchainPickerVC()
-        vc.onSelected = { [weak self] in
-            self?.addNewWallet2()
-        }
-        present(vc, animated: true, completion: nil)
-    }
-    
     private func delete(wallet: IWallet) {
-        mProfile.chains.forEach({
-            $0.wallets.removeAll(where: { $0.privateKey == wallet.privateKey })
-        })
-        Settings.profile = mProfile
-        mView.delete(wallet: wallet)
+        Alert(message: "sure_delete".loc)
+            .set(positive: "delete_yes".loc, do: { [weak self] _ in
+                self?.sureDelete(wallet: wallet)
+            })
+            .set(negative: "delete_no".loc).show()
+    }
+    
+    private func sureDelete(wallet: IWallet) {
+        present(CheckCodeVC(passcode: mPasscode, style: .normal, onSuccess: { [weak self] vc in
+            vc.dismiss(animated: true, completion: { [weak self] in
+                if let s = self {
+                    s.mProfile.chains.forEach({
+                        $0.wallets.removeAll(where: { $0.privateKey == wallet.privateKey })
+                    })
+                    Settings.profile = s.mProfile
+                    s.mView.delete(wallet: wallet)
+                }
+            })
+        }).apply({
+            $0.hintText = "confirm_hint".loc
+        }), animated: true, completion: nil)
     }
     
     private func backup(wallet: IWallet) {
@@ -330,6 +332,27 @@ class ProfileVC: UIViewController, Signer {
             }), animated: true, completion: nil)
         }
         return true
+    }
+    
+    // MARK: - ImportDelegate methods
+    // -------------------------------------------------------------------------
+    func onNew(chain: Blockchain, name: String, data: String, segwit: Bool) {
+        guard let w = mProfile.newWallet(chain: chain,
+                                         name: name,
+                                         data: data,
+                                         segwit: segwit) else { return }
+        Settings.profile = mProfile
+        mView.add(wallet: w)
+    }
+    
+    func onNewHDWallet(chain: Blockchain) {
+        guard let w = mProfile.newWallet(chain: chain,
+                                         name: "",
+                                         data: String(format: "02%02x", mProfile.index + 1),
+                                         segwit: false) else { return }
+        mProfile.index += 1
+        Settings.profile = mProfile
+        mView.add(wallet: w)
     }
     
 }

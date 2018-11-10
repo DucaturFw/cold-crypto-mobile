@@ -26,12 +26,12 @@ class MenuVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         var url: String {
             switch self {
-            case .contact: return "https://coldcrypto.io/contact"
-            case .userGuide: return "https://coldcrypto.io/guide"
-            case .knowledge: return "https://coldcrypto.io/knowledge"
-            case .privacy: return "https://coldcrypto.io/privacy"
-            case .website: return "https://coldcrypto.io"
-            case .about: return "https://coldcrypto.io/about"
+            case .contact: return "http://coldcrypto.app/contact"
+            case .userGuide: return "http://coldcrypto.app/guide"
+            case .knowledge: return "http://coldcrypto.app/knowledge"
+            case .privacy: return "http://coldcrypto.app/privacy"
+            case .website: return "http://coldcrypto.app"
+            case .about: return "http://coldcrypto.app/about"
             }
         }
         
@@ -67,12 +67,12 @@ class MenuVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
         view.addSubview(mInfo)
         
         mReset.click = { [weak self] in
-            self?.present(Alert(message: "sure_reset".loc)
+            Alert(message: "sure_reset".loc)
                 .set(positive: "reset_yes".loc, do: { [weak self] _ in
                     self?.dismiss(animated: true, completion: nil)
                     AppDelegate.resetWallet()
                 })
-                .set(negative: "reset_no".loc), animated: true, completion: nil)
+                .set(negative: "reset_no".loc).show()
         }
     }
 

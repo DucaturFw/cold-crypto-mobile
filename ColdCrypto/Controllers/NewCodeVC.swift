@@ -28,7 +28,9 @@ class NewCodeVC : CodeVC {
     }
     
     override func moveNext() {
-        navigationController?.setViewControllers([PasswordVC()], animated: true)
+        if let passcode = mFirstCode {
+            navigationController?.setViewControllers([PasswordVC(passcode: passcode)], animated: true)
+        }
     }
 
 }
