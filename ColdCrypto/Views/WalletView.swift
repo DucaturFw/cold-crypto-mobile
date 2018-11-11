@@ -41,7 +41,7 @@ class WalletView: UICollectionViewCell {
     private let mUnits  = UILabel.new(font: UIFont.hnMedium(22.scaled), text: "", lines: 1, color: .white, alignment: .left)
     private let mAddress = UILabel.new(font: UIFont.hnMedium(22.scaled), lines: 1, color: .white, alignment: .left)
     
-    private let mHUD = UIActivityIndicatorView(activityIndicatorStyle: .white).apply({
+    private let mHUD = UIActivityIndicatorView(style: .white).apply({
         $0.hidesWhenStopped = true
     })
     
@@ -51,7 +51,7 @@ class WalletView: UICollectionViewCell {
     private let mBackup = Button().apply({
         $0.setTitleColor(UIColor.white, for: .normal)
         $0.backgroundColor = 0xFFD136.color
-        $0.setTitle("backup".loc, for: UIControlState.normal)
+        $0.setTitle("backup".loc, for: .normal)
         $0.isUserInteractionEnabled = false
         $0.alpha = 0.0
     })
@@ -59,7 +59,7 @@ class WalletView: UICollectionViewCell {
     private let mDelete = Button().apply({
         $0.setTitleColor(UIColor.white, for: .normal)
         $0.backgroundColor = 0xE26E7C.color
-        $0.setTitle("delete".loc, for: UIControlState.normal)
+        $0.setTitle("delete".loc, for: .normal)
         $0.isUserInteractionEnabled = false
         $0.alpha = 0.0
     })
@@ -116,16 +116,16 @@ class WalletView: UICollectionViewCell {
         mContent.addSubview(mBackup)
         mContent.addSubview(mDelete)
         mContent.addSubview(mHUD)
-        mBackup.tap({ [weak self] in
+        mBackup.click = { [weak self] in
             if let s = self, let w = s.wallet {
                 s.onBackUp(w)
             }
-        })
-        mDelete.tap({ [weak self] in
+        }
+        mDelete.click = { [weak self] in
             if let s = self, let w = s.wallet {
                 s.onDelete(w)
             }
-        })
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -56,7 +56,7 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
         let tmp = TGLStackedLayout()
         tmp.itemSize  = CGSize(width: wid, height: wid / 270.0 * 160.0)
         tmp.topReveal = 87.scaled
-        tmp.layoutMargin = UIEdgeInsetsMake(UIApplication.shared.statusBarFrame.height + 44.0, 0, 0, 0)
+        tmp.layoutMargin = UIEdgeInsets(top: UIApplication.shared.statusBarFrame.height + 44.0, left: 0, bottom: 0, right: 0)
         tmp.isAlwaysBouncing = true
         return tmp
     }()
@@ -231,6 +231,12 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
         default: break
         }
     }
+    
+    func close(completion: @escaping ()->Void) {
+        set(selected: nil)?.addCompletion({ _ in
+            completion()
+        })
+    }
 
     // MARK: - UICollectionViewDataSource methods
     // -------------------------------------------------------------------------
@@ -249,9 +255,7 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
             self?.onBackUp(w)
         }
         cell.onDelete = { [weak self] w in
-            self?.set(selected: nil)?.addCompletion({ [weak self] _ in
-                self?.onDelete(w)
-            })
+            self?.onDelete(w)
         }
         return cell
     }

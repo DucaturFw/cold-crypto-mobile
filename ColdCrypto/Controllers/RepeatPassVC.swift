@@ -53,8 +53,8 @@ class RepeatPassVC: UIViewController {
         $0.font = UIFont.hnRegular(20.scaled)
         $0.textColor = .white
         $0.attributedPlaceholder = NSAttributedString(string: "pass_placeholder".loc,
-                                                      attributes: [NSAttributedStringKey.font : UIFont.hnRegular(20.scaled),
-                                                                   NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.5)])
+                                                      attributes: [.font : UIFont.hnRegular(20.scaled),
+                                                                   .foregroundColor: UIColor.white.withAlphaComponent(0.5)])
         $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 18.scaled, height: 0))
         $0.leftViewMode = .always
         $0.tintColor = .white
@@ -91,7 +91,7 @@ class RepeatPassVC: UIViewController {
         view.addSubview(mNext)
         view.addSubview(mIcon)
         
-        mField.addTarget(self, action: #selector(textChanged), for: UIControlEvents.editingChanged)
+        mField.addTarget(self, action: #selector(textChanged), for: .editingChanged)
         textChanged()
     }
     

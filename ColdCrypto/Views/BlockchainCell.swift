@@ -14,7 +14,7 @@ class BlockchainCell: UITableViewCell {
         $0.contentMode = .center
     })
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
         addSubview(img)

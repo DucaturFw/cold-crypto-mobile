@@ -13,13 +13,13 @@ class ConfirmationVC: PopupVC {
     private let mDecline = Button().apply({
         $0.setTitleColor(UIColor.white, for: .normal)
         $0.backgroundColor = 0xE26E7C.color
-        $0.setTitle("decline".loc, for: UIControlState.normal)
+        $0.setTitle("decline".loc, for: .normal)
     })
     
     private let mConfirm = Button().apply({
         $0.setTitleColor(UIColor.white, for: .normal)
         $0.backgroundColor = 0x007AFF.color
-        $0.setTitle("confirm".loc, for: UIControlState.normal)
+        $0.setTitle("confirm".loc, for: .normal)
     })
     
     private let mName = UILabel.new(font: UIFont.hnBold(30.scaled), text: "verify".loc, lines: 0, color: 0x007AFF.color, alignment: .left)

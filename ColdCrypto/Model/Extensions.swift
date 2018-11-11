@@ -237,7 +237,7 @@ extension UIView: HasApply {
         }
     }
     
-    func addTint(_ time: Int = 100) {
+    func addTint(_ time: Int = 100, completion: (()->Void)? = nil) {
         let tmp = UIView(frame: bounds)
         tmp.backgroundColor = .black
         tmp.alpha = 0.1
@@ -250,6 +250,7 @@ extension UIView: HasApply {
         addSubview(tmp)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(time)) {
             tmp.removeFromSuperview()
+            completion?()
         }
     }
     
@@ -328,7 +329,7 @@ extension String {
     func width(with font: UIFont) -> CGFloat {
         return ceil(self.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: font.lineHeight),
                                       options: .usesLineFragmentOrigin,
-                                      attributes: [NSAttributedStringKey.font: font],
+                                      attributes: [.font: font],
                                       context: nil).width)
     }
     

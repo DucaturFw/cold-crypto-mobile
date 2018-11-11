@@ -67,12 +67,11 @@ class MenuVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
         view.addSubview(mInfo)
         
         mReset.click = { [weak self] in
-            Alert(message: "sure_reset".loc)
-                .set(positive: "reset_yes".loc, do: { [weak self] _ in
+            Alert("sure_reset".loc).put("reset_no".loc)
+                .put("reset_yes".loc, color: 0xE26E7C.color, do: { [weak self] _ in
                     self?.dismiss(animated: true, completion: nil)
                     AppDelegate.resetWallet()
-                })
-                .set(negative: "reset_no".loc).show()
+                }).show()
         }
     }
 

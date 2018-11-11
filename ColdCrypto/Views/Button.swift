@@ -24,9 +24,17 @@ class Button : UIButton {
         return nil
     }
     
+    private var mDelay = false
+    
     @objc private func clicked() {
-        addTint()
-        click()
+        if !mDelay {
+            mDelay = true
+            addTint(completion: { [weak self] in
+                self?.mDelay = false
+                self?.isUserInteractionEnabled = true
+                self?.click()
+            })
+        }
     }
     
 }

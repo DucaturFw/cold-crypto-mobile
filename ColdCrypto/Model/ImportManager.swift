@@ -40,28 +40,30 @@ class ImportManager {
     }
     
     private func askSeed(chain: Blockchain) {
-        Alert(message: "phrase_text".loc, withField: true).set(negative: "cancel".loc)
-            .set(positive: "import".loc, do: { [weak self] a in
+        Alert(withFieldAndName: "phrase_text".loc)
+            .put(negative: "cancel".loc)
+            .put("import".loc, do: { [weak self] a in
                 let name = a.value
                 if name.count > 0, name.split(separator: " ").count == 12  {
                     self?.onNew(chain: chain, name: "", seed: name)
                 } else {
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400), execute: {
-                        Alert(message: "incorrect_seed".loc).set(positive: "ok".loc).show()
+                        Alert("incorrect_seed".loc).show()
                     })
                 }
             }).show()
     }
     
     private func askKey(chain: Blockchain) {
-        Alert(message: "key_text".loc, withField: true).set(negative: "cancel".loc)
-            .set(positive: "import".loc, do: { [weak self] a in
+        Alert(withFieldAndName: "key_text".loc)
+            .put(negative: "cancel".loc)
+            .put("import".loc, do: { [weak self] a in
                 let name = a.value
                 if name.count > 0 {
                     self?.onNew(chain: chain, name: "", privateKey: name)
                 } else {
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400), execute: {
-                        Alert(message: "incorrect_key".loc).set(positive: "ok".loc).show()
+                        Alert("incorrect_key".loc).show()
                     })
                 }
             }).show()

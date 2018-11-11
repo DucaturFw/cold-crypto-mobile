@@ -15,7 +15,7 @@ class AuthVC : UIViewController {
     private let mNewOne = Button().apply({
         $0.setTitleColor(0x007AFF.color, for: .normal)
         $0.backgroundColor = UIColor.white
-        $0.setTitle("new_wallet".loc, for: UIControlState.normal)
+        $0.setTitle("new_wallet".loc, for: .normal)
         $0.layer.shadowColor   = 0x000000.color.cgColor
         $0.layer.shadowOffset  = CGSize(width: 0, height: 2)
         $0.layer.shadowOpacity = 0.22

@@ -59,7 +59,7 @@ class ScannerVC: PopupVC, AVCaptureMetadataOutputObjectsDelegate {
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "cancel".loc, style: .default))
         alert.addAction(UIAlertAction(title: "go_settings".loc, style: .cancel) { _ in
-            if let url = URL(string: UIApplicationOpenSettingsURLString) {
+            if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         })

@@ -63,12 +63,12 @@ class CodeVC : UIViewController {
     internal func authComplete() {
         let type = mAuth.authType
         if Settings.useBio == nil && type != .none {
-            Alert(message: (type == .face ? "ask_use_face" : "ask_use_touch").loc)
-                .set(negative: "no".loc, do: { [weak self] a in
+            Alert((type == .face ? "ask_use_face" : "ask_use_touch").loc)
+                .put(negative: "no".loc, do: { [weak self] a in
                     Settings.useBio = false
                     self?.moveNext()
                 })
-                .set(positive: "yes".loc, do: { [weak self] a in
+                .put("yes".loc, do: { [weak self] a in
                     Settings.useBio = true
                     self?.moveNext()
                 }).show()

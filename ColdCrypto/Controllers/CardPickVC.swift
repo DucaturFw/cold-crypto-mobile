@@ -20,13 +20,13 @@ class CardPickVC: PopupVC {
     private let mDecline = Button().apply({
         $0.setTitleColor(UIColor.white, for: .normal)
         $0.backgroundColor = 0xE26E7C.color
-        $0.setTitle("cancel".loc.uppercased(), for: UIControlState.normal)
+        $0.setTitle("cancel".loc.uppercased(), for: .normal)
     })
     
     private let mConfirm = Button().apply({
         $0.setTitleColor(UIColor.white, for: .normal)
         $0.backgroundColor = 0x007AFF.color
-        $0.setTitle("use".loc.uppercased(), for: UIControlState.normal)
+        $0.setTitle("use".loc.uppercased(), for: .normal)
         $0.alpha = 0.0
     })
     

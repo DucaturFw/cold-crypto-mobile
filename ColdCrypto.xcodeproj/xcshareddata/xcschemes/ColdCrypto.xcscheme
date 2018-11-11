@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AEBA90D41FFA21ED003EA2BA"
-               BuildableName = "EthereumKit.framework"
-               BlueprintName = "EthereumKit"
-               ReferencedContainer = "container:EthereumKit.xcodeproj">
+               BlueprintIdentifier = "EBE484CC217928BF006879F7"
+               BuildableName = "ColdCrypto.app"
+               BlueprintName = "ColdCrypto"
+               ReferencedContainer = "container:ColdCrypto.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,24 +28,14 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AE90A0741FFA698D005ED7AF"
-               BuildableName = "EthereumKitTests.xctest"
-               BlueprintName = "EthereumKitTests"
-               ReferencedContainer = "container:EthereumKit.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AEBA90D41FFA21ED003EA2BA"
-            BuildableName = "EthereumKit.framework"
-            BlueprintName = "EthereumKit"
-            ReferencedContainer = "container:EthereumKit.xcodeproj">
+            BlueprintIdentifier = "EBE484CC217928BF006879F7"
+            BuildableName = "ColdCrypto.app"
+            BlueprintName = "ColdCrypto"
+            ReferencedContainer = "container:ColdCrypto.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -61,15 +51,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AEBA90D41FFA21ED003EA2BA"
-            BuildableName = "EthereumKit.framework"
-            BlueprintName = "EthereumKit"
-            ReferencedContainer = "container:EthereumKit.xcodeproj">
+            BlueprintIdentifier = "EBE484CC217928BF006879F7"
+            BuildableName = "ColdCrypto.app"
+            BlueprintName = "ColdCrypto"
+            ReferencedContainer = "container:ColdCrypto.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -79,15 +70,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AEBA90D41FFA21ED003EA2BA"
-            BuildableName = "EthereumKit.framework"
-            BlueprintName = "EthereumKit"
-            ReferencedContainer = "container:EthereumKit.xcodeproj">
+            BlueprintIdentifier = "EBE484CC217928BF006879F7"
+            BuildableName = "ColdCrypto.app"
+            BlueprintName = "ColdCrypto"
+            ReferencedContainer = "container:ColdCrypto.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

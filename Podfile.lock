@@ -1,17 +1,16 @@
 PODS:
   - BlockiesSwift (0.1.2)
-  - GoogleWebRTC (1.1.25102)
-  - HandyJSON (4.2.0)
+  - GoogleWebRTC (1.1.25544)
+  - HandyJSON (4.2.1)
   - HockeySDK (5.1.4):
     - HockeySDK/DefaultLib (= 5.1.4)
   - HockeySDK/DefaultLib (5.1.4)
   - JTHamburgerButton (1.0.5)
   - KeychainAccess (3.1.2)
-  - Malert (3.0)
   - MBProgressHUD (1.1.0)
   - QRCode (2.0)
   - RNCryptor (5.0.3)
-  - SideMenu (5.0.2)
+  - SideMenu (5.0.3)
   - Starscream (3.0.6)
   - TGLStackedViewController (2.2.3)
 
@@ -22,7 +21,6 @@ DEPENDENCIES:
   - HockeySDK
   - JTHamburgerButton
   - KeychainAccess
-  - Malert
   - MBProgressHUD
   - QRCode
   - RNCryptor (~> 5.0)
@@ -38,7 +36,6 @@ SPEC REPOS:
     - HockeySDK
     - JTHamburgerButton
     - KeychainAccess
-    - Malert
     - MBProgressHUD
     - QRCode
     - RNCryptor
@@ -48,19 +45,18 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   BlockiesSwift: 22d8d56dd187e6bfd16cb8c8fbd4fd4896c3e65d
-  GoogleWebRTC: 5cd390bc24c272fb7ca2b8765e4a7578a770b279
-  HandyJSON: 9dfc026c7d7adc1f0f8ba8b181495f0e0763b0f4
+  GoogleWebRTC: b73841295d587468f368d146144753b138ed8014
+  HandyJSON: d0c5fc80204f29056d59d3e5c4587fa0b16b60a8
   HockeySDK: 15afe6bc0a5bfe3a531fd73dbf082095f37dac3b
   JTHamburgerButton: 9a41c7d051c72590a9d2c18416d84d1b912f12e3
   KeychainAccess: b3816fddcf28aa29d94b10ec305cd52be14c472b
-  Malert: 945f3ac9176cf99bc22d025a2589ab336cd030dc
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   RNCryptor: c93d19029dcf7ff160aca0f24d6c9e7b0d82f664
-  SideMenu: e5094f0b2e7d9609e100a90ae69025abd994f882
+  SideMenu: 1dcaabce84538c53325c287f7fe62999379a641c
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
   TGLStackedViewController: 3853e3eaf938a0baab9ad7e63d83d6e8aa576665
 
-PODFILE CHECKSUM: 4093dd65039b2f729e8569de946cd52f7f54ab2a
+PODFILE CHECKSUM: b2e7e7152c1e609b0875c9959875c6085297cc87
 
 COCOAPODS: 1.5.3

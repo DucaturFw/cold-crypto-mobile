@@ -6,7 +6,6 @@
 //  Copyright © 2018 Kirill Kozhuhar. All rights reserved.
 //
 
-import Malert
 import QRCode
 import UIKit
 import JTHamburgerButton
@@ -48,7 +47,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     private var defaultCatchBlock: (String)->Void {
         return { [weak self] qr in
             DispatchQueue.main.async {
-                self?.showQR(text: qr)
+                self?.show(qr: qr)
             }
         }
     }
@@ -80,7 +79,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         mProfile  = profile
         mParams   = params
         super.init(nibName: nil, bundle: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(close), name: .UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(close), name: UIApplication.didEnterBackgroundNotification, object: nil)
         mView.wallets = mProfile.chains.flatMap({ $0.wallets })
     }
     
@@ -169,39 +168,30 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         return true
     }
     
-    private func showQR(text: String) {
+    private func show(qr text: String) {
         guard var qr = QRCode(text) else { return }
         qr.size = CGSize(width: 300, height: 300)
-        let malert = Malert(customView: UIImageView(image: qr.image))
-        let action = MalertAction(title: "OK")
-        action.tintColor = UIColor(red:0.15, green:0.64, blue:0.85, alpha:1.0)
-        malert.addAction(action)
-        present(malert, animated: true)
+        Alert(view: AlertImage(image: qr.image)).show()
     }
     
-    private func show(text: String) {
-        let tmp = UIAlertController(title: nil, message: text, preferredStyle: .alert)
-        tmp.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(tmp, animated: true, completion: nil)
-    }
-
     private func delete(wallet: IWallet) {
-        Alert(message: "sure_delete".loc)
-            .set(positive: "delete_yes".loc, do: { [weak self] _ in
+        Alert("sure_delete".loc).put("delete_no".loc)
+            .put("delete_yes".loc, color: 0xE26E7C.color, do: { [weak self] _ in
                 self?.sureDelete(wallet: wallet)
-            })
-            .set(negative: "delete_no".loc).show()
+            }).show()
     }
     
     private func sureDelete(wallet: IWallet) {
         present(CheckCodeVC(passcode: mPasscode, style: .normal, onSuccess: { [weak self] vc in
             vc.dismiss(animated: true, completion: { [weak self] in
                 if let s = self {
-                    s.mProfile.chains.forEach({
-                        $0.wallets.removeAll(where: { $0.privateKey == wallet.privateKey })
-                    })
-                    Settings.profile = s.mProfile
-                    s.mView.delete(wallet: wallet)
+                    s.mView.close {
+                        s.mProfile.chains.forEach({
+                            $0.wallets.removeAll(where: { $0.privateKey == wallet.privateKey })
+                        })
+                        Settings.profile = s.mProfile
+                        s.mView.delete(wallet: wallet)
+                    }
                 }
             })
         }).apply({
@@ -212,22 +202,12 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     private func backup(wallet: IWallet) {
         guard var qr = QRCode(wallet.privateKey) else { return }
         qr.size = CGSize(width: 300, height: 300)
-        let malert = Malert(customView: UIImageView(image: qr.image))
-        malert.addAction({ [weak self] in
-            let action = MalertAction(title: "Share") { [weak self] in
-                DispatchQueue.main.async {
-                    self?.share(image: qr.image, text: wallet.privateKey)
-                }
-            }
-            action.tintColor = UIColor(red:0.15, green:0.64, blue:0.85, alpha:1.0)
-            return action
-        }())
-        malert.addAction({
-            let action = MalertAction(title: "OK")
-            action.tintColor = UIColor(red:0.15, green:0.64, blue:0.85, alpha:1.0)
-            return action
-        }())
-        present(malert, animated: true)
+        Alert(view: AlertImage(image: qr.image))
+            .put(negative: "ok".loc)
+            .put("share".loc, do: { [weak self] _ in
+                self?.share(image: qr.image, text: wallet.privateKey)
+            })
+            .show()
     }
     
     @objc private func close() {
@@ -298,7 +278,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
                             completion("|\(id)|\"\(tx)\"")
                         }
                     } else {
-                        s.show(text: "Can't pay")
+                        Alert("Can't pay").show()
                     }
                 })
             })

@@ -97,7 +97,7 @@ class ScanView : UIView {
         pathAnimation.toValue   = getTo()
         pathAnimation.fromValue = getFrom()
         pathAnimation.duration  = 2.0
-        pathAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        pathAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         pathAnimation.repeatCount = .infinity
         pathAnimation.isRemovedOnCompletion = false
         pathAnimation.autoreverses = true
