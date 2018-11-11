@@ -52,7 +52,7 @@ class Chain {
     func getJson() -> [String: Any] {
         var gg = Array<Dictionary<String, Any>>()
         wallets.forEach({
-            gg.append(["name": $0.name, "data": $0.data, "segwit": $0.segwit])
+            gg.append(["name": $0.name, "data": $0.data])
         })
         return ["id": id.rawValue, "wallets": gg]
     }

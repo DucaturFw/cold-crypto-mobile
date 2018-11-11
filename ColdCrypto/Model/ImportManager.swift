@@ -44,7 +44,7 @@ class ImportManager {
             .put(negative: "cancel".loc)
             .put("import".loc, do: { [weak self] a in
                 let name = a.value
-                if name.count > 0, name.split(separator: " ").count == 12  {
+                if name.count > 0, (name.split(separator: " ").count == 12 || name.split(separator: " ").count == 24) {
                     self?.onNew(chain: chain, name: "", seed: name)
                 } else {
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400), execute: {

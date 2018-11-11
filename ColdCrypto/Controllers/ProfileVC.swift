@@ -200,12 +200,30 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     }
     
     private func backup(wallet: IWallet) {
-        guard var qr = QRCode(wallet.privateKey) else { return }
+        present(CheckCodeVC(passcode: mPasscode, style: .normal, onSuccess: { [weak self] vc in
+            vc.dismiss(animated: true, completion: { [weak self] in
+                if let seed = wallet.seed {
+                    self?.backup(seed: seed)
+                } else {
+                    self?.backup(pk: wallet.privateKey)
+                }
+            })
+        }).apply({
+            $0.hintText = "confirm_hint".loc
+        }), animated: true, completion: nil)
+    }
+    
+    private func backup(seed: String) {
+        present(BackupVC(seed: seed), animated: true, completion: nil)
+    }
+    
+    private func backup(pk: String) {
+        guard var qr = QRCode(pk) else { return }
         qr.size = CGSize(width: 300, height: 300)
         Alert(view: AlertImage(image: qr.image))
             .put(negative: "ok".loc)
             .put("share".loc, do: { [weak self] _ in
-                self?.share(image: qr.image, text: wallet.privateKey)
+                self?.share(image: qr.image, text: pk)
             })
             .show()
     }

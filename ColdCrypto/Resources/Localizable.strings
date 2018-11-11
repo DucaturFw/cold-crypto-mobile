@@ -72,3 +72,6 @@
 "incorrect_key" = "Incorrect private key";
 "ok" = "OK";
 "share" = "Share";
+"rec_phrsae" = "Here's your recovery phrase:";
+"rec_hint" = "Resist temptation to email it to yourself or screenshot it. You will thank yourself later.\nThe order of words is important too!";
+"done" = "DONE";

@@ -29,24 +29,14 @@ class ETHWallet : IWallet {
         }
     }
 
-    private var cachedGraph: [Decimal]?
-    private var cachedMax: Decimal?
-    private var cachedMin: Decimal?
     private var cachedRate: Double?
-    private var cachedBalance: Wei?
-    private var cachedIncome:  [IViewable]?
-    private var cachedOutcome: [IViewable]?
     private var mBalance: String?
+    private var mSeed: String?
     private lazy var mNet = ETHNet(wallet: self)
-    
-    var isSupportTokens: Bool {
-        return true
-    }
-    
+
     var network:  Network
     let wallet:   Wallet
     let endpoint: String
-    
     var gasLimit: Int = 21000
     var gasPrice: Wei?
     
@@ -60,6 +50,7 @@ class ETHWallet : IWallet {
         self.name  = name
         self.data  = data
         self.index = 0
+        self.mSeed = nil
         self.endpoint = n.endpoint
         self.network  = n.network
         self.wallet   = Wallet(network: network, privateKey: privateKey, debugPrints: false)
@@ -73,11 +64,13 @@ class ETHWallet : IWallet {
         self.name  = name
         self.data  = data
         self.index = index
+        self.mSeed = String(data: seed, encoding: .utf8)
         self.endpoint = n.endpoint
         self.network  = n.network
         self.wallet   = w
         self.address  = w.address().lowercased()
         self.blockchain = blockchain
+        print()
     }
 
     // MARK:- IWallet methods
@@ -120,10 +113,6 @@ class ETHWallet : IWallet {
     
     var data: String
     
-    var segwit: Bool {
-        return false
-    }
-    
     var blockchain: Blockchain
     
     var address: String
@@ -131,18 +120,17 @@ class ETHWallet : IWallet {
     var name: String
     
     var index: UInt32
-    
-    var balance: Decimal? {
-        guard let b = cachedBalance else { return nil }
-        return try? Converter.toEther(wei: b)
-    }
-    
+
     var exchange: Double {
         return cachedRate ?? 0.0
     }
     
     var privateKey: String {
         return wallet.privateKey().toHexString()
+    }
+    
+    var seed: String? {
+        return mSeed
     }
     
 }

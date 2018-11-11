@@ -44,7 +44,7 @@ enum Blockchain : String, CaseIterable {
             switch self {
             case .ETH:  return ETHWallet(blockchain: self, name: nam, data: data, privateKey: key)
             }
-        } else if data.hasPrefix("01"), let phrase = String(data: Data(hex: key), encoding: .utf8) {
+        } else if data.hasPrefix("01"), let phrase = String(data: Data(hex: key), encoding: .utf8) { // custom seed
             switch self {
             case .ETH:  return ETHWallet(blockchain: self, name: nam, data: data, index: 0, seed: phrase)
             }

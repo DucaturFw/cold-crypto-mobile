@@ -10,16 +10,14 @@ import Foundation
 
 protocol IWallet : class {
     
-    var isSupportTokens: Bool { get }
     var blockchain: Blockchain { get }
     var privateKey: String { get }
-    var balance: Decimal? { get }
     var exchange: Double { get }
     var address: String { get }
     var index: UInt32 { get }
-    var segwit: Bool { get }
     var data: String { get }
     var name: String { get }
+    var seed: String? { get }
     
     func getTransaction(to: ApiParamsTx, with: ApiParamsWallet) -> String?
     func pay(to: ApiPay, completion: @escaping (String?)->Void)

@@ -14,6 +14,8 @@
 		EB1F3B932198AB9C0052E5A7 /* AlertField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B922198AB9C0052E5A7 /* AlertField.swift */; };
 		EB1F3B952198ABC40052E5A7 /* IAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B942198ABC40052E5A7 /* IAlertView.swift */; };
 		EB1F3B972198B1D60052E5A7 /* AlertImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B962198B1D60052E5A7 /* AlertImage.swift */; };
+		EB1F3B992198CAEF0052E5A7 /* BackupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B982198CAEF0052E5A7 /* BackupVC.swift */; };
+		EB1F3B9B2198D07F0052E5A7 /* SeedWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B9A2198D07F0052E5A7 /* SeedWord.swift */; };
 		EB26C31C21924083005D3525 /* CardPickVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB26C31B21924083005D3525 /* CardPickVC.swift */; };
 		EB3ECC5D2180E8CD00D14656 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */; };
 		EB3ECC652180F74600D14656 /* ApiSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC642180F74600D14656 /* ApiSign.swift */; };
@@ -160,6 +162,8 @@
 		EB1F3B922198AB9C0052E5A7 /* AlertField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertField.swift; sourceTree = "<group>"; };
 		EB1F3B942198ABC40052E5A7 /* IAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAlertView.swift; sourceTree = "<group>"; };
 		EB1F3B962198B1D60052E5A7 /* AlertImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertImage.swift; sourceTree = "<group>"; };
+		EB1F3B982198CAEF0052E5A7 /* BackupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupVC.swift; sourceTree = "<group>"; };
+		EB1F3B9A2198D07F0052E5A7 /* SeedWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedWord.swift; sourceTree = "<group>"; };
 		EB26C31B21924083005D3525 /* CardPickVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPickVC.swift; sourceTree = "<group>"; };
 		EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		EB3ECC642180F74600D14656 /* ApiSign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSign.swift; sourceTree = "<group>"; };
@@ -309,6 +313,7 @@
 				EBD4FCCB2190D4D50080D1A9 /* PopupVC.swift */,
 				EB26C31B21924083005D3525 /* CardPickVC.swift */,
 				EB0DD634219384CD00DCE412 /* BlockchainPickerVC.swift */,
+				EB1F3B982198CAEF0052E5A7 /* BackupVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -350,6 +355,7 @@
 				EB0DD63C21938BC700DCE412 /* BlockchainCell.swift */,
 				EBDB8846219742B3000AF045 /* Field.swift */,
 				EBDB884E21974500000AF045 /* Sheet.swift */,
+				EB1F3B9A2198D07F0052E5A7 /* SeedWord.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -704,6 +710,7 @@
 				EBC9F7862182321600150883 /* ApiIce.swift in Sources */,
 				EBA593BD217A88EF00F3CB65 /* EthereumAddress.swift in Sources */,
 				EB64509921810BBC008397DF /* RTC.swift in Sources */,
+				EB1F3B9B2198D07F0052E5A7 /* SeedWord.swift in Sources */,
 				EB64509321810736008397DF /* WebRTCClient.swift in Sources */,
 				EBF620BA218B9134005C6141 /* PasswordVC.swift in Sources */,
 				EBA593DE217A8CDC00F3CB65 /* NumberPad.swift in Sources */,
@@ -731,6 +738,7 @@
 				EBDB8847219742B3000AF045 /* Field.swift in Sources */,
 				EBC9F78421822FC000150883 /* ApiMessage.swift in Sources */,
 				EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */,
+				EB1F3B992198CAEF0052E5A7 /* BackupVC.swift in Sources */,
 				EB976CEC217BA6CE00B8DC95 /* ApiParamsWallet.swift in Sources */,
 				EB3ECC652180F74600D14656 /* ApiSign.swift in Sources */,
 				EBD0B12F218E3D9A00FD1B37 /* MenuCell.swift in Sources */,

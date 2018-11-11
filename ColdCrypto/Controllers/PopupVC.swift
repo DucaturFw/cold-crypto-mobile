@@ -34,6 +34,10 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         return true
     }
     
+    var topGap: CGFloat {
+        return 80
+    }
+    
     private let mBlur: UIVisualEffectView = UIVisualEffectView(effect: nil)
     
     private var mAnimator = UIViewPropertyAnimator()
@@ -103,7 +107,7 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         mBlur.frame = view.bounds
         let trans = mContent.transform
         mContent.transform = .identity
-        mContent.frame = CGRect(x: 0, y: 80, width: view.width, height: view.height - 80)
+        mContent.frame = CGRect(x: 0, y: topGap, width: view.width, height: view.height - topGap)
         mBG.frame = content.bounds
         mContent.transform = trans
     }
