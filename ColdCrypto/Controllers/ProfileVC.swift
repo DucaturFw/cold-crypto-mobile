@@ -182,7 +182,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     }
     
     private func sureDelete(wallet: IWallet) {
-        present(CheckCodeVC(passcode: mPasscode, style: .normal, onSuccess: { [weak self] vc in
+        present(CheckCodeVC(passcode: mPasscode, onSuccess: { [weak self] vc in
             vc.dismiss(animated: true, completion: { [weak self] in
                 if let s = self {
                     s.mView.close {
@@ -200,7 +200,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     }
     
     private func backup(wallet: IWallet) {
-        present(CheckCodeVC(passcode: mPasscode, style: .normal, onSuccess: { [weak self] vc in
+        present(CheckCodeVC(passcode: mPasscode, onSuccess: { [weak self] vc in
             vc.dismiss(animated: true, completion: { [weak self] in
                 if let seed = wallet.seed {
                     self?.backup(seed: seed)
@@ -229,9 +229,15 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     }
     
     @objc private func close() {
-        dismiss(animated: true, completion: nil)
         mWebRTC?.close()
         mWebRTC = nil
+        
+        dismiss(animated: false, completion: nil)
+        present(CheckCodeVC(passcode: mPasscode,
+                            canSkip: false,
+                            onSuccess: { vc in vc.dismiss(animated: true, completion: nil) }),
+                animated: false,
+                completion: nil)
     }
     
     private func share(image: UIImage?, text: String) {

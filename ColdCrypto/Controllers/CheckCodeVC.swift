@@ -10,25 +10,21 @@ import UIKit
 
 class CheckCodeVC: CodeVC {
     
-    enum Style {
-        case overlay, normal
+    private let mPasscode: String
+    private let onSuccess: (CheckCodeVC)->Void
+
+    private let mCanSkip: Bool
+    
+    override var dragable: Bool {
+        return mCanSkip
     }
     
-    private let mPasscode: String
-    
-    private let mBack = UIImageView().apply({
-        $0.contentMode = .center
-    })
-
-    private let onSuccess: (CheckCodeVC)->Void
-    
-    private let mStyle: Style
-    
-    init(passcode: String, style: Style, onSuccess block: @escaping (CheckCodeVC)->Void) {
+    init(passcode: String, canSkip: Bool = true, onSuccess block: @escaping (CheckCodeVC)->Void) {
         mPasscode = passcode
         onSuccess = block
-        mStyle = style
+        mCanSkip  = canSkip
         super.init(nibName: nil, bundle: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(startBioAuth), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,37 +39,15 @@ class CheckCodeVC: CodeVC {
             hint.text = newValue
         }
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        mBack.image = UIImage(named: navigationController != nil ? "back" : "close")
-        mBack.isVisible = isBeingPresented
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         hint.text = "enter_hint".loc
         name.text = "enter_access_code".loc
         name.sizeToFit()
-        
-        if mStyle == .normal {
-            view.addSubview(mBack)
-            mBack.tap({ [weak self] in
-                if let nc = self?.navigationController {
-                    nc.popViewController(animated: true)
-                } else {
-                    self?.dismiss(animated: true, completion: nil)
-                }
-            })
-            
-            startBioAuth()
-        } else {
-            view.backgroundColor = .clear
-        }
     }
     
-    func startBioAuth() {
+    @objc func startBioAuth() {
         if auth.authType != .none && Settings.useBio == true {
             auth.tryToAuthWithBio { [weak self] (success) in
                 if success, let s = self {
@@ -99,10 +73,5 @@ class CheckCodeVC: CodeVC {
             }
         })
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        mBack.frame = CGRect(x: 4, y: floor(name.minY + (name.height - 40)/2.0), width: 40, height: 40)
-    }
-    
+
 }

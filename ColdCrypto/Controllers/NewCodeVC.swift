@@ -12,6 +12,8 @@ class NewCodeVC : CodeVC {
 
     private var mFirstCode: String? = nil
 
+    var onCode: (String)->Void = { _ in }
+
     override func onComplete(code: String) {
         if let fcode = mFirstCode {
             if fcode == code {
@@ -29,7 +31,7 @@ class NewCodeVC : CodeVC {
     
     override func moveNext() {
         if let passcode = mFirstCode {
-            navigationController?.setViewControllers([PasswordVC(passcode: passcode)], animated: true)
+            onCode(passcode)
         }
     }
 

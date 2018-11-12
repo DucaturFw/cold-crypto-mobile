@@ -22,18 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String
     }
     
+    public static var bottomGap: CGFloat {
+        return UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0
+    }
+    
     static let menu = UISideMenuNavigationController(rootViewController: MenuVC())
     
     var window: UIWindow?
-    
-    private let mBlur: UIVisualEffectView = {
-        let tmp = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
-        tmp.frame = UIScreen.main.bounds
-        return tmp
-    }()
-    
-    private var mLock: CheckCodeVC?
-    
+
     static var params: String? = nil
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -54,60 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor  = .white
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        if let code = Settings.passcode, let p = Settings.profile {
-            let nc = UINavigationController()
-            nc.viewControllers = [CheckCodeVC(passcode: code, style: .normal, onSuccess: { vc in
-                vc.navigationController?.setViewControllers([ProfileVC(profile: p,
-                                                                       passcode: code,
-                                                                       params: AppDelegate.params)], animated: true)
-            })]
-            window?.rootViewController = nc
-        } else {
-            window?.rootViewController = UINavigationController(rootViewController: AuthVC())
-        }
+        window?.rootViewController = UINavigationController(rootViewController: AuthVC())
         window?.makeKeyAndVisible()
         return true
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        window?.endEditing(true)
-        guard (window?.rootViewController as? UINavigationController)?.viewControllers.first as? ProfileVC != nil else { return }
-        guard let c = Settings.passcode else { return }
-        guard let _ = Settings.profile else { return }
-        
-        mLock?.view.removeFromSuperview()
-        let vc = CheckCodeVC(passcode: c, style: .overlay, onSuccess: { [weak self] _ in
-            self?.removeLock()
-        })
-        mLock = vc
-        vc.view.frame = UIScreen.main.bounds
-        vc.view.alpha = 0.0
-        mBlur.contentView.addSubview(vc.view)
-        window?.addSubview(mBlur)
-    }
-
-    private func removeLock() {
-        UIView.animate(withDuration: 0.25, animations: {
-            self.mBlur.alpha = 0.0
-        }, completion: { _ in
-            self.mBlur.removeFromSuperview()
-            self.mBlur.alpha = 1.0
-            self.mLock?.view.removeFromSuperview()
-            self.mLock = nil
-            ((self.window?.rootViewController as? UINavigationController)?.viewControllers.first as? ProfileVC)?.check(params: AppDelegate.params)
-            AppDelegate.params = nil
-        })
-    }
-    
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        window?.endEditing(true)
-        if mBlur.superview != nil && (mLock?.view.alpha ?? 1.0) < 1.0 {
-            UIView.animate(withDuration: 0.25, animations: {
-                self.mLock?.view.alpha = 1.0
-            }, completion: { _ in
-                self.mLock?.startBioAuth()
-            })
-        }
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {

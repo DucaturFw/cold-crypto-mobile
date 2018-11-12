@@ -17,11 +17,11 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
     private let mContent = UIView().apply({
         $0.backgroundColor = .white
         $0.clipsToBounds = true
-        $0.layer.cornerRadius = 10.scaled
+        $0.layer.cornerRadius = 14.scaled
         $0.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
     })
     
-    private let mBG = UIImageView(image: UIImage(named: "mainBG")).apply({
+    let background = UIImageView(image: UIImage(named: "mainBG")).apply({
         $0.contentMode   = .scaleAspectFill
         $0.clipsToBounds = true
     })
@@ -56,7 +56,7 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         super.viewDidLoad()
         view.addSubview(mBlur)
         mBlur.contentView.addSubview(mContent)
-        mContent.addSubview(mBG)
+        mContent.addSubview(background)
         if dragable {
             mContent.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(PopupVC.panned(_:))))
         }
@@ -107,9 +107,16 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         mBlur.frame = view.bounds
         let trans = mContent.transform
         mContent.transform = .identity
-        mContent.frame = CGRect(x: 0, y: topGap, width: view.width, height: view.height - topGap)
-        mBG.frame = content.bounds
+        mContent.frame = CGRect(x: 0, y: topGap, width: view.width, height: view.height - topGap + 100)
+        background.frame = content.bounds
         mContent.transform = trans
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !animated {
+            mBlur.effect = UIBlurEffect(style: .extraLight)
+        }
     }
 
     // MARK: - UIViewControllerTransitioningDelegate methods
@@ -137,12 +144,15 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         view.setNeedsLayout()
         view.layoutIfNeeded()
         AppDelegate.lock()
-        UIView.animate(withDuration: 0.4, animations: {
-            self.mBlur.effect = UIBlurEffect(style: .extraLight)
+        
+        UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.0, options: [], animations: {
             self.mContent.transform = .identity
         }, completion: { _ in
             AppDelegate.unlock()
             completion()
+        })
+        UIView.animate(withDuration: 0.25, animations: {
+            self.mBlur.effect = UIBlurEffect(style: .extraLight)
         })
     }
     

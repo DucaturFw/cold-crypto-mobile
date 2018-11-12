@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CodeVC : UIViewController {
+class CodeVC : PopupVC {
         
     private let mName = UILabel.new(font: UIFont.sfProMedium(25.scaled), text: "create_code".loc, lines: 1, color: .black, alignment: .center)
     var name: UILabel {
@@ -32,32 +32,35 @@ class CodeVC : UIViewController {
         return mCode
     }
     
+    private var mTopGap: CGFloat?
+    override var topGap: CGFloat {
+        if let tp = mTopGap {
+            return view.height - tp
+        }
+        return 80
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        view.addSubview(mName)
-        view.addSubview(mHint)
-        view.addSubview(mKeys)
-        view.addSubview(mCode)
+        background.removeFromSuperview()
+        content.addSubview(mName)
+        content.addSubview(mHint)
+        content.addSubview(mKeys)
+        content.addSubview(mCode)
         mKeys.onClick = { [weak self] key in
             self?.append(key: key)
         }
     }
     
     override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        let top = UIApplication.shared.statusBarFrame.maxY
-        let space = view.height - top - view.bottomGap
-        let y = top + (space - mKeys.height - 178)/2.0
+        let y = 20.scaled
         mName.origin = CGPoint(x: (view.width - mName.width)/2.0, y: y)
-        mHint.origin = CGPoint(x: (view.width - mHint.width)/2.0, y: y + 55.scaled)
-        mKeys.origin = CGPoint(x: (view.width - mKeys.width)/2.0, y: y + 178.scaled)
-        mCode.origin = CGPoint(x: (view.width - mCode.width)/2.0, y: y + 122.scaled)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+        mHint.origin = CGPoint(x: (view.width - mHint.width)/2.0, y: y + 45.scaled)
+        mCode.origin = CGPoint(x: (view.width - mCode.width)/2.0, y: y + 108.scaled)
+        mKeys.origin = CGPoint(x: (view.width - mKeys.width)/2.0, y: y + 146.scaled)
+        mTopGap = mKeys.maxY + 20.scaled + view.bottomGap
+        
+        super.viewDidLayoutSubviews()
     }
     
     internal func authComplete() {
