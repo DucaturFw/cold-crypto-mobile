@@ -83,7 +83,7 @@ class AuthVC : UIViewController {
     
     private func onStart() {
         if let code = Settings.passcode, let p = Settings.profile {
-            present(CheckCodeVC(passcode: code, canSkip: false, onSuccess: { [weak self] vc in
+            present(CheckCodeVC(passcode: code, canSkip: false, authAtStart: true, onSuccess: { [weak self] vc in
                 vc.dismiss(animated: true, completion: nil)
                 self?.navigationController?.setViewControllers([ProfileVC(profile: p,
                                                                           passcode: code,

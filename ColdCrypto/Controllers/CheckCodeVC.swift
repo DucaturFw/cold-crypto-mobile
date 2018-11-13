@@ -19,6 +19,13 @@ class CheckCodeVC: CodeVC {
         return mCanSkip
     }
     
+    private var mAuthAtStart = false
+
+    convenience init(passcode: String, canSkip: Bool = true, authAtStart: Bool, onSuccess block: @escaping (CheckCodeVC)->Void) {
+        self.init(passcode: passcode, canSkip: canSkip, onSuccess: block)
+        mAuthAtStart = authAtStart
+    }
+    
     init(passcode: String, canSkip: Bool = true, onSuccess block: @escaping (CheckCodeVC)->Void) {
         mPasscode = passcode
         onSuccess = block
@@ -74,4 +81,12 @@ class CheckCodeVC: CodeVC {
         })
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if mAuthAtStart {
+            mAuthAtStart = false
+            startBioAuth()
+        }
+    }
+    
 }
