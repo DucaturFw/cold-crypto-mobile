@@ -39,7 +39,7 @@ extension RawTransaction {
         self.gasPrice = gasPrice
         self.gasLimit = gasLimit
         self.nonce = nonce
-        self.data = Data()
+        self.data = data
     }
     
     public init(wei: String, to: String, gasPrice: Int, gasLimit: Int, nonce: Int, data: Data = Data()) {

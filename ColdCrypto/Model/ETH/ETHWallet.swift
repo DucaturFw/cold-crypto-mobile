@@ -70,7 +70,6 @@ class ETHWallet : IWallet {
         self.wallet   = w
         self.address  = w.address().lowercased()
         self.blockchain = blockchain
-        print()
     }
 
     // MARK:- IWallet methods

@@ -149,13 +149,6 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     }
     
     private func startScanning() {
-//        // TODO: REMOVE THIS
-//        if let path = Bundle.main.path(forResource: "abi_mock.json", ofType: nil), let str = try? String(contentsOfFile: path) {
-//            parse(request: "signContractCall|3|\(str)", supportRTC: false, block: { resp in
-//                print("\(resp   )")
-//            })
-//            return
-//        }
         let vc = ScannerVC()
         vc.onFound = { [weak self, weak vc] json in
             if let s = self, s.parse(request: json, supportRTC: true, block: s.defaultCatchBlock) == true {
@@ -259,9 +252,6 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     // -------------------------------------------------------------------------
     @discardableResult
     func parse(request: String, supportRTC: Bool, block: @escaping (String)->Void) -> Bool {
-        
-        print("\(request)")
-        
         let parts = request.split(separator: "|", maxSplits: Int.max, omittingEmptySubsequences: false)
         var catched: Bool = false
         if parts.count > 2, let id = Int(parts[1]) {
