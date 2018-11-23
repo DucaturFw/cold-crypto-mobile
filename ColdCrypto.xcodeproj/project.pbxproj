@@ -20,6 +20,8 @@
 		EB3ECC5D2180E8CD00D14656 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */; };
 		EB3ECC652180F74600D14656 /* ApiSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC642180F74600D14656 /* ApiSign.swift */; };
 		EB3F8AFE218357D5004E6CFB /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3F8AFD218357D5004E6CFB /* WalletView.swift */; };
+		EB5529F321A5E7DE00EB11ED /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5529F221A5E7DE00EB11ED /* Contract.swift */; };
+		EB5529F621A5EE8400EB11ED /* ContractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5529F521A5EE8400EB11ED /* ContractView.swift */; };
 		EB6450892181069F008397DF /* SignalClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6450882181069F008397DF /* SignalClient.swift */; };
 		EB64509321810736008397DF /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64509221810736008397DF /* WebRTCClient.swift */; };
 		EB6450952181074D008397DF /* RTCStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6450942181074D008397DF /* RTCStates.swift */; };
@@ -62,6 +64,13 @@
 		EBA593DA217A8CB500F3CB65 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */; };
 		EBA593DE217A8CDC00F3CB65 /* NumberPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */; };
 		EBA593E0217A8D1900F3CB65 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DF217A8D1900F3CB65 /* Alert.swift */; };
+		EBAC21C221A5C774002CF61B /* abi.js in Resources */ = {isa = PBXBuildFile; fileRef = EBAC21C121A5C774002CF61B /* abi.js */; };
+		EBAC21C421A5C78E002CF61B /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBAC21C321A5C78E002CF61B /* JavaScriptCore.framework */; };
+		EBAC21C621A5C7AA002CF61B /* ETHabi.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAC21C521A5C7AA002CF61B /* ETHabi.swift */; };
+		EBAC21CD21A5D0E5002CF61B /* ApiSignContractCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAC21CC21A5D0E5002CF61B /* ApiSignContractCall.swift */; };
+		EBAC21CF21A5D255002CF61B /* ApiAbi.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAC21CE21A5D255002CF61B /* ApiAbi.swift */; };
+		EBAC21D321A5D916002CF61B /* abi_mock.json in Resources */ = {isa = PBXBuildFile; fileRef = EBAC21D221A5D916002CF61B /* abi_mock.json */; };
+		EBAC21D521A5D958002CF61B /* ConfirmContractCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAC21D421A5D958002CF61B /* ConfirmContractCall.swift */; };
 		EBB15F872184EEF600F6370E /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB15F862184EEF600F6370E /* CodeView.swift */; };
 		EBC9F77C21822F4900150883 /* ApiAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC9F77B21822F4900150883 /* ApiAnswer.swift */; };
 		EBC9F78421822FC000150883 /* ApiMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC9F78321822FC000150883 /* ApiMessage.swift */; };
@@ -168,6 +177,8 @@
 		EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		EB3ECC642180F74600D14656 /* ApiSign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSign.swift; sourceTree = "<group>"; };
 		EB3F8AFD218357D5004E6CFB /* WalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
+		EB5529F221A5E7DE00EB11ED /* Contract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contract.swift; sourceTree = "<group>"; };
+		EB5529F521A5EE8400EB11ED /* ContractView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractView.swift; sourceTree = "<group>"; };
 		EB6450882181069F008397DF /* SignalClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalClient.swift; sourceTree = "<group>"; };
 		EB64509221810736008397DF /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		EB6450942181074D008397DF /* RTCStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCStates.swift; sourceTree = "<group>"; };
@@ -176,7 +187,6 @@
 		EB64509A21810CAD008397DF /* ApiWebRTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiWebRTC.swift; sourceTree = "<group>"; };
 		EB64509C2181152E008397DF /* ApiOffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiOffer.swift; sourceTree = "<group>"; };
 		EB64509E21811684008397DF /* ApiJoin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiJoin.swift; sourceTree = "<group>"; };
-		EB74B440217C75BB006AE00F /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
 		EB74B44F217CB3CA006AE00F /* bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@3x.png"; sourceTree = "<group>"; };
 		EB74B450217CB3CA006AE00F /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
 		EB74B456217CCFFB006AE00F /* ScanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanButton.swift; sourceTree = "<group>"; };
@@ -211,6 +221,13 @@
 		EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberPad.swift; sourceTree = "<group>"; };
 		EBA593DF217A8D1900F3CB65 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		EBAC21C121A5C774002CF61B /* abi.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = abi.js; sourceTree = "<group>"; };
+		EBAC21C321A5C78E002CF61B /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EBAC21C521A5C7AA002CF61B /* ETHabi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHabi.swift; sourceTree = "<group>"; };
+		EBAC21CC21A5D0E5002CF61B /* ApiSignContractCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSignContractCall.swift; sourceTree = "<group>"; };
+		EBAC21CE21A5D255002CF61B /* ApiAbi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiAbi.swift; sourceTree = "<group>"; };
+		EBAC21D221A5D916002CF61B /* abi_mock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = abi_mock.json; sourceTree = "<group>"; };
+		EBAC21D421A5D958002CF61B /* ConfirmContractCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmContractCall.swift; sourceTree = "<group>"; };
 		EBB15F862184EEF600F6370E /* CodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
 		EBC9F77B21822F4900150883 /* ApiAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiAnswer.swift; sourceTree = "<group>"; };
 		EBC9F78321822FC000150883 /* ApiMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiMessage.swift; sourceTree = "<group>"; };
@@ -244,6 +261,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBAC21C421A5C78E002CF61B /* JavaScriptCore.framework in Frameworks */,
 				EBA593DA217A8CB500F3CB65 /* LocalAuthentication.framework in Frameworks */,
 				EBA593B1217A845E00F3CB65 /* AVFoundation.framework in Frameworks */,
 				EBE4850F21792FF3006879F7 /* EthereumKit.framework in Frameworks */,
@@ -259,6 +277,7 @@
 		1A2741F217BD81CB5F16F23D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EBAC21C321A5C78E002CF61B /* JavaScriptCore.framework */,
 				EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */,
 				EBA593B0217A845E00F3CB65 /* AVFoundation.framework */,
 				B511BE577741365521F8A2AA /* Pods_ColdCrypto.framework */,
@@ -284,6 +303,14 @@
 				EB1F3B962198B1D60052E5A7 /* AlertImage.swift */,
 			);
 			path = Alert;
+			sourceTree = "<group>";
+		};
+		EB5529F421A5EE5B00EB11ED /* Contract */ = {
+			isa = PBXGroup;
+			children = (
+				EB5529F521A5EE8400EB11ED /* ContractView.swift */,
+			);
+			path = Contract;
 			sourceTree = "<group>";
 		};
 		EB6450872181068F008397DF /* WebRTC */ = {
@@ -314,6 +341,7 @@
 				EB26C31B21924083005D3525 /* CardPickVC.swift */,
 				EB0DD634219384CD00DCE412 /* BlockchainPickerVC.swift */,
 				EB1F3B982198CAEF0052E5A7 /* BackupVC.swift */,
+				EBAC21D421A5D958002CF61B /* ConfirmContractCall.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -341,8 +369,8 @@
 		EB74B43F217C75B2006AE00F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EB5529F421A5EE5B00EB11ED /* Contract */,
 				EB1F3B912198AB8A0052E5A7 /* Alert */,
-				EB74B440217C75BB006AE00F /* CodeView.swift */,
 				EBA593B2217A84A000F3CB65 /* ScanView.swift */,
 				EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */,
 				EBB15F862184EEF600F6370E /* CodeView.swift */,
@@ -370,6 +398,8 @@
 				EB74B450217CB3CA006AE00F /* bg@2x.png */,
 				EB74B44F217CB3CA006AE00F /* bg@3x.png */,
 				EBE484DC217928C0006879F7 /* Info.plist */,
+				EBAC21C121A5C774002CF61B /* abi.js */,
+				EBAC21D221A5D916002CF61B /* abi_mock.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -388,6 +418,8 @@
 				EBC9F7852182321600150883 /* ApiIce.swift */,
 				EBC9F79321824F2B00150883 /* ApiChains.swift */,
 				EB91A2342184983F001788FA /* ApiPay.swift */,
+				EBAC21CC21A5D0E5002CF61B /* ApiSignContractCall.swift */,
+				EBAC21CE21A5D255002CF61B /* ApiAbi.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -408,6 +440,7 @@
 			children = (
 				EBA593B8217A88EF00F3CB65 /* EthereumAddress.swift */,
 				EBA593B9217A88EF00F3CB65 /* ETHNet.swift */,
+				EBAC21C521A5C7AA002CF61B /* ETHabi.swift */,
 				EBA593B5217A88EF00F3CB65 /* ETHTransaction.swift */,
 				EBA593B6217A88EF00F3CB65 /* ETHWallet.swift */,
 			);
@@ -421,6 +454,7 @@
 				EBA593C3217A897E00F3CB65 /* IViewable.swift */,
 				EBA593C1217A892900F3CB65 /* Blockchain.swift */,
 				EBDB885C21976AC1000AF045 /* IWallet.swift */,
+				EB5529F221A5E7DE00EB11ED /* Contract.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -591,11 +625,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBAC21D321A5D916002CF61B /* abi_mock.json in Resources */,
 				EB74B452217CB3CA006AE00F /* bg@2x.png in Resources */,
 				EB74B451217CB3CA006AE00F /* bg@3x.png in Resources */,
 				EBA5939C217A816800F3CB65 /* SF-Pro-Display-Semibold.otf in Resources */,
 				EBE484DB217928C0006879F7 /* LaunchScreen.storyboard in Resources */,
 				EBA59399217A816800F3CB65 /* SF-Pro-Display-Regular.otf in Resources */,
+				EBAC21C221A5C774002CF61B /* abi.js in Resources */,
 				EBA593AD217A831900F3CB65 /* Localizable.strings in Resources */,
 				EBA5939A217A816800F3CB65 /* SF-Pro-Display-Bold.otf in Resources */,
 				EBE484D8217928C0006879F7 /* Assets.xcassets in Resources */,
@@ -709,6 +745,7 @@
 				EB1A0BF0218A27D300C43E72 /* CardsList.swift in Sources */,
 				EBC9F7862182321600150883 /* ApiIce.swift in Sources */,
 				EBA593BD217A88EF00F3CB65 /* EthereumAddress.swift in Sources */,
+				EBAC21CD21A5D0E5002CF61B /* ApiSignContractCall.swift in Sources */,
 				EB64509921810BBC008397DF /* RTC.swift in Sources */,
 				EB1F3B9B2198D07F0052E5A7 /* SeedWord.swift in Sources */,
 				EB64509321810736008397DF /* WebRTCClient.swift in Sources */,
@@ -724,9 +761,12 @@
 				EBA593CE217A8B6400F3CB65 /* Chain.swift in Sources */,
 				EB74B457217CCFFB006AE00F /* ScanButton.swift in Sources */,
 				EBD0B11C218DFBED00FD1B37 /* MenuVC.swift in Sources */,
+				EB5529F321A5E7DE00EB11ED /* Contract.swift in Sources */,
+				EB5529F621A5EE8400EB11ED /* ContractView.swift in Sources */,
 				EB64509721810A82008397DF /* Signer.swift in Sources */,
 				EB1F3B972198B1D60052E5A7 /* AlertImage.swift in Sources */,
 				EBD4FCCA2190BFC20080D1A9 /* IPopover.swift in Sources */,
+				EBAC21D521A5D958002CF61B /* ConfirmContractCall.swift in Sources */,
 				EBC9F79421824F2B00150883 /* ApiChains.swift in Sources */,
 				EB6450952181074D008397DF /* RTCStates.swift in Sources */,
 				EBA593E0217A8D1900F3CB65 /* Alert.swift in Sources */,
@@ -736,6 +776,7 @@
 				EBDCD55C217FD85E00B6EF5B /* ConfirmationVC.swift in Sources */,
 				EB1F3B952198ABC40052E5A7 /* IAlertView.swift in Sources */,
 				EBDB8847219742B3000AF045 /* Field.swift in Sources */,
+				EBAC21C621A5C7AA002CF61B /* ETHabi.swift in Sources */,
 				EBC9F78421822FC000150883 /* ApiMessage.swift in Sources */,
 				EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */,
 				EB1F3B992198CAEF0052E5A7 /* BackupVC.swift in Sources */,
@@ -747,6 +788,7 @@
 				EBA593D4217A8C0300F3CB65 /* NewCodeVC.swift in Sources */,
 				EBA593D8217A8CA300F3CB65 /* BioAuth.swift in Sources */,
 				EBA593D0217A8BF700F3CB65 /* CheckCodeVC.swift in Sources */,
+				EBAC21CF21A5D255002CF61B /* ApiAbi.swift in Sources */,
 				EBA593BB217A88EF00F3CB65 /* ETHWallet.swift in Sources */,
 				EBA593C4217A897E00F3CB65 /* IViewable.swift in Sources */,
 				EB26C31C21924083005D3525 /* CardPickVC.swift in Sources */,

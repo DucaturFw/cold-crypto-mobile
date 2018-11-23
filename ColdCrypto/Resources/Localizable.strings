@@ -74,4 +74,8 @@
 "share" = "Share";
 "rec_phrsae" = "Here's your recovery phrase:";
 "rec_hint" = "Resist temptation to email it to yourself or screenshot it. You will thank yourself later.\nThe order of words is important too!";
-"done" = "DONE";
+"done"  = "DONE";
+"close" = "CLOSE";
+"invalid" = "The contract invocation\nis not valid";
+"cant_signed" = "Can't sign this transaction.";
+"no_params" = "Without parameters";

@@ -149,6 +149,13 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     }
     
     private func startScanning() {
+//        // TODO: REMOVE THIS
+//        if let path = Bundle.main.path(forResource: "abi_mock.json", ofType: nil), let str = try? String(contentsOfFile: path) {
+//            parse(request: "signContractCall|3|\(str)", supportRTC: false, block: { resp in
+//                print("\(resp   )")
+//            })
+//            return
+//        }
         let vc = ScannerVC()
         vc.onFound = { [weak self, weak vc] json in
             if let s = self, s.parse(request: json, supportRTC: true, block: s.defaultCatchBlock) == true {
@@ -252,6 +259,9 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     // -------------------------------------------------------------------------
     @discardableResult
     func parse(request: String, supportRTC: Bool, block: @escaping (String)->Void) -> Bool {
+        
+        print("\(request)")
+        
         let parts = request.split(separator: "|", maxSplits: Int.max, omittingEmptySubsequences: false)
         var catched: Bool = false
         if parts.count > 2, let id = Int(parts[1]) {
@@ -261,10 +271,28 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
             case "signTransferTx": catched = signTransferTx(json: json, id: id, completion: block)
             case "getWalletList": catched = getWalletList(json: json, id: id, completion: block)
             case "webrtcLogin": if supportRTC { catched = webrtcLogin(json: json) }
+            case "signContractCall": catched = signContractCall(json: json, id: id, completion: block)
             default: catched = false
             }
         }
         return catched
+    }
+    
+    @discardableResult
+    func signContractCall(json: String, id: Int, completion: @escaping (String)->Void) -> Bool {
+        guard let w = mActiveWallet else { return false }
+        guard let p = ApiSignContractCall.deserialize(from: json) else { return false }
+        DispatchQueue.main.async {
+            self.present(ConfirmContractCall(contract: p, wallet: w, passcode: self.mPasscode, completion: { [weak self] signed in
+                if let s = signed {
+                    self?.dismiss(animated: true, completion: nil)
+                    completion("|\(id)|\"\(s)\"")
+                } else {
+                    Alert("cant_signed".loc).show()
+                }
+            }), animated: true, completion: nil)
+        }
+        return true
     }
     
     @discardableResult

@@ -15,6 +15,7 @@ class ApiParamsTx: HandyJSON {
     var to: String = ""
     var nonce: Int = 0
     var gasPrice: String = ""
+    var gasLimit: Int?
     var value: String = ""
     var data: String?
     
