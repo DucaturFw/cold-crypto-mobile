@@ -9,9 +9,11 @@
 import UIKit
 import BlockiesSwift
 
-class WalletView: UICollectionViewCell {
+class WalletCell: UICollectionViewCell {
     
-    private let mIcon = UIImageView(image: UIImage(named: "ethIcon"))
+    private let mIcon = UIImageView(image: UIImage(named: "ethIcon")).apply({
+        $0.contentMode = .scaleAspectFit
+    })
     
     private let mContent = UIImageView(image: UIImage(named: "cardBG")).apply({
         $0.contentMode = .scaleAspectFill
@@ -70,6 +72,7 @@ class WalletView: UICollectionViewCell {
         didSet {
             mAddress.text = wallet?.address
             mUnits.text   = wallet?.blockchain.symbol()
+            mIcon.image   = wallet?.blockchain.icon()
             mUnits.sizeToFit()
             if let seed = mAddress.text {
                 let i = MyBlockiesHelper.createRandSeed(seed: seed)

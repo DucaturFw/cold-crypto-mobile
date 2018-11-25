@@ -67,6 +67,10 @@ class Profile {
         return wallet
     }
     
+    func addWallet(wallet: IWallet) {
+        chainOrCreate(blockchain: wallet.blockchain).wallets.append(wallet)
+    }
+    
     func chainOrCreate(blockchain: Blockchain) -> Chain {
         guard let chain = chains.first(where: { $0.id == blockchain }) else {
             let tmp = Chain(blockchain: blockchain)

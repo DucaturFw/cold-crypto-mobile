@@ -17,9 +17,9 @@ class ContractView: UIView {
         $0.numberOfLines = 0
     })
     
-    private let mContract: Contract
+    private let mContract: ContractImpl
     
-    init(contract: Contract) {
+    init(contract: ContractImpl) {
         mContract = contract
         super.init(frame: .zero)
         mCaption.text = contract.name

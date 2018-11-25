@@ -9,7 +9,7 @@
 import Foundation
 import HandyJSON
 
-class Contract: HandyJSON {
+class ContractImpl: HandyJSON {
     
     class Param: HandyJSON {
         

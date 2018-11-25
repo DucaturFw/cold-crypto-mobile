@@ -10,16 +10,10 @@ import HandyJSON
 import Foundation
 import EthereumKit
 
-extension Blockchain {
-    func ethConfig() -> ETHWallet.Config? {
-        switch self {
-        case .ETH: return ETHWallet.Config(n: Network.private(chainID: 4, testUse: true), e: "https://rinkeby.infura.io/8d9fdb63b80048e5b31c5b8e2650434e")
-        }
-    }
-}
-
 class ETHWallet : IWallet {
 
+    private static var network = Network.private(chainID: 4, testUse: true)
+    
     class Config {
         let network: Network
         let endpoint: String
@@ -29,14 +23,12 @@ class ETHWallet : IWallet {
         }
     }
 
-    private var cachedRate: Double?
     private var mBalance: String?
     private var mSeed: String?
     private lazy var mNet = ETHNet(wallet: self)
 
-    var network:  Network
-    let wallet:   Wallet
-    let endpoint: String
+    let network = Network.private(chainID: 4, testUse: true)
+    let wallet: Wallet
     var gasLimit: Int = 21000
     var gasPrice: Wei?
     
@@ -46,27 +38,21 @@ class ETHWallet : IWallet {
     }
     
     init?(blockchain: Blockchain, name: String, data: String, privateKey: String) {
-        guard let n = blockchain.ethConfig() else { return nil }
         self.name  = name
         self.data  = data
         self.index = 0
         self.mSeed = nil
-        self.endpoint = n.endpoint
-        self.network  = n.network
         self.wallet   = Wallet(network: network, privateKey: privateKey, debugPrints: false)
         self.address  = self.wallet.address().lowercased()
         self.blockchain = blockchain
     }
     
     init?(blockchain: Blockchain, name: String, data: String, index: UInt32, seed: Data) {
-        guard let n = blockchain.ethConfig() else { return nil }
-        guard let w = try? Wallet(seed: seed, index: index, network: n.network, debugPrints: false) else { return nil }
+        guard let w = try? Wallet(seed: seed, index: index, network: ETHWallet.network, debugPrints: false) else { return nil }
         self.name  = name
         self.data  = data
         self.index = index
         self.mSeed = String(data: seed, encoding: .utf8)
-        self.endpoint = n.endpoint
-        self.network  = n.network
         self.wallet   = w
         self.address  = w.address().lowercased()
         self.blockchain = blockchain
@@ -77,7 +63,8 @@ class ETHWallet : IWallet {
     func getTransaction(to: ApiParamsTx, with: ApiParamsWallet) -> String? {
         guard let v = Wei(to.value) else { return nil }
         guard let p = Int(to.gasPrice) else { return nil }
-        let n = Network.private(chainID: with.chainId, testUse: true)
+        guard let c = Int(with.chainId) else { return nil }
+        let n = Network.private(chainID: c, testUse: true)
         let w = Wallet(network: n, privateKey: wallet.privateKey().toHexString(), debugPrints: false)
         let dd = to.data ?? "0x"
         let d = dd.starts(with: "0x") ? Data(hex: dd) : Data()
@@ -121,10 +108,6 @@ class ETHWallet : IWallet {
     
     var index: UInt32
 
-    var exchange: Double {
-        return cachedRate ?? 0.0
-    }
-    
     var privateKey: String {
         return wallet.privateKey().toHexString()
     }

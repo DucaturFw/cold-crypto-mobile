@@ -22,7 +22,7 @@ class ETHNet {
         mWallet = wallet
         mGeth = Geth(configuration: Configuration(
             network: wallet.network,
-            nodeEndpoint: wallet.endpoint,
+            nodeEndpoint: "https://rinkeby.infura.io/8d9fdb63b80048e5b31c5b8e2650434e",
             etherscanAPIKey: "ZC66358FTE2I7NV3YNUVDE2Y4PI8BQKRNB",
             debugPrints: false
         ))

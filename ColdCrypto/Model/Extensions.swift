@@ -12,6 +12,8 @@ import HandyJSON
 import UIKit
 import SideMenu
 
+typealias HUD = MBProgressHUD
+
 extension UIFont {
     
     static func sfProMedium(_ size: CGFloat) -> UIFont {
@@ -228,8 +230,14 @@ extension UIView: HasApply {
         return self
     }
     
+    @objc var withTint: Bool {
+        return true
+    }
+    
     @objc fileprivate func handleTapGesture(sender: UITapGestureRecognizer) {
-        addTint()
+        if withTint {
+            addTint()
+        }
         if let action = self.tapGestureRecognizerAction {
             action?()
         } else {
@@ -515,4 +523,12 @@ extension Decimal {
     var compactValue: String? {
         return Decimal.formatter.string(for: self)
     }
+}
+
+extension MBProgressHUD {
+    
+    static func show() -> HUD? {
+        return UIApplication.shared.windows.first?.hud
+    }
+    
 }

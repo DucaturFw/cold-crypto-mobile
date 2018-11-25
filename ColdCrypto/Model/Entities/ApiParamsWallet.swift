@@ -12,9 +12,9 @@ class ApiParamsWallet: HandyJSON {
     
     var blockchain: String = ""
     var address: String = ""
-    var chainId: Int = 0
+    var chainId: String = ""
     
-    init(b: String, a: String, c: Int) {
+    init(b: String, a: String, c: String) {
         blockchain = b
         address = a
         chainId = c

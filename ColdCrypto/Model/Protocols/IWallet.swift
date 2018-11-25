@@ -12,7 +12,6 @@ protocol IWallet : class {
     
     var blockchain: Blockchain { get }
     var privateKey: String { get }
-    var exchange: Double { get }
     var address: String { get }
     var index: UInt32 { get }
     var data: String { get }

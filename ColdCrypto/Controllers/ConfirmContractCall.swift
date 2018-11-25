@@ -69,7 +69,7 @@ class ConfirmContractCall: PopupVC {
             let call = mContract.abi?.method,
             let data = mContract.tx?.data,
             let pack = ETHabi.convert(call: call, data: data),
-            let cont = Contract.deserialize(from: pack) {
+            let cont = ContractImpl.deserialize(from: pack) {
             mInvalid.isVisible = false
             let v = ContractView(contract: cont)
             mViews.append(v)

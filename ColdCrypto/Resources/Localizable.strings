@@ -79,3 +79,6 @@
 "invalid" = "The contract invocation\nis not valid";
 "cant_signed" = "Can't sign this transaction.";
 "no_params" = "Without parameters";
+"etherium" = "Etherium";
+"seed_pk" = "Enter the seed phrase or the private key";
+"no_acccount_eos" = "Can't find any account.";

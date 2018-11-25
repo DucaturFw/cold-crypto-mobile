@@ -67,8 +67,8 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
         backgroundColor = .clear
         dataSource = self
         delegate = self
-        register(WalletView.self, forCellWithReuseIdentifier: "cell")
-        WalletView.register(in: self)
+        register(WalletCell.self, forCellWithReuseIdentifier: "cell")
+        WalletCell.register(in: self)
         contentInsetAdjustmentBehavior = .never
     }
     
@@ -159,7 +159,7 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
     }
 
     private func hideFirst(s: IndexPath) {
-        (cellForItem(at: s) as? WalletView)?.fullVisible = false
+        (cellForItem(at: s) as? WalletCell)?.fullVisible = false
         setCollectionViewLayout(mLayout, animated: true, completion: nil)
         onActive(nil)
     }
@@ -170,7 +170,7 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
     }
     
     private func showFirst(newLayout: TGLExposedLayout, s: IndexPath, wallet: IWallet?) {
-        (cellForItem(at: s) as? WalletView)?.fullVisible = detailsForCard
+        (cellForItem(at: s) as? WalletCell)?.fullVisible = detailsForCard
         setCollectionViewLayout(newLayout, animated: true, completion: nil)
         onActive(wallet)
     }
@@ -249,7 +249,7 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ cv: UICollectionView, cellForItemAt p: IndexPath) -> UICollectionViewCell {
-        let cell = WalletView.get(from: cv, at: p)
+        let cell = WalletCell.get(from: cv, at: p)
         cell.wallet = mReversedWallets[p.row]
         cell.onBackUp = { [weak self] w in
             self?.onBackUp(w)

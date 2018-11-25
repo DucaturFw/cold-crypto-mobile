@@ -24,6 +24,8 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     
     private var mParams: String?
     
+    private var mPickerVisible = false
+    
     private lazy var mRightAdd = UIImageView(image: UIImage(named: "add")).tap({ [weak self] in
         self?.mImportManager.addNewWallet()
     }).apply({
@@ -131,8 +133,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         mScan.transform = CGAffineTransform(translationX: 0, y: w == nil  ? self.scanMinY : 0)
         mLeftMenu.isUserInteractionEnabled = (w == nil)
         mRightAdd.isUserInteractionEnabled = mLeftMenu.isUserInteractionEnabled
-        mLeftMenu.alpha = (w == nil ? 1.0 : 0.0)
-        mRightAdd.alpha = mLeftMenu.alpha
+        adjustTopAlpha()
     }
 
     override func viewDidLayoutSubviews() {
@@ -329,14 +330,11 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     
     @discardableResult
     func getWalletList(json: String, id: Int, completion: @escaping (String)->Void) -> Bool {
-        guard let c = ApiChains.deserialize(from: json) else { return false }
-        let chains = mProfile.chains.filter({ c.blockchains.contains($0.id.rawValue.lowercased()) })
-        guard let str = chains.flatMap({ oc in
-            oc.wallets.compactMap({ ow in
-                ApiParamsWallet(b: ow.blockchain.rawValue.lowercased(), a: ow.address, c: 4)
-            })
-        }).toJSONString() else { return false }
-        completion("|\(id)|\(str)")
+        guard let w = mActiveWallet else { return false }
+        guard let s = [ApiParamsWallet(b: w.blockchain.rawValue.lowercased(),
+                                       a: w.address,
+                                       c: w.blockchain.chainId)].toJSONString() else { return false }
+        completion("|\(id)|\(s)")
         return true
     }
     
@@ -375,6 +373,24 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         mProfile.index += 1
         Settings.profile = mProfile
         mView.add(wallet: w)
+    }
+    
+    func onNew(wallet: IWallet) {
+        mProfile.addWallet(wallet: wallet)
+        Settings.profile = mProfile
+        mView.add(wallet: wallet)
+    }
+    
+    func setTop(visible: Bool) {
+        UIView.animate(withDuration: 0.25, animations: {
+            self.mPickerVisible = !visible
+            self.adjustTopAlpha()
+        })
+    }
+    
+    func adjustTopAlpha() {
+        mLeftMenu.alpha = (mPickerVisible || mActiveWallet != nil) ? 0.0 : 1.0
+        mRightAdd.alpha = mLeftMenu.alpha
     }
     
 }

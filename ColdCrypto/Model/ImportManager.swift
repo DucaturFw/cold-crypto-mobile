@@ -12,6 +12,8 @@ import EthereumKit
 protocol ImportDelegate {
     func onNew(chain: Blockchain, name: String, data: String, segwit: Bool)
     func onNewHDWallet(chain: Blockchain)
+    func onNew(wallet: IWallet)
+    func setTop(visible: Bool)
 }
 
 class ImportManager {
@@ -24,11 +26,25 @@ class ImportManager {
     
     func addNewWallet() {
         guard let p = mParent else { return }
-        let vc = BlockchainPickerVC()
-        vc.onSelected = { [weak self] chain in
-            self?.askWhatToAdd(in: chain)
-        }
-        p.present(vc, animated: true, completion: nil)
+        p.setTop(visible: false)
+        ChainPicker().show(in: p, block: { [weak self, weak p] b in
+            guard let p = p else { return }
+            p.setTop(visible: true)
+            if let b = b, b == .EOS {
+                self?.importEOS()
+            } else if let b = b {
+                self?.askWhatToAdd(in: b)
+            }
+        })
+    }
+    
+    private func importEOS() {
+        guard let parent = mParent?.navigationController ?? mParent else { return }
+        EOSImporter.importWallet(from: parent, completion: { [weak self] w in
+            if let w = w {
+                self?.mParent?.onNew(wallet: w)
+            }
+        })
     }
     
     private func askWhatToAdd(in chain: Blockchain) {

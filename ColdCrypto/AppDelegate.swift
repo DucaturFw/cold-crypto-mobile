@@ -42,6 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Settings.clear()
         }
         
+        EOSRPC.endpoint = "http://jungle.eosgen.io:80"
+                
         SideMenuManager.default.menuLeftNavigationController = AppDelegate.menu
         SideMenuManager.default.menuFadeStatusBar = false
         
