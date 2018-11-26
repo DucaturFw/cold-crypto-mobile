@@ -18,8 +18,10 @@ protocol IWallet : class {
     var name: String { get }
     var seed: String? { get }
     
-    func getTransaction(to: ApiParamsTx, with: ApiParamsWallet) -> String?
-    func pay(to: ApiPay, completion: @escaping (String?)->Void)
+    func sign(transaction: ApiParamsTx, wallet: ApiParamsWallet, completion: @escaping (String?)->Void)
+    func pay(to: ApiParamsTx, completion: @escaping (String?)->Void)
     func getBalance(completion: @escaping (String?)->Void)
-    
+    func getAmount(tx: ApiParamsTx) -> String
+    func getTo(tx: ApiParamsTx) -> String
+
 }

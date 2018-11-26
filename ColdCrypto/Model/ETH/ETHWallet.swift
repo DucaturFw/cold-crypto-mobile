@@ -60,17 +60,22 @@ class ETHWallet : IWallet {
 
     // MARK:- IWallet methods
     // -------------------------------------------------------------------------
-    func getTransaction(to: ApiParamsTx, with: ApiParamsWallet) -> String? {
-        guard let v = Wei(to.value) else { return nil }
-        guard let p = Int(to.gasPrice) else { return nil }
-        guard let c = Int(with.chainId) else { return nil }
+    func sign(transaction: ApiParamsTx, wallet w: ApiParamsWallet, completion: @escaping (String?)->Void) {
+        guard let v = Wei(transaction.value) else { completion(nil); return }
+        guard let p = Int(transaction.gasPrice) else { completion(nil); return }
+        guard let c = Int(w.chainId) else { completion(nil); return }
         let n = Network.private(chainID: c, testUse: true)
         let w = Wallet(network: n, privateKey: wallet.privateKey().toHexString(), debugPrints: false)
-        let dd = to.data ?? "0x"
+        let dd = transaction.data ?? "0x"
         let d = dd.starts(with: "0x") ? Data(hex: dd) : Data()
-        let l = to.gasLimit ?? gasLimit
-        let t = RawTransaction(value: v, to: to.to, gasPrice: p, gasLimit: l, nonce: to.nonce, data: d)
-        return try? w.sign(rawTransaction: t)
+        let l = transaction.gasLimit ?? gasLimit
+        let t = RawTransaction(value: v, to: transaction.to, gasPrice: p, gasLimit: l, nonce: transaction.nonce, data: d)
+        
+        if let tx = try? w.sign(rawTransaction: t) {
+            completion("\"\(tx)\"")
+        } else {
+            completion(nil)
+        }
     }
 
     func getBalance(completion: @escaping (String?)->Void) {
@@ -86,7 +91,7 @@ class ETHWallet : IWallet {
         }
     }
     
-    func pay(to: ApiPay, completion: @escaping (String?)->Void) {
+    func pay(to: ApiParamsTx, completion: @escaping (String?)->Void) {
         guard let v = Wei(to.value), let p = Int(to.gasPrice) else {
             completion(nil)
             return
@@ -114,6 +119,17 @@ class ETHWallet : IWallet {
     
     var seed: String? {
         return mSeed
+    }
+    
+    func getAmount(tx: ApiParamsTx) -> String {
+        if let d = Wei(tx.value), let eth = try? Converter.toEther(wei: d) {
+            return "\(eth.description) \(blockchain.symbol())"
+        }
+        return "--"
+    }
+    
+    func getTo(tx: ApiParamsTx) -> String {
+        return tx.to
     }
     
 }

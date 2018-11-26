@@ -82,3 +82,5 @@
 "etherium" = "Etherium";
 "seed_pk" = "Enter the seed phrase or the private key";
 "no_acccount_eos" = "Can't find any account.";
+"eos" = "EOS";
+"cant_import" = "Can't import EOS account.";

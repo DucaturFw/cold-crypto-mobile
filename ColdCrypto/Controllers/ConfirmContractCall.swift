@@ -132,7 +132,9 @@ class ConfirmContractCall: PopupVC {
         guard let wallet = mContract.wallet else { return }
         present(CheckCodeVC(passcode: mPasscode, authAtStart: true, onSuccess: { [weak self] vc in
             vc.dismiss(animated: true, completion: { [weak self] in
-                self?.mBlock(self?.mWallet.getTransaction(to: to, with: wallet))
+                if let b = self?.mBlock {
+                    self?.mWallet.sign(transaction: to, wallet: wallet, completion: b)
+                }                
             })
         }).apply({
             $0.hintText = "confirm_hint".loc

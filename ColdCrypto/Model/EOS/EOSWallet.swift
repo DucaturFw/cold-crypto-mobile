@@ -66,12 +66,42 @@ class EOSWallet: IWallet {
         })
     }
     
-    func getTransaction(to: ApiParamsTx, with: ApiParamsWallet) -> String? {
-        return nil
+    func sign(transaction: ApiParamsTx, wallet: ApiParamsWallet, completion: @escaping (String?)->Void) {
+        let method  = transaction.method ?? ""
+        let chainId = wallet.chainId
+        let pk = privateKey
+        let tx = transaction.transaction?.toJSONString() ?? "{}"
+
+        let gg = EOSUtils.call(js: "script.pack({method:\"\(method)\", chainId: \"\(chainId)\", privateKey: \"\(pk)\", transaction: \(tx)})", result: { tx in
+            DispatchQueue.main.async {
+                completion(tx)
+            }
+        })
+
+        if gg?.isBoolean == true && gg?.toBool() != true {
+            DispatchQueue.main.async {
+                completion(nil)
+            }
+        }
     }
     
-    func pay(to: ApiPay, completion: @escaping (String?) -> Void) {
-        
+    func pay(to: ApiParamsTx, completion: @escaping (String?) -> Void) {
+        let transfer = Transfer()
+        transfer.from = name
+        transfer.to = to.to
+        transfer.quantity = to.value
+        transfer.memo = "ColdCrypto"
+        Currency.transferCurrency(transfer: transfer, code: "eosio.token", privateKey: mPKObject, completion: { (result, error) in
+            completion(result?.transactionId)
+        })
+    }
+    
+    func getAmount(tx: ApiParamsTx) -> String {
+        return tx.transaction?.actions?.first?.data?["quantity"] ?? "--"
+    }
+    
+    func getTo(tx: ApiParamsTx) -> String {
+        return tx.transaction?.actions?.first?.data?["to"] ?? "--"
     }
     
 }

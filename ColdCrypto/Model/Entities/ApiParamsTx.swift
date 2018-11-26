@@ -18,14 +18,11 @@ class ApiParamsTx: HandyJSON {
     var gasLimit: Int?
     var value: String = ""
     var data: String?
+    var method: String?
+    var transaction: ApiEOSTx?
+    var callback: String?
+    var blockchain: String?
     
     required init() {}
-    
-    var amountFormatted: String {
-        if let d = Wei(value), let eth = try? Converter.toEther(wei: d) {
-            return "\(eth.description) FTM"
-        }
-        return "--"
-    }
     
 }

@@ -122,7 +122,7 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
         let anim: UIViewPropertyAnimator?
         if let s = selected, let newLayout = TGLExposedLayout(exposedItemIndex: s.item) {
             mLayout.contentOffset = contentOffset;
-            mActive = wallets[s.row]
+            mActive = mReversedWallets[s.row]
             mPrevLayout = newLayout
             newLayout.layoutMargin = mLayout.layoutMargin
             newLayout.itemSize = mLayout.itemSize
@@ -245,7 +245,7 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return wallets.count
+        return mReversedWallets.count
     }
     
     func collectionView(_ cv: UICollectionView, cellForItemAt p: IndexPath) -> UICollectionViewCell {

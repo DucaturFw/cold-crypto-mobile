@@ -9,10 +9,8 @@
 import Foundation
 import HandyJSON
 
-class ApiSignContractCall: HandyJSON {
+class ApiSignContractCall: ApiSignTransferTx {
     
-    var tx: ApiParamsTx?
-    var wallet: ApiParamsWallet?
     var abi: ApiAbi?
     
     required init() {}

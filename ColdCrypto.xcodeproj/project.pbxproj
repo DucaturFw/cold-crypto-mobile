@@ -15,8 +15,11 @@
 		EB1F3B992198CAEF0052E5A7 /* BackupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B982198CAEF0052E5A7 /* BackupVC.swift */; };
 		EB1F3B9B2198D07F0052E5A7 /* SeedWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B9A2198D07F0052E5A7 /* SeedWord.swift */; };
 		EB26C31C21924083005D3525 /* CardPickVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB26C31B21924083005D3525 /* CardPickVC.swift */; };
+		EB2F617A21ABE7EB0029219A /* eos.js in Resources */ = {isa = PBXBuildFile; fileRef = EB2F617921ABE7EB0029219A /* eos.js */; };
+		EB2F617C21ABE8030029219A /* EOSUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F617B21ABE8030029219A /* EOSUtils.swift */; };
+		EB2F617E21AC00340029219A /* ApiEOSTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F617D21AC00340029219A /* ApiEOSTx.swift */; };
 		EB3ECC5D2180E8CD00D14656 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */; };
-		EB3ECC652180F74600D14656 /* ApiSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC642180F74600D14656 /* ApiSign.swift */; };
+		EB3ECC652180F74600D14656 /* ApiSignTransferTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC642180F74600D14656 /* ApiSignTransferTx.swift */; };
 		EB3F8AFE218357D5004E6CFB /* WalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3F8AFD218357D5004E6CFB /* WalletCell.swift */; };
 		EB5529F321A5E7DE00EB11ED /* ContractImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5529F221A5E7DE00EB11ED /* ContractImpl.swift */; };
 		EB5529F621A5EE8400EB11ED /* ContractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5529F521A5EE8400EB11ED /* ContractView.swift */; };
@@ -31,7 +34,6 @@
 		EB74B451217CB3CA006AE00F /* bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB74B44F217CB3CA006AE00F /* bg@3x.png */; };
 		EB74B452217CB3CA006AE00F /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB74B450217CB3CA006AE00F /* bg@2x.png */; };
 		EB74B457217CCFFB006AE00F /* ScanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74B456217CCFFB006AE00F /* ScanButton.swift */; };
-		EB91A2352184983F001788FA /* ApiPay.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB91A2342184983F001788FA /* ApiPay.swift */; };
 		EB976CEC217BA6CE00B8DC95 /* ApiParamsWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB976CEB217BA6CE00B8DC95 /* ApiParamsWallet.swift */; };
 		EB976CEE217BA75900B8DC95 /* ApiParamsTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB976CED217BA75900B8DC95 /* ApiParamsTx.swift */; };
 		EBA5938B217A813F00F3CB65 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA5938A217A813F00F3CB65 /* Button.swift */; };
@@ -221,8 +223,11 @@
 		EB1F3B982198CAEF0052E5A7 /* BackupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupVC.swift; sourceTree = "<group>"; };
 		EB1F3B9A2198D07F0052E5A7 /* SeedWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedWord.swift; sourceTree = "<group>"; };
 		EB26C31B21924083005D3525 /* CardPickVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPickVC.swift; sourceTree = "<group>"; };
+		EB2F617921ABE7EB0029219A /* eos.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = eos.js; sourceTree = "<group>"; };
+		EB2F617B21ABE8030029219A /* EOSUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EOSUtils.swift; sourceTree = "<group>"; };
+		EB2F617D21AC00340029219A /* ApiEOSTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEOSTx.swift; sourceTree = "<group>"; };
 		EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
-		EB3ECC642180F74600D14656 /* ApiSign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSign.swift; sourceTree = "<group>"; };
+		EB3ECC642180F74600D14656 /* ApiSignTransferTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSignTransferTx.swift; sourceTree = "<group>"; };
 		EB3F8AFD218357D5004E6CFB /* WalletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCell.swift; sourceTree = "<group>"; };
 		EB5529F221A5E7DE00EB11ED /* ContractImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractImpl.swift; sourceTree = "<group>"; };
 		EB5529F521A5EE8400EB11ED /* ContractView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractView.swift; sourceTree = "<group>"; };
@@ -237,7 +242,6 @@
 		EB74B44F217CB3CA006AE00F /* bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@3x.png"; sourceTree = "<group>"; };
 		EB74B450217CB3CA006AE00F /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
 		EB74B456217CCFFB006AE00F /* ScanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanButton.swift; sourceTree = "<group>"; };
-		EB91A2342184983F001788FA /* ApiPay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiPay.swift; sourceTree = "<group>"; };
 		EB976CEB217BA6CE00B8DC95 /* ApiParamsWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiParamsWallet.swift; sourceTree = "<group>"; };
 		EB976CED217BA75900B8DC95 /* ApiParamsTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiParamsTx.swift; sourceTree = "<group>"; };
 		EBA5938A217A813F00F3CB65 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -512,6 +516,7 @@
 		EB74B443217C75E8006AE00F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EB2F617921ABE7EB0029219A /* eos.js */,
 				EBA593A6217A831800F3CB65 /* Localizable.strings */,
 				EBA59394217A816800F3CB65 /* Fonts */,
 				EBE484D7217928C0006879F7 /* Assets.xcassets */,
@@ -530,7 +535,7 @@
 			children = (
 				EB976CEB217BA6CE00B8DC95 /* ApiParamsWallet.swift */,
 				EB976CED217BA75900B8DC95 /* ApiParamsTx.swift */,
-				EB3ECC642180F74600D14656 /* ApiSign.swift */,
+				EB3ECC642180F74600D14656 /* ApiSignTransferTx.swift */,
 				EB64509A21810CAD008397DF /* ApiWebRTC.swift */,
 				EB64509C2181152E008397DF /* ApiOffer.swift */,
 				EB64509E21811684008397DF /* ApiJoin.swift */,
@@ -538,9 +543,9 @@
 				EBC9F78321822FC000150883 /* ApiMessage.swift */,
 				EBC9F7852182321600150883 /* ApiIce.swift */,
 				EBC9F79321824F2B00150883 /* ApiChains.swift */,
-				EB91A2342184983F001788FA /* ApiPay.swift */,
 				EBAC21CC21A5D0E5002CF61B /* ApiSignContractCall.swift */,
 				EBAC21CE21A5D255002CF61B /* ApiAbi.swift */,
+				EB2F617D21AC00340029219A /* ApiEOSTx.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -657,6 +662,7 @@
 				EBEDA22D21AB4FF3004FCB75 /* Libraries */,
 				EBEDA25821AB4FF3004FCB75 /* Sources */,
 				EBEDA28021AB4FF3004FCB75 /* EOSBalance.swift */,
+				EB2F617B21ABE8030029219A /* EOSUtils.swift */,
 			);
 			path = EOS;
 			sourceTree = "<group>";
@@ -1014,6 +1020,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB2F617A21ABE7EB0029219A /* eos.js in Resources */,
 				EBAC21D321A5D916002CF61B /* abi_mock.json in Resources */,
 				EB74B452217CB3CA006AE00F /* bg@2x.png in Resources */,
 				EB74B451217CB3CA006AE00F /* bg@3x.png in Resources */,
@@ -1144,6 +1151,7 @@
 				EBA593BD217A88EF00F3CB65 /* EthereumAddress.swift in Sources */,
 				EBEDA2B121AB4FF3004FCB75 /* EOSBalance.swift in Sources */,
 				EBAC21CD21A5D0E5002CF61B /* ApiSignContractCall.swift in Sources */,
+				EB2F617E21AC00340029219A /* ApiEOSTx.swift in Sources */,
 				EB64509921810BBC008397DF /* RTC.swift in Sources */,
 				EB1F3B9B2198D07F0052E5A7 /* SeedWord.swift in Sources */,
 				EB64509321810736008397DF /* WebRTCClient.swift in Sources */,
@@ -1206,7 +1214,7 @@
 				EB1F3B992198CAEF0052E5A7 /* BackupVC.swift in Sources */,
 				EBEDA2B021AB4FF3004FCB75 /* SEWallet.swift in Sources */,
 				EB976CEC217BA6CE00B8DC95 /* ApiParamsWallet.swift in Sources */,
-				EB3ECC652180F74600D14656 /* ApiSign.swift in Sources */,
+				EB3ECC652180F74600D14656 /* ApiSignTransferTx.swift in Sources */,
 				EBEDA2BA21AB56D9004FCB75 /* AccountCell.swift in Sources */,
 				EBEDA29E21AB4FF3004FCB75 /* Contract.swift in Sources */,
 				EBD0B12F218E3D9A00FD1B37 /* MenuCell.swift in Sources */,
@@ -1214,6 +1222,7 @@
 				EBB15F872184EEF600F6370E /* CodeView.swift in Sources */,
 				EBEDA29121AB4FF3004FCB75 /* bignum.c in Sources */,
 				EBA593D4217A8C0300F3CB65 /* NewCodeVC.swift in Sources */,
+				EB2F617C21ABE8030029219A /* EOSUtils.swift in Sources */,
 				EBEDA2A521AB4FF3004FCB75 /* EOSRPC+History.swift in Sources */,
 				EBA593D8217A8CA300F3CB65 /* BioAuth.swift in Sources */,
 				EBA593D0217A8BF700F3CB65 /* CheckCodeVC.swift in Sources */,
@@ -1244,7 +1253,6 @@
 				EBA593D2217A8BFE00F3CB65 /* AuthVC.swift in Sources */,
 				EBA593B3217A84A000F3CB65 /* ScanView.swift in Sources */,
 				EBA593BA217A88EF00F3CB65 /* ETHTransaction.swift in Sources */,
-				EB91A2352184983F001788FA /* ApiPay.swift in Sources */,
 				EBEDA29721AB4FF3004FCB75 /* ecdsa.c in Sources */,
 				EBDB885D21976AC1000AF045 /* IWallet.swift in Sources */,
 				EB1F3B932198AB9C0052E5A7 /* AlertField.swift in Sources */,

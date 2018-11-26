@@ -8,7 +8,7 @@
 
 import HandyJSON
 
-class ApiSign: HandyJSON {
+class ApiSignTransferTx: HandyJSON {
     
     var wallet: ApiParamsWallet?
     var tx: ApiParamsTx?
