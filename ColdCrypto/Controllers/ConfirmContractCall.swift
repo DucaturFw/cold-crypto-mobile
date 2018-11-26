@@ -62,16 +62,10 @@ class ConfirmContractCall: PopupVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         content.addSubview(mScroll)
-
-        print("\(mContract.isValid())")
         
-        if mContract.isValid(),
-            let call = mContract.abi?.method,
-            let data = mContract.tx?.data,
-            let pack = ETHabi.convert(call: call, data: data),
-            let cont = ContractImpl.deserialize(from: pack) {
+        if let c = mWallet.parseContract(contract: mContract) {
             mInvalid.isVisible = false
-            let v = ContractView(contract: cont)
+            let v = ContractView(contract: c)
             mViews.append(v)
             mScroll.addSubview(v)
             mScroll.addSubview(mDecline)
@@ -83,6 +77,25 @@ class ConfirmContractCall: PopupVC {
             mScroll.addSubview(mInvalid)
             mDecline.setTitle("close".loc, for: .normal)
         }
+
+//        if mContract.isValid(),
+//            let call = mContract.abi?.method,
+//            let data = mContract.tx?.data,
+//            let pack = ETHabi.convert(call: call, data: data),
+//            let cont = ContractImpl.deserialize(from: pack) {
+//            mInvalid.isVisible = false
+//            let v = ContractView(contract: cont)
+//            mViews.append(v)
+//            mScroll.addSubview(v)
+//            mScroll.addSubview(mDecline)
+//            mScroll.addSubview(mConfirm)
+//        } else {
+//            mConfirm.isVisible = false
+//            mScroll.isScrollEnabled = false
+//            mScroll.addSubview(mDecline)
+//            mScroll.addSubview(mInvalid)
+//            mDecline.setTitle("close".loc, for: .normal)
+//        }
         mDecline.click = { [weak self] in
             self?.dismiss(animated: true, completion: nil)
         }
@@ -132,9 +145,15 @@ class ConfirmContractCall: PopupVC {
         guard let wallet = mContract.wallet else { return }
         present(CheckCodeVC(passcode: mPasscode, authAtStart: true, onSuccess: { [weak self] vc in
             vc.dismiss(animated: true, completion: { [weak self] in
-                if let b = self?.mBlock {
-                    self?.mWallet.sign(transaction: to, wallet: wallet, completion: b)
-                }                
+                if let b = self?.mBlock, let w = self?.mWallet {
+                    let hud = HUD.show()
+                    DispatchQueue.main.async {
+                        w.sign(transaction: to, wallet: wallet, completion: { tx in
+                            hud?.hide(animated: true)
+                            b(tx)
+                        })
+                    }
+                }
             })
         }).apply({
             $0.hintText = "confirm_hint".loc

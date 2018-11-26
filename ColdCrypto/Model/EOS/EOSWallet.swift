@@ -74,7 +74,7 @@ class EOSWallet: IWallet {
 
         let gg = EOSUtils.call(js: "script.pack({method:\"\(method)\", chainId: \"\(chainId)\", privateKey: \"\(pk)\", transaction: \(tx)})", result: { tx in
             DispatchQueue.main.async {
-                completion(tx)
+                completion(tx?.count == 0 || tx == "" || tx == "null" ? nil : tx)
             }
         })
 
@@ -97,11 +97,15 @@ class EOSWallet: IWallet {
     }
     
     func getAmount(tx: ApiParamsTx) -> String {
-        return tx.transaction?.actions?.first?.data?["quantity"] ?? "--"
+        return tx.transaction?.actions?.first?.data?["quantity"] as? String ?? "--"
     }
     
     func getTo(tx: ApiParamsTx) -> String {
-        return tx.transaction?.actions?.first?.data?["to"] ?? "--"
+        return tx.transaction?.actions?.first?.data?["to"] as? String ?? "--"
+    }
+    
+    func parseContract(contract: ApiSignContractCall) -> IContract? {
+        return EOSContract(contract: contract)
     }
     
 }

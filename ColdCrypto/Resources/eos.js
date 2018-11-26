@@ -78,15 +78,14 @@ module.exports = {
 
             // generate transaction
             api.transact(params.transaction, { broadcast: false }).then(function(result) {
-                return {
-                    signatures: [result.signatures[0]],
-                    compression: 0,
-                    packed_context_free_data: "",
-                    packed_trx: Serialize.arrayToHex(result.serializedTransaction)
-                }
-            }).then(function(tx) {
-                // ios.report(JSON.stringify(tx))
-                console.ios(JSON.stringify(tx))
+              console.ios(JSON.stringify({
+                signatures: [result.signatures[0]],
+                compression: 0,
+                packed_context_free_data: "",
+                packed_trx: Serialize.arrayToHex(result.serializedTransaction)
+              }))
+            }).catch(function(e) {
+              console.ios(null)
             })
             return true
         } catch (e) {

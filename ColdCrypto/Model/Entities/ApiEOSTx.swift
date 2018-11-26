@@ -21,7 +21,7 @@ class ApiEOSTx: HandyJSON {
         var account: String?
         var name: String?
         var authorization: [Authorization]?
-        var data: [String: String]?
+        var data: [String: AnyObject]?
         required init() {}
         
     }

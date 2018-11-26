@@ -17,9 +17,9 @@ class ContractView: UIView {
         $0.numberOfLines = 0
     })
     
-    private let mContract: ContractImpl
+    private let mContract: IContract
     
-    init(contract: ContractImpl) {
+    init(contract: IContract) {
         mContract = contract
         super.init(frame: .zero)
         mCaption.text = contract.name
@@ -32,18 +32,7 @@ class ContractView: UIView {
         p.defaultTabInterval = 20
         p.lineBreakMode = .byCharWrapping
         
-        var text = ""
-        mContract.params?.enumerated().forEach({
-            let type = $0.element.type ?? ""
-            text += "\($0.offset+1).\t\(type) -> "
-            if let value = $0.element.value as? [String] {
-                text += "\(value.joined(separator: ", "))"
-            } else {
-                text += "\(($0.element.value as? String) ?? "")"
-            }
-            text += "\n\n"
-        })
-        
+        let text = contract.params
         if text.count > 0 {
             mList.attributedText = NSAttributedString(string: text, attributes: [.font: UIFont.hnRegular(18.scaled),
                                                                                  .foregroundColor: UIColor.black,

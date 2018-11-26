@@ -18,10 +18,12 @@
 		EB2F617A21ABE7EB0029219A /* eos.js in Resources */ = {isa = PBXBuildFile; fileRef = EB2F617921ABE7EB0029219A /* eos.js */; };
 		EB2F617C21ABE8030029219A /* EOSUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F617B21ABE8030029219A /* EOSUtils.swift */; };
 		EB2F617E21AC00340029219A /* ApiEOSTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F617D21AC00340029219A /* ApiEOSTx.swift */; };
+		EB2F618021AC124A0029219A /* IContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F617F21AC124A0029219A /* IContract.swift */; };
+		EB2F618421AC13950029219A /* ETHContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F618321AC13950029219A /* ETHContract.swift */; };
+		EB2F618821AC1FF10029219A /* EOSContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F618721AC1FF10029219A /* EOSContract.swift */; };
 		EB3ECC5D2180E8CD00D14656 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */; };
 		EB3ECC652180F74600D14656 /* ApiSignTransferTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC642180F74600D14656 /* ApiSignTransferTx.swift */; };
 		EB3F8AFE218357D5004E6CFB /* WalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3F8AFD218357D5004E6CFB /* WalletCell.swift */; };
-		EB5529F321A5E7DE00EB11ED /* ContractImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5529F221A5E7DE00EB11ED /* ContractImpl.swift */; };
 		EB5529F621A5EE8400EB11ED /* ContractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5529F521A5EE8400EB11ED /* ContractView.swift */; };
 		EB6450892181069F008397DF /* SignalClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6450882181069F008397DF /* SignalClient.swift */; };
 		EB64509321810736008397DF /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64509221810736008397DF /* WebRTCClient.swift */; };
@@ -226,10 +228,12 @@
 		EB2F617921ABE7EB0029219A /* eos.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = eos.js; sourceTree = "<group>"; };
 		EB2F617B21ABE8030029219A /* EOSUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EOSUtils.swift; sourceTree = "<group>"; };
 		EB2F617D21AC00340029219A /* ApiEOSTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEOSTx.swift; sourceTree = "<group>"; };
+		EB2F617F21AC124A0029219A /* IContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IContract.swift; sourceTree = "<group>"; };
+		EB2F618321AC13950029219A /* ETHContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHContract.swift; sourceTree = "<group>"; };
+		EB2F618721AC1FF10029219A /* EOSContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EOSContract.swift; sourceTree = "<group>"; };
 		EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		EB3ECC642180F74600D14656 /* ApiSignTransferTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSignTransferTx.swift; sourceTree = "<group>"; };
 		EB3F8AFD218357D5004E6CFB /* WalletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCell.swift; sourceTree = "<group>"; };
-		EB5529F221A5E7DE00EB11ED /* ContractImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractImpl.swift; sourceTree = "<group>"; };
 		EB5529F521A5EE8400EB11ED /* ContractView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractView.swift; sourceTree = "<group>"; };
 		EB6450882181069F008397DF /* SignalClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalClient.swift; sourceTree = "<group>"; };
 		EB64509221810736008397DF /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
@@ -484,7 +488,6 @@
 				EBA593CD217A8B6400F3CB65 /* Chain.swift */,
 				EB64509621810A82008397DF /* Signer.swift */,
 				EBD4FCC72190BBBF0080D1A9 /* PopAnimator.swift */,
-				EBD4FCC92190BFC20080D1A9 /* IPopover.swift */,
 				EBDB8850219745F1000AF045 /* ImportManager.swift */,
 			);
 			path = Model;
@@ -569,6 +572,7 @@
 				EBAC21C521A5C7AA002CF61B /* ETHabi.swift */,
 				EBA593B5217A88EF00F3CB65 /* ETHTransaction.swift */,
 				EBA593B6217A88EF00F3CB65 /* ETHWallet.swift */,
+				EB2F618321AC13950029219A /* ETHContract.swift */,
 			);
 			path = ETH;
 			sourceTree = "<group>";
@@ -576,11 +580,12 @@
 		EBDB8852219766B6000AF045 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				EBD4FCC92190BFC20080D1A9 /* IPopover.swift */,
 				EBA593C7217A89B800F3CB65 /* ITransaction.swift */,
 				EBA593C3217A897E00F3CB65 /* IViewable.swift */,
 				EBA593C1217A892900F3CB65 /* Blockchain.swift */,
 				EBDB885C21976AC1000AF045 /* IWallet.swift */,
-				EB5529F221A5E7DE00EB11ED /* ContractImpl.swift */,
+				EB2F617F21AC124A0029219A /* IContract.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -663,6 +668,7 @@
 				EBEDA25821AB4FF3004FCB75 /* Sources */,
 				EBEDA28021AB4FF3004FCB75 /* EOSBalance.swift */,
 				EB2F617B21ABE8030029219A /* EOSUtils.swift */,
+				EB2F618721AC1FF10029219A /* EOSContract.swift */,
 			);
 			path = EOS;
 			sourceTree = "<group>";
@@ -1154,6 +1160,7 @@
 				EB2F617E21AC00340029219A /* ApiEOSTx.swift in Sources */,
 				EB64509921810BBC008397DF /* RTC.swift in Sources */,
 				EB1F3B9B2198D07F0052E5A7 /* SeedWord.swift in Sources */,
+				EB2F618021AC124A0029219A /* IContract.swift in Sources */,
 				EB64509321810736008397DF /* WebRTCClient.swift in Sources */,
 				EBF620BA218B9134005C6141 /* PasswordVC.swift in Sources */,
 				EBEDA29421AB4FF3004FCB75 /* bip32.c in Sources */,
@@ -1180,7 +1187,6 @@
 				EBEDA2A621AB4FF3004FCB75 /* HistoryRouter.swift in Sources */,
 				EBEDA28321AB4FF3004FCB75 /* EOSImporter.swift in Sources */,
 				EBEDA28421AB4FF3004FCB75 /* AnyDecodable.swift in Sources */,
-				EB5529F321A5E7DE00EB11ED /* ContractImpl.swift in Sources */,
 				EB5529F621A5EE8400EB11ED /* ContractView.swift in Sources */,
 				EB64509721810A82008397DF /* Signer.swift in Sources */,
 				EBEDA28C21AB4FF3004FCB75 /* hmac.c in Sources */,
@@ -1202,6 +1208,7 @@
 				EBEDA28F21AB4FF3004FCB75 /* curves.c in Sources */,
 				EBA593D6217A8C1B00F3CB65 /* CodeVC.swift in Sources */,
 				EBA593CC217A8AF800F3CB65 /* Profile.swift in Sources */,
+				EB2F618421AC13950029219A /* ETHContract.swift in Sources */,
 				EBEDA29221AB4FF3004FCB75 /* ripemd160.c in Sources */,
 				EBDCD55C217FD85E00B6EF5B /* ConfirmationVC.swift in Sources */,
 				EB1F3B952198ABC40052E5A7 /* IAlertView.swift in Sources */,
@@ -1231,6 +1238,7 @@
 				EBA593BB217A88EF00F3CB65 /* ETHWallet.swift in Sources */,
 				EBA593C4217A897E00F3CB65 /* IViewable.swift in Sources */,
 				EB26C31C21924083005D3525 /* CardPickVC.swift in Sources */,
+				EB2F618821AC1FF10029219A /* EOSContract.swift in Sources */,
 				EBEDA28821AB4FF3004FCB75 /* curve-specific.inc in Sources */,
 				EBA593C2217A892900F3CB65 /* Blockchain.swift in Sources */,
 				EBEDA21E21AB4242004FCB75 /* ChainPicker.swift in Sources */,

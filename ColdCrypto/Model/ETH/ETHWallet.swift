@@ -11,7 +11,7 @@ import Foundation
 import EthereumKit
 
 class ETHWallet : IWallet {
-
+    
     private static var network = Network.private(chainID: 4, testUse: true)
     
     class Config {
@@ -130,6 +130,10 @@ class ETHWallet : IWallet {
     
     func getTo(tx: ApiParamsTx) -> String {
         return tx.to
+    }
+    
+    func parseContract(contract: ApiSignContractCall) -> IContract? {
+        return ETHContract(contract: contract)
     }
     
 }

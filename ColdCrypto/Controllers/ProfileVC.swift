@@ -344,11 +344,6 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         guard let b = tx.wallet, let to = tx.tx else { return false }
         guard let blockchain = Blockchain(rawValue: b.blockchain.uppercased()) else { return false }
         guard let wallet = mProfile.chains.first(where: { $0.id == blockchain })?.wallets.first(where: { $0.address == b.address }) else { return false }
-        
-        print(json)
-        
-        
-        
         DispatchQueue.main.async {
             self.present(ConfirmationVC(to: wallet.getTo(tx: to), amount: wallet.getAmount(tx: to), onConfirm: { [weak self] in
                 self?.dismiss(animated: true, completion: nil)
