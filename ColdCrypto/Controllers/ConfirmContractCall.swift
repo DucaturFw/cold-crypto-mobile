@@ -127,7 +127,7 @@ class ConfirmContractCall: PopupVC {
         }
         t = ceil(mDecline.maxY + 34.scaled)
 
-        let max = view.height - view.bottomGap - mMinTop
+        let max = view.height - AppDelegate.bottomGap - mMinTop
         if t > max {
             mScroll.frame = CGRect(x: 0, y: 0, width: view.width, height: max)
             mScroll.contentSize.height = t
@@ -135,7 +135,7 @@ class ConfirmContractCall: PopupVC {
         } else {
             mScroll.frame = CGRect(x: 0, y: 0, width: view.width, height: t)
             mScroll.contentSize.height = 0
-            mTopGap = view.height - mScroll.height - view.bottomGap
+            mTopGap = view.height - mScroll.height - AppDelegate.bottomGap
         }
         super.viewDidLayoutSubviews()
     }
@@ -157,7 +157,7 @@ class ConfirmContractCall: PopupVC {
             })
         }).apply({
             $0.hintText = "confirm_hint".loc
-        }), animated: true, completion: nil)
+        }).inNC, animated: true, completion: nil)
     }
     
 }

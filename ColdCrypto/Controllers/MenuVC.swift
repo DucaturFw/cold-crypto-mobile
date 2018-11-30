@@ -17,11 +17,20 @@ class MenuVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
         case userGuide = "user_guide"
         case knowledge = "knowledge"
         case privacy = "privacy"
-        case website = "website"
         case about = "about"
         
         var name: String {
             return rawValue.loc
+        }
+        
+        var imageName: String {
+            switch self {
+            case .contact: return "iconContact"
+            case .userGuide: return "userGuide"
+            case .knowledge: return "knowledge"
+            case .privacy: return "privacy"
+            case .about: return "about"
+            }
         }
         
         var url: String {
@@ -30,7 +39,6 @@ class MenuVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
             case .userGuide: return "http://coldcrypto.app/guide"
             case .knowledge: return "http://coldcrypto.app/knowledge"
             case .privacy: return "http://coldcrypto.app/privacy"
-            case .website: return "http://coldcrypto.app"
             case .about: return "http://coldcrypto.app/about"
             }
         }
@@ -39,23 +47,24 @@ class MenuVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private let mReset = Button().apply({
         $0.setTitle("reset".loc, for: .normal)
-        $0.backgroundColor = 0xE26E7C.color
+        $0.backgroundColor = Style.Colors.red
     })
     
     private let mItems = Item.allCases
     
     private lazy var mList = UITableView().apply({ [weak self] in
-        $0.rowHeight = 44
+        $0.rowHeight = 44.scaled
         $0.backgroundView   = UIView()
         $0.backgroundColor  = UIColor.white
-        $0.contentInset.top = 44.0
+        $0.contentInset.top = 16.scaled + AppDelegate.statusHeight
         $0.tableFooterView  = UIView()
+        $0.separatorStyle   = .none
         $0.delegate   = self
         $0.dataSource = self
         MenuCell.register(in: $0)
     })
     
-    private let mInfo = UILabel.new(font: UIFont.hnRegular(12), lines: 1, color: UIColor.black.withAlphaComponent(0.5), alignment: .center).apply({
+    private let mInfo = UILabel.new(font: .pro(12.scaled), lines: 1, color: UIColor.black.withAlphaComponent(0.5), alignment: .center).apply({
         $0.text = "ColdCrypto \(AppDelegate.version ?? "0.0").\(AppDelegate.build ?? "0")"
     })
     
@@ -65,7 +74,6 @@ class MenuVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
         view.addSubview(mList)
         view.addSubview(mReset)
         view.addSubview(mInfo)
-        
         mReset.click = { [weak self] in
             Alert("sure_reset".loc).put("reset_no".loc)
                 .put("reset_yes".loc, color: 0xE26E7C.color, do: { [weak self] _ in
@@ -84,18 +92,18 @@ class MenuVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.viewDidLayoutSubviews()
         mList.frame  = view.bounds
         
-        let w = view.width - 20.scaled
+        let w = 195.scaled
         let h = mInfo.text?.heightFor(width: w, font: mInfo.font) ?? 0
         
-        mInfo.frame  = CGRect(x: 10.scaled, y: view.height - h - 10.scaled - view.bottomGap, width: w, height: h)
-        mReset.frame = CGRect(x: 10.scaled, y: mInfo.minY - 55.scaled, width: w, height: 44.scaled)
+        mInfo.frame  = CGRect(x: (view.width - w)/2.0, y: view.height - h - 10.scaled - AppDelegate.bottomGap, width: w, height: h)
+        mReset.frame = CGRect(x: (view.width - w)/2.0, y: mInfo.minY - 55.scaled, width: w, height: 44.scaled)
     }
     
     // MARK: - UITableViewDelegate, UITableViewDataSource methods
     // -------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = MenuCell.get(from: tableView, at: indexPath)
-        cell.textLabel?.text = mItems[indexPath.row].name
+        cell.set(name: mItems[indexPath.row].name, icon: UIImage(named: mItems[indexPath.row].imageName))
         return cell
     }
     

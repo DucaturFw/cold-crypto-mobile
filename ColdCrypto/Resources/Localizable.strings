@@ -6,7 +6,7 @@
   Copyright © 2018 Kirill Kozhuhar. All rights reserved.
 */
 "scan_title" = "Scan QR code";
-"new_wallet" = "CREATE NEW WALLET";
+"new_wallet" = "Create new wallet";
 "import_prof" = "Import wallet";
 "create_code" = "Create access code";
 "cretae_hint" = "You need it for signung in\nand confirming operations";
@@ -20,16 +20,15 @@
 "confirm_hint" = "For guaranteeing\nyour authority";
 "enter_access_code" = "Enter the access code";
 "scan_line_2" = "Scan QR code";
-"restore" = "RESTORE WALLET >";
 "scan" = "SCAN TO CONNECT";
 "scan_hint" = "1. Go to coldcrypto.io on your computer and choose Send Ether and Token option.\n\n2. Select ColdCrypto connect option on How would you like access your wallet screen.\n\n3. Ckick access with ColdCrypto and scan the QR code on the screen that will flow";
-"verify" = "Verify\ntransaction";
-"decline" = "DECLINE";
-"confirm" = "CONFIRM";
+"verify" = "Verify transaction";
+"decline" = "Decline";
+"confirm" = "Confirm";
 "check_address" = "Check address you are sending to:";
 "check_amount" = "Check the ammount:";
-"delete" = "DELETE";
-"backup" = "BACKUP";
+"delete" = "Delete";
+"backup" = "Backup";
 "cancel" = "Cancel";
 "pick_pass" = "Pick a\npassword";
 "pass_hint" = "So no one else but you can unlock your wallet";
@@ -46,8 +45,8 @@
 
 "contact" = "Contact";
 "user_guide" = "User guide";
-"knowledge" = "Knowledge base";
-"privacy" = "Privacy and terms";
+"knowledge" = "Knowledge Base";
+"privacy" = "Privacy & Terms";
 "website" = "ColdCrypto.app";
 "about" = "About";
 "reset" = "Reset wallets";

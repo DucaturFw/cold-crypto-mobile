@@ -34,13 +34,6 @@ class Alert : UIView {
     
     private lazy var mName = UILabel.new(font: .sfProSemibold(17), lines: 0, color: 0x32325D.color, alignment: .center)
     
-    private var mOverlay: UIView = {
-        let tmp = UIView(frame: UIScreen.main.bounds)
-        tmp.backgroundColor = UIColor.black.withAlphaComponent(0.05)
-        tmp.alpha = 0.0
-        return tmp
-    }()
-    
     private lazy var mBox: UIView = { [weak self] in
         let tmp = UIView(frame: CGRect(x: 0, y: 0, width: self?.boxWidth ?? 300, height: 0))
         tmp.backgroundColor = .white
@@ -57,22 +50,6 @@ class Alert : UIView {
     
     private var mButtons = [Button]()
     
-//    private let mPositive: Button = {
-//        let tmp = Button()
-//        tmp.isVisible = false
-//        tmp.backgroundColor = 0x1888FE.color
-//        tmp.layer.cornerRadius = 0
-//        return tmp
-//    }()
-
-//    private let mNegative: Button = {
-//        let tmp = Button()
-//        tmp.isVisible = false
-//        tmp.backgroundColor = 0x26E7B0.color
-//        tmp.layer.cornerRadius = 0
-//        return tmp
-//    }()
-
     convenience init(withFieldAndName name: String) {
         self.init(name, view: AlertField())
     }
@@ -83,7 +60,6 @@ class Alert : UIView {
         mBlur.isUserInteractionEnabled = false
         mBlur.effect = nil
         addSubview(mBlur)
-        addSubview(mOverlay)
         addSubview(mBox)
         mBox.addSubview(mName)
                 
@@ -140,12 +116,15 @@ class Alert : UIView {
         updateState()
         
         mIsInAnimation = true
-        UIView.animate(withDuration: 0.6, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [], animations: {
-            self.mBlur.effect = UIBlurEffect(style: .regular)
+        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [], animations: {
             self.state = .shown
         }, completion: { _ in
             self.mIsInAnimation = false
             self.mView?.focusAtStart()
+        })
+        
+        UIView.animate(withDuration: 0.4, animations: {
+            self.mBlur.effect = UIBlurEffect(style: .dark)
         })
     }
     
@@ -157,7 +136,6 @@ class Alert : UIView {
     
     private func forceLayout() {
         mBlur.frame = bounds
-        mOverlay.frame = bounds
         
         let padding = CGFloat(20)
         var y: CGFloat = padding
@@ -198,7 +176,6 @@ class Alert : UIView {
     
     func updateState() {
         mBox.transform = CGAffineTransform(translationX: 0, y: state == .shown ? 0 : height)
-        mOverlay.alpha = state == .shown ? 1.0 : 0.0
     }
     
     @objc func hide() {

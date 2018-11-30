@@ -60,6 +60,9 @@
 		<string>SF-Pro-Display-Regular.otf</string>
 		<string>SF-Pro-Display-Semibold.otf</string>
 		<string>SF-Pro-Display-Bold.otf</string>
+		<string>GothamPro.ttf</string>
+		<string>GothamPro-Medium.ttf</string>
+		<string>GothamPro-Bold.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

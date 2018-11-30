@@ -10,22 +10,9 @@ import UIKit
 
 class Checkbox : UIView {
     
-    private let mName = UILabel.new(font: UIFont.hnRegular(16.scaled), lines: 0, color: .black, alignment: .left)
-    
-    private let mValue = UILabel.new(font: UIFont.hnMedium(24.scaled), lines: 0, color: .black, alignment: .left)
-    
+    private let mName  = UILabel.new(font: UIFont.proMedium(15.scaled), lines: 0, color: Style.Colors.black, alignment: .left)
+    private let mValue = UILabel.new(font: UIFont.proBold(15.scaled), lines: 0, color: Style.Colors.darkGrey, alignment: .left)
     private let mCheck = UIImageView(image: UIImage(named: "checkOff"))
-    
-    override var frame: CGRect {
-        get {
-            return super.frame
-        }
-        set {
-            var tmp = newValue
-            tmp.size.height = adjustHeight(width: tmp.width)
-            super.frame = tmp
-        }
-    }
     
     var onChecked: (Bool)->Void = { _ in }
     
@@ -39,6 +26,8 @@ class Checkbox : UIView {
     init(name: String, value: String) {
         super.init(frame: CGRect.zero)
         mName.text = name
+        mName.sizeToFit()
+        
         mValue.text = value
         
         addSubview(mName)
@@ -58,15 +47,14 @@ class Checkbox : UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.frame.size.height = adjustHeight(width: width)
-    }
-    
-    private func adjustHeight(width: CGFloat) -> CGFloat {
-        let l = 56.scaled
-        mName.frame = CGRect(x: l, y: 0, width: width - l, height: mName.text?.heightFor(width: width - l, font: mName.font) ?? 0)
-        mValue.frame = CGRect(x: l, y: ceil(mName.maxY), width: width - l, height: mValue.text?.heightFor(width: width - l, font: mValue.font) ?? 0)
-        mCheck.frame = CGRect(x: 0, y: (mValue.maxY - 36.scaled)/2.0, width: 36.scaled, height: 36.scaled)
-        return mValue.maxY
+        mName.origin = .zero
+        mCheck.frame = CGRect(x: 0, y: 30.scaled, width: 50.scaled, height: 50.scaled)
+        
+        let l = 70.scaled
+        let h = mValue.text?.heightFor(width: width - l, font: mValue.font) ?? 0
+
+        mValue.frame = CGRect(x: l, y: mCheck.minY + (mCheck.height - h)/2.0,
+                              width: width - l, height: h)
     }
     
 }

@@ -77,7 +77,7 @@ class CardPickVC: PopupVC {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         mView.frame = content.bounds
-        mView.bottom = view.bottomGap + 100.scaled
+        mView.bottom = AppDelegate.bottomGap + 100.scaled
         
         let w1 = (view.width - 18)/2.0
         let w2 = mConfirm.alpha < 0.5 ? (view.width - 12) : w1

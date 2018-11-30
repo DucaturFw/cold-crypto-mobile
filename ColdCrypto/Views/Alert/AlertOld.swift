@@ -198,7 +198,7 @@ class AlertOld: UIView, UITextFieldDelegate {
         
         mIsInAnimation = true
         UIView.animate(withDuration: 0.6, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [], animations: {
-            self.mBlur.effect = UIBlurEffect(style: .regular)
+            self.mBlur.effect = UIBlurEffect(style: .dark)
             self.state = .shown
         }, completion: { _ in
             self.mIsInAnimation = false

@@ -13,9 +13,9 @@ class CodeView : UIView {
     private lazy var mDots: [UIView] = {
         var tmp: [UIView] = []
         for i in 0...3 {
-            let dot = UIView(frame: CGRect(x: 0, y: 0, width: 12.scaled, height: 12.scaled))
-            dot.layer.borderWidth  = 1.0
-            dot.layer.borderColor  = 0xC7CCD7.color.cgColor
+            let dot = UIView(frame: CGRect(x: 0, y: 0, width: 20.scaled, height: 20.scaled))
+            dot.layer.borderWidth  = 4.scaled
+            dot.layer.borderColor  = Style.Colors.blue.cgColor
             dot.layer.cornerRadius = dot.width/2.0
             tmp.append(dot)
         }
@@ -26,13 +26,7 @@ class CodeView : UIView {
         didSet {
             fill = max(min(fill, mDots.count), 0)
             for (index, dot) in mDots.enumerated() {
-                if index < fill {
-                    dot.backgroundColor = 0x1888FE.color
-                    dot.layer.borderWidth = 0.0
-                } else {
-                    dot.backgroundColor = .clear
-                    dot.layer.borderWidth = 1.0
-                }
+                dot.backgroundColor = index < fill ? Style.Colors.blue : .clear
             }
         }
     }
@@ -52,11 +46,11 @@ class CodeView : UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let w = CGFloat(mDots.count-1) * 32.scaled
+        let w = CGFloat(mDots.count-1) * 46.scaled
         var x = (width - w)/2.0
         mDots.forEach({
             $0.center = CGPoint(x: x, y: height/2.0)
-            x += 32.scaled
+            x += 46.scaled
         })
     }
     

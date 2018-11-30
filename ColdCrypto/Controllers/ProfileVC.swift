@@ -8,14 +8,9 @@
 
 import QRCode
 import UIKit
-import JTHamburgerButton
 
 class ProfileVC: UIViewController, Signer, ImportDelegate {
 
-    private let mBG = UIImageView(image: UIImage(named: "mainBG")).apply({
-        $0.contentMode = .scaleAspectFill
-    })
-        
     private var mWebRTC: RTC? = nil
     
     private let mScan = ScanButton()
@@ -23,27 +18,35 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     private let mProfile: Profile
     
     private var mParams: String?
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if let p = presentedViewController, !p.isBeingDismissed {
+            return p.preferredStatusBarStyle
+        }
+        return mActiveWallet != nil ? .lightContent : .default
+    }
     
-    private var mPickerVisible = false
-    
-    private lazy var mRightAdd = UIImageView(image: UIImage(named: "add")).tap({ [weak self] in
+    private lazy var mRightAdd = JTHamburgerButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30)).apply({
+        $0.lineColor = 0x007AFF.color
+        $0.lineSpacing = 4.scaled
+        $0.lineWidth = 21.scaled
+        $0.lineHeight = 4.scaled
+        $0.setCurrentModeWithAnimation(.cross, duration: 0)
+    }).tap({ [weak self] in
         self?.mImportManager.addNewWallet()
-    }).apply({
-        $0.contentMode = .center
-        $0.frame = $0.frame.insetBy(dx: -10, dy: -10)
     })
     
     private lazy var mLeftMenu = JTHamburgerButton(frame: CGRect(x: 0, y: 0, width: 18, height: 16)).apply({
         $0.lineColor = 0x007AFF.color
-        $0.lineSpacing = 5.0
-        $0.lineWidth = 24
-        $0.lineHeight = 2
+        $0.lineSpacing = 4.scaled
+        $0.lineWidth = 21.scaled
+        $0.lineHeight = 4.scaled
     }).tap({ [weak self] in
         self?.present(AppDelegate.menu, animated: true, completion: nil)
     })
     
     private var scanMinY: CGFloat {
-        return 84.scaled + view.bottomGap
+        return 84.scaled + AppDelegate.bottomGap
     }
     
     private var defaultCatchBlock: (String)->Void {
@@ -63,11 +66,15 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         }
         v.onActive = { [weak self] w in
             self?.mActiveWallet = w
+            self?.setNeedsStatusBarAppearanceUpdate()
         }
     })
     
     private var mActiveWallet: IWallet? {
         didSet {
+            if let nb = navigationController?.navigationBar {
+                nb.transform = CGAffineTransform(translationX: 0, y: mActiveWallet == nil ? 0 : -(nb.height + AppDelegate.statusHeight))
+            }
             refreshLayout()
         }
     }
@@ -91,11 +98,10 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.titleView = UIImageView(image: UIImage(named: "smallLogo"))
+        navigationItem.titleView = UIView()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: mRightAdd)
         navigationItem.leftBarButtonItem  = UIBarButtonItem(customView: mLeftMenu)
         view.backgroundColor = .white
-        view.addSubview(mBG)
         view.addSubview(mView)
         view.addSubview(mScan)
         mScan.tap({ [weak self] in
@@ -104,11 +110,11 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     }
     
     override func sideMenuDidAppear(animated: Bool) {
-        mLeftMenu.setCurrentModeWithAnimation(JTHamburgerButtonMode.arrow)
+        mLeftMenu.setCurrentModeWithAnimation(.arrow)
     }
     
     override func sideMenuDidDisappear(animated: Bool) {
-        mLeftMenu.setCurrentModeWithAnimation(JTHamburgerButtonMode.hamburger)
+        mLeftMenu.setCurrentModeWithAnimation(.hamburger)
     }
 
     deinit {
@@ -133,12 +139,10 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         mScan.transform = CGAffineTransform(translationX: 0, y: w == nil  ? self.scanMinY : 0)
         mLeftMenu.isUserInteractionEnabled = (w == nil)
         mRightAdd.isUserInteractionEnabled = mLeftMenu.isUserInteractionEnabled
-        adjustTopAlpha()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        mBG.frame = view.bounds
         mView.frame = view.bounds
         
         refreshLayout()
@@ -197,7 +201,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
             })
         }).apply({
             $0.hintText = "confirm_hint".loc
-        }), animated: true, completion: nil)
+        }).inNC, animated: true, completion: nil)
     }
     
     private func backup(wallet: IWallet) {
@@ -211,7 +215,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
             })
         }).apply({
             $0.hintText = "confirm_hint".loc
-        }), animated: true, completion: nil)
+        }).inNC, animated: true, completion: nil)
     }
     
     private func backup(seed: String) {
@@ -235,7 +239,6 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         
         dismiss(animated: false, completion: nil)
         present(CheckCodeVC(passcode: mPasscode,
-                            canSkip: false,
                             onSuccess: { vc in vc.dismiss(animated: true, completion: nil) }),
                 animated: false,
                 completion: nil)
@@ -386,14 +389,9 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     
     func setTop(visible: Bool) {
         UIView.animate(withDuration: 0.25, animations: {
-            self.mPickerVisible = !visible
-            self.adjustTopAlpha()
+            self.mLeftMenu.alpha = visible ? 1.0 : 0.0
+            self.mRightAdd.alpha = self.mLeftMenu.alpha
         })
-    }
-    
-    func adjustTopAlpha() {
-        mLeftMenu.alpha = (mPickerVisible || mActiveWallet != nil) ? 0.0 : 1.0
-        mRightAdd.alpha = mLeftMenu.alpha
     }
     
 }

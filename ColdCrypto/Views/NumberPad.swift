@@ -26,14 +26,14 @@ class NumberPad: UIView {
     private lazy var mKeys: [Button] = { [weak self] in
         var tmp: [Button] = []
         for i in 0...9 {
-            let key = Button(frame: CGRect(x: (i == 9 ? 1 : CGFloat(i % 3)) * 100.scaled, y: CGFloat(i / 3) * 100.scaled, width: 70.scaled, height: 70.scaled))
-            key.titleLabel?.font = .hnRegular(24.scaled)
-            key.setTitleColor(.black, for: .normal)
+            let key = Button(frame: CGRect(x: (i == 9 ? 1 : CGFloat(i % 3)) * 100.scaled, y: CGFloat(i / 3) * 100.scaled, width: 78.scaled, height: 78.scaled))
+            key.titleLabel?.font = .pro(36.scaled)
+            key.setTitleColor(Style.Colors.black, for: .normal)
             key.setTitle("\((i+1)%10)", for: .normal)
-            key.backgroundColor = 0xF9FAFC.color
-            key.layer.borderWidth = 1.0
-            key.layer.borderColor = 0xEDF0F7.color.cgColor
-            key.layer.cornerRadius = 35.scaled
+            key.backgroundColor = .white
+            key.layer.borderWidth = 4.scaled
+            key.layer.borderColor = Style.Colors.black.withAlphaComponent(0.5).cgColor
+            key.layer.cornerRadius = 39.scaled
             key.click = { [weak self] in
                 self?.onClick((i+1)%10)
             }
@@ -44,7 +44,9 @@ class NumberPad: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        alpha = 0.6
         mKeys.forEach({
+            $0.titleEdgeInsets = UIEdgeInsets(top: 2.scaled, left: 0, bottom: 0, right: 0)
             self.addSubview($0)
         })
     }

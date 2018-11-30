@@ -12,24 +12,30 @@ class CheckCodeVC: CodeVC {
     
     private let mPasscode: String
     private let onSuccess: (CheckCodeVC)->Void
-
-    private let mCanSkip: Bool
-    
-    override var dragable: Bool {
-        return mCanSkip
-    }
-    
     private var mAuthAtStart = false
 
-    convenience init(passcode: String, canSkip: Bool = true, authAtStart: Bool, onSuccess block: @escaping (CheckCodeVC)->Void) {
-        self.init(passcode: passcode, canSkip: canSkip, onSuccess: block)
+    convenience init(passcode: String, authAtStart: Bool, onSuccess block: @escaping (CheckCodeVC)->Void) {
+        self.init(passcode: passcode, onSuccess: block)
         mAuthAtStart = authAtStart
     }
     
-    init(passcode: String, canSkip: Bool = true, onSuccess block: @escaping (CheckCodeVC)->Void) {
+    private lazy var mBack = JTHamburgerButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30)).apply({
+        $0.lineColor = 0x007AFF.color
+        $0.lineSpacing = 5.0
+        $0.lineWidth = 24
+        $0.lineHeight = 2
+        $0.setCurrentModeWithAnimation(.arrow, duration: 0)
+    }).tap({ [weak self] in
+        if (self?.navigationController?.viewControllers.count ?? 0) > 1 {
+            self?.navigationController?.popViewController(animated: true)
+        } else {
+            self?.navigationController?.dismiss(animated: true, completion: nil)
+        }
+    })
+    
+    init(passcode: String, onSuccess block: @escaping (CheckCodeVC)->Void) {
         mPasscode = passcode
         onSuccess = block
-        mCanSkip  = canSkip
         super.init(nibName: nil, bundle: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(startBioAuth), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
@@ -83,6 +89,10 @@ class CheckCodeVC: CodeVC {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if let nc = navigationController {
+            mBack.setCurrentModeWithAnimation(nc.viewControllers.count > 1 ? .arrow : .cross, duration: 0)
+            navigationItem.leftBarButtonItem = UIBarButtonItem(customView: mBack)
+        }
         if mAuthAtStart {
             mAuthAtStart = false
             startBioAuth()

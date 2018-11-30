@@ -77,7 +77,7 @@ class Sheet : UIView {
         forceLayout()
         
         let h = 10 + 45
-        let t = height - CGFloat(mButtons.count * h) - bottomGap - 20
+        let t = height - CGFloat(mButtons.count * h) - AppDelegate.bottomGap - 20
         let l = mButtons.count - 1
         mButtons.enumerated().forEach { i in
             i.element.frame = CGRect(x: (width - 270)/2.0,
@@ -93,7 +93,7 @@ class Sheet : UIView {
         }
         
         UIView.animate(withDuration: 0.4, animations: {
-            self.mBlur.effect = UIBlurEffect(style: .regular)
+            self.mBlur.effect = UIBlurEffect(style: .dark)
         })
     }
     

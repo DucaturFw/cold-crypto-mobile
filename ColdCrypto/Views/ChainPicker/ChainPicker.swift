@@ -56,7 +56,7 @@ class ChainPicker: UIView {
         
         AppDelegate.lock()
         UIView.animate(withDuration: 0.35, animations: {
-            self.mBlur.effect = UIBlurEffect(style: .regular)
+            self.mBlur.effect = UIBlurEffect(style: .dark)
         }, completion: { _ in
             AppDelegate.unlock()
         })

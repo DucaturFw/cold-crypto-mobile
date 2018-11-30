@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A4C7EEFDE2D214A0BE9F822B /* Pods_ColdCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B511BE577741365521F8A2AA /* Pods_ColdCrypto.framework */; };
+		EB0B1CFD21B088710037C594 /* JTHamburgerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0B1CFB21B088710037C594 /* JTHamburgerButton.m */; };
 		EB1A0BF0218A27D300C43E72 /* CardsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1A0BEF218A27D300C43E72 /* CardsList.swift */; };
 		EB1F3B932198AB9C0052E5A7 /* AlertField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B922198AB9C0052E5A7 /* AlertField.swift */; };
 		EB1F3B952198ABC40052E5A7 /* IAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B942198ABC40052E5A7 /* IAlertView.swift */; };
@@ -33,11 +34,16 @@
 		EB64509B21810CAD008397DF /* ApiWebRTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64509A21810CAD008397DF /* ApiWebRTC.swift */; };
 		EB64509D2181152E008397DF /* ApiOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64509C2181152E008397DF /* ApiOffer.swift */; };
 		EB64509F21811684008397DF /* ApiJoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64509E21811684008397DF /* ApiJoin.swift */; };
-		EB74B451217CB3CA006AE00F /* bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB74B44F217CB3CA006AE00F /* bg@3x.png */; };
-		EB74B452217CB3CA006AE00F /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB74B450217CB3CA006AE00F /* bg@2x.png */; };
 		EB74B457217CCFFB006AE00F /* ScanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74B456217CCFFB006AE00F /* ScanButton.swift */; };
 		EB976CEC217BA6CE00B8DC95 /* ApiParamsWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB976CEB217BA6CE00B8DC95 /* ApiParamsWallet.swift */; };
 		EB976CEE217BA75900B8DC95 /* ApiParamsTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB976CED217BA75900B8DC95 /* ApiParamsTx.swift */; };
+		EBA5262621B1C83200A29A08 /* GothamPro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBA5262421B1BFD500A29A08 /* GothamPro-Medium.ttf */; };
+		EBA5262721B1C83200A29A08 /* GothamPro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBA5262321B1BEE200A29A08 /* GothamPro.ttf */; };
+		EBA5262821B1C83200A29A08 /* GothamPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBA5262521B1C74E00A29A08 /* GothamPro-Bold.ttf */; };
+		EBA5262B21B1DF3F00A29A08 /* background@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA5262921B1DF3F00A29A08 /* background@3x.png */; };
+		EBA5262C21B1DF3F00A29A08 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA5262A21B1DF3F00A29A08 /* background@2x.png */; };
+		EBA5262E21B1E21B00A29A08 /* NavigatorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA5262D21B1E21B00A29A08 /* NavigatorVC.swift */; };
+		EBA5263021B1E40F00A29A08 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA5262F21B1E40F00A29A08 /* Style.swift */; };
 		EBA5938B217A813F00F3CB65 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA5938A217A813F00F3CB65 /* Button.swift */; };
 		EBA59393217A815300F3CB65 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA59392217A815300F3CB65 /* Extensions.swift */; };
 		EBA59399217A816800F3CB65 /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = EBA59395217A816800F3CB65 /* SF-Pro-Display-Regular.otf */; };
@@ -218,6 +224,8 @@
 		2564A9F9434EDC7F695A47C1 /* Pods-ColdCrypto.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColdCrypto.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto.debug.xcconfig"; sourceTree = "<group>"; };
 		7CCFBA6F1971B8E07FB05360 /* Pods-ColdCrypto.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColdCrypto.release.xcconfig"; path = "Pods/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto.release.xcconfig"; sourceTree = "<group>"; };
 		B511BE577741365521F8A2AA /* Pods_ColdCrypto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColdCrypto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB0B1CFB21B088710037C594 /* JTHamburgerButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTHamburgerButton.m; sourceTree = "<group>"; };
+		EB0B1CFC21B088710037C594 /* JTHamburgerButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTHamburgerButton.h; sourceTree = "<group>"; };
 		EB1A0BEF218A27D300C43E72 /* CardsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsList.swift; sourceTree = "<group>"; };
 		EB1F3B922198AB9C0052E5A7 /* AlertField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertField.swift; sourceTree = "<group>"; };
 		EB1F3B942198ABC40052E5A7 /* IAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAlertView.swift; sourceTree = "<group>"; };
@@ -243,11 +251,16 @@
 		EB64509A21810CAD008397DF /* ApiWebRTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiWebRTC.swift; sourceTree = "<group>"; };
 		EB64509C2181152E008397DF /* ApiOffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiOffer.swift; sourceTree = "<group>"; };
 		EB64509E21811684008397DF /* ApiJoin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiJoin.swift; sourceTree = "<group>"; };
-		EB74B44F217CB3CA006AE00F /* bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@3x.png"; sourceTree = "<group>"; };
-		EB74B450217CB3CA006AE00F /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
 		EB74B456217CCFFB006AE00F /* ScanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanButton.swift; sourceTree = "<group>"; };
 		EB976CEB217BA6CE00B8DC95 /* ApiParamsWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiParamsWallet.swift; sourceTree = "<group>"; };
 		EB976CED217BA75900B8DC95 /* ApiParamsTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiParamsTx.swift; sourceTree = "<group>"; };
+		EBA5262321B1BEE200A29A08 /* GothamPro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GothamPro.ttf; sourceTree = "<group>"; };
+		EBA5262421B1BFD500A29A08 /* GothamPro-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamPro-Medium.ttf"; sourceTree = "<group>"; };
+		EBA5262521B1C74E00A29A08 /* GothamPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamPro-Bold.ttf"; sourceTree = "<group>"; };
+		EBA5262921B1DF3F00A29A08 /* background@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@3x.png"; sourceTree = "<group>"; };
+		EBA5262A21B1DF3F00A29A08 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
+		EBA5262D21B1E21B00A29A08 /* NavigatorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorVC.swift; sourceTree = "<group>"; };
+		EBA5262F21B1E40F00A29A08 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		EBA5938A217A813F00F3CB65 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		EBA59392217A815300F3CB65 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EBA59395217A816800F3CB65 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
@@ -421,6 +434,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		EB0B1CFA21B088660037C594 /* Hamburger */ = {
+			isa = PBXGroup;
+			children = (
+				EB0B1CFC21B088710037C594 /* JTHamburgerButton.h */,
+				EB0B1CFB21B088710037C594 /* JTHamburgerButton.m */,
+			);
+			path = Hamburger;
+			sourceTree = "<group>";
+		};
 		EB1F3B912198AB8A0052E5A7 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,6 +491,7 @@
 				EB26C31B21924083005D3525 /* CardPickVC.swift */,
 				EB1F3B982198CAEF0052E5A7 /* BackupVC.swift */,
 				EBAC21D421A5D958002CF61B /* ConfirmContractCall.swift */,
+				EBA5262D21B1E21B00A29A08 /* NavigatorVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -489,6 +512,7 @@
 				EB64509621810A82008397DF /* Signer.swift */,
 				EBD4FCC72190BBBF0080D1A9 /* PopAnimator.swift */,
 				EBDB8850219745F1000AF045 /* ImportManager.swift */,
+				EBA5262F21B1E40F00A29A08 /* Style.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -496,6 +520,7 @@
 		EB74B43F217C75B2006AE00F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EB0B1CFA21B088660037C594 /* Hamburger */,
 				EBEDA2B821AB56CE004FCB75 /* AccountPicker */,
 				EBEDA21F21AB4264004FCB75 /* ChainPicker */,
 				EB5529F421A5EE5B00EB11ED /* Contract */,
@@ -523,9 +548,9 @@
 				EBA593A6217A831800F3CB65 /* Localizable.strings */,
 				EBA59394217A816800F3CB65 /* Fonts */,
 				EBE484D7217928C0006879F7 /* Assets.xcassets */,
+				EBA5262A21B1DF3F00A29A08 /* background@2x.png */,
+				EBA5262921B1DF3F00A29A08 /* background@3x.png */,
 				EBE484D9217928C0006879F7 /* LaunchScreen.storyboard */,
-				EB74B450217CB3CA006AE00F /* bg@2x.png */,
-				EB74B44F217CB3CA006AE00F /* bg@3x.png */,
 				EBE484DC217928C0006879F7 /* Info.plist */,
 				EBAC21C121A5C774002CF61B /* abi.js */,
 				EBAC21D221A5D916002CF61B /* abi_mock.json */,
@@ -556,6 +581,9 @@
 		EBA59394217A816800F3CB65 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				EBA5262421B1BFD500A29A08 /* GothamPro-Medium.ttf */,
+				EBA5262321B1BEE200A29A08 /* GothamPro.ttf */,
+				EBA5262521B1C74E00A29A08 /* GothamPro-Bold.ttf */,
 				EBA59395217A816800F3CB65 /* SF-Pro-Display-Regular.otf */,
 				EBA59396217A816800F3CB65 /* SF-Pro-Display-Bold.otf */,
 				EBA59397217A816800F3CB65 /* SF-Pro-Display-Medium.otf */,
@@ -1028,17 +1056,20 @@
 			files = (
 				EB2F617A21ABE7EB0029219A /* eos.js in Resources */,
 				EBAC21D321A5D916002CF61B /* abi_mock.json in Resources */,
-				EB74B452217CB3CA006AE00F /* bg@2x.png in Resources */,
-				EB74B451217CB3CA006AE00F /* bg@3x.png in Resources */,
 				EBA5939C217A816800F3CB65 /* SF-Pro-Display-Semibold.otf in Resources */,
 				EBE484DB217928C0006879F7 /* LaunchScreen.storyboard in Resources */,
 				EBA59399217A816800F3CB65 /* SF-Pro-Display-Regular.otf in Resources */,
 				EBAC21C221A5C774002CF61B /* abi.js in Resources */,
+				EBA5262721B1C83200A29A08 /* GothamPro.ttf in Resources */,
 				EBA593AD217A831900F3CB65 /* Localizable.strings in Resources */,
 				EBA5939A217A816800F3CB65 /* SF-Pro-Display-Bold.otf in Resources */,
 				EBEDA28A21AB4FF3004FCB75 /* secp256k1.table in Resources */,
 				EBE484D8217928C0006879F7 /* Assets.xcassets in Resources */,
+				EBA5262821B1C83200A29A08 /* GothamPro-Bold.ttf in Resources */,
 				EBA5939B217A816800F3CB65 /* SF-Pro-Display-Medium.otf in Resources */,
+				EBA5262B21B1DF3F00A29A08 /* background@3x.png in Resources */,
+				EBA5262C21B1DF3F00A29A08 /* background@2x.png in Resources */,
+				EBA5262621B1C83200A29A08 /* GothamPro-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1055,11 +1086,9 @@
 				"${BUILT_PRODUCTS_DIR}/BlockiesSwift/BlockiesSwift.framework",
 				"${PODS_ROOT}/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework",
 				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/JTHamburgerButton/JTHamburgerButton.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/QRCode/QRCode.framework",
-				"${BUILT_PRODUCTS_DIR}/RNCryptor/RNCryptor.framework",
 				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/TGLStackedViewController/TGLStackedViewController.framework",
@@ -1069,11 +1098,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BlockiesSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTHamburgerButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCode.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNCryptor.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TGLStackedViewController.framework",
@@ -1184,6 +1211,7 @@
 				EBEDA2A921AB4FF3004FCB75 /* KeyPair.swift in Sources */,
 				EB74B457217CCFFB006AE00F /* ScanButton.swift in Sources */,
 				EBD0B11C218DFBED00FD1B37 /* MenuVC.swift in Sources */,
+				EBA5262E21B1E21B00A29A08 /* NavigatorVC.swift in Sources */,
 				EBEDA2A621AB4FF3004FCB75 /* HistoryRouter.swift in Sources */,
 				EBEDA28321AB4FF3004FCB75 /* EOSImporter.swift in Sources */,
 				EBEDA28421AB4FF3004FCB75 /* AnyDecodable.swift in Sources */,
@@ -1193,6 +1221,7 @@
 				EB1F3B972198B1D60052E5A7 /* AlertImage.swift in Sources */,
 				EBEDA2AC21AB4FF3004FCB75 /* ChainModels.swift in Sources */,
 				EBEDA2AD21AB4FF3004FCB75 /* Error.swift in Sources */,
+				EBA5263021B1E40F00A29A08 /* Style.swift in Sources */,
 				EBD4FCCA2190BFC20080D1A9 /* IPopover.swift in Sources */,
 				EBAC21D521A5D958002CF61B /* ConfirmContractCall.swift in Sources */,
 				EBC9F79421824F2B00150883 /* ApiChains.swift in Sources */,
@@ -1242,6 +1271,7 @@
 				EBEDA28821AB4FF3004FCB75 /* curve-specific.inc in Sources */,
 				EBA593C2217A892900F3CB65 /* Blockchain.swift in Sources */,
 				EBEDA21E21AB4242004FCB75 /* ChainPicker.swift in Sources */,
+				EB0B1CFD21B088710037C594 /* JTHamburgerButton.m in Sources */,
 				EBDB8851219745F1000AF045 /* ImportManager.swift in Sources */,
 				EBA593C8217A89B800F3CB65 /* ITransaction.swift in Sources */,
 				EBDB884F21974500000AF045 /* Sheet.swift in Sources */,

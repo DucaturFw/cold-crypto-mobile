@@ -20,6 +20,18 @@ extension UIFont {
         return UIFont(name: "SFProDisplay-Medium", size: size) ?? UIFont.boldSystemFont(ofSize: size)
     }
     
+    static func pro(_ size: CGFloat) -> UIFont {
+        return UIFont(name: "GothamPro", size: size) ?? UIFont.systemFont(ofSize: size)
+    }
+    
+    static func proMedium(_ size: CGFloat) -> UIFont {
+        return UIFont(name: "GothamPro-Medium", size: size) ?? UIFont.systemFont(ofSize: size)
+    }
+    
+    static func proBold(_ size: CGFloat) -> UIFont {
+        return UIFont(name: "GothamPro-Bold", size: size) ?? UIFont.systemFont(ofSize: size)
+    }
+    
     static func hnRegular(_ size: CGFloat) -> UIFont {
         return UIFont(name: "HelveticaNeue", size: size) ?? UIFont.systemFont(ofSize: size)
     }

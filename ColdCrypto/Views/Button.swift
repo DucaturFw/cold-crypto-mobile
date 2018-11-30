@@ -12,11 +12,25 @@ class Button : UIButton {
     
     var click: ()->Void = {}
     
+    private var mOldBackgroundColor: UIColor?
+    var isActive: Bool = true {
+        didSet {
+            if oldValue != isActive {
+                if !isActive {
+                    mOldBackgroundColor = backgroundColor
+                }
+                backgroundColor = isActive ? mOldBackgroundColor : Style.Colors.darkLight
+                isUserInteractionEnabled = isActive
+                
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        layer.cornerRadius = 12.scaled
+        layer.cornerRadius = 20.scaled
         setTitleColor(UIColor.white, for: .normal)
-        titleLabel?.font = .hnMedium(18.0.scaled)
+        titleLabel?.font = .proMedium(15.scaled)
         addTarget(self, action: #selector(clicked), for: .touchUpInside)
     }
     

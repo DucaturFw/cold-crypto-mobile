@@ -14,16 +14,15 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
     
     private var mCloseAnimation = false
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     private let mContent = UIView().apply({
         $0.backgroundColor = .white
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 14.scaled
         $0.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
-    })
-    
-    let background = UIImageView(image: UIImage(named: "mainBG")).apply({
-        $0.contentMode   = .scaleAspectFill
-        $0.clipsToBounds = true
     })
     
     var content: UIView {
@@ -40,6 +39,11 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
     
     private let mBlur: UIVisualEffectView = UIVisualEffectView(effect: nil)
     
+    private let mTint = UIView()
+//        .apply({
+////        $0.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+//    })
+    
     private var mAnimator = UIViewPropertyAnimator()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -55,8 +59,8 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(mBlur)
+        mBlur.contentView.addSubview(mTint)
         mBlur.contentView.addSubview(mContent)
-        mContent.addSubview(background)
         if dragable {
             mContent.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(PopupVC.panned(_:))))
         }
@@ -105,18 +109,19 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         mBlur.frame = view.bounds
+        mTint.frame = mBlur.bounds
         let trans = mContent.transform
         mContent.transform = .identity
         mContent.frame = CGRect(x: 0, y: topGap, width: view.width, height: view.height - topGap + 100)
-        background.frame = content.bounds
         mContent.transform = trans
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if !animated {
-            mBlur.effect = UIBlurEffect(style: .extraLight)
+            mBlur.effect = UIBlurEffect(style: .dark)
         }
+        setNeedsStatusBarAppearanceUpdate()
     }
 
     // MARK: - UIViewControllerTransitioningDelegate methods
@@ -140,6 +145,8 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
     func show(container: UIView, completion: @escaping ()->Void) {
         view.frame = container.bounds
         mContent.transform = CGAffineTransform(translationX: 0, y: container.height)
+        mBlur.effect = nil
+        mTint.alpha = 0.0
         container.addSubview(view)
         view.setNeedsLayout()
         view.layoutIfNeeded()
@@ -152,13 +159,15 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
             completion()
         })
         UIView.animate(withDuration: 0.25, animations: {
-            self.mBlur.effect = UIBlurEffect(style: .extraLight)
+            self.mBlur.effect = UIBlurEffect(style: .dark)
+            self.mTint.alpha  = 1.0
         })
     }
     
     func hide(completion: @escaping  ()->Void) {
         AppDelegate.lock()
         UIView.animate(withDuration: 0.4, animations: {
+            self.mTint.alpha  = 0.0
             self.mBlur.effect = nil
             self.mContent.transform = CGAffineTransform(translationX: 0, y: self.view.height)
         }, completion: { _ in

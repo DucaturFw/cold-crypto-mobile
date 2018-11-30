@@ -26,6 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0
     }
     
+    public static var statusHeight: CGFloat {
+        return UIApplication.shared.statusBarFrame.size.height
+    }
+    
     static let menu = UISideMenuNavigationController(rootViewController: MenuVC())
     
     var window: UIWindow?
@@ -52,7 +56,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor  = .white
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = UINavigationController(rootViewController: AuthVC())
+        window?.layer.cornerRadius  = 10.scaled
+        window?.layer.masksToBounds = true
+        window?.rootViewController  = NavigatorVC(rootViewController: AuthVC())
         window?.makeKeyAndVisible()
         return true
     }

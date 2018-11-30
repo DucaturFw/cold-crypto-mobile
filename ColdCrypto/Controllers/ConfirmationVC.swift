@@ -12,17 +12,19 @@ class ConfirmationVC: PopupVC {
     
     private let mDecline = Button().apply({
         $0.setTitleColor(UIColor.white, for: .normal)
-        $0.backgroundColor = 0xE26E7C.color
+        $0.backgroundColor = Style.Colors.red
         $0.setTitle("decline".loc, for: .normal)
     })
     
     private let mConfirm = Button().apply({
         $0.setTitleColor(UIColor.white, for: .normal)
-        $0.backgroundColor = 0x007AFF.color
+        $0.backgroundColor = Style.Colors.blue
         $0.setTitle("confirm".loc, for: .normal)
     })
     
-    private let mName = UILabel.new(font: UIFont.hnBold(30.scaled), text: "verify".loc, lines: 0, color: 0x007AFF.color, alignment: .left)
+    private let mArrow = UIImageView(image: UIImage(named: "arrowDown"))
+    
+    private let mName = UILabel.new(font: UIFont.proMedium(25.scaled), text: "verify".loc, lines: 0, color: Style.Colors.black, alignment: .left)
     private let mOnConfirm: ()->Void
     private let mAddress: Checkbox
     private let mAmount: Checkbox
@@ -33,14 +35,7 @@ class ConfirmationVC: PopupVC {
         mAmount = Checkbox(name: "check_amount".loc, value: amount)
         super.init(nibName: nil, bundle: nil)
     }
-    
-    private var isConfirmEnabled: Bool = false {
-        didSet {
-            mConfirm.isEnabled = isConfirmEnabled
-            mConfirm.backgroundColor = isConfirmEnabled ? 0x007AFF.color : 0xDCDCDC.color
-        }
-    }
-    
+
     required init?(coder aDecoder: NSCoder) {
         return nil
     }
@@ -52,6 +47,7 @@ class ConfirmationVC: PopupVC {
         content.addSubview(mConfirm)
         content.addSubview(mAddress)
         content.addSubview(mAmount)
+        content.addSubview(mArrow)
         
         mAmount.onChecked = { [weak self] _ in
             self?.checkConfirm()
@@ -65,26 +61,25 @@ class ConfirmationVC: PopupVC {
         mConfirm.click = { [weak self] in
             self?.mOnConfirm()
         }
-        
-        isConfirmEnabled = false
+        mConfirm.isActive = false
     }
     
     private func checkConfirm() {
-        isConfirmEnabled = mAmount.isChecked && mAddress.isChecked
+        mConfirm.isActive = mAmount.isChecked && mAddress.isChecked
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        mName.origin   = CGPoint(x: 18.scaled, y: 48.scaled)
-        mAddress.frame = CGRect(x: 25.scaled, y: mName.maxY + 45.scaled, width: content.width - 60.scaled, height: 0)
-        mAmount.frame  = CGRect(x: 25.scaled, y: mAddress.maxY + 17.scaled, width: mAddress.width, height: 0)
-        
-        
-        
-        let w = (content.width - 76.scaled)/2.0
-        mDecline.frame = CGRect(x: 30.scaled, y: view.height - topGap - view.bottomGap - 100.scaled, width: w, height: 64.scaled)
-        mConfirm.frame = CGRect(x: mDecline.maxX + 16.scaled, y: mDecline.minY, width: mDecline.width, height: mDecline.height)
+        mArrow.origin  = CGPoint(x: (view.width - mArrow.width)/2.0, y: 40.scaled)
+        mName.origin   = CGPoint(x: (view.width - mName.width)/2.0, y: mArrow.maxY + 40.scaled)
+        mAddress.frame = CGRect(x: 40.scaled, y: mName.maxY + 40.scaled, width: content.width - 80.scaled, height: 80.scaled)
+        mAmount.frame  = CGRect(x: 40.scaled, y: mAddress.maxY + 50.scaled, width: mAddress.width, height: 80.scaled)
+
+        let p = 40.scaled
+        let w = (content.width - p * 3.0)/2.0
+        mDecline.frame = CGRect(x: p, y: view.height - topGap - AppDelegate.bottomGap - 100.scaled, width: w, height: 40.scaled)
+        mConfirm.frame = CGRect(x: mDecline.maxX + p, y: mDecline.minY, width: mDecline.width, height: mDecline.height)
     }
     
 }

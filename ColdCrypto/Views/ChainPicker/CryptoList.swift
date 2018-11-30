@@ -59,7 +59,7 @@ class CryptoList: UIView {
         
         let p = (width - CGFloat(h) * CryptoItem.width) / CGFloat(h + 1)
         
-        var y = p + 44.0 + UIApplication.shared.statusBarFrame.height
+        var y = p + 44.0 + AppDelegate.statusHeight
         var i = 0
         let g = (width - CGFloat(mItems.count % h) * CryptoItem.width - CGFloat(mItems.count % h-1) * p)/2.0
         var x = (1 == v ? g : p)

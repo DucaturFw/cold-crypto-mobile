@@ -52,11 +52,10 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
     }
     
     private let mLayout: TGLStackedLayout = {
-        let wid = UIScreen.main.bounds.width
         let tmp = TGLStackedLayout()
-        tmp.itemSize  = CGSize(width: wid, height: wid / 270.0 * 160.0)
+        tmp.itemSize = WalletCell.cardSize(width: UIScreen.main.bounds.width)
         tmp.topReveal = 87.scaled
-        tmp.layoutMargin = UIEdgeInsets(top: UIApplication.shared.statusBarFrame.height + 44.0, left: 0, bottom: 0, right: 0)
+        tmp.layoutMargin = UIEdgeInsets(top: AppDelegate.statusHeight + 44.0, left: 0, bottom: 0, right: 0)
         tmp.isAlwaysBouncing = true
         return tmp
     }()
@@ -124,8 +123,7 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
             mLayout.contentOffset = contentOffset;
             mActive = mReversedWallets[s.row]
             mPrevLayout = newLayout
-            newLayout.layoutMargin = mLayout.layoutMargin
-            newLayout.itemSize = mLayout.itemSize
+            newLayout.layoutMargin = UIEdgeInsets(top: 0, left: 0, bottom: AppDelegate.bottomGap, right: 0)
             newLayout.bottomPinningCount = 0
             newLayout.topPinningCount = 0
             AppDelegate.lock()
@@ -160,8 +158,8 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
 
     private func hideFirst(s: IndexPath) {
         (cellForItem(at: s) as? WalletCell)?.fullVisible = false
-        setCollectionViewLayout(mLayout, animated: true, completion: nil)
         onActive(nil)
+        setCollectionViewLayout(mLayout, animated: true, completion: nil)
     }
     
     private func hideLast() {
@@ -263,5 +261,5 @@ class CardsList: UICollectionView, UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         set(selected: indexPath.item == mSelected?.item ? nil : indexPath)
     }
-    
+
 }

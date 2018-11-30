@@ -87,7 +87,7 @@ class ScannerVC: PopupVC, AVCaptureMetadataOutputObjectsDelegate {
         let height = content.height
         
         previewLayer.frame = CGRect(x: 0, y: 0, width: width, height: width / 376.0 * 275.0)
-        mClose.origin = CGPoint(x: (width - mClose.width)/2.0, y: height - mClose.height - view.bottomGap)
+        mClose.origin = CGPoint(x: (width - mClose.width)/2.0, y: height - mClose.height - AppDelegate.bottomGap)
         
         let s = previewLayer.frame.height
         let c = CGPoint(x: width/2.0, y: previewLayer.frame.height/2.0)

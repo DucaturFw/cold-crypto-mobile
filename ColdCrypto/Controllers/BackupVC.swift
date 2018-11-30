@@ -88,7 +88,7 @@ class BackupVC: PopupVC {
         let th = mHint.text?.heightFor(width: mBox.width, font: mHint.font) ?? 0
         mHint.frame = CGRect(x: mCaption.minX, y: mBox.maxY + 10, width: mBox.width, height: th)
         mDone.frame = CGRect(x: mHint.minX, y: mHint.maxY + 20, width: mHint.width, height: 45)
-        mTopGap = mDone.maxY + 20 + view.bottomGap
+        mTopGap = mDone.maxY + 20 + AppDelegate.bottomGap
     }
 
 }
