@@ -76,12 +76,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ((UIApplication.shared.delegate as? AppDelegate)?.window?.rootViewController as? UINavigationController)?.setViewControllers([AuthVC()], animated: true)
     }
     
+    private static let mQueue = DispatchQueue(label: "lock")
+    private static var mLock  = 0
+    
     static func lock() {
-        UIApplication.shared.beginIgnoringInteractionEvents()
+        mQueue.sync {
+            if mLock == 0 {
+                UIApplication.shared.beginIgnoringInteractionEvents()
+            }
+            mLock += 1
+        }
     }
     
     static func unlock() {
-        UIApplication.shared.endIgnoringInteractionEvents()
+        mQueue.sync {
+            if mLock > 0 {
+                mLock -= 1
+                if mLock == 0 {
+                    UIApplication.shared.endIgnoringInteractionEvents()
+                }
+            }
+        }
+        
     }
 
 }

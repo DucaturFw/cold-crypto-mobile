@@ -32,7 +32,7 @@ class BackupVC: PopupVC {
     }
     
     private lazy var mDone = Button().apply({ [weak self] in
-        $0.backgroundColor = 0x1888FE.color
+        $0.backgroundColor = Style.Colors.blue
         $0.setTitle("done".loc, for: .normal)
         $0.click = { [weak self] in
             self?.dismiss(animated: true, completion: nil)

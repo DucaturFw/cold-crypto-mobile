@@ -20,9 +20,9 @@ class ScanView : UIView {
         clearsContextBeforeDrawing = true
         
         lineLayer.fillColor   = UIColor.clear.cgColor
-        lineLayer.strokeColor = 0x1888FE.color.cgColor
+        lineLayer.strokeColor = Style.Colors.blue.cgColor
         lineLayer.lineWidth   = 2.0
-        lineLayer.shadowColor   = 0x1888FE.color.cgColor
+        lineLayer.shadowColor   = Style.Colors.blue.cgColor
         lineLayer.shadowOffset  = CGSize(width: 0, height: 0)
         lineLayer.shadowOpacity = 0.8
         lineLayer.shadowRadius  = 6.0
@@ -71,7 +71,7 @@ class ScanView : UIView {
         ctx.restoreGState()
 
         ctx.addPath(p.cgPath)
-        ctx.setStrokeColor(0x1888FE.color.cgColor)
+        ctx.setStrokeColor(Style.Colors.blue.cgColor)
         ctx.setLineWidth(2)
         ctx.strokePath()
     }

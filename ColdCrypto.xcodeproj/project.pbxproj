@@ -481,21 +481,21 @@
 		EB74B437217C7599006AE00F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				EBA593D1217A8BFE00F3CB65 /* AuthVC.swift */,
+				EB1F3B982198CAEF0052E5A7 /* BackupVC.swift */,
+				EB26C31B21924083005D3525 /* CardPickVC.swift */,
 				EBA593CF217A8BF700F3CB65 /* CheckCodeVC.swift */,
 				EBA593D5217A8C1B00F3CB65 /* CodeVC.swift */,
-				EBA593D3217A8C0300F3CB65 /* NewCodeVC.swift */,
-				EBA593AE217A844E00F3CB65 /* ScannerVC.swift */,
-				EBA593D1217A8BFE00F3CB65 /* AuthVC.swift */,
-				EBE484D2217928BF006879F7 /* ProfileVC.swift */,
 				EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */,
-				EBF620B9218B9134005C6141 /* PasswordVC.swift */,
-				EBF620C1218BA2AA005C6141 /* RepeatPassVC.swift */,
-				EBD0B11B218DFBED00FD1B37 /* MenuVC.swift */,
-				EBD4FCCB2190D4D50080D1A9 /* PopupVC.swift */,
-				EB26C31B21924083005D3525 /* CardPickVC.swift */,
-				EB1F3B982198CAEF0052E5A7 /* BackupVC.swift */,
 				EBAC21D421A5D958002CF61B /* ConfirmContractCall.swift */,
+				EBD0B11B218DFBED00FD1B37 /* MenuVC.swift */,
 				EBA5262D21B1E21B00A29A08 /* NavigatorVC.swift */,
+				EBA593D3217A8C0300F3CB65 /* NewCodeVC.swift */,
+				EBF620B9218B9134005C6141 /* PasswordVC.swift */,
+				EBD4FCCB2190D4D50080D1A9 /* PopupVC.swift */,
+				EBE484D2217928BF006879F7 /* ProfileVC.swift */,
+				EBF620C1218BA2AA005C6141 /* RepeatPassVC.swift */,
+				EBA593AE217A844E00F3CB65 /* ScannerVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

@@ -49,6 +49,11 @@ class EOSWallet: IWallet {
         mPKObject = pk2
     }
 
+    func flushCache() {
+        cachedRate = nil
+        cachedBalance = nil
+    }
+    
     func getBalance(completion: @escaping (String?, String?) -> Void) {
         if let b = cachedBalance, let r = cachedRate, let a = cachedAmount {
             completion(b, (a * Decimal(r)).money)

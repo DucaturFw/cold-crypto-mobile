@@ -81,7 +81,7 @@ class Alert : UIView {
     }
     
     @discardableResult
-    func put(_ name: String, color: UIColor = 0x1888FE.color, do block: ((Alert)->Void)? = nil) -> Self {
+    func put(_ name: String, color: UIColor = Style.Colors.blue, do block: ((Alert)->Void)? = nil) -> Self {
         let tmp = Button()
         tmp.backgroundColor = color
         tmp.setTitle(name, for: .normal)
@@ -99,7 +99,7 @@ class Alert : UIView {
     
     @discardableResult
     func put(negative name: String, do block: ((Alert)->Void)? = nil) -> Self {
-        return put(name, color: 0x26E7B0.color, do: block)
+        return put(name, color: Style.Colors.green, do: block)
     }
     
     func show() {

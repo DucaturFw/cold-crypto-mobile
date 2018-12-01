@@ -20,7 +20,7 @@ class CheckCodeVC: CodeVC {
     }
     
     private lazy var mBack = JTHamburgerButton().apply({
-        $0.lineColor = 0x007AFF.color
+        $0.lineColor = Style.Colors.blue
         $0.lineSpacing = 5.0
         $0.lineWidth = 24
         $0.lineHeight = 2

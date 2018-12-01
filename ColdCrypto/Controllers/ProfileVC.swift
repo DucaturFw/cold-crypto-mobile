@@ -27,7 +27,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     }
     
     private lazy var mRightAdd = JTHamburgerButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30)).apply({
-        $0.lineColor = 0x007AFF.color
+        $0.lineColor = Style.Colors.darkGrey
         $0.lineSpacing = 4.scaled
         $0.lineWidth = 21.scaled
         $0.lineHeight = 4.scaled
@@ -37,7 +37,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     })
     
     private lazy var mLeftMenu = JTHamburgerButton(frame: CGRect(x: 0, y: 0, width: 18, height: 16)).apply({
-        $0.lineColor = 0x007AFF.color
+        $0.lineColor = Style.Colors.darkGrey
         $0.lineSpacing = 4.scaled
         $0.lineWidth = 21.scaled
         $0.lineHeight = 4.scaled
@@ -104,9 +104,14 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         view.backgroundColor = Style.Colors.white
         view.addSubview(mView)
         view.addSubview(mScan)
-        mScan.tap({ [weak self] in
+        mScan.onScan = { [weak self] in
             self?.startScanning()
-        })
+        }
+        mScan.onReceive = { [weak self] in
+            if let w = self?.mActiveWallet {
+                self?.show(qr: w.address)
+            }
+        }
     }
     
     override func sideMenuDidAppear(animated: Bool) {
@@ -149,7 +154,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
 
         let t = mScan.transform
         mScan.transform = .identity
-        mScan.frame = CGRect(x: 34.scaled, y: view.height - scanMinY, width: view.width - 68.scaled, height: 57.scaled)
+        mScan.frame = CGRect(x: 40.scaled, y: view.height - scanMinY, width: view.width - 80.scaled, height: Style.Dims.buttonMiddle)
         mScan.transform = t
     }
     
@@ -181,7 +186,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     
     private func delete(wallet: IWallet) {
         Alert("sure_delete".loc).put("delete_no".loc)
-            .put("delete_yes".loc, color: 0xE26E7C.color, do: { [weak self] _ in
+            .put("delete_yes".loc, color: Style.Colors.red, do: { [weak self] _ in
                 self?.sureDelete(wallet: wallet)
             }).show()
     }

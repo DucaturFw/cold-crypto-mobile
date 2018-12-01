@@ -12,17 +12,18 @@ import BlockiesSwift
 class WalletCell: UICollectionViewCell {
 
     static func cardSize(width: CGFloat) -> CGSize {
-        return CGSize(width: width, height: width / 330.0 * 200.0)
+        return CGSize(width: width, height: ceil(width / 330.0 * 200.0))
     }
-    
-    static let corners = 10.scaled
-
+        
     private let mCard = UIImageView(image: UIImage(named: "card0")).apply({
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
-        $0.layer.cornerRadius = WalletCell.corners
+        $0.layer.cornerRadius = 10.scaled
         $0.isUserInteractionEnabled = true
     })
+    var card: UIView {
+        return mCard
+    }
     
     var fullVisible: Bool = false {
         didSet {
@@ -30,7 +31,6 @@ class WalletCell: UICollectionViewCell {
             mBackup.isUserInteractionEnabled = fullVisible
             mDelete.alpha = fullVisible ? 1.0 : 0.0
             mBackup.alpha = fullVisible ? 1.0 : 0.0
-            forceLayout()
         }
     }
     
@@ -93,10 +93,12 @@ class WalletCell: UICollectionViewCell {
         }
     }
     
+    override var withTint: Bool {
+        return false
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(mBackup)
-        addSubview(mDelete)
         addSubview(mCard)
         mCard.addSubview(mOverlay)
         mCard.addSubview(mLogo)
@@ -104,6 +106,9 @@ class WalletCell: UICollectionViewCell {
         mCard.addSubview(mAmount)
         mCard.addSubview(mMoney)
         mCard.addSubview(mHUD)
+        mCard.addSubview(mBackup)
+        mCard.addSubview(mDelete)
+
         mBackup.click = { [weak self] in
             if let s = self, let w = s.wallet {
                 s.onBackUp(w)
@@ -115,6 +120,13 @@ class WalletCell: UICollectionViewCell {
             }
         }
     }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        if !fullVisible {
+            return mCard.point(inside: convert(point, to: mCard), with: event)
+        }
+        return super.point(inside: point, with: event)
+    }
 
     required init?(coder aDecoder: NSCoder) {
         return nil
@@ -122,27 +134,28 @@ class WalletCell: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        forceLayout()
-    }
-    
-    private func forceLayout() {
-        var s = WalletCell.cardSize(width: width)
-        let i = CGFloat(!fullVisible ? 23.scaled : 0.0)
-        let t = fullVisible ? AppDelegate.statusHeight : 0
-        s.height += t
-
-        mCard.frame = CGRect(origin: .zero, size: s).insetBy(dx: i, dy: i)
+        if mCard.superview == self {
+            let s = WalletCell.cardSize(width: width)
+            let i = 23.scaled
+            
+            let t = mCard.transform
+            mCard.transform = .identity
+            mCard.frame = CGRect(origin: .zero, size: s).insetBy(dx: i, dy: i)
+            mCard.transform = t
+        }
+        
         mOverlay.frame = mCard.bounds
-        mLogo.origin   = CGPoint(x: mCard.width - mLogo.width + 53, y: t + (s.height - t - mLogo.height)/2.0)
-        mAmount.frame  = CGRect(x: 20.scaled, y: 20.scaled + t, width: mCard.width - 40.scaled, height: mAmount.font.lineHeight)
-        mHUD.origin    = CGPoint(x: 19.scaled, y: 14.scaled + t)
+        mLogo.origin   = CGPoint(x: mCard.width - mLogo.width + 53, y: (mCard.height - mLogo.height)/2.0)
+        mAmount.frame  = CGRect(x: 20.scaled, y: 20.scaled, width: mCard.width - 40.scaled, height: mAmount.font.lineHeight)
+        mHUD.origin    = CGPoint(x: 19.scaled, y: 14.scaled)
         mMoney.frame   = CGRect(x: 22.scaled, y: mAmount.maxY + 7.scaled, width: mCard.width - 44.scaled, height: mMoney.font.lineHeight)
         mAddress.frame = CGRect(x: 22.scaled, y: mMoney.maxY + 7.scaled, width: mCard.width - 44.scaled, height: mAddress.font.lineHeight)
         
-        let p = 40.scaled
-        let w = (width - p * 3)/2.0
+        let p = 20.scaled
+        let w = (mCard.width - p * 3)/2.0
+        let y = mCard.height - Style.Dims.buttonMiddle - 20.scaled
         
-        mDelete.frame = CGRect(x: p, y: mCard.maxY + (fullVisible ? 10.scaled : -74.scaled), width: w, height: Style.Dims.buttonMiddle)
+        mDelete.frame = CGRect(x: p, y: y, width: w, height: Style.Dims.buttonMiddle)
         mBackup.frame = CGRect(x: mDelete.maxX + p, y: mDelete.minY, width: w, height: mDelete.height)
     }
     

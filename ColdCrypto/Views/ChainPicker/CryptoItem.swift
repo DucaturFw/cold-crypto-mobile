@@ -55,7 +55,7 @@ class CryptoItem: UIView {
         layer.shadowOpacity = 0.15
         layer.shadowOffset = CGSize(width: 0, height: 10.scaled)
         layer.shadowRadius = 10
-        layer.borderColor  = 0x1888FE.color.cgColor
+        layer.borderColor  = Style.Colors.blue.cgColor
         backgroundColor = Style.Colors.white
         
         mIcon.image = blockchain.icon()

@@ -18,7 +18,7 @@ class RepeatPassVC: UIViewController {
     private lazy var mCancel = UILabel.new(font: UIFont.hnMedium(18.scaled),
                                            text: "back".loc,
                                            lines: 1,
-                                           color: 0x007AFF.color,
+                                           color: Style.Colors.blue,
                                            alignment: .center).apply({
                                             $0.frame = $0.frame.insetBy(dx: -2.0, dy: -2.0)
                                            }).tap({ [weak self] in
@@ -32,7 +32,7 @@ class RepeatPassVC: UIViewController {
     private lazy var mNext = UILabel.new(font: UIFont.hnMedium(18.scaled),
                                          text: "next".loc,
                                          lines: 1,
-                                         color: 0x007AFF.color,
+                                         color: Style.Colors.blue,
                                          alignment: .center).apply({
                                             $0.frame = $0.frame.insetBy(dx: -18.0, dy: -2.0)
                                          }).tap({ [weak self] in
@@ -45,7 +45,7 @@ class RepeatPassVC: UIViewController {
                                             }
                                          })
     
-    private let mCaption = UILabel.new(font: UIFont.hnBold(36.scaled), text: "type_pass".loc, lines: 0, color: 0x007AFF.color, alignment: .left)
+    private let mCaption = UILabel.new(font: UIFont.hnBold(36.scaled), text: "type_pass".loc, lines: 0, color: Style.Colors.blue, alignment: .left)
     
     private let mHint = UILabel.new(font: UIFont.hnMedium(20.scaled), text: "rest_pass".loc, lines: 0, color: .black, alignment: .left)
     
@@ -60,7 +60,7 @@ class RepeatPassVC: UIViewController {
         $0.tintColor = Style.Colors.white
         $0.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 18.scaled, height: 0))
         $0.rightViewMode = .always
-        $0.backgroundColor = 0x007AFF.color
+        $0.backgroundColor = Style.Colors.blue
         $0.layer.cornerRadius = 12.scaled
         $0.isSecureTextEntry = true
     })
@@ -98,10 +98,10 @@ class RepeatPassVC: UIViewController {
     @objc private func textChanged() {
         if let p = mField.text, p.count > 0 && p == mPassword {
             mNext.isUserInteractionEnabled = true
-            mNext.textColor = 0x007AFF.color
+            mNext.textColor = Style.Colors.blue
         } else {
-            mNext.isUserInteractionEnabled = true
-            mNext.textColor = 0xB7B7B7.color
+            mNext.isUserInteractionEnabled = false
+            mNext.textColor = Style.Colors.darkLight
         }
     }
     

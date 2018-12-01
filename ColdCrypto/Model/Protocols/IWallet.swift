@@ -24,5 +24,6 @@ protocol IWallet : class {
     func getBalance(completion: @escaping (String?, String?)->Void)
     func getAmount(tx: ApiParamsTx) -> String
     func getTo(tx: ApiParamsTx) -> String
+    func flushCache()
 
 }

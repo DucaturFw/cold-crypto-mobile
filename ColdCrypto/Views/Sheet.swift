@@ -16,7 +16,7 @@ class Sheet : UIView {
     
     private let mCancel: Button = {
         let tmp = Button()
-        tmp.backgroundColor = 0x1888FE.color
+        tmp.backgroundColor = Style.Colors.blue
         tmp.layer.cornerRadius = 6
         tmp.setTitle("cancel".loc, for: .normal)
         tmp.layer.shadowColor = 0xB8CEFD.color.cgColor
@@ -47,7 +47,7 @@ class Sheet : UIView {
         tmp.backgroundColor = Style.Colors.white
         tmp.layer.cornerRadius = 6
         tmp.setTitle(name, for: .normal)
-        tmp.setTitleColor(0x1888FE.color, for: .normal)
+        tmp.setTitleColor(Style.Colors.blue, for: .normal)
         tmp.layer.shadowColor = UIColor.black.cgColor
         tmp.layer.shadowOffset = CGSize(width: 0, height: 10)
         tmp.layer.shadowRadius = 10

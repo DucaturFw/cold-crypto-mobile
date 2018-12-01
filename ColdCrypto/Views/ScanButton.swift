@@ -10,18 +10,31 @@ import UIKit
 
 class ScanButton: UIView {
     
-    private let mIcon = UIImageView(image: UIImage(named: "qrIcon")?.withRenderingMode(.alwaysTemplate)).apply({
-        $0.tintColor = Style.Colors.white
+    private let mReceive = Button().apply({
+        $0.setTitleColor(Style.Colors.white, for: .normal)
+        $0.backgroundColor = Style.Colors.blue
+        $0.setTitle("receive".loc, for: .normal)
     })
     
-    private let mText = UILabel.new(font: UIFont.hnMedium(18.scaled), text: "scan".loc, lines: 1, color: Style.Colors.white, alignment: .center)
+    private let mScan = Button().apply({
+        $0.setTitleColor(Style.Colors.white, for: .normal)
+        $0.backgroundColor = Style.Colors.blue
+        $0.setTitle("scan".loc, for: .normal)
+    })
+
+    var onScan: ()->Void = {}
+    var onReceive: ()->Void = {}
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = 0x007AFF.color
-        layer.cornerRadius = 29.scaled
-        addSubview(mIcon)
-        addSubview(mText)
+        addSubview(mScan)
+        addSubview(mReceive)
+        mReceive.tap({ [weak self] in
+            self?.onReceive()
+        })
+        mScan.tap({ [weak self] in
+            self?.onScan()
+        })
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,9 +43,9 @@ class ScanButton: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let w = mIcon.width + ceil(7.scaled) + mText.width
-        mIcon.origin = CGPoint(x: (width - w)/2.0, y: (height - mIcon.height)/2.0)
-        mText.origin = CGPoint(x: mIcon.maxX + ceil(7.scaled), y: (height - mText.height)/2.0)
+        let w = floor((width - 40.scaled)/2.0)
+        mReceive.frame = CGRect(x: 0, y: 0, width: w, height: height)
+        mScan.frame = CGRect(x: width - w, y: 0, width: w, height: height)
     }
     
 }

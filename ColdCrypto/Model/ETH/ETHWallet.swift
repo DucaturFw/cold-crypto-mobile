@@ -77,6 +77,10 @@ class ETHWallet : IWallet {
             completion(nil)
         }
     }
+    
+    func flushCache() {
+        mBalance = nil
+    }
 
     func getBalance(completion: @escaping (String?, String?)->Void) {
         if let b = mBalance {
