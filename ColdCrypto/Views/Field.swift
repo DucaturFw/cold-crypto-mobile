@@ -38,7 +38,7 @@ class Field : UIView {
         layer.borderWidth  = 1.0
         layer.borderColor  = 0xDADBE1.color.cgColor
         layer.cornerRadius = 6
-        backgroundColor    = .white
+        backgroundColor    = Style.Colors.white
     }
     
     required init?(coder aDecoder: NSCoder) {

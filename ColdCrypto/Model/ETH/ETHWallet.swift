@@ -78,14 +78,14 @@ class ETHWallet : IWallet {
         }
     }
 
-    func getBalance(completion: @escaping (String?)->Void) {
+    func getBalance(completion: @escaping (String?, String?)->Void) {
         if let b = mBalance {
-            completion(b)
+            completion(b, nil)
         } else {
             mNet.getBalance { [weak self] (b, e) in
-                self?.mBalance = (try? b?.ether())??.compactValue?.trimmed
+                self?.mBalance = (try? b?.ether())??.compactValue
                 DispatchQueue.main.async {
-                    completion(self?.mBalance)
+                    completion(self?.mBalance, nil)
                 }
             }
         }

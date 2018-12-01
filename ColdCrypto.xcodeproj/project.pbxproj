@@ -15,6 +15,8 @@
 		EB1F3B972198B1D60052E5A7 /* AlertImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B962198B1D60052E5A7 /* AlertImage.swift */; };
 		EB1F3B992198CAEF0052E5A7 /* BackupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B982198CAEF0052E5A7 /* BackupVC.swift */; };
 		EB1F3B9B2198D07F0052E5A7 /* SeedWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B9A2198D07F0052E5A7 /* SeedWord.swift */; };
+		EB2676CD21B3008B003B254F /* CardProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2676CC21B3008B003B254F /* CardProvider.swift */; };
+		EB2676D421B313B5003B254F /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2676D321B313B5003B254F /* Group.swift */; };
 		EB26C31C21924083005D3525 /* CardPickVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB26C31B21924083005D3525 /* CardPickVC.swift */; };
 		EB2F617A21ABE7EB0029219A /* eos.js in Resources */ = {isa = PBXBuildFile; fileRef = EB2F617921ABE7EB0029219A /* eos.js */; };
 		EB2F617C21ABE8030029219A /* EOSUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F617B21ABE8030029219A /* EOSUtils.swift */; };
@@ -232,6 +234,8 @@
 		EB1F3B962198B1D60052E5A7 /* AlertImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertImage.swift; sourceTree = "<group>"; };
 		EB1F3B982198CAEF0052E5A7 /* BackupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupVC.swift; sourceTree = "<group>"; };
 		EB1F3B9A2198D07F0052E5A7 /* SeedWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedWord.swift; sourceTree = "<group>"; };
+		EB2676CC21B3008B003B254F /* CardProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardProvider.swift; sourceTree = "<group>"; };
+		EB2676D321B313B5003B254F /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		EB26C31B21924083005D3525 /* CardPickVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPickVC.swift; sourceTree = "<group>"; };
 		EB2F617921ABE7EB0029219A /* eos.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = eos.js; sourceTree = "<group>"; };
 		EB2F617B21ABE8030029219A /* EOSUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EOSUtils.swift; sourceTree = "<group>"; };
@@ -513,6 +517,8 @@
 				EBD4FCC72190BBBF0080D1A9 /* PopAnimator.swift */,
 				EBDB8850219745F1000AF045 /* ImportManager.swift */,
 				EBA5262F21B1E40F00A29A08 /* Style.swift */,
+				EB2676CC21B3008B003B254F /* CardProvider.swift */,
+				EB2676D321B313B5003B254F /* Group.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1233,6 +1239,7 @@
 				EBEDA28D21AB4FF3004FCB75 /* sha2.c in Sources */,
 				EBA593E0217A8D1900F3CB65 /* Alert.swift in Sources */,
 				EBA593BE217A88EF00F3CB65 /* ETHNet.swift in Sources */,
+				EB2676D421B313B5003B254F /* Group.swift in Sources */,
 				EBEDA2B721AB561F004FCB75 /* AccountPicker.swift in Sources */,
 				EBEDA28F21AB4FF3004FCB75 /* curves.c in Sources */,
 				EBA593D6217A8C1B00F3CB65 /* CodeVC.swift in Sources */,
@@ -1245,6 +1252,7 @@
 				EBDB8847219742B3000AF045 /* Field.swift in Sources */,
 				EBEDA2B521AB559B004FCB75 /* AlertOld.swift in Sources */,
 				EBAC21C621A5C7AA002CF61B /* ETHabi.swift in Sources */,
+				EB2676CD21B3008B003B254F /* CardProvider.swift in Sources */,
 				EBC9F78421822FC000150883 /* ApiMessage.swift in Sources */,
 				EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */,
 				EB1F3B992198CAEF0052E5A7 /* BackupVC.swift in Sources */,

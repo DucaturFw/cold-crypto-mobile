@@ -51,21 +51,21 @@ class AlertOld: UIView, UITextFieldDelegate {
     
     private var mOverlay: UIView = {
         let tmp = UIView(frame: UIScreen.main.bounds)
-        tmp.backgroundColor = UIColor.black.withAlphaComponent(0.05)
+        tmp.backgroundColor = UIColor.black.alpha(0.05)
         tmp.alpha = 0.0
         return tmp
     }()
     
     private lazy var mBox: UIView = { [weak self] in
         let tmp = UIView(frame: CGRect(x: 0, y: 0, width: self?.boxWidth ?? 300, height: self?.boxHeight ?? 300))
-        tmp.backgroundColor = .white
-        tmp.layer.cornerRadius = 6
-        tmp.layer.shadowColor = 0x44519E.color.cgColor
-        tmp.layer.shadowOffset = CGSize(width: 0, height: 10)
-        tmp.layer.shadowRadius = 10
+        tmp.backgroundColor     = .white
+        tmp.layer.cornerRadius  = 6
+        tmp.layer.shadowColor   = 0x44519E.color.cgColor
+        tmp.layer.shadowOffset  = CGSize(width: 0, height: 10)
+        tmp.layer.shadowRadius  = 10
         tmp.layer.shadowOpacity = 0.3
         return tmp
-        }()
+    }()
     
     private let mField = Field(name: "")
     var field: Field {
@@ -73,9 +73,9 @@ class AlertOld: UIView, UITextFieldDelegate {
     }
     
     private let mIcon = UIImageView(image: UIImage(named: "qrSmall")).apply({
-        $0.backgroundColor = .white
-        $0.layer.borderWidth = 1.0
-        $0.layer.borderColor = 0xDFDFDF.color.cgColor
+        $0.backgroundColor    = .white
+        $0.layer.borderWidth  = 1.0
+        $0.layer.borderColor  = 0xDFDFDF.color.cgColor
         $0.layer.cornerRadius = 6
         $0.contentMode = .center
     })

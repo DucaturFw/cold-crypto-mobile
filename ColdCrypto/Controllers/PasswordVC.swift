@@ -43,13 +43,13 @@ class PasswordVC: UIViewController {
     
     private let mField = UITextField().apply({
         $0.font = UIFont.hnRegular(20.scaled)
-        $0.textColor = .white
+        $0.textColor = Style.Colors.white
         $0.attributedPlaceholder = NSAttributedString(string: "pass_placeholder".loc,
                                                       attributes: [.font : UIFont.hnRegular(20.scaled),
-                                                                   .foregroundColor: UIColor.white.withAlphaComponent(0.5)])
+                                                                   .foregroundColor: Style.Colors.white.alpha(0.5)])
         $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 18.scaled, height: 0))
         $0.leftViewMode = .always
-        $0.tintColor = .white
+        $0.tintColor = Style.Colors.white
         $0.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 18.scaled, height: 0))
         $0.rightViewMode = .always
         $0.backgroundColor = 0x007AFF.color

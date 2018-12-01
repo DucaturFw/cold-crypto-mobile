@@ -54,7 +54,7 @@ class ScanView : UIView {
     override func draw(_ rect: CGRect) {
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
 
-        ctx.setFillColor(UIColor.black.withAlphaComponent(0.3).cgColor)
+        ctx.setFillColor(UIColor.black.alpha(0.3).cgColor)
         ctx.fill(bounds)
 
         

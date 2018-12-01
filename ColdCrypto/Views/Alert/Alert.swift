@@ -36,7 +36,7 @@ class Alert : UIView {
     
     private lazy var mBox: UIView = { [weak self] in
         let tmp = UIView(frame: CGRect(x: 0, y: 0, width: self?.boxWidth ?? 300, height: 0))
-        tmp.backgroundColor = .white
+        tmp.backgroundColor = Style.Colors.white
         tmp.layer.cornerRadius = 6
         tmp.layer.shadowColor = 0x44519E.color.cgColor
         tmp.layer.shadowOffset = CGSize(width: 0, height: 10)

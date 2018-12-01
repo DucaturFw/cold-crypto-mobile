@@ -15,7 +15,7 @@ class BackupVC: PopupVC {
     private let mSeed: String
     
     private let mBox = UIView().apply({
-        $0.backgroundColor = UIColor.white
+        $0.backgroundColor     = Style.Colors.white
         $0.layer.cornerRadius  = 6.0
         $0.layer.shadowColor   = UIColor.black.cgColor
         $0.layer.shadowOffset  = CGSize(width: 0, height: 0)
@@ -24,7 +24,7 @@ class BackupVC: PopupVC {
     })
     
     private let mCaption = UILabel.new(font: UIFont.hnRegular(15), text: "rec_phrsae".loc, lines: 1, color: .black, alignment: .left)
-    private let mHint = UILabel.new(font: UIFont.hnRegular(15), text: "rec_hint".loc, lines: 0, color: UIColor.black.withAlphaComponent(0.7), alignment: .left)
+    private let mHint = UILabel.new(font: UIFont.hnRegular(15), text: "rec_hint".loc, lines: 0, color: Style.Colors.black.alpha(0.7), alignment: .left)
     
     private var mTopGap: CGFloat = 80
     override var topGap: CGFloat {

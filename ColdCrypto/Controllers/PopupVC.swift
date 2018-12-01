@@ -19,7 +19,7 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
     }
     
     private let mContent = UIView().apply({
-        $0.backgroundColor = .white
+        $0.backgroundColor = Style.Colors.white
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 14.scaled
         $0.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
@@ -38,12 +38,7 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
     }
     
     private let mBlur: UIVisualEffectView = UIVisualEffectView(effect: nil)
-    
-    private let mTint = UIView()
-//        .apply({
-////        $0.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-//    })
-    
+
     private var mAnimator = UIViewPropertyAnimator()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -59,7 +54,6 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(mBlur)
-        mBlur.contentView.addSubview(mTint)
         mBlur.contentView.addSubview(mContent)
         if dragable {
             mContent.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(PopupVC.panned(_:))))
@@ -109,7 +103,6 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         mBlur.frame = view.bounds
-        mTint.frame = mBlur.bounds
         let trans = mContent.transform
         mContent.transform = .identity
         mContent.frame = CGRect(x: 0, y: topGap, width: view.width, height: view.height - topGap + 100)
@@ -146,7 +139,6 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         view.frame = container.bounds
         mContent.transform = CGAffineTransform(translationX: 0, y: container.height)
         mBlur.effect = nil
-        mTint.alpha = 0.0
         container.addSubview(view)
         view.setNeedsLayout()
         view.layoutIfNeeded()
@@ -160,14 +152,12 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         })
         UIView.animate(withDuration: 0.25, animations: {
             self.mBlur.effect = UIBlurEffect(style: .dark)
-            self.mTint.alpha  = 1.0
         })
     }
     
     func hide(completion: @escaping  ()->Void) {
         AppDelegate.lock()
         UIView.animate(withDuration: 0.4, animations: {
-            self.mTint.alpha  = 0.0
             self.mBlur.effect = nil
             self.mContent.transform = CGAffineTransform(translationX: 0, y: self.view.height)
         }, completion: { _ in

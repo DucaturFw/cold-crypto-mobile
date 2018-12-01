@@ -56,7 +56,7 @@ class CryptoItem: UIView {
         layer.shadowOffset = CGSize(width: 0, height: 10.scaled)
         layer.shadowRadius = 10
         layer.borderColor  = 0x1888FE.color.cgColor
-        backgroundColor = .white
+        backgroundColor = Style.Colors.white
         
         mIcon.image = blockchain.icon()
         mName.text  = blockchain.name()
@@ -65,9 +65,9 @@ class CryptoItem: UIView {
         addSubview(mName)
         
         tap({ [weak self] in
-            self?.backgroundColor = UIColor.white.darker()
+            self?.backgroundColor = Style.Colors.white.darker()
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + DispatchTimeInterval.milliseconds(100), execute: {
-                self?.backgroundColor = .white
+                self?.backgroundColor = Style.Colors.white
             })
         })
     }

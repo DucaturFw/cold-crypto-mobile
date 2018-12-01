@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UINavigationBar.appearance().shadowImage   = UIImage()
         UINavigationBar.appearance().isTranslucent = true
-        UINavigationBar.appearance().barTintColor  = .white
+        UINavigationBar.appearance().barTintColor  = Style.Colors.white
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.layer.cornerRadius  = 10.scaled

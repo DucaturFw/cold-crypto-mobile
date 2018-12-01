@@ -55,7 +55,7 @@ class MenuVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
     private lazy var mList = UITableView().apply({ [weak self] in
         $0.rowHeight = 44.scaled
         $0.backgroundView   = UIView()
-        $0.backgroundColor  = UIColor.white
+        $0.backgroundColor  = Style.Colors.white
         $0.contentInset.top = 16.scaled + AppDelegate.statusHeight
         $0.tableFooterView  = UIView()
         $0.separatorStyle   = .none
@@ -64,13 +64,13 @@ class MenuVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
         MenuCell.register(in: $0)
     })
     
-    private let mInfo = UILabel.new(font: .pro(12.scaled), lines: 1, color: UIColor.black.withAlphaComponent(0.5), alignment: .center).apply({
+    private let mInfo = UILabel.new(font: .pro(12.scaled), lines: 1, color: Style.Colors.black.alpha(0.5), alignment: .center).apply({
         $0.text = "ColdCrypto \(AppDelegate.version ?? "0.0").\(AppDelegate.build ?? "0")"
     })
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = Style.Colors.white
         view.addSubview(mList)
         view.addSubview(mReset)
         view.addSubview(mInfo)

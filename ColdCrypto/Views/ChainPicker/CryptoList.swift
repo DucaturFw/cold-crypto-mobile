@@ -31,7 +31,7 @@ class CryptoList: UIView {
                 self?.select(index: idx)
             })
         }
-        backgroundColor = .white
+        backgroundColor = Style.Colors.white
         layer.cornerRadius = 10.scaled
     }
     

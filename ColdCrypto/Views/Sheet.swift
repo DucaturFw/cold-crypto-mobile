@@ -44,7 +44,7 @@ class Sheet : UIView {
     @discardableResult
     func appned(_ name: String, do block: ((Sheet)->Void)? = nil) -> Self {
         let tmp = Button()
-        tmp.backgroundColor = .white
+        tmp.backgroundColor = Style.Colors.white
         tmp.layer.cornerRadius = 6
         tmp.setTitle(name, for: .normal)
         tmp.setTitleColor(0x1888FE.color, for: .normal)

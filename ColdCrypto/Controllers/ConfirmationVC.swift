@@ -11,13 +11,13 @@ import UIKit
 class ConfirmationVC: PopupVC {
     
     private let mDecline = Button().apply({
-        $0.setTitleColor(UIColor.white, for: .normal)
+        $0.setTitleColor(Style.Colors.white, for: .normal)
         $0.backgroundColor = Style.Colors.red
         $0.setTitle("decline".loc, for: .normal)
     })
     
     private let mConfirm = Button().apply({
-        $0.setTitleColor(UIColor.white, for: .normal)
+        $0.setTitleColor(Style.Colors.white, for: .normal)
         $0.backgroundColor = Style.Colors.blue
         $0.setTitle("confirm".loc, for: .normal)
     })

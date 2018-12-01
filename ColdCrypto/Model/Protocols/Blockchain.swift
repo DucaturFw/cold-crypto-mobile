@@ -30,14 +30,41 @@ enum Blockchain : String, CaseIterable {
     
     func icon() -> UIImage {
         switch self {
-        case .ETH: return UIImage(named: "eth2") ?? UIImage()
-        case .EOS: return UIImage(named: "eosCoin") ?? UIImage()
+        case .ETH: return UIImage(named: "ethSmall") ?? UIImage()
+        case .EOS: return UIImage(named: "eosSmall") ?? UIImage()
+        }
+    }
+    
+    func largeIcon() -> UIImage {
+        switch self {
+        case .ETH: return UIImage(named: "ethLarge") ?? UIImage()
+        case .EOS: return UIImage(named: "eosLarge") ?? UIImage()
         }
     }
     
     func symbol() -> String {
         return rawValue
     }
+    
+    func getExchangeRate(completion: @escaping (Double?)->Void) {
+        guard
+            let url = URL(string: "https://min-api.cryptocompare.com/data/price?fsym=\(rawValue)&tsyms=USD,EUR")
+            else { completion(nil); return }
+        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+            if (response as? HTTPURLResponse)?.statusCode == 200,
+                let data = data,
+                let tmp  = try? JSONSerialization.jsonObject(with: data, options: []),
+                let obj  = tmp as? [String : Double] {
+                DispatchQueue.main.async { completion(obj["USD"]) }
+            } else {
+                DispatchQueue.main.async { completion(nil) }
+            }
+            if let e = error {
+                print("get exchange rate failed. reason \(e)")
+            }
+        }).resume()
+    }
+        
     
     func newWallet(seed: String, name: String?, data: String?, segwit: Bool?) -> IWallet? {
         guard let data = data, data.count > 2 else { return nil }

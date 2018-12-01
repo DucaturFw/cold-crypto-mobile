@@ -15,7 +15,7 @@ class SeedWord: UIView {
     
     init(index: Int, word: String) {
         mWord  = UILabel.new(font: UIFont.hnBold(14), text: word, lines: 1, color: .black, alignment: .left)
-        mIndex = UILabel.new(font: UIFont.hnBold(14), text: "\(index)", lines: 1, color: UIColor.black.withAlphaComponent(0.4), alignment: .left)
+        mIndex = UILabel.new(font: UIFont.hnBold(14), text: "\(index)", lines: 1, color: UIColor.black.alpha(0.4), alignment: .left)
         super.init(frame: CGRect(x: 0, y: 0, width: mIndex.width + mWord.width, height: mWord.height))
         addSubview(mWord)
         addSubview(mIndex)

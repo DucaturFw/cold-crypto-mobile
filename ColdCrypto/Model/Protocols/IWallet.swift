@@ -21,7 +21,7 @@ protocol IWallet : class {
     func sign(transaction: ApiParamsTx, wallet: ApiParamsWallet, completion: @escaping (String?)->Void)
     func pay(to: ApiParamsTx, completion: @escaping (String?)->Void)
     func parseContract(contract: ApiSignContractCall) -> IContract?
-    func getBalance(completion: @escaping (String?)->Void)
+    func getBalance(completion: @escaping (String?, String?)->Void)
     func getAmount(tx: ApiParamsTx) -> String
     func getTo(tx: ApiParamsTx) -> String
 

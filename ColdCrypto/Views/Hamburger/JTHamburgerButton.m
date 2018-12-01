@@ -33,6 +33,18 @@
     return self;
 }
 
+- (instancetype)initWithFrame:(CGRect)frame angle:(CGFloat)angle {
+    self = [super initWithFrame:frame];
+    if(!self){
+        return nil;
+    }
+    
+    self.angle = angle;
+    [self commonInit];
+    
+    return self;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
@@ -273,7 +285,7 @@
 - (void)transformModeCross
 {
     {
-        CGFloat angle = M_PI_2;
+        CGFloat angle = M_PI_2 - self.angle;
         
         CGFloat translateY = middleLayer.position.y - topLayer.position.y;
         
@@ -292,7 +304,7 @@
     }
     
     {
-        CGFloat angle = 0;
+        CGFloat angle = -self.angle;
         
         CGFloat translateY = middleLayer.position.y - bottomLayer.position.y;
         
@@ -584,7 +596,7 @@
 {
     CGFloat NUMBER_VALUES = 4;
     
-    CGFloat endAngle = M_PI_2;
+    CGFloat endAngle = M_PI_2 - self.angle;
     
     NSMutableArray *values = [NSMutableArray new];
     
@@ -632,7 +644,7 @@
 {
     CGFloat NUMBER_VALUES = 4;
     
-    CGFloat endAngle = 0;
+    CGFloat endAngle = -self.angle;
     
     NSMutableArray *values = [NSMutableArray new];
     
@@ -668,7 +680,7 @@
     CGFloat endTranslateX = 0;
     CGFloat endTranslateY = middleLayer.position.y - topLayer.position.y;
     
-    CGFloat angle = M_PI_2;
+    CGFloat angle = M_PI_2 - self.angle;
     
     {
         // Final position
@@ -740,7 +752,7 @@
     CGFloat endTranslateX = 0;
     CGFloat endTranslateY = middleLayer.position.y - bottomLayer.position.y;
     
-    CGFloat angle = 0;
+    CGFloat angle = -self.angle;
     
     {
         // Final position

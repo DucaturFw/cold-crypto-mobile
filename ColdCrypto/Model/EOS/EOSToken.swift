@@ -25,7 +25,7 @@ class EOSToken {
     var decimal: Int = 4
     
     var balance: String {
-        return inEOS.compactValue?.trimmed ?? "--"
+        return inEOS.compactValue ?? "--"
     }
     
     var symbol: String = ""

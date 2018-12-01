@@ -32,13 +32,13 @@ class ConfirmContractCall: PopupVC {
     private let mBlock: (String?)->Void
     
     private let mDecline = Button().apply({
-        $0.setTitleColor(UIColor.white, for: .normal)
+        $0.setTitleColor(Style.Colors.white, for: .normal)
         $0.backgroundColor = 0xE26E7C.color
         $0.setTitle("decline".loc, for: .normal)
     })
     
     private let mConfirm = Button().apply({
-        $0.setTitleColor(UIColor.white, for: .normal)
+        $0.setTitleColor(Style.Colors.white, for: .normal)
         $0.backgroundColor = 0x007AFF.color
         $0.setTitle("confirm".loc, for: .normal)
     })

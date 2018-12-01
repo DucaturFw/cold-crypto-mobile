@@ -101,7 +101,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         navigationItem.titleView = UIView()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: mRightAdd)
         navigationItem.leftBarButtonItem  = UIBarButtonItem(customView: mLeftMenu)
-        view.backgroundColor = .white
+        view.backgroundColor = Style.Colors.white
         view.addSubview(mView)
         view.addSubview(mScan)
         mScan.tap({ [weak self] in

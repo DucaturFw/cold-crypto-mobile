@@ -18,13 +18,13 @@ class CardPickVC: PopupVC {
     private let mCaption = UILabel.new(font: UIFont.hnMedium(24.scaled), text: "select_wallet".loc, lines: 0, color: .black, alignment: .center)
     
     private let mDecline = Button().apply({
-        $0.setTitleColor(UIColor.white, for: .normal)
+        $0.setTitleColor(Style.Colors.white, for: .normal)
         $0.backgroundColor = 0xE26E7C.color
         $0.setTitle("cancel".loc.uppercased(), for: .normal)
     })
     
     private let mConfirm = Button().apply({
-        $0.setTitleColor(UIColor.white, for: .normal)
+        $0.setTitleColor(Style.Colors.white, for: .normal)
         $0.backgroundColor = 0x007AFF.color
         $0.setTitle("use".loc.uppercased(), for: .normal)
         $0.alpha = 0.0

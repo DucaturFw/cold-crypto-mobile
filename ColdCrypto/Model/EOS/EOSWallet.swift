@@ -19,6 +19,8 @@ class EOSWallet: IWallet {
     var data: String
     var name: String
     
+    private var cachedRate: Double?
+    private var cachedAmount: Decimal?
     private var cachedBalance: String?
     private let mPKObject: PrivateKey
     
@@ -47,10 +49,18 @@ class EOSWallet: IWallet {
         mPKObject = pk2
     }
 
-    func getBalance(completion: @escaping (String?) -> Void) {
-        if let b = cachedBalance {
-            completion(b)
+    func getBalance(completion: @escaping (String?, String?) -> Void) {
+        if let b = cachedBalance, let r = cachedRate, let a = cachedAmount {
+            completion(b, (a * Decimal(r)).money)
             return
+        }
+        
+        let group = Group(2) { [weak self] in
+            completion(self?.cachedBalance, doit { [weak self] in
+                guard let r = self?.cachedRate, let a = self?.cachedAmount else { return nil }
+                return (a * Decimal(r)).money
+            })
+            
         }
         EOSRPC.sharedInstance.getTableRows(scope: name,
                                            code: "eosio.token",
@@ -59,11 +69,19 @@ class EOSWallet: IWallet {
                                             if let s = self {
                                                 let tokens = r?.rows?.compactMap({ EOSToken(wallet: s, balance: $0) })
                                                 if let c = tokens?.first(where: { $0.symbol == s.blockchain.symbol() }) {
-                                                    s.cachedBalance = c.inEOS.compactValue?.trimmed
+                                                    s.cachedAmount = c.inEOS
+                                                    s.cachedBalance = c.inEOS.compactValue
                                                 }
                                             }
-                                            completion(self?.cachedBalance)
+                                            group.done()
         })
+        
+        blockchain.getExchangeRate { [weak self] (rate) in
+            if let r = rate {
+                self?.cachedRate = r
+            }
+            group.done()
+        }
     }
     
     func sign(transaction: ApiParamsTx, wallet: ApiParamsWallet, completion: @escaping (String?)->Void) {

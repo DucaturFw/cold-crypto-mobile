@@ -19,11 +19,12 @@ class CheckCodeVC: CodeVC {
         mAuthAtStart = authAtStart
     }
     
-    private lazy var mBack = JTHamburgerButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30)).apply({
+    private lazy var mBack = JTHamburgerButton().apply({
         $0.lineColor = 0x007AFF.color
         $0.lineSpacing = 5.0
         $0.lineWidth = 24
         $0.lineHeight = 2
+        $0.angle = CGFloat.pi/4.0
         $0.setCurrentModeWithAnimation(.arrow, duration: 0)
     }).tap({ [weak self] in
         if (self?.navigationController?.viewControllers.count ?? 0) > 1 {

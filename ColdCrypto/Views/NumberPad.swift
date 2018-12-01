@@ -30,9 +30,9 @@ class NumberPad: UIView {
             key.titleLabel?.font = .pro(36.scaled)
             key.setTitleColor(Style.Colors.black, for: .normal)
             key.setTitle("\((i+1)%10)", for: .normal)
-            key.backgroundColor = .white
+            key.backgroundColor = Style.Colors.white
             key.layer.borderWidth = 4.scaled
-            key.layer.borderColor = Style.Colors.black.withAlphaComponent(0.5).cgColor
+            key.layer.borderColor = Style.Colors.black.alpha(0.5).cgColor
             key.layer.cornerRadius = 39.scaled
             key.click = { [weak self] in
                 self?.onClick((i+1)%10)

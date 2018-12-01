@@ -22,7 +22,7 @@ class CodeVC : UIViewController {
     private let mHint = UILabel.new(font: .proMedium(15.scaled),
                                     text: "cretae_hint".loc,
                                     lines: 0,
-                                    color: Style.Colors.black.withAlphaComponent(0.5),
+                                    color: Style.Colors.black.alpha(0.5),
                                     alignment: .center)
     var hint: UILabel {
         return mHint
@@ -48,7 +48,7 @@ class CodeVC : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = Style.Colors.white
         mContent.addSubview(mName)
         mContent.addSubview(mHint)
         mContent.addSubview(mKeys)
