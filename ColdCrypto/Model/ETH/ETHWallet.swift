@@ -166,4 +166,11 @@ class ETHWallet : IWallet {
         return ETHContract(contract: contract)
     }
     
+    var onConnected: ((ConnectionState)->Void)?
+    var connectionStatus: ConnectionState = .stop {
+        didSet {
+            onConnected?(connectionStatus)
+        }
+    }
+    
 }

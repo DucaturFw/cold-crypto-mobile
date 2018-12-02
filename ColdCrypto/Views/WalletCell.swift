@@ -31,6 +31,7 @@ class WalletCell: UICollectionViewCell {
             mBackup.isUserInteractionEnabled = fullVisible
             mDelete.alpha = fullVisible ? 1.0 : 0.0
             mBackup.alpha = fullVisible ? 1.0 : 0.0
+            checkBadge()
         }
     }
     
@@ -65,12 +66,23 @@ class WalletCell: UICollectionViewCell {
         $0.alpha = 0.0
     })
     
+    private let mLan = UILabel.new(font: UIFont.bold(12.scaled), text: "connected".loc, lines: 1, color: .white, alignment: .center).apply({
+        $0.backgroundColor = Style.Colors.green
+        $0.frame = $0.frame.insetBy(dx: -4, dy: -4).integral
+        $0.layer.borderWidth   = 1.0
+        $0.layer.borderColor   = Style.Colors.white.cgColor
+        $0.layer.cornerRadius  = $0.height/2.0
+        $0.layer.masksToBounds = true
+    })
+    
     private var mCache = UUID().uuidString
     
     private let mLogo = UIImageView(image: UIImage(named: "eosLarge"))
     
     var wallet: IWallet? {
         didSet {
+            oldValue?.onConnected = nil
+            
             mAddress.text = wallet?.address
             mLogo.image   = wallet?.blockchain.largeIcon()
             mCard.image   = CardProvider.getCard(mAddress.text ?? "")
@@ -90,6 +102,12 @@ class WalletCell: UICollectionViewCell {
                     s.mMoney.text = "\(r ?? "--") USD"
                 }
             })
+            wallet?.onConnected = { [weak self] v in
+                UIView.animate(withDuration: 0.25, animations: {
+                    self?.checkBadge()
+                })
+            }
+            checkBadge()
         }
     }
     
@@ -108,6 +126,7 @@ class WalletCell: UICollectionViewCell {
         mCard.addSubview(mHUD)
         mCard.addSubview(mBackup)
         mCard.addSubview(mDelete)
+        mCard.addSubview(mLan)
 
         mBackup.click = { [weak self] in
             if let s = self, let w = s.wallet {
@@ -150,6 +169,7 @@ class WalletCell: UICollectionViewCell {
         mHUD.origin    = CGPoint(x: 19.scaled, y: 14.scaled)
         mMoney.frame   = CGRect(x: 22.scaled, y: mAmount.maxY + 7.scaled, width: mCard.width - 44.scaled, height: mMoney.font.lineHeight)
         mAddress.frame = CGRect(x: 22.scaled, y: mMoney.maxY + 7.scaled, width: mCard.width - 44.scaled, height: mAddress.font.lineHeight)
+        mLan.origin    = CGPoint(x: mCard.width - mLan.width - 5.scaled, y: 5.scaled)
         
         let p = 20.scaled
         let w = (mCard.width - p * 3)/2.0
@@ -157,6 +177,32 @@ class WalletCell: UICollectionViewCell {
         
         mDelete.frame = CGRect(x: p, y: y, width: w, height: Style.Dims.buttonMiddle)
         mBackup.frame = CGRect(x: mDelete.maxX + p, y: mDelete.minY, width: w, height: mDelete.height)
+    }
+    
+    private func checkBadge() {
+        switch wallet?.connectionStatus {
+        case .none: fallthrough
+        case .some(.stop):
+            mLan.text = "not_connected".loc
+            mLan.backgroundColor = Style.Colors.red
+        case .some(.success):
+            mLan.text = "connected".loc
+            mLan.backgroundColor = Style.Colors.green
+        case .some(.start):
+            mLan.text = "connecting".loc
+            mLan.backgroundColor = Style.Colors.blue
+        }
+        
+        mLan.sizeToFit()
+        
+        let w = mLan.width + 8
+        let h = mLan.height + 8
+        mLan.frame = CGRect(x: mCard.width - w - 5.scaled, y: 5.scaled, width: w, height: h)
+        mLan.layer.cornerRadius = mLan.height/2.0
+        
+        let s = wallet?.connectionStatus
+        
+        mLan.alpha = fullVisible && (s == .start || s == .success) ? 1.0 : 0.0
     }
     
 }

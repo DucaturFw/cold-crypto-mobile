@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum ConnectionState {
+    case start, stop, success
+}
+
 protocol IWallet : class {
     
     var blockchain: Blockchain { get }
@@ -19,6 +23,8 @@ protocol IWallet : class {
     var seed: String? { get }
     var id: String { get }
     var time: TimeInterval { get }
+    var connectionStatus: ConnectionState { get set }
+    var onConnected: ((ConnectionState)->Void)? { get set }
     
     func sign(transaction: ApiParamsTx, wallet: ApiParamsWallet, completion: @escaping (String?)->Void)
     func pay(to: ApiParamsTx, completion: @escaping (String?)->Void)

@@ -12,6 +12,7 @@ import WebRTC
 protocol WebRTCClientDelegate: class {
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate)
     func webRTCClient(_ client: WebRTCClient, didOpenChannel channel: RTCDataChannel)
+    func webRTCClient(_ client: WebRTCClient, didChange newState: RTCIceConnectionState)
 }
 
 class WebRTCClient: NSObject {
@@ -98,6 +99,9 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceConnectionState) {
         print("peerConnection new connection state: \(newState)")
+        DispatchQueue.main.async {
+            self.delegate?.webRTCClient(self, didChange: newState)
+        }
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceGatheringState) {

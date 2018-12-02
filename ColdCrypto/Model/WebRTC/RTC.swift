@@ -9,27 +9,22 @@
 import Foundation
 import WebRTC
 
-protocol RTCDelegate: class {
-    func onConnection(rtc: RTC, status: RTC.State)
-}
-
 class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelDelegate {
-    
-    enum State {
-        case start, stop, success
-    }
-    
+        
     private let signalClient: SignalClient
     private let webRTCClient = WebRTCClient()
     
     private let mSID: String
     
-    private weak var mDelegate: (Signer & RTCDelegate)?
+    private weak var mDelegate: Signer?
     
     private var mChannel: RTCDataChannel?
     
-    init(url: URL, sid: String, delegate: (Signer & RTCDelegate)) {
+    let wallet: IWallet
+    
+    init(wallet: IWallet, url: URL, sid: String, delegate: Signer) {
         mSID = sid
+        self.wallet = wallet
         mDelegate = delegate
         signalClient = SignalClient(url: url)
     }
@@ -37,7 +32,7 @@ class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelD
     func connect() {
         webRTCClient.delegate = self
         signalClient.delegate = self
-        mDelegate?.onConnection(rtc: self, status: .start)
+        wallet.connectionStatus = .start
         signalClient.connect()
     }
     
@@ -50,6 +45,8 @@ class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelD
         
         signalClient.delegate = nil
         signalClient.close()
+        
+        wallet.connectionStatus = .stop
     }
     
     private func received(offer: String) {
@@ -68,7 +65,6 @@ class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelD
     // -------------------------------------------------------------------------
     func signalClientDidConnect(_ signalClient: SignalClient) {
         signalClient.send(json: ApiJoin(sid: mSID).full())
-        mDelegate?.onConnection(rtc: self, status: .success)
     }
     
     func signalClient(_ client: SignalClient, receive: String) {
@@ -84,12 +80,18 @@ class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelD
         }
     }
     
-    func signalClientDidDisconnect(_ signalClient: SignalClient) {
-        mDelegate?.onConnection(rtc: self, status: .stop)
-    }
+    func signalClientDidDisconnect(_ signalClient: SignalClient) {}
     
     // MARK: - WebRTCClientDelegate methods
     // -------------------------------------------------------------------------
+    func webRTCClient(_ client: WebRTCClient, didChange newState: RTCIceConnectionState) {
+        if newState == .closed || newState == .disconnected || newState == .failed {
+            wallet.connectionStatus = .stop
+        } else if newState == .completed || newState == .connected {
+            wallet.connectionStatus = .success
+        }
+    }
+    
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
         signalClient.send(json: ApiIce(candidate: candidate.sdp,
                                        sdpMLineIndex: Int(candidate.sdpMLineIndex),

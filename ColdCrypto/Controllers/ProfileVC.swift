@@ -9,7 +9,7 @@
 import QRCode
 import UIKit
 
-class ProfileVC: UIViewController, Signer, ImportDelegate, RTCDelegate {
+class ProfileVC: UIViewController, Signer, ImportDelegate {
 
     private var mWebRTC: RTC? = nil
     
@@ -170,10 +170,11 @@ class ProfileVC: UIViewController, Signer, ImportDelegate, RTCDelegate {
     }
 
     private func webrtcLogin(json: String) -> Bool {
+        guard let w = mActiveWallet else { return false }
         guard let obj = ApiWebRTC.deserialize(from: json) else { return false }
         guard let sid = obj.sid, let str = obj.url, let url = URL(string: str) else { return false }
         mWebRTC?.close()
-        mWebRTC = RTC(url: url, sid: sid, delegate: self)
+        mWebRTC = RTC(wallet: w, url: url, sid: sid, delegate: self)
         mWebRTC?.connect()
         return true
     }
@@ -242,42 +243,6 @@ class ProfileVC: UIViewController, Signer, ImportDelegate, RTCDelegate {
                             onSuccess: { vc in vc.dismiss(animated: true, completion: nil) }).inNC,
                 animated: false,
                 completion: nil)
-    }
-    
-    private var mHUD: HUD?
-    private var mCount: Int = 0
-    
-    private func hideHUD() {
-        DispatchQueue.main.async {
-            if self.mCount > 0 {
-                self.mCount -= 1
-            }
-            if self.mCount == 0 {
-                self.mHUD?.hide(animated: true)
-                self.mHUD = nil
-            }
-        }
-    }
-    
-    private func showHUD() {
-        DispatchQueue.main.async {
-            if self.mCount == 0 {
-                self.mCount += 1
-            }
-            if self.mHUD == nil {
-                self.mHUD = HUD.show()
-            }
-        }
-    }
-    
-    // MARK:- RTCDelegate methods
-    // -------------------------------------------------------------------------
-    func onConnection(rtc: RTC, status: RTC.State) {
-        if status == .start {
-            showHUD()
-        } else {
-            hideHUD()
-        }
     }
 
     // MARK: - Signer methods

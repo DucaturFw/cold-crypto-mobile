@@ -89,3 +89,6 @@
 "or" = "OR";
 "derive" = "Derive HD Wallet";
 "your_pk" = "Your seed or key";
+"connected" = "Connected";
+"not_connected" = "Not connected";
+"connecting" = "Connecting";

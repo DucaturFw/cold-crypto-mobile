@@ -21,6 +21,13 @@ class EOSWallet: IWallet {
     var id: String
     private(set) var time: TimeInterval
     
+    var onConnected: ((ConnectionState)->Void)?
+    var connectionStatus: ConnectionState = .stop {
+        didSet {
+            onConnected?(connectionStatus)
+        }
+    }
+    
     private var cachedRate: Double?
     private var cachedAmount: Decimal?
     private var cachedBalance: String?
