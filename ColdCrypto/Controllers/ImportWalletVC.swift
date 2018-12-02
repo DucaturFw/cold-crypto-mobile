@@ -76,6 +76,9 @@ class ImportWalletVC: PopupVC {
         mETHForm.onScan = { [weak self] in
             self?.startScanner()
         }
+        mEOSForm.onScan = { [weak self] in
+            self?.startScanner()
+        }
         mEOSForm.onSearch = { [weak self] s -> Bool in
             return self?.searchEOS(s) ?? true
         }
@@ -212,7 +215,11 @@ class ImportWalletVC: PopupVC {
     private func startScanner() {
         let vc = ScannerVC()
         vc.onFound = { [weak self, weak vc] json in
-            self?.mETHForm.value = json
+            switch self?.mBlockchain {
+            case .some(.ETH): self?.mETHForm.value = json.trimmingCharacters(in: .whitespacesAndNewlines)
+            case .some(.EOS): self?.mEOSForm.value = json.trimmingCharacters(in: .whitespacesAndNewlines)
+            default: break
+            }
             vc?.dismiss(animated: true, completion: nil)
         }
         present(vc, animated: true, completion: nil)
@@ -222,9 +229,7 @@ class ImportWalletVC: PopupVC {
         do {
             let parts = pk.split(separator: " ")
             let pk = parts.count == 1 ? try PrivateKey(keyString: pk) : try PrivateKey(mnemonicString: pk, index: 0)
-            guard let pk2 = pk else {
-                throw "PK is null"
-            }
+            guard let pk2 = pk else { throw "PK is null" }
             let hud = HUD.show()
             EOSRPC.sharedInstance.getKeyAccounts(pub: PublicKey(privateKey: pk2).rawPublicKey(), completion: { [weak self] r, e in
                 hud?.hide(animated: true)

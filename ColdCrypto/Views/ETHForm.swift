@@ -48,6 +48,7 @@ class ETHForm: UIView, UITextFieldDelegate {
         }
         set {
             mField.text = newValue
+            changed()
         }
     }
     

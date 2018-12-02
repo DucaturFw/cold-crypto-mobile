@@ -54,6 +54,10 @@ class EOSForm: UIView, UITextFieldDelegate {
         }
         set {
             mField.text = newValue
+            if newValue.count > 0 {
+                let _ = onSearch(newValue)
+                endEditing(true)
+            }
         }
     }
     

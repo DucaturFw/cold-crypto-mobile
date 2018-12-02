@@ -60,10 +60,6 @@ class Alert : PopupVC {
     
     private var mButtons = [Button]()
     
-    convenience init(withFieldAndName name: String) {
-        self.init(name, view: AlertField())
-    }
-    
     init(_ name: String? = nil, view: (UIView & IAlertView)? = nil) {
         mView = view
         super.init(nibName: nil, bundle: nil)

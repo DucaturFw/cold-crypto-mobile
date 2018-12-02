@@ -80,9 +80,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     }
     
     private let mPasscode: String
-    
-    private lazy var mImportManager = ImportManager(parent: self)
-    
+        
     init(profile: Profile, passcode: String, params: String?) {
         mPasscode = passcode
         mProfile  = profile
@@ -159,7 +157,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     private func startScanning() {
         let vc = ScannerVC()
         vc.onFound = { [weak self, weak vc] json in
-            if let s = self, s.parse(request: json, supportRTC: true, block: s.defaultCatchBlock) == true {
+            if let s = self, s.parse(request: json.trimmingCharacters(in: .whitespacesAndNewlines), supportRTC: true, block: s.defaultCatchBlock) == true {
                 vc?.stop()
                 vc?.dismiss(animated: true, completion: nil)
             }
