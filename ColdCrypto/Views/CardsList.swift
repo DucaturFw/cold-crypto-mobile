@@ -43,10 +43,8 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         $0.contentInsetAdjustmentBehavior = .never
     })
     
-    private var mWallets: [IWallet] = [IWallet]()
     var wallets: [IWallet] = [] {
         didSet {
-            mWallets = wallets.reversed()
             mList.reloadData()
         }
     }
@@ -85,7 +83,7 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @objc private func refresh() {
         mRefresh.endRefreshing()
-        mWallets.forEach({ $0.flushCache() })
+        wallets.forEach({ $0.flushCache() })
         mList.reloadData()
     }
     
@@ -97,8 +95,7 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         let completion = {
             AppDelegate.lock()
             self.mList.performBatchUpdates({
-                self.mWallets.insert(wallet, at: 0)
-                self.wallets.append(wallet)
+                self.wallets.insert(wallet, at: 0)
                 self.mList.insertItems(at: [IndexPath(item: 0, section: 0)])
             }, completion: { _ in
                 AppDelegate.unlock()
@@ -119,14 +116,13 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         AppDelegate.lock()
         mList.performBatchUpdates({
             var i = [IndexPath]()
-            self.mWallets.enumerated().forEach({
-                if wallet.privateKey == $0.element.privateKey {
+            self.wallets.enumerated().forEach({
+                if wallet.id == $0.element.id {
                     i.append(IndexPath(item: $0.offset, section: 0))
                 }
             })
             if i.count > 0 {
-                self.mWallets.removeAll(where: { $0.address == wallet.address })
-                self.wallets.removeAll(where: { $0.address == wallet.address })
+                self.wallets.removeAll(where: { $0.id == wallet.id })
                 self.mList.deleteItems(at: i)
             }
         }, completion: { _ in
@@ -172,7 +168,7 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         if let s = selected {
             mSelected = s
             mList.isUserInteractionEnabled = false
-            mActive = mWallets[s.row]
+            mActive = wallets[s.row]
             anim = UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut, animations: { [weak self] in
                 self?.showFirst(s: s, wallet: self?.mActive)
             })
@@ -302,12 +298,12 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return mWallets.count
+        return wallets.count
     }
     
     func collectionView(_ cv: UICollectionView, cellForItemAt p: IndexPath) -> UICollectionViewCell {
         let cell = WalletCell.get(from: cv, at: p)
-        cell.wallet = mWallets[p.row]
+        cell.wallet = wallets[p.row]
         cell.onBackUp = { [weak self] w in
             self?.onBackUp(w)
         }

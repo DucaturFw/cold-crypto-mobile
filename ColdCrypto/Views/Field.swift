@@ -15,7 +15,7 @@ class Field : UIView {
     private let mField: UITextField = {
         let tmp = UITextField()
         tmp.backgroundColor = .clear
-        tmp.font = UIFont.sfProSemibold(14)
+        tmp.font = UIFont.proMedium(13)
         tmp.textColor = 0x32325D.color
         return tmp
     }()

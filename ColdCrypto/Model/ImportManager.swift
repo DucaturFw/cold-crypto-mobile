@@ -9,12 +9,12 @@
 import Foundation
 import EthereumKit
 
-protocol ImportDelegate {
-    func onNew(chain: Blockchain, name: String, data: String, segwit: Bool)
-    func onNewHDWallet(chain: Blockchain)
-    func onNew(wallet: IWallet)
-    func setTop(visible: Bool)
-}
+//protocol ImportDelegate {
+//    func onNew(chain: Blockchain, name: String, data: String, segwit: Bool)
+//    func onNewHDWallet(chain: Blockchain)
+//    func onNew(wallet: IWallet)
+//    func setTop(visible: Bool)
+//}
 
 class ImportManager {
     
@@ -25,17 +25,19 @@ class ImportManager {
     }
     
     func addNewWallet() {
-        guard let p = mParent else { return }
-        p.setTop(visible: false)
-        ChainPicker().show(in: p, block: { [weak self, weak p] b in
-            guard let p = p else { return }
-            p.setTop(visible: true)
-            if let b = b, b == .EOS {
-                self?.importEOS()
-            } else if let b = b {
-                self?.askWhatToAdd(in: b)
-            }
-        })
+//        mParent?.present(ImportWalletVC(), animated: true, completion: nil)
+//        guard let p = mParent else { return }
+//        p.setTop(visible: false)
+//        CryptoItemю
+//        ChainPicker().show(in: p, block: { [weak self, weak p] b in
+//            guard let p = p else { return }
+//            p.setTop(visible: true)
+//            if let b = b, b == .EOS {
+//                self?.importEOS()
+//            } else if let b = b {
+//                self?.askWhatToAdd(in: b)
+//            }
+//        })
     }
     
     private func importEOS() {

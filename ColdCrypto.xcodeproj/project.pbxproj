@@ -17,6 +17,9 @@
 		EB1F3B9B2198D07F0052E5A7 /* SeedWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B9A2198D07F0052E5A7 /* SeedWord.swift */; };
 		EB2676CD21B3008B003B254F /* CardProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2676CC21B3008B003B254F /* CardProvider.swift */; };
 		EB2676D421B313B5003B254F /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2676D321B313B5003B254F /* Group.swift */; };
+		EB2676D621B41343003B254F /* ImportWalletVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2676D521B41343003B254F /* ImportWalletVC.swift */; };
+		EB2676D821B41E91003B254F /* ETHForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2676D721B41E91003B254F /* ETHForm.swift */; };
+		EB2676DD21B43980003B254F /* EOSForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2676DC21B43980003B254F /* EOSForm.swift */; };
 		EB26C31C21924083005D3525 /* CardPickVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB26C31B21924083005D3525 /* CardPickVC.swift */; };
 		EB2F617A21ABE7EB0029219A /* eos.js in Resources */ = {isa = PBXBuildFile; fileRef = EB2F617921ABE7EB0029219A /* eos.js */; };
 		EB2F617C21ABE8030029219A /* EOSUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F617B21ABE8030029219A /* EOSUtils.swift */; };
@@ -236,6 +239,9 @@
 		EB1F3B9A2198D07F0052E5A7 /* SeedWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedWord.swift; sourceTree = "<group>"; };
 		EB2676CC21B3008B003B254F /* CardProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardProvider.swift; sourceTree = "<group>"; };
 		EB2676D321B313B5003B254F /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		EB2676D521B41343003B254F /* ImportWalletVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletVC.swift; sourceTree = "<group>"; };
+		EB2676D721B41E91003B254F /* ETHForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHForm.swift; sourceTree = "<group>"; };
+		EB2676DC21B43980003B254F /* EOSForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EOSForm.swift; sourceTree = "<group>"; };
 		EB26C31B21924083005D3525 /* CardPickVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPickVC.swift; sourceTree = "<group>"; };
 		EB2F617921ABE7EB0029219A /* eos.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = eos.js; sourceTree = "<group>"; };
 		EB2F617B21ABE8030029219A /* EOSUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EOSUtils.swift; sourceTree = "<group>"; };
@@ -496,6 +502,7 @@
 				EBE484D2217928BF006879F7 /* ProfileVC.swift */,
 				EBF620C1218BA2AA005C6141 /* RepeatPassVC.swift */,
 				EBA593AE217A844E00F3CB65 /* ScannerVC.swift */,
+				EB2676D521B41343003B254F /* ImportWalletVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -543,6 +550,8 @@
 				EBDB8846219742B3000AF045 /* Field.swift */,
 				EBDB884E21974500000AF045 /* Sheet.swift */,
 				EB1F3B9A2198D07F0052E5A7 /* SeedWord.swift */,
+				EB2676D721B41E91003B254F /* ETHForm.swift */,
+				EB2676DC21B43980003B254F /* EOSForm.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1252,6 +1261,7 @@
 				EBDB8847219742B3000AF045 /* Field.swift in Sources */,
 				EBEDA2B521AB559B004FCB75 /* AlertOld.swift in Sources */,
 				EBAC21C621A5C7AA002CF61B /* ETHabi.swift in Sources */,
+				EB2676DD21B43980003B254F /* EOSForm.swift in Sources */,
 				EB2676CD21B3008B003B254F /* CardProvider.swift in Sources */,
 				EBC9F78421822FC000150883 /* ApiMessage.swift in Sources */,
 				EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */,
@@ -1265,9 +1275,11 @@
 				EB64509D2181152E008397DF /* ApiOffer.swift in Sources */,
 				EBB15F872184EEF600F6370E /* CodeView.swift in Sources */,
 				EBEDA29121AB4FF3004FCB75 /* bignum.c in Sources */,
+				EB2676D621B41343003B254F /* ImportWalletVC.swift in Sources */,
 				EBA593D4217A8C0300F3CB65 /* NewCodeVC.swift in Sources */,
 				EB2F617C21ABE8030029219A /* EOSUtils.swift in Sources */,
 				EBEDA2A521AB4FF3004FCB75 /* EOSRPC+History.swift in Sources */,
+				EB2676D821B41E91003B254F /* ETHForm.swift in Sources */,
 				EBA593D8217A8CA300F3CB65 /* BioAuth.swift in Sources */,
 				EBA593D0217A8BF700F3CB65 /* CheckCodeVC.swift in Sources */,
 				EBEDA2B321AB5249004FCB75 /* EOSToken.swift in Sources */,

@@ -37,16 +37,13 @@ class EOSImporter {
                             throw "PK is null"
                         }
                         let hud = HUD.show()
-                        
-                        print("\(PublicKey(privateKey: pk2).rawPublicKey())")
-                        
                         EOSRPC.sharedInstance.getKeyAccounts(pub: PublicKey(privateKey: pk2).rawPublicKey(), completion: { r, e in
                             hud?.hide(animated: true)
                             if let accs = r?.accountNames, accs.count > 0 {
                                 let v = AccountPicker(accounts: accs)
                                 v.onPicked = { [weak a] acc in
                                     a?.hide()
-                                    completion(EOSWallet(name: acc, data: "00\(value)", privateKey: value))
+                                    completion(EOSWallet(name: acc, data: "00\(value)", privateKey: value, time: Date().timeIntervalSince1970))
                                 }
                                 a.set(customView: v, animated: true)
                             } else if a.customView != noAcc {

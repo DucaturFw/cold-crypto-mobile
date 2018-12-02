@@ -17,6 +17,8 @@ protocol IWallet : class {
     var data: String { get }
     var name: String { get }
     var seed: String? { get }
+    var id: String { get }
+    var time: TimeInterval { get }
     
     func sign(transaction: ApiParamsTx, wallet: ApiParamsWallet, completion: @escaping (String?)->Void)
     func pay(to: ApiParamsTx, completion: @escaping (String?)->Void)

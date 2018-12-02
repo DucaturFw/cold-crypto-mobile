@@ -68,18 +68,19 @@ class ConfirmationVC: PopupVC {
         mConfirm.isActive = mAmount.isChecked && mAddress.isChecked
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
+    override func doLayout() -> CGFloat {
         mArrow.origin  = CGPoint(x: (view.width - mArrow.width)/2.0, y: 40.scaled)
         mName.origin   = CGPoint(x: (view.width - mName.width)/2.0, y: mArrow.maxY + 40.scaled)
-        mAddress.frame = CGRect(x: 40.scaled, y: mName.maxY + 40.scaled, width: content.width - 80.scaled, height: 80.scaled)
+        mAddress.frame = CGRect(x: 40.scaled, y: mName.maxY + 40.scaled, width: view.width - 80.scaled, height: 80.scaled)
         mAmount.frame  = CGRect(x: 40.scaled, y: mAddress.maxY + 50.scaled, width: mAddress.width, height: 80.scaled)
-
+        
         let p = 40.scaled
-        let w = (content.width - p * 3.0)/2.0
-        mDecline.frame = CGRect(x: p, y: view.height - topGap - AppDelegate.bottomGap - 100.scaled, width: w, height: 40.scaled)
+        let w = (view.width - p * 3.0)/2.0
+
+        mDecline.frame = CGRect(x: p, y: mAmount.maxY + p, width: w, height: Style.Dims.buttonMiddle)
         mConfirm.frame = CGRect(x: mDecline.maxX + p, y: mDecline.minY, width: mDecline.width, height: mDecline.height)
+        
+        return mDecline.maxY + p
     }
     
 }

@@ -33,7 +33,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         $0.lineHeight = 4.scaled
         $0.setCurrentModeWithAnimation(.cross, duration: 0)
     }).tap({ [weak self] in
-        self?.mImportManager.addNewWallet()
+        self?.present(ImportWalletVC(delegate: self), animated: true, completion: nil)
     })
     
     private lazy var mLeftMenu = JTHamburgerButton(frame: CGRect(x: 0, y: 0, width: 18, height: 16)).apply({
@@ -89,7 +89,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         mParams   = params
         super.init(nibName: nil, bundle: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(close), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        mView.wallets = mProfile.chains.flatMap({ $0.wallets })
+        mView.wallets = mProfile.chains.flatMap({ $0.wallets }).sorted(by: { $0.time > $1.time })
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -195,7 +195,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
                 if let s = self {
                     s.mView.close {
                         s.mProfile.chains.forEach({
-                            $0.wallets.removeAll(where: { $0.privateKey == wallet.privateKey })
+                            $0.wallets.removeAll(where: { $0.id == wallet.id })
                         })
                         Settings.profile = s.mProfile
                         s.mView.delete(wallet: wallet)

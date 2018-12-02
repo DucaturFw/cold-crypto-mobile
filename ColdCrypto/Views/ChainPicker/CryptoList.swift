@@ -31,8 +31,6 @@ class CryptoList: UIView {
                 self?.select(index: idx)
             })
         }
-        backgroundColor = Style.Colors.white
-        layer.cornerRadius = 10.scaled
     }
     
     required init?(coder: NSCoder) {
@@ -59,7 +57,7 @@ class CryptoList: UIView {
         
         let p = (width - CGFloat(h) * CryptoItem.width) / CGFloat(h + 1)
         
-        var y = p + 44.0 + AppDelegate.statusHeight
+        var y = p
         var i = 0
         let g = (width - CGFloat(mItems.count % h) * CryptoItem.width - CGFloat(mItems.count % h-1) * p)/2.0
         var x = (1 == v ? g : p)

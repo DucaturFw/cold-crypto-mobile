@@ -630,3 +630,32 @@ extension UIImage {
 func doit<T>(_ closure: ()->T) -> T {
     return closure()
 }
+
+
+public extension UIResponder {
+    
+    private struct Static {
+        static weak var responder: UIResponder?
+    }
+    
+    public static func currentFirst() -> UIResponder? {
+        Static.responder = nil
+        UIApplication.shared.sendAction(#selector(UIResponder._trap), to: nil, from: nil, for: nil)
+        return Static.responder
+    }
+    
+    @objc private func _trap() {
+        Static.responder = self
+    }
+}
+
+extension Notification {
+    func keyboard(block: (CGRect, TimeInterval, UInt)->Void) {
+        guard let frameEnd: CGRect = self.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        guard let duration: TimeInterval = self.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else { return }
+        guard let curve: Int = self.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else { return }
+        if (duration > 0.0 && curve > 0) {
+            block(frameEnd, duration, UInt(curve))
+        }
+    }
+}

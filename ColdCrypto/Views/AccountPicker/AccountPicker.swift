@@ -13,17 +13,17 @@ class AccountPicker: UITableView, UITableViewDelegate, UITableViewDataSource {
     private let mAccounts: [String]
     
     var onPicked: (String)->Void = { _ in }
-    
+        
     init(accounts: [String]) {
         mAccounts = accounts
-        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: min(mAccounts.count, 5) * 50),
-                   style: .plain)
-        rowHeight = 50
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat(min(mAccounts.count, 4)) * 40.scaled), style: .plain)
+        rowHeight = 40.scaled
         estimatedRowHeight = 0
         separatorStyle = .none
         delegate = self
         dataSource = self
         AccountCell.register(in: self)
+        isScrollEnabled = mAccounts.count > 4
     }
     
     required init?(coder aDecoder: NSCoder) {

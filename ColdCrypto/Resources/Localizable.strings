@@ -63,7 +63,7 @@
 
 "import_seed_phrase" = "Import a seed phrase";
 "import_private_key" = "Import a private key";
-"new_hd_wallet" = "HD Wallet";
+"new_hd_wallet" = "Derive HD Wallet";
 "phrase_text" = "Enter seed phrase:";
 "import" = "Import";
 "key_text" = "Enter private key:";
@@ -84,3 +84,8 @@
 "eos" = "EOS";
 "cant_import" = "Can't import EOS account.";
 "receive" = "Receive";
+"select_chain" = "Choose a blockchain";
+"enter_seed_pk" = "Enter the seed phrase\nor the private key";
+"or" = "OR";
+"derive" = "Derive HD Wallet";
+"your_pk" = "Your seed or key";

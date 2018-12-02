@@ -13,6 +13,7 @@ struct Style {
         static let red = 0xF33C29.color
         static let blue = 0x00BCF9.color
         static let white = 0xFFFFFF.color
+        static let light = 0xF3F2F4.color
         static let black = 0x160A2E.color
         static let green = 0x63BE6B.color
         static let darkGrey = 0x736C82.color

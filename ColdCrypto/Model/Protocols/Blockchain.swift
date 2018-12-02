@@ -66,26 +66,26 @@ enum Blockchain : String, CaseIterable {
     }
         
     
-    func newWallet(seed: String, name: String?, data: String?, segwit: Bool?) -> IWallet? {
+    func newWallet(seed: String, name: String?, data: String?, segwit: Bool?, time: TimeInterval) -> IWallet? {
         guard let data = data, data.count > 2 else { return nil }
-        
+
         let nam = name ?? "\(self.name()) Wallet"
         let key = data.replacingCharacters(in: data.startIndex ..< data.index(data.startIndex, offsetBy: 2), with: "")
         if data.hasPrefix("00") { // private key
             switch self {
-            case .ETH:  return ETHWallet(blockchain: self, name: nam, data: data, privateKey: key)
-            case .EOS:  return EOSWallet(name: nam, data: data, privateKey: key)
+            case .ETH:  return ETHWallet(blockchain: self, name: nam, data: data, privateKey: key, time: time)
+            case .EOS:  return EOSWallet(name: nam, data: data, privateKey: key, time: time)
             }
         } else if data.hasPrefix("01"), let phrase = String(data: Data(hex: key), encoding: .utf8) { // custom seed
             switch self {
-            case .ETH:  return ETHWallet(blockchain: self, name: nam, data: data, index: 0, seed: phrase)
-                case .EOS:  return EOSWallet(name: nam, data: data, seed: phrase, index: 0)
+            case .ETH:  return ETHWallet(blockchain: self, name: nam, data: data, index: 0, seed: phrase, time: time)
+            case .EOS:  return EOSWallet(name: nam, data: data, seed: phrase, index: 0, time: time)
             }
         } else if data.hasPrefix("02") { // derived hd wallet
             guard let index = UInt32(key, radix: 16) else { return nil }
             switch self {
-            case .ETH:  return ETHWallet(blockchain: self, name: nam, data: data, index: index, seed: seed)
-            case .EOS:  return EOSWallet(name: nam, data: data, seed: seed, index: index)
+            case .ETH:  return ETHWallet(blockchain: self, name: nam, data: data, index: index, seed: seed, time: time)
+            case .EOS:  return EOSWallet(name: nam, data: data, seed: seed, index: index, time: time)
             }
         } else {
             return nil

@@ -18,13 +18,15 @@ class EOSWallet: IWallet {
     var index: UInt32 = 0
     var data: String
     var name: String
+    var id: String
+    private(set) var time: TimeInterval
     
     private var cachedRate: Double?
     private var cachedAmount: Decimal?
     private var cachedBalance: String?
     private let mPKObject: PrivateKey
-    
-    init?(name: String, data: String, privateKey: String) {
+   
+    init?(name: String, data: String, privateKey: String, time: TimeInterval) {
         guard let pk = try? PrivateKey(keyString: privateKey),
             let pk2 = pk else {
                 return nil
@@ -33,10 +35,12 @@ class EOSWallet: IWallet {
         self.address = name
         self.name = name
         self.data = data
+        self.time = time
         mPKObject = pk2
+        id = UUID().uuidString
     }
     
-    init?(name: String, data: String, seed: String, index: UInt32) {
+    init?(name: String, data: String, seed: String, index: UInt32, time: TimeInterval) {
         guard let pk = try? PrivateKey(mnemonicString: seed, index: index),
             let pk2 = pk else {
                 return nil
@@ -46,7 +50,9 @@ class EOSWallet: IWallet {
         self.seed = seed
         self.name = name
         self.data = data
+        self.time = time
         mPKObject = pk2
+        id = UUID().uuidString
     }
 
     func flushCache() {

@@ -32,26 +32,30 @@ class ETHWallet : IWallet {
     var gasLimit: Int = 21000
     var gasPrice: Wei?
     
-    convenience init?(blockchain: Blockchain, name: String, data: String, index: UInt32, seed: String) {
+    convenience init?(blockchain: Blockchain, name: String, data: String, index: UInt32, seed: String, time: TimeInterval) {
         guard let s = try? Mnemonic.createSeed(mnemonic: seed.split(separator: " ").map({ String($0) })) else { return nil }
-        self.init(blockchain: blockchain, name: name, data: data, index: index, seed: s)
+        self.init(blockchain: blockchain, name: name, data: data, index: index, seed: s, time: time)
     }
     
-    init?(blockchain: Blockchain, name: String, data: String, privateKey: String) {
+    init?(blockchain: Blockchain, name: String, data: String, privateKey: String, time: TimeInterval) {
         self.name  = name
         self.data  = data
         self.index = 0
         self.mSeed = nil
+        self.time  = time
+        self.id    = UUID().uuidString
         self.wallet   = Wallet(network: network, privateKey: privateKey, debugPrints: false)
         self.address  = self.wallet.address().lowercased()
         self.blockchain = blockchain
     }
     
-    init?(blockchain: Blockchain, name: String, data: String, index: UInt32, seed: Data) {
+    init?(blockchain: Blockchain, name: String, data: String, index: UInt32, seed: Data, time: TimeInterval) {
         guard let w = try? Wallet(seed: seed, index: index, network: ETHWallet.network, debugPrints: false) else { return nil }
         self.name  = name
         self.data  = data
         self.index = index
+        self.time  = time
+        self.id    = UUID().uuidString
         self.mSeed = String(data: seed, encoding: .utf8)
         self.wallet   = w
         self.address  = w.address().lowercased()
@@ -116,6 +120,10 @@ class ETHWallet : IWallet {
     var name: String
     
     var index: UInt32
+    
+    var id: String
+    
+    private(set) var time: TimeInterval
 
     var privateKey: String {
         return wallet.privateKey().toHexString()

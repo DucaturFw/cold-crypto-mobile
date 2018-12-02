@@ -11,11 +11,9 @@ import EthereumKit
 
 class Profile {
     
-    var id: String = ""
     var seed: String = ""
-    var version: String = ""
     var chains: [Chain] = []
-    var index: Int64 = 0
+    var index: UInt32 = 0
     
     static func new(name: String, segwit: Bool) -> Profile? {
         let s = Mnemonic.create(strength: .normal, language: .english)
@@ -33,18 +31,28 @@ class Profile {
     
     init?(json: Dictionary<String, Any>?) {
         guard let dict = json else { return nil }
-        guard let id = (dict["id"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines) else { return nil }
         guard let seed = (dict["seed"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines), seed.split(separator: " ").count == 12 else { return nil }
-        guard let version = (dict["version"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines) else { return nil }
         guard let dicts = dict["chains"] as? [[String: Any]] else { return nil }
         
         let tempChains = Chain.from(seed: seed, dictionary: dicts)
         if (tempChains.count == 0) { return nil }
         
-        self.id = id
         self.seed = seed
         self.chains = tempChains
-        self.version = version
+        
+        if let i = dict["index"] as? UInt32 {
+            self.index = i
+        } else {
+            self.index = 0
+            self.chains.forEach({
+                $0.wallets.forEach({
+                    if self.index < $0.index {
+                        self.index = $0.index
+                    }
+                })
+            })
+            self.index += 1
+        }
     }
     
     func getJson() -> Dictionary<String, Any> {
@@ -53,16 +61,15 @@ class Profile {
             gg.append($0.getJson())
         })
         return [
-            "id": id,
+            "index": index,
             "seed": seed,
-            "version": version,
             "chains" : gg
         ]
     }
     
     func newWallet(chain: Blockchain, name: String, data: String, segwit: Bool) -> IWallet? {
         guard let current = chains.first(where: { $0.id == chain }) else { return nil }
-        guard let wallet  = chain.newWallet(seed: seed, name: name, data: data, segwit: segwit) else { return nil }
+        guard let wallet  = chain.newWallet(seed: seed, name: name, data: data, segwit: segwit, time: Date().timeIntervalSince1970) else { return nil }
         current.wallets.append(wallet)
         return wallet
     }

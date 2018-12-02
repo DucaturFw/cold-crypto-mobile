@@ -27,7 +27,8 @@ class Chain {
                     wallets.forEach({ w in
                         if let wallet = chain.id.newWallet(seed: seed, name: w["name"] as? String,
                                                            data: w["data"] as? String,
-                                                           segwit: w["segwit"] as? Bool) {
+                                                           segwit: w["segwit"] as? Bool,
+                                                           time: (w["time"] as? TimeInterval) ?? 0.0) {
                             chain.wallets.append(wallet)
                         }
                     })
@@ -42,7 +43,7 @@ class Chain {
     
     static func new(blockchain: Blockchain, seed: String, name: String, segwit: Bool) -> Chain? {
         let chain = Chain(blockchain: blockchain)
-        if let w = blockchain.newWallet(seed: seed, name: name, data: "0200", segwit: segwit) {
+        if let w = blockchain.newWallet(seed: seed, name: name, data: "0200", segwit: segwit, time: Date().timeIntervalSince1970) {
             chain.wallets.append(w)
             return chain
         }
@@ -52,7 +53,7 @@ class Chain {
     func getJson() -> [String: Any] {
         var gg = Array<Dictionary<String, Any>>()
         wallets.forEach({
-            gg.append(["name": $0.name, "data": $0.data])
+            gg.append(["name": $0.name, "data": $0.data, "time": $0.time])
         })
         return ["id": id.rawValue, "wallets": gg]
     }
