@@ -23,6 +23,8 @@ class ETHWallet : IWallet {
         }
     }
 
+    private var mCachedETH: Decimal?
+    private var mCachedRate: Double?
     private var mBalance: String?
     private var mSeed: String?
     private lazy var mNet = ETHNet(wallet: self)
@@ -87,16 +89,32 @@ class ETHWallet : IWallet {
     }
 
     func getBalance(completion: @escaping (String?, String?)->Void) {
-        if let b = mBalance {
-            completion(b, nil)
-        } else {
-            mNet.getBalance { [weak self] (b, e) in
-                self?.mBalance = (try? b?.ether())??.compactValue
-                DispatchQueue.main.async {
-                    completion(self?.mBalance, nil)
-                }
-            }
+        if let b = mBalance, let r = mCachedRate, let e = mCachedETH {
+            completion(b, (e*Decimal(r)).money)
+            return
         }
+
+        let group = Group(2) { [weak self] in
+            completion(self?.mBalance, doit { [weak self] in
+                guard let r = self?.mCachedRate, let e = self?.mCachedETH else { return nil }
+                return (e*Decimal(r)).money
+            })
+        }
+        mNet.getBalance { [weak self] (b, e) in
+            if let eth = (try? b?.ether()) {
+                self?.mCachedETH = eth
+                self?.mBalance = self?.mCachedETH?.compactValue
+            }
+            group.done()
+        }
+        
+        blockchain.getExchangeRate(completion: { [weak self] rate in
+            if let r = rate {
+                self?.mCachedRate = r
+            }
+            group.done()
+        })
+        
     }
     
     func pay(to: ApiParamsTx, completion: @escaping (String?)->Void) {

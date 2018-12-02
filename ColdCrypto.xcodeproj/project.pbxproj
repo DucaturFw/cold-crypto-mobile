@@ -93,7 +93,6 @@
 		EBD4FCC82190BBBF0080D1A9 /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4FCC72190BBBF0080D1A9 /* PopAnimator.swift */; };
 		EBD4FCCA2190BFC20080D1A9 /* IPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4FCC92190BFC20080D1A9 /* IPopover.swift */; };
 		EBD4FCCC2190D4D50080D1A9 /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4FCCB2190D4D50080D1A9 /* PopupVC.swift */; };
-		EBDB884F21974500000AF045 /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDB884E21974500000AF045 /* Sheet.swift */; };
 		EBDB885D21976AC1000AF045 /* IWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDB885C21976AC1000AF045 /* IWallet.swift */; };
 		EBDCD55C217FD85E00B6EF5B /* ConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */; };
 		EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D0217928BF006879F7 /* AppDelegate.swift */; };
@@ -310,7 +309,6 @@
 		EBD4FCC72190BBBF0080D1A9 /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
 		EBD4FCC92190BFC20080D1A9 /* IPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPopover.swift; sourceTree = "<group>"; };
 		EBD4FCCB2190D4D50080D1A9 /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
-		EBDB884E21974500000AF045 /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
 		EBDB885C21976AC1000AF045 /* IWallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IWallet.swift; sourceTree = "<group>"; };
 		EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationVC.swift; sourceTree = "<group>"; };
 		EBE484CD217928BF006879F7 /* ColdCrypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColdCrypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -525,7 +523,6 @@
 				EB1A0BEF218A27D300C43E72 /* CardsList.swift */,
 				EB1F3B962198B1D60052E5A7 /* AlertImage.swift */,
 				EBD0B12E218E3D9A00FD1B37 /* MenuCell.swift */,
-				EBDB884E21974500000AF045 /* Sheet.swift */,
 				EB1F3B9A2198D07F0052E5A7 /* SeedWord.swift */,
 				EB2676D721B41E91003B254F /* ETHForm.swift */,
 				EB2676DC21B43980003B254F /* EOSForm.swift */,
@@ -1267,7 +1264,6 @@
 				EBEDA21E21AB4242004FCB75 /* ChainPicker.swift in Sources */,
 				EB0B1CFD21B088710037C594 /* JTHamburgerButton.m in Sources */,
 				EBA593C8217A89B800F3CB65 /* ITransaction.swift in Sources */,
-				EBDB884F21974500000AF045 /* Sheet.swift in Sources */,
 				EBEDA29021AB4FF3004FCB75 /* secp256k1.c in Sources */,
 				EBEDA29C21AB4FF3004FCB75 /* TransactionUtil.swift in Sources */,
 				EBC9F77C21822F4900150883 /* ApiAnswer.swift in Sources */,

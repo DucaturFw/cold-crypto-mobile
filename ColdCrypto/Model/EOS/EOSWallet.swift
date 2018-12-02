@@ -71,7 +71,6 @@ class EOSWallet: IWallet {
                 guard let r = self?.cachedRate, let a = self?.cachedAmount else { return nil }
                 return (a * Decimal(r)).money
             })
-            
         }
         EOSRPC.sharedInstance.getTableRows(scope: name,
                                            code: "eosio.token",
