@@ -9,15 +9,6 @@
 import UIKit
 
 class CodeVC : UIViewController {
-        
-    private let mName = UILabel.new(font: .proMedium(25.scaled),
-                                    text: "create_code".loc,
-                                    lines: 1,
-                                    color: Style.Colors.black,
-                                    alignment: .center)
-    var name: UILabel {
-        return mName
-    }
     
     private let mHint = UILabel.new(font: .proMedium(15.scaled),
                                     text: "cretae_hint".loc,
@@ -49,7 +40,6 @@ class CodeVC : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Style.Colors.white
-        mContent.addSubview(mName)
         mContent.addSubview(mHint)
         mContent.addSubview(mKeys)
         mContent.addSubview(mCode)
@@ -61,7 +51,6 @@ class CodeVC : UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        mName.origin = CGPoint(x: (view.width - mName.width)/2.0, y: 0)
         mHint.origin = CGPoint(x: (view.width - mHint.width)/2.0, y: 45.scaled)
         mCode.origin = CGPoint(x: (view.width - mCode.width)/2.0, y: 108.scaled)
         mKeys.origin = CGPoint(x: (view.width - mKeys.width)/2.0, y: 146.scaled)

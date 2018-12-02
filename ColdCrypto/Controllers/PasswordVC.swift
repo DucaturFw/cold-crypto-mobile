@@ -21,7 +21,7 @@ class PasswordVC: UIViewController {
                                            alignment: .center).apply({
                                             $0.frame = $0.frame.insetBy(dx: -18.0, dy: -2.0)
                                            }).tap({ [weak self] in
-                                            self?.navigationController?.setViewControllers([AuthVC()], animated: true)
+                                            self?.navigationController?.popToRootViewController(animated: true)
                                            })
     
     private lazy var mNext = UILabel.new(font: UIFont.hnMedium(18.scaled),
@@ -72,6 +72,7 @@ class PasswordVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = Style.Colors.white
         view.addSubview(mBG)
         view.addSubview(mCaption)
         view.addSubview(mHint)

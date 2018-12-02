@@ -98,7 +98,6 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.titleView = UIView()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: mRightAdd)
         navigationItem.leftBarButtonItem  = UIBarButtonItem(customView: mLeftMenu)
         view.backgroundColor = Style.Colors.white

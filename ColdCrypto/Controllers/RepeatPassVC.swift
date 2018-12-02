@@ -22,7 +22,7 @@ class RepeatPassVC: UIViewController {
                                            alignment: .center).apply({
                                             $0.frame = $0.frame.insetBy(dx: -2.0, dy: -2.0)
                                            }).tap({ [weak self] in
-                                            self?.navigationController?.popViewController(animated: true)
+                                            self?.navigationController?.popToRootViewController(animated: true)
                                            })
     
     private lazy var mIcon = UIImageView(image: UIImage(named: "back")).tap({ [weak self] in

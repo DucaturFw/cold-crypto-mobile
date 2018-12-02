@@ -14,13 +14,15 @@ class CheckCodeVC: CodeVC {
     private let onSuccess: (CheckCodeVC)->Void
     private var mAuthAtStart = false
 
-    convenience init(passcode: String, authAtStart: Bool, onSuccess block: @escaping (CheckCodeVC)->Void) {
-        self.init(passcode: passcode, onSuccess: block)
+    convenience init(passcode: String, forceHide: Bool = false, authAtStart: Bool, onSuccess block: @escaping (CheckCodeVC)->Void) {
+        self.init(passcode: passcode, forceHide: forceHide, onSuccess: block)
         mAuthAtStart = authAtStart
     }
     
+    private let mForceHide: Bool
+    
     private lazy var mBack = JTHamburgerButton().apply({
-        $0.lineColor = Style.Colors.blue
+        $0.lineColor = Style.Colors.darkGrey
         $0.lineSpacing = 5.0
         $0.lineWidth = 24
         $0.lineHeight = 2
@@ -34,9 +36,10 @@ class CheckCodeVC: CodeVC {
         }
     })
     
-    init(passcode: String, onSuccess block: @escaping (CheckCodeVC)->Void) {
-        mPasscode = passcode
-        onSuccess = block
+    init(passcode: String, forceHide: Bool = false, onSuccess block: @escaping (CheckCodeVC)->Void) {
+        mPasscode  = passcode
+        onSuccess  = block
+        mForceHide = forceHide
         super.init(nibName: nil, bundle: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(startBioAuth), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
@@ -57,8 +60,7 @@ class CheckCodeVC: CodeVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         hint.text = "enter_hint".loc
-        name.text = "enter_access_code".loc
-        name.sizeToFit()
+        navigationItem.title = "enter_access_code".loc
     }
     
     @objc func startBioAuth() {
@@ -91,8 +93,11 @@ class CheckCodeVC: CodeVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let nc = navigationController {
-            mBack.setCurrentModeWithAnimation(nc.viewControllers.count > 1 ? .arrow : .cross, duration: 0)
-            navigationItem.leftBarButtonItem = UIBarButtonItem(customView: mBack)
+            if !mForceHide {
+                mBack.setCurrentModeWithAnimation(nc.viewControllers.count > 1 ? .arrow : .cross, duration: 0)
+                navigationItem.leftBarButtonItem = UIBarButtonItem(customView: mBack)
+            }
+            nc.setNavigationBarHidden(false, animated: animated)
         }
         if mAuthAtStart {
             mAuthAtStart = false

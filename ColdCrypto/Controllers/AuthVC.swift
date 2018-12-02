@@ -38,12 +38,15 @@ class AuthVC : UIViewController {
     
     private func newWallet() {
         let vc = NewCodeVC()
-        vc.onCode = { [weak self, weak vc] passcode in
-            vc?.dismiss(animated: true, completion: {
-                self?.navigationController?.setViewControllers([PasswordVC(passcode: passcode)], animated: true)
-            })
+        vc.onCode = { [weak self] passcode in
+            if let p = Profile.new(name: "Cold", segwit: false) {
+                Settings.profile = p
+                let pvc = ProfileVC(profile: p, passcode: passcode, params: AppDelegate.params)
+                self?.navigationController?.pushViewController(pvc, animated: true)
+                self?.navigationController?.setViewControllers([pvc], animated: false)
+            }
         }
-        present(vc, animated: true, completion: nil)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -68,10 +71,12 @@ class AuthVC : UIViewController {
         super.viewDidAppear(animated)
         if let code = Settings.passcode, let p = Settings.profile {
             let nc = navigationController
-            nc?.setViewControllers([CheckCodeVC(passcode: code, authAtStart: true, onSuccess: { vc in
-                nc?.setViewControllers([ProfileVC(profile: p,
-                                                  passcode: code,
-                                                  params: AppDelegate.params)], animated: true)
+            nc?.setViewControllers([CheckCodeVC(passcode: code, forceHide: true, authAtStart: true, onSuccess: { vc in
+                let vc = ProfileVC(profile: p,
+                                   passcode: code,
+                                   params: AppDelegate.params)
+                nc?.pushViewController(vc, animated: true)
+                nc?.setViewControllers([vc], animated: false)
             })], animated: true)
         } else {
             UIView.animate(withDuration: 0.6, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [], animations: {

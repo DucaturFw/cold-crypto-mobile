@@ -54,8 +54,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().shadowImage   = UIImage()
         UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().barTintColor  = Style.Colors.white
+        UINavigationBar.appearance().titleTextAttributes = [
+            .font : UIFont.proMedium(18.scaled),
+            .foregroundColor: Style.Colors.black
+        ]
         
         window = UIWindow(frame: UIScreen.main.bounds)
+        window?.backgroundColor     = .white
         window?.layer.cornerRadius  = 10.scaled
         window?.layer.masksToBounds = true
         window?.rootViewController  = NavigatorVC(rootViewController: AuthVC())
