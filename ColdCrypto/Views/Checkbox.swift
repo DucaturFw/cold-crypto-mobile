@@ -10,8 +10,8 @@ import UIKit
 
 class Checkbox : UIView {
     
-    private let mName  = UILabel.new(font: UIFont.proMedium(15.scaled), lines: 0, color: Style.Colors.black, alignment: .left)
-    private let mValue = UILabel.new(font: UIFont.proBold(15.scaled), lines: 0, color: Style.Colors.darkGrey, alignment: .left)
+    private let mName  = UILabel.new(font: UIFont.medium(15.scaled), lines: 0, color: Style.Colors.black, alignment: .left)
+    private let mValue = UILabel.new(font: UIFont.bold(15.scaled), lines: 0, color: Style.Colors.darkGrey, alignment: .left)
     private let mCheck = UIImageView(image: UIImage(named: "checkOff"))
     
     var onChecked: (Bool)->Void = { _ in }

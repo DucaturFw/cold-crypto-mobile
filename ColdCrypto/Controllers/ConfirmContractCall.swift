@@ -24,10 +24,6 @@ class ConfirmContractCall: PopupVC {
     private let mWallet: IWallet
     
     private let mMinTop = CGFloat(80)
-    private var mTopGap = CGFloat(80)
-    override var topGap: CGFloat {
-        return mTopGap
-    }
     
     private let mBlock: (String?)->Void
     
@@ -45,7 +41,7 @@ class ConfirmContractCall: PopupVC {
     
     private var mViews: [UIView] = []
 
-    private let mInvalid = UILabel.new(font: UIFont.hnMedium(20.scaled), text: "invalid".loc, lines: 0, color: .black, alignment: .center)
+    private let mInvalid = UILabel.new(font: UIFont.medium(20.scaled), text: "invalid".loc, lines: 0, color: .black, alignment: .center)
     
     init(contract: ApiSignContractCall, wallet: IWallet, passcode: String, completion: @escaping (String?)->Void) {
         mContract = contract
@@ -77,25 +73,6 @@ class ConfirmContractCall: PopupVC {
             mScroll.addSubview(mInvalid)
             mDecline.setTitle("close".loc, for: .normal)
         }
-
-//        if mContract.isValid(),
-//            let call = mContract.abi?.method,
-//            let data = mContract.tx?.data,
-//            let pack = ETHabi.convert(call: call, data: data),
-//            let cont = ContractImpl.deserialize(from: pack) {
-//            mInvalid.isVisible = false
-//            let v = ContractView(contract: cont)
-//            mViews.append(v)
-//            mScroll.addSubview(v)
-//            mScroll.addSubview(mDecline)
-//            mScroll.addSubview(mConfirm)
-//        } else {
-//            mConfirm.isVisible = false
-//            mScroll.isScrollEnabled = false
-//            mScroll.addSubview(mDecline)
-//            mScroll.addSubview(mInvalid)
-//            mDecline.setTitle("close".loc, for: .normal)
-//        }
         mDecline.click = { [weak self] in
             self?.dismiss(animated: true, completion: nil)
         }
@@ -104,40 +81,38 @@ class ConfirmContractCall: PopupVC {
         }
     }
     
-    override func viewDidLayoutSubviews() {
+    override func doLayout() -> CGFloat {
         var t = CGFloat(0)
         mViews.forEach({
-            $0.frame = CGRect(x: 0, y: t, width: view.width, height: $0.height)
+            $0.frame = CGRect(x: 0, y: t, width: width, height: $0.height)
             $0.setNeedsLayout()
             $0.layoutIfNeeded()
             t = ceil($0.maxY)
         })
-
+        
         if mInvalid.isVisible {
-            mInvalid.origin = CGPoint(x: (view.width - mInvalid.width)/2.0, y: t + 30.scaled)
+            mInvalid.origin = CGPoint(x: (width - mInvalid.width)/2.0, y: t + 30.scaled)
             t = ceil(mInvalid.maxY + 30.scaled)
         }
-
-        let w = (view.width - 76.scaled)/2.0
+        
+        let w = (width - 76.scaled)/2.0
         if mConfirm.isVisible {
             mDecline.frame = CGRect(x: 30.scaled, y: t, width: w, height: 64.scaled)
             mConfirm.frame = CGRect(x: mDecline.maxX + 16.scaled, y: mDecline.minY, width: mDecline.width, height: mDecline.height)
         } else {
-            mDecline.frame = CGRect(x: 30.scaled, y: t, width: view.width - 60.scaled, height: 64.scaled)
+            mDecline.frame = CGRect(x: 30.scaled, y: t, width: width - 60.scaled, height: 64.scaled)
         }
         t = ceil(mDecline.maxY + 34.scaled)
-
+        
         let max = view.height - AppDelegate.bottomGap - mMinTop
         if t > max {
-            mScroll.frame = CGRect(x: 0, y: 0, width: view.width, height: max)
+            mScroll.frame = CGRect(x: 0, y: 0, width: width, height: max)
             mScroll.contentSize.height = t
-            mTopGap = mMinTop
         } else {
-            mScroll.frame = CGRect(x: 0, y: 0, width: view.width, height: t)
+            mScroll.frame = CGRect(x: 0, y: 0, width: width, height: t)
             mScroll.contentSize.height = 0
-            mTopGap = view.height - mScroll.height - AppDelegate.bottomGap
         }
-        super.viewDidLayoutSubviews()
+        return mScroll.maxY
     }
     
     private func confirm() {

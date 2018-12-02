@@ -34,9 +34,9 @@ class WalletCell: UICollectionViewCell {
         }
     }
     
-    private let mAmount  = UILabel.new(font: UIFont.proBold(20.scaled), lines: 1, color: Style.Colors.white, alignment: .left)
-    private let mMoney   = UILabel.new(font: UIFont.proBold(15.scaled), lines: 1, color: Style.Colors.white.alpha(0.8), alignment: .left)
-    private let mAddress = UILabel.new(font: UIFont.proBold(14.scaled), lines: 1, color: Style.Colors.white, alignment: .left)
+    private let mAmount  = UILabel.new(font: UIFont.bold(20.scaled), lines: 1, color: Style.Colors.white, alignment: .left)
+    private let mMoney   = UILabel.new(font: UIFont.bold(15.scaled), lines: 1, color: Style.Colors.white.alpha(0.8), alignment: .left)
+    private let mAddress = UILabel.new(font: UIFont.bold(14.scaled), lines: 1, color: Style.Colors.white, alignment: .left)
     
     private let mHUD = UIActivityIndicatorView(style: .white).apply({
         $0.hidesWhenStopped = true

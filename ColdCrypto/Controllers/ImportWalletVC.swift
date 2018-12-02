@@ -13,14 +13,13 @@ protocol ImportDelegate: class {
     func onNew(chain: Blockchain, name: String, data: String, segwit: Bool)
     func onNewHDWallet(chain: Blockchain)
     func onNew(wallet: IWallet)
-    func setTop(visible: Bool)
 }
 
 class ImportWalletVC: PopupVC {
     
     private let mArrow   = UIImageView(image: UIImage(named: "arrowDown"))
     private let mPicker  = CryptoList()
-    private let mBlock   = UILabel.new(font: UIFont.proMedium(25.scaled), text: "select_chain".loc, lines: 1, color: Style.Colors.black, alignment: .center)
+    private let mBlock   = UILabel.new(font: UIFont.medium(25.scaled), text: "select_chain".loc, lines: 1, color: Style.Colors.black, alignment: .center)
     
     private let mCancel = Button().apply({
         $0.setTitle("cancel".loc, for: .normal)
@@ -91,18 +90,18 @@ class ImportWalletVC: PopupVC {
     }
     
     override func doLayout() -> CGFloat {
-        mArrow.origin = CGPoint(x: (view.width - mArrow.width)/2.0, y: 40.scaled)
+        mArrow.origin = CGPoint(x: (width - mArrow.width)/2.0, y: 40.scaled)
         mBlock.alpha  = mBlockchain == nil ? 1.0 : 0.0
-        mBlock.origin = CGPoint(x: (view.width - mBlock.width)/2.0, y: mArrow.maxY + 40.scaled)
-        mPicker.frame = CGRect(x: 0, y:  mBlockchain == nil ? mBlock.maxY : mArrow.maxY, width: view.width, height: 0)
+        mBlock.origin = CGPoint(x: (width - mBlock.width)/2.0, y: mArrow.maxY + 40.scaled)
+        mPicker.frame = CGRect(x: 0, y:  mBlockchain == nil ? mBlock.maxY : mArrow.maxY, width: width, height: 0)
         mPicker.setNeedsLayout()
         mPicker.layoutIfNeeded()
 
-        mETHForm.frame = CGRect(x: 0, y: mPicker.maxY, width: view.width, height: 0)
+        mETHForm.frame = CGRect(x: 0, y: mPicker.maxY, width: width, height: 0)
         mETHForm.setNeedsLayout()
         mETHForm.layoutIfNeeded()
         
-        mEOSForm.frame = CGRect(x: 0, y: mPicker.maxY, width: view.width, height: 0)
+        mEOSForm.frame = CGRect(x: 0, y: mPicker.maxY, width: width, height: 0)
         mEOSForm.setNeedsLayout()
         mEOSForm.layoutIfNeeded()
         
@@ -120,7 +119,7 @@ class ImportWalletVC: PopupVC {
         } + 30.scaled
         
         let p = 40.scaled
-        let w = (view.width - p * 3.0)/2.0
+        let w = (width - p * 3.0)/2.0
         
         mCancel.frame = CGRect(x: p, y: y, width: w, height: Style.Dims.buttonMiddle)
         mImport.frame = CGRect(x: mCancel.maxX + p, y: mCancel.minY, width: w, height: mCancel.height)

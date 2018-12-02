@@ -11,7 +11,7 @@ import UIKit
 
 class ContractView: UIView {
     
-    private let mCaption = UILabel.new(font: UIFont.hnMedium(18.scaled), lines: 0, color: .black, alignment: .center)
+    private let mCaption = UILabel.new(font: UIFont.medium(18.scaled), lines: 0, color: .black, alignment: .center)
     
     private let mList = UILabel().apply({
         $0.numberOfLines = 0
@@ -34,12 +34,12 @@ class ContractView: UIView {
         
         let text = contract.params
         if text.count > 0 {
-            mList.attributedText = NSAttributedString(string: text, attributes: [.font: UIFont.hnRegular(18.scaled),
+            mList.attributedText = NSAttributedString(string: text, attributes: [.font: UIFont.regular(18.scaled),
                                                                                  .foregroundColor: UIColor.black,
                                                                                  .paragraphStyle: p])
         } else {
             p.alignment = .center
-            mList.attributedText = NSAttributedString(string: "\("no_params".loc)\n\n", attributes: [.font: UIFont.hnRegular(18.scaled),
+            mList.attributedText = NSAttributedString(string: "\("no_params".loc)\n\n", attributes: [.font: UIFont.regular(18.scaled),
                                                                                                      .foregroundColor: UIColor.black,
                                                                                                      .paragraphStyle: p])
         }

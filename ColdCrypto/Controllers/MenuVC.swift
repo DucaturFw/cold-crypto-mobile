@@ -64,7 +64,7 @@ class MenuVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
         MenuCell.register(in: $0)
     })
     
-    private let mInfo = UILabel.new(font: .pro(12.scaled), lines: 1, color: Style.Colors.black.alpha(0.5), alignment: .center).apply({
+    private let mInfo = UILabel.new(font: .regular(12.scaled), lines: 1, color: Style.Colors.black.alpha(0.5), alignment: .center).apply({
         $0.text = "ColdCrypto \(AppDelegate.version ?? "0.0").\(AppDelegate.build ?? "0")"
     })
     
@@ -75,7 +75,8 @@ class MenuVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
         view.addSubview(mReset)
         view.addSubview(mInfo)
         mReset.click = { [weak self] in
-            Alert("sure_reset".loc).put("reset_no".loc)
+            AlertVC("sure_reset".loc, style: .alert)
+                .put("reset_no".loc)
                 .put("reset_yes".loc, color: Style.Colors.red, do: { [weak self] _ in
                     self?.dismiss(animated: true, completion: nil)
                     AppDelegate.resetWallet()

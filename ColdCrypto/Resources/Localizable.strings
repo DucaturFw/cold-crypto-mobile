@@ -51,14 +51,14 @@
 "about" = "About";
 "reset" = "Reset wallets";
 "sure_reset" = "You can lose your account and funds forever.\n\nDon't reset if you didn't make a backup, as there will be no way to restore your account after that. Resetting wallet will remove all keys saved in the local vault and bring you back to the app's start screen.";
-"reset_yes" = "Reset wallet";
+"reset_yes" = "Reset";
 "reset_no" = "Cancel";
 "select_wallet" = "Select the desired wallet";
 "use" = "USE";
 "no_wallets" = "You have no wallets\nfor selected blockchain";
 
 "sure_delete" = "You can lose your wallet and funds on it forever.\nDon't delete it if you didn't make a backup, as there will be no way to restore your wallet after deletion without backup. Deleting wallet will remove all keys saved in the local vault.";
-"delete_yes" = "Delete wallet";
+"delete_yes" = "Delete";
 "delete_no" = "Cancel";
 
 "import_seed_phrase" = "Import a seed phrase";
@@ -71,10 +71,10 @@
 "incorrect_key" = "Incorrect private key";
 "ok" = "OK";
 "share" = "Share";
-"rec_phrsae" = "Here's your recovery phrase:";
-"rec_hint" = "Resist temptation to email it to yourself or screenshot it. You will thank yourself later.\nThe order of words is important too!";
-"done"  = "DONE";
-"close" = "CLOSE";
+"rec_phrsae" = "Your recovery phrase";
+"rec_hint" = "Resist temptation to email it to yourself or screenshot it. You will thank yourself later. The order of words is important too!";
+"done"  = "Done";
+"close" = "Close";
 "invalid" = "The contract invocation\nis not valid";
 "cant_signed" = "Can't sign this transaction.";
 "no_params" = "Without parameters";

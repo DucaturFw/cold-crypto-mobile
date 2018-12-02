@@ -10,8 +10,8 @@ import UIKit
 
 class ETHForm: UIView, UITextFieldDelegate {
     
-    private let mCaption = UILabel.new(font: UIFont.proMedium(25.scaled), text: "enter_seed_pk".loc, lines: 0, color: Style.Colors.black, alignment: .center)
-    private let mMiddle  = UILabel.new(font: UIFont.proMedium(25.scaled), text: "or".loc, lines: 0, color: Style.Colors.black, alignment: .center)
+    private let mCaption = UILabel.new(font: UIFont.medium(25.scaled), text: "enter_seed_pk".loc, lines: 0, color: Style.Colors.black, alignment: .center)
+    private let mMiddle  = UILabel.new(font: UIFont.medium(25.scaled), text: "or".loc, lines: 0, color: Style.Colors.black, alignment: .center)
 
     private lazy var mField  = UITextField().apply({ [weak self] in
         $0.returnKeyType = .done
@@ -23,7 +23,7 @@ class ETHForm: UIView, UITextFieldDelegate {
         $0.delegate = self
         $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         $0.leftViewMode = .always
-        $0.font = UIFont.proMedium(13)
+        $0.font = UIFont.medium(13)
         $0.textColor = Style.Colors.black
         $0.addTarget(self, action: #selector(changed), for: .editingChanged)
     })
@@ -70,7 +70,7 @@ class ETHForm: UIView, UITextFieldDelegate {
         })
         mField.rightViewMode = .always
         mField.attributedPlaceholder = NSAttributedString(string: "your_pk".loc,
-                                                                attributes: [.font: UIFont.proMedium(13), .foregroundColor: Style.Colors.darkLight])
+                                                                attributes: [.font: UIFont.medium(13), .foregroundColor: Style.Colors.darkLight])
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -24,7 +24,7 @@ class ConfirmationVC: PopupVC {
     
     private let mArrow = UIImageView(image: UIImage(named: "arrowDown"))
     
-    private let mName = UILabel.new(font: UIFont.proMedium(25.scaled), text: "verify".loc, lines: 0, color: Style.Colors.black, alignment: .left)
+    private let mName = UILabel.new(font: UIFont.medium(25.scaled), text: "verify".loc, lines: 0, color: Style.Colors.black, alignment: .left)
     private let mOnConfirm: ()->Void
     private let mAddress: Checkbox
     private let mAmount: Checkbox
@@ -69,13 +69,13 @@ class ConfirmationVC: PopupVC {
     }
     
     override func doLayout() -> CGFloat {
-        mArrow.origin  = CGPoint(x: (view.width - mArrow.width)/2.0, y: 40.scaled)
-        mName.origin   = CGPoint(x: (view.width - mName.width)/2.0, y: mArrow.maxY + 40.scaled)
-        mAddress.frame = CGRect(x: 40.scaled, y: mName.maxY + 40.scaled, width: view.width - 80.scaled, height: 80.scaled)
+        mArrow.origin  = CGPoint(x: (width - mArrow.width)/2.0, y: 40.scaled)
+        mName.origin   = CGPoint(x: (width - mName.width)/2.0, y: mArrow.maxY + 40.scaled)
+        mAddress.frame = CGRect(x: 40.scaled, y: mName.maxY + 40.scaled, width: width - 80.scaled, height: 80.scaled)
         mAmount.frame  = CGRect(x: 40.scaled, y: mAddress.maxY + 50.scaled, width: mAddress.width, height: 80.scaled)
         
         let p = 40.scaled
-        let w = (view.width - p * 3.0)/2.0
+        let w = (width - p * 3.0)/2.0
 
         mDecline.frame = CGRect(x: p, y: mAmount.maxY + p, width: w, height: Style.Dims.buttonMiddle)
         mConfirm.frame = CGRect(x: mDecline.maxX + p, y: mDecline.minY, width: mDecline.width, height: mDecline.height)

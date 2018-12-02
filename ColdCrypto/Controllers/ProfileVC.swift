@@ -9,7 +9,7 @@
 import QRCode
 import UIKit
 
-class ProfileVC: UIViewController, Signer, ImportDelegate {
+class ProfileVC: UIViewController, Signer, ImportDelegate, RTCDelegate {
 
     private var mWebRTC: RTC? = nil
     
@@ -72,6 +72,10 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     
     private var mActiveWallet: IWallet? {
         didSet {
+            if mActiveWallet == nil {
+                mWebRTC?.close()
+                mWebRTC = nil
+            }
             if let nb = navigationController?.navigationBar {
                 nb.transform = CGAffineTransform(translationX: 0, y: mActiveWallet == nil ? 0 : -(nb.height + AppDelegate.statusHeight))
             }
@@ -106,7 +110,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         }
         mScan.onReceive = { [weak self] in
             if let w = self?.mActiveWallet {
-                self?.show(qr: w.address)
+                self?.show(qr: w.address, share: true)
             }
         }
     }
@@ -174,14 +178,23 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         return true
     }
     
-    private func show(qr text: String) {
+    private func show(qr text: String, share: Bool = false) {
         guard var qr = QRCode(text) else { return }
         qr.size = CGSize(width: 300, height: 300)
-        Alert(view: AlertImage(image: qr.image)).show()
+        let vc = AlertVC(view: AlertImage(image: qr.image), arrow: true)
+        if share {
+            vc.put("share".loc) { _ in
+                AppDelegate.share(image: qr.image, text: text)
+            }
+        } else {
+            vc.put("ok".loc)
+        }
+        vc.show()
     }
     
     private func delete(wallet: IWallet) {
-        Alert("sure_delete".loc).put("delete_no".loc)
+        AlertVC("sure_delete".loc, style: .alert)
+            .put("delete_no".loc)
             .put("delete_yes".loc, color: Style.Colors.red, do: { [weak self] _ in
                 self?.sureDelete(wallet: wallet)
             }).show()
@@ -206,32 +219,17 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     }
     
     private func backup(wallet: IWallet) {
-        present(CheckCodeVC(passcode: mPasscode, authAtStart: true, onSuccess: { [weak self] vc in
-            vc.dismiss(animated: true, completion: { [weak self] in
+        present(CheckCodeVC(passcode: mPasscode, authAtStart: true, onSuccess: { vc in
+            vc.dismiss(animated: true, completion: {
                 if let seed = wallet.seed {
-                    self?.backup(seed: seed)
+                    BackupVC(seed: seed).show()
                 } else {
-                    self?.backup(pk: wallet.privateKey)
+                    BackupVC(pk: wallet.privateKey)?.show()
                 }
             })
         }).apply({
             $0.hintText = "confirm_hint".loc
         }).inNC, animated: true, completion: nil)
-    }
-    
-    private func backup(seed: String) {
-        present(BackupVC(seed: seed), animated: true, completion: nil)
-    }
-    
-    private func backup(pk: String) {
-        guard var qr = QRCode(pk) else { return }
-        qr.size = CGSize(width: 300, height: 300)
-        Alert(view: AlertImage(image: qr.image))
-            .put(negative: "ok".loc)
-            .put("share".loc, do: { [weak self] _ in
-                self?.share(image: qr.image, text: pk)
-            })
-            .show()
     }
     
     @objc private func close() {
@@ -246,14 +244,42 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
                 completion: nil)
     }
     
-    private func share(image: UIImage?, text: String) {
-        var shareItems: [Any] = [text]
-        if let i = image {
-            shareItems.append(i)
+    private var mHUD: HUD?
+    private var mCount: Int = 0
+    
+    private func hideHUD() {
+        DispatchQueue.main.async {
+            if self.mCount > 0 {
+                self.mCount -= 1
+            }
+            if self.mCount == 0 {
+                self.mHUD?.hide(animated: true)
+                self.mHUD = nil
+            }
         }
-        present(UIActivityViewController(activityItems: shareItems, applicationActivities: nil), animated: true, completion: nil)
     }
     
+    private func showHUD() {
+        DispatchQueue.main.async {
+            if self.mCount == 0 {
+                self.mCount += 1
+            }
+            if self.mHUD == nil {
+                self.mHUD = HUD.show()
+            }
+        }
+    }
+    
+    // MARK:- RTCDelegate methods
+    // -------------------------------------------------------------------------
+    func onConnection(rtc: RTC, status: RTC.State) {
+        if status == .start {
+            showHUD()
+        } else {
+            hideHUD()
+        }
+    }
+
     // MARK: - Signer methods
     // -------------------------------------------------------------------------
     @discardableResult
@@ -284,7 +310,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
                     self?.dismiss(animated: true, completion: nil)
                     completion("|\(id)|\"\(s)\"")
                 } else {
-                    Alert("cant_signed".loc).show()
+                    AlertVC("cant_signed".loc).show()
                 }
             }), animated: true, completion: nil)
         }
@@ -326,7 +352,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
                             completion("|\(id)|\"\(tx)\"")
                         }
                     } else {
-                        Alert("Can't pay").show()
+                        AlertVC("Can't pay").show()
                     }
                 })
             })
@@ -387,13 +413,6 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         mProfile.addWallet(wallet: wallet)
         Settings.profile = mProfile
         mView.add(wallet: wallet)
-    }
-    
-    func setTop(visible: Bool) {
-        UIView.animate(withDuration: 0.25, animations: {
-            self.mLeftMenu.alpha = visible ? 1.0 : 0.0
-            self.mRightAdd.alpha = self.mLeftMenu.alpha
-        })
     }
     
 }

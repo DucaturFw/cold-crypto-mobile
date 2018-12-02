@@ -30,7 +30,7 @@ class Button : UIButton {
         super.init(frame: frame)
         layer.cornerRadius = 20.scaled
         setTitleColor(Style.Colors.white, for: .normal)
-        titleLabel?.font = .proMedium(15.scaled)
+        titleLabel?.font = .medium(15.scaled)
         addTarget(self, action: #selector(clicked), for: .touchUpInside)
     }
     

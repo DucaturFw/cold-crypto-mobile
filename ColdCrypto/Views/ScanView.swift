@@ -48,28 +48,14 @@ class ScanView : UIView {
     }
     
     private var side: CGFloat {
-        return min(width, height) - 40.0
+        return min(width, height) - 10.0
     }
     
     override func draw(_ rect: CGRect) {
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
-
-        ctx.setFillColor(UIColor.black.alpha(0.3).cgColor)
-        ctx.fill(bounds)
-
-        
-
         let p = UIBezierPath(roundedRect: CGRect(x: (width - side)/2.0, y: (height - side)/2.0, width: side, height: side),
                              byRoundingCorners: UIRectCorner.allCorners,
                              cornerRadii: CGSize(width: 6.0, height: 6.0))
-
-        ctx.addPath(p.cgPath)
-
-        ctx.saveGState()
-        ctx.setBlendMode(CGBlendMode.clear)
-        ctx.drawPath(using: CGPathDrawingMode.fill)
-        ctx.restoreGState()
-
         ctx.addPath(p.cgPath)
         ctx.setStrokeColor(Style.Colors.blue.cgColor)
         ctx.setLineWidth(2)

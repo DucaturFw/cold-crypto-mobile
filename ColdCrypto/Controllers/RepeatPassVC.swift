@@ -15,7 +15,7 @@ class RepeatPassVC: UIViewController {
         $0.contentMode = .scaleAspectFill
     })
     
-    private lazy var mCancel = UILabel.new(font: UIFont.hnMedium(18.scaled),
+    private lazy var mCancel = UILabel.new(font: UIFont.medium(18.scaled),
                                            text: "back".loc,
                                            lines: 1,
                                            color: Style.Colors.blue,
@@ -29,7 +29,7 @@ class RepeatPassVC: UIViewController {
         self?.navigationController?.popViewController(animated: true)
     })
     
-    private lazy var mNext = UILabel.new(font: UIFont.hnMedium(18.scaled),
+    private lazy var mNext = UILabel.new(font: UIFont.medium(18.scaled),
                                          text: "next".loc,
                                          lines: 1,
                                          color: Style.Colors.blue,
@@ -45,15 +45,15 @@ class RepeatPassVC: UIViewController {
                                             }
                                          })
     
-    private let mCaption = UILabel.new(font: UIFont.hnBold(36.scaled), text: "type_pass".loc, lines: 0, color: Style.Colors.blue, alignment: .left)
+    private let mCaption = UILabel.new(font: UIFont.bold(36.scaled), text: "type_pass".loc, lines: 0, color: Style.Colors.blue, alignment: .left)
     
-    private let mHint = UILabel.new(font: UIFont.hnMedium(20.scaled), text: "rest_pass".loc, lines: 0, color: .black, alignment: .left)
+    private let mHint = UILabel.new(font: UIFont.medium(20.scaled), text: "rest_pass".loc, lines: 0, color: .black, alignment: .left)
     
     private let mField = UITextField().apply({
-        $0.font = UIFont.hnRegular(20.scaled)
+        $0.font = UIFont.regular(20.scaled)
         $0.textColor = Style.Colors.white
         $0.attributedPlaceholder = NSAttributedString(string: "pass_placeholder".loc,
-                                                      attributes: [.font : UIFont.hnRegular(20.scaled),
+                                                      attributes: [.font : UIFont.regular(20.scaled),
                                                                    .foregroundColor: Style.Colors.white.alpha(0.5)])
         $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 18.scaled, height: 0))
         $0.leftViewMode = .always
@@ -65,7 +65,7 @@ class RepeatPassVC: UIViewController {
         $0.isSecureTextEntry = true
     })
     
-    private let mBottom = UILabel.new(font: UIFont.hnRegular(18.scaled), text: "repeat_pass_bot".loc, lines: 0, color: 0x9B9B9B.color, alignment: .left)
+    private let mBottom = UILabel.new(font: UIFont.regular(18.scaled), text: "repeat_pass_bot".loc, lines: 0, color: 0x9B9B9B.color, alignment: .left)
     
     private let mPassword: String
     private let mPasscode: String

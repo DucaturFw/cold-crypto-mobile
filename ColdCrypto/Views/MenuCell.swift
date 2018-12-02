@@ -10,7 +10,7 @@ import UIKit
 
 class MenuCell: UITableViewCell {
     
-    private let mName = UILabel.new(font: .proMedium(18.scaled),
+    private let mName = UILabel.new(font: .medium(18.scaled),
                                     lines: 1,
                                     color: Style.Colors.black,
                                     alignment: .left)

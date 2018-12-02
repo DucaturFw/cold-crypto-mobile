@@ -27,7 +27,7 @@ class NumberPad: UIView {
         var tmp: [Button] = []
         for i in 0...9 {
             let key = Button(frame: CGRect(x: (i == 9 ? 1 : CGFloat(i % 3)) * 100.scaled, y: CGFloat(i / 3) * 100.scaled, width: 78.scaled, height: 78.scaled))
-            key.titleLabel?.font = .pro(36.scaled)
+            key.titleLabel?.font = .regular(36.scaled)
             key.setTitleColor(Style.Colors.black, for: .normal)
             key.setTitle("\((i+1)%10)", for: .normal)
             key.backgroundColor = Style.Colors.white

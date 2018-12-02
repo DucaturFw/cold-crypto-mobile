@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().barTintColor  = Style.Colors.white
         UINavigationBar.appearance().titleTextAttributes = [
-            .font : UIFont.proMedium(18.scaled),
+            .font : UIFont.medium(18.scaled),
             .foregroundColor: Style.Colors.black
         ]
         
@@ -103,6 +103,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
+    }
+    
+    static func share(image: UIImage?, text: String) {
+        var shareItems: [Any] = [text]
+        if let i = image {
+            shareItems.append(i)
+        }
+        let vc = (UIApplication.shared.delegate as? AppDelegate)?.window?.rootViewController
+        vc?.present(UIActivityViewController(activityItems: shareItems,
+                                             applicationActivities: nil),
+                    animated: true,
+                    completion: nil)
     }
 
 }

@@ -10,7 +10,7 @@ import UIKit
 
 class CodeVC : UIViewController {
     
-    private let mHint = UILabel.new(font: .proMedium(15.scaled),
+    private let mHint = UILabel.new(font: .medium(15.scaled),
                                     text: "cretae_hint".loc,
                                     lines: 0,
                                     color: Style.Colors.black.alpha(0.5),
@@ -60,7 +60,7 @@ class CodeVC : UIViewController {
     internal func authComplete() {
         let type = mAuth.authType
         if Settings.useBio == nil && type != .none {
-            Alert((type == .face ? "ask_use_face" : "ask_use_touch").loc)
+            AlertVC((type == .face ? "ask_use_face" : "ask_use_touch").loc)
                 .put(negative: "no".loc, do: { [weak self] a in
                     Settings.useBio = false
                     self?.moveNext()

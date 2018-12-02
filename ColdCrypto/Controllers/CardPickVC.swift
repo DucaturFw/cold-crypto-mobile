@@ -15,7 +15,7 @@ class CardPickVC: PopupVC {
         return mDrag
     }
     
-    private let mCaption = UILabel.new(font: UIFont.hnMedium(24.scaled), text: "select_wallet".loc, lines: 0, color: .black, alignment: .center)
+    private let mCaption = UILabel.new(font: UIFont.medium(24.scaled), text: "select_wallet".loc, lines: 0, color: .black, alignment: .center)
     
     private let mDecline = Button().apply({
         $0.setTitleColor(Style.Colors.white, for: .normal)

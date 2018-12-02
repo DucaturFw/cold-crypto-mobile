@@ -10,7 +10,6 @@
 		A4C7EEFDE2D214A0BE9F822B /* Pods_ColdCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B511BE577741365521F8A2AA /* Pods_ColdCrypto.framework */; };
 		EB0B1CFD21B088710037C594 /* JTHamburgerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0B1CFB21B088710037C594 /* JTHamburgerButton.m */; };
 		EB1A0BF0218A27D300C43E72 /* CardsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1A0BEF218A27D300C43E72 /* CardsList.swift */; };
-		EB1F3B952198ABC40052E5A7 /* IAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B942198ABC40052E5A7 /* IAlertView.swift */; };
 		EB1F3B972198B1D60052E5A7 /* AlertImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B962198B1D60052E5A7 /* AlertImage.swift */; };
 		EB1F3B992198CAEF0052E5A7 /* BackupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B982198CAEF0052E5A7 /* BackupVC.swift */; };
 		EB1F3B9B2198D07F0052E5A7 /* SeedWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B9A2198D07F0052E5A7 /* SeedWord.swift */; };
@@ -19,6 +18,7 @@
 		EB2676D621B41343003B254F /* ImportWalletVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2676D521B41343003B254F /* ImportWalletVC.swift */; };
 		EB2676D821B41E91003B254F /* ETHForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2676D721B41E91003B254F /* ETHForm.swift */; };
 		EB2676DD21B43980003B254F /* EOSForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2676DC21B43980003B254F /* EOSForm.swift */; };
+		EB2676DF21B4731E003B254F /* BackupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2676DE21B4731E003B254F /* BackupView.swift */; };
 		EB26C31C21924083005D3525 /* CardPickVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB26C31B21924083005D3525 /* CardPickVC.swift */; };
 		EB2F617A21ABE7EB0029219A /* eos.js in Resources */ = {isa = PBXBuildFile; fileRef = EB2F617921ABE7EB0029219A /* eos.js */; };
 		EB2F617C21ABE8030029219A /* EOSUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F617B21ABE8030029219A /* EOSUtils.swift */; };
@@ -75,7 +75,7 @@
 		EBA593D8217A8CA300F3CB65 /* BioAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593D7217A8CA300F3CB65 /* BioAuth.swift */; };
 		EBA593DA217A8CB500F3CB65 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */; };
 		EBA593DE217A8CDC00F3CB65 /* NumberPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */; };
-		EBA593E0217A8D1900F3CB65 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DF217A8D1900F3CB65 /* Alert.swift */; };
+		EBA593E0217A8D1900F3CB65 /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DF217A8D1900F3CB65 /* AlertVC.swift */; };
 		EBAC21C221A5C774002CF61B /* abi.js in Resources */ = {isa = PBXBuildFile; fileRef = EBAC21C121A5C774002CF61B /* abi.js */; };
 		EBAC21C421A5C78E002CF61B /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBAC21C321A5C78E002CF61B /* JavaScriptCore.framework */; };
 		EBAC21C621A5C7AA002CF61B /* ETHabi.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAC21C521A5C7AA002CF61B /* ETHabi.swift */; };
@@ -93,7 +93,6 @@
 		EBD4FCC82190BBBF0080D1A9 /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4FCC72190BBBF0080D1A9 /* PopAnimator.swift */; };
 		EBD4FCCA2190BFC20080D1A9 /* IPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4FCC92190BFC20080D1A9 /* IPopover.swift */; };
 		EBD4FCCC2190D4D50080D1A9 /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD4FCCB2190D4D50080D1A9 /* PopupVC.swift */; };
-		EBDB8847219742B3000AF045 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDB8846219742B3000AF045 /* Field.swift */; };
 		EBDB884F21974500000AF045 /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDB884E21974500000AF045 /* Sheet.swift */; };
 		EBDB885D21976AC1000AF045 /* IWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDB885C21976AC1000AF045 /* IWallet.swift */; };
 		EBDCD55C217FD85E00B6EF5B /* ConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */; };
@@ -228,7 +227,6 @@
 		EB0B1CFB21B088710037C594 /* JTHamburgerButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTHamburgerButton.m; sourceTree = "<group>"; };
 		EB0B1CFC21B088710037C594 /* JTHamburgerButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTHamburgerButton.h; sourceTree = "<group>"; };
 		EB1A0BEF218A27D300C43E72 /* CardsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsList.swift; sourceTree = "<group>"; };
-		EB1F3B942198ABC40052E5A7 /* IAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAlertView.swift; sourceTree = "<group>"; };
 		EB1F3B962198B1D60052E5A7 /* AlertImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertImage.swift; sourceTree = "<group>"; };
 		EB1F3B982198CAEF0052E5A7 /* BackupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupVC.swift; sourceTree = "<group>"; };
 		EB1F3B9A2198D07F0052E5A7 /* SeedWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedWord.swift; sourceTree = "<group>"; };
@@ -237,6 +235,7 @@
 		EB2676D521B41343003B254F /* ImportWalletVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWalletVC.swift; sourceTree = "<group>"; };
 		EB2676D721B41E91003B254F /* ETHForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHForm.swift; sourceTree = "<group>"; };
 		EB2676DC21B43980003B254F /* EOSForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EOSForm.swift; sourceTree = "<group>"; };
+		EB2676DE21B4731E003B254F /* BackupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupView.swift; sourceTree = "<group>"; };
 		EB26C31B21924083005D3525 /* CardPickVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPickVC.swift; sourceTree = "<group>"; };
 		EB2F617921ABE7EB0029219A /* eos.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = eos.js; sourceTree = "<group>"; };
 		EB2F617B21ABE8030029219A /* EOSUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EOSUtils.swift; sourceTree = "<group>"; };
@@ -293,7 +292,7 @@
 		EBA593D7217A8CA300F3CB65 /* BioAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BioAuth.swift; sourceTree = "<group>"; };
 		EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberPad.swift; sourceTree = "<group>"; };
-		EBA593DF217A8D1900F3CB65 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		EBA593DF217A8D1900F3CB65 /* AlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
 		EBAC21C121A5C774002CF61B /* abi.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = abi.js; sourceTree = "<group>"; };
 		EBAC21C321A5C78E002CF61B /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EBAC21C521A5C7AA002CF61B /* ETHabi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHabi.swift; sourceTree = "<group>"; };
@@ -311,7 +310,6 @@
 		EBD4FCC72190BBBF0080D1A9 /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
 		EBD4FCC92190BFC20080D1A9 /* IPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPopover.swift; sourceTree = "<group>"; };
 		EBD4FCCB2190D4D50080D1A9 /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
-		EBDB8846219742B3000AF045 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		EBDB884E21974500000AF045 /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
 		EBDB885C21976AC1000AF045 /* IWallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IWallet.swift; sourceTree = "<group>"; };
 		EBDCD55B217FD85E00B6EF5B /* ConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationVC.swift; sourceTree = "<group>"; };
@@ -445,16 +443,6 @@
 			path = Hamburger;
 			sourceTree = "<group>";
 		};
-		EB1F3B912198AB8A0052E5A7 /* Alert */ = {
-			isa = PBXGroup;
-			children = (
-				EBA593DF217A8D1900F3CB65 /* Alert.swift */,
-				EB1F3B942198ABC40052E5A7 /* IAlertView.swift */,
-				EB1F3B962198B1D60052E5A7 /* AlertImage.swift */,
-			);
-			path = Alert;
-			sourceTree = "<group>";
-		};
 		EB5529F421A5EE5B00EB11ED /* Contract */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,6 +465,7 @@
 		EB74B437217C7599006AE00F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				EBA593DF217A8D1900F3CB65 /* AlertVC.swift */,
 				EBA593D1217A8BFE00F3CB65 /* AuthVC.swift */,
 				EB1F3B982198CAEF0052E5A7 /* BackupVC.swift */,
 				EB26C31B21924083005D3525 /* CardPickVC.swift */,
@@ -526,7 +515,6 @@
 				EBEDA2B821AB56CE004FCB75 /* AccountPicker */,
 				EBEDA21F21AB4264004FCB75 /* ChainPicker */,
 				EB5529F421A5EE5B00EB11ED /* Contract */,
-				EB1F3B912198AB8A0052E5A7 /* Alert */,
 				EBA593B2217A84A000F3CB65 /* ScanView.swift */,
 				EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */,
 				EBB15F862184EEF600F6370E /* CodeView.swift */,
@@ -535,12 +523,13 @@
 				EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */,
 				EB3F8AFD218357D5004E6CFB /* WalletCell.swift */,
 				EB1A0BEF218A27D300C43E72 /* CardsList.swift */,
+				EB1F3B962198B1D60052E5A7 /* AlertImage.swift */,
 				EBD0B12E218E3D9A00FD1B37 /* MenuCell.swift */,
-				EBDB8846219742B3000AF045 /* Field.swift */,
 				EBDB884E21974500000AF045 /* Sheet.swift */,
 				EB1F3B9A2198D07F0052E5A7 /* SeedWord.swift */,
 				EB2676D721B41E91003B254F /* ETHForm.swift */,
 				EB2676DC21B43980003B254F /* EOSForm.swift */,
+				EB2676DE21B4731E003B254F /* BackupView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1233,7 +1222,7 @@
 				EBEDA2A321AB4FF3004FCB75 /* ChainRouter.swift in Sources */,
 				EBEDA29621AB4FF3004FCB75 /* base58.c in Sources */,
 				EBEDA28D21AB4FF3004FCB75 /* sha2.c in Sources */,
-				EBA593E0217A8D1900F3CB65 /* Alert.swift in Sources */,
+				EBA593E0217A8D1900F3CB65 /* AlertVC.swift in Sources */,
 				EBA593BE217A88EF00F3CB65 /* ETHNet.swift in Sources */,
 				EB2676D421B313B5003B254F /* Group.swift in Sources */,
 				EBEDA2B721AB561F004FCB75 /* AccountPicker.swift in Sources */,
@@ -1243,14 +1232,13 @@
 				EB2F618421AC13950029219A /* ETHContract.swift in Sources */,
 				EBEDA29221AB4FF3004FCB75 /* ripemd160.c in Sources */,
 				EBDCD55C217FD85E00B6EF5B /* ConfirmationVC.swift in Sources */,
-				EB1F3B952198ABC40052E5A7 /* IAlertView.swift in Sources */,
 				EBEDA28B21AB4FF3004FCB75 /* bip39.c in Sources */,
-				EBDB8847219742B3000AF045 /* Field.swift in Sources */,
 				EBAC21C621A5C7AA002CF61B /* ETHabi.swift in Sources */,
 				EB2676DD21B43980003B254F /* EOSForm.swift in Sources */,
 				EB2676CD21B3008B003B254F /* CardProvider.swift in Sources */,
 				EBC9F78421822FC000150883 /* ApiMessage.swift in Sources */,
 				EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */,
+				EB2676DF21B4731E003B254F /* BackupView.swift in Sources */,
 				EB1F3B992198CAEF0052E5A7 /* BackupVC.swift in Sources */,
 				EBEDA2B021AB4FF3004FCB75 /* SEWallet.swift in Sources */,
 				EB976CEC217BA6CE00B8DC95 /* ApiParamsWallet.swift in Sources */,

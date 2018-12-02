@@ -10,6 +10,38 @@ import UIKit
 
 class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover {
     
+    enum PresentationStyle {
+        case alert, sheet
+    }
+    
+    class EmptyVC: UIViewController {
+        
+        private weak var mParent: UIViewController?
+        
+        override var preferredStatusBarStyle: UIStatusBarStyle {
+            return mParent?.preferredStatusBarStyle ?? .lightContent
+        }
+        
+        init(_ vc: UIViewController) {
+            super.init(nibName: nil, bundle: nil)
+            mParent = vc
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            return nil
+        }
+        
+    }
+    
+    private var alertWindow: UIWindow?
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        alertWindow?.removeFromSuperview()
+        alertWindow?.isHidden = true
+        alertWindow = nil
+    }
+    
     private lazy var mTransition = PopAnimator(root: self)
     
     private var mCloseAnimation = false
@@ -18,11 +50,30 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         return .lightContent
     }
     
+    @objc func hide() {
+        dismiss(animated: true, completion: nil)
+    }
+
+    func show() {
+        guard let w = UIApplication.shared.windows.first else { return }
+        show(in: w)
+    }
+    
+    func show(in window: UIView) {
+        if alertWindow != nil { return }
+        alertWindow = UIWindow(frame: UIScreen.main.bounds)
+        alertWindow?.layer.cornerRadius  = 10.scaled
+        alertWindow?.layer.masksToBounds = true
+        alertWindow?.rootViewController  = EmptyVC(self)
+        alertWindow?.windowLevel = UIWindow.Level(rawValue: (UIApplication.shared.windows.last?.windowLevel.rawValue ?? 0.0) + 1.0)
+        alertWindow?.makeKeyAndVisible()
+        alertWindow?.rootViewController?.present(self, animated: true, completion: nil)
+    }
+    
     private let mContent = UIView().apply({
         $0.backgroundColor = Style.Colors.white
-        $0.clipsToBounds = true
         $0.layer.cornerRadius = 14.scaled
-        $0.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
+        $0.clipsToBounds = true
     })
     
     var content: UIView {
@@ -33,13 +84,23 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         return true
     }
     
-    var topGap: CGFloat {
-        return 80
+    var width: CGFloat {
+        return style == .sheet ? view.width : 300
     }
     
     private let mBlur: UIVisualEffectView = UIVisualEffectView(effect: nil)
 
     private var mAnimator = UIViewPropertyAnimator()
+    
+    var style: PresentationStyle = .sheet {
+        didSet {
+            if style == .sheet {
+                mContent.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
+            } else {
+                mContent.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            }
+        }
+    }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -106,8 +167,15 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         let trans = mContent.transform
         mContent.transform = .identity
         let size = doLayout()
-        let vert = min(view.height - topGap, size)
-        mContent.frame = CGRect(x: 0, y: view.height - vert, width: view.width, height: vert + 100)
+        
+        if style == .sheet {
+            let vert = min(view.height - 80, size) + AppDelegate.bottomGap
+            mContent.frame = CGRect(x: (view.width - width)/2.0, y: view.height - vert, width: width, height: vert + 100)
+        } else {
+            let vert = min(view.height, size)
+            mContent.frame = CGRect(x: (view.width - width)/2.0, y: (view.height - vert)/2.0, width: width, height: vert)
+        }
+
         mContent.transform = trans
     }
     

@@ -13,31 +13,27 @@ class ScannerVC: PopupVC, AVCaptureMetadataOutputObjectsDelegate {
     
     private let captureSession = AVCaptureSession()
     
-    private lazy var previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
+    private lazy var preview = AVCaptureVideoPreviewLayer(session: self.captureSession)
 
     var onFound: (String)->Void = { privKey in }
     
     private let mOverlay = ScanView()
     
-    private let mHint = UILabel.new(font: UIFont.hnRegular(18.scaled), text: "scan_hint".loc, lines: 0, color: .black, alignment: .left)
-    
-    private lazy var mClose = UIImageView(image: UIImage(named: "scanClose")).apply {
-        $0.contentMode = .center
-        $0.frame = $0.frame.insetBy(dx: -20, dy: -20)
-    }.tap({ [weak self] in
-        self?.dismiss(animated: true, completion: nil)
-    })
+    private let mArrow = UIImageView(image: UIImage(named: "arrowDown"))
+    private let mHint = UILabel.new(font: UIFont.medium(15.scaled), text: "scan_hint".loc, lines: 0, color: .black, alignment: .left)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        previewLayer.videoGravity = .resizeAspectFill
-        previewLayer.backgroundColor = UIColor.black.cgColor
-        content.layer.addSublayer(previewLayer)
-        content.addSubview(mClose)
+        preview.videoGravity  = .resizeAspectFill
+        preview.cornerRadius  = 6.0
+        preview.masksToBounds = true
+        preview.backgroundColor = UIColor.black.cgColor
+        
+        content.layer.addSublayer(preview)
         content.addSubview(mHint)
         content.addSubview(mOverlay)
-        mClose.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ScannerVC.close)))
-
+        content.addSubview(mArrow)
+        
         if AVCaptureDevice.authorizationStatus(for: .video) == .authorized {
             request()
         } else {
@@ -81,19 +77,15 @@ class ScannerVC: PopupVC, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
 
-    override func doLayout() -> CGFloat {
-        let width  = view.width
-        previewLayer.frame = CGRect(x: 0, y: 0, width: width, height: width / 376.0 * 275.0)
-
-        let s = previewLayer.frame.height
-        let c = CGPoint(x: width/2.0, y: previewLayer.frame.height/2.0)
-        mOverlay.frame = CGRect(x: 0, y: c.y - s/2.0, width: width, height: s)
+    override func doLayout() -> CGFloat {        
+        mArrow.origin  = CGPoint(x: (width - mArrow.width)/2.0, y: 40.scaled)
+        preview.frame  = CGRect(x: (width - 300.scaled)/2.0, y: mArrow.maxY + 40.scaled, width: 300.scaled, height: 300.scaled)
+        mOverlay.frame = preview.frame.insetBy(dx: -5, dy: -5)
         
         let w = width - 36.scaled
-        mHint.frame = CGRect(x: 18.scaled, y: previewLayer.frame.maxY + 33.scaled,
+        mHint.frame = CGRect(x: 18.scaled, y: preview.frame.maxY + 33.scaled,
                              width: w, height: mHint.text?.heightFor(width: w, font: mHint.font) ?? 0)
-        mClose.origin = CGPoint(x: (width - mClose.width)/2.0, y: mHint.maxY)
-        return mClose.maxY
+        return mHint.maxY + 30.scaled
     }
     
     override func viewWillAppear(_ animated: Bool) {

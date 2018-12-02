@@ -12,7 +12,7 @@ class AccountCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        textLabel?.font = UIFont.pro(15)
+        textLabel?.font = UIFont.regular(15)
         textLabel?.highlightedTextColor = Style.Colors.blue
         selectedBackgroundView = UIView()
     }

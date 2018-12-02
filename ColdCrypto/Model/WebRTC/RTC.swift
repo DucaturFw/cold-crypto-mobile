@@ -9,18 +9,26 @@
 import Foundation
 import WebRTC
 
+protocol RTCDelegate: class {
+    func onConnection(rtc: RTC, status: RTC.State)
+}
+
 class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelDelegate {
+    
+    enum State {
+        case start, stop, success
+    }
     
     private let signalClient: SignalClient
     private let webRTCClient = WebRTCClient()
     
     private let mSID: String
     
-    private weak var mDelegate: Signer?
+    private weak var mDelegate: (Signer & RTCDelegate)?
     
     private var mChannel: RTCDataChannel?
     
-    init(url: URL, sid: String, delegate: Signer) {
+    init(url: URL, sid: String, delegate: (Signer & RTCDelegate)) {
         mSID = sid
         mDelegate = delegate
         signalClient = SignalClient(url: url)
@@ -29,6 +37,7 @@ class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelD
     func connect() {
         webRTCClient.delegate = self
         signalClient.delegate = self
+        mDelegate?.onConnection(rtc: self, status: .start)
         signalClient.connect()
     }
     
@@ -59,6 +68,7 @@ class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelD
     // -------------------------------------------------------------------------
     func signalClientDidConnect(_ signalClient: SignalClient) {
         signalClient.send(json: ApiJoin(sid: mSID).full())
+        mDelegate?.onConnection(rtc: self, status: .success)
     }
     
     func signalClient(_ client: SignalClient, receive: String) {
@@ -75,7 +85,7 @@ class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelD
     }
     
     func signalClientDidDisconnect(_ signalClient: SignalClient) {
-        print("signaling disconnected")
+        mDelegate?.onConnection(rtc: self, status: .stop)
     }
     
     // MARK: - WebRTCClientDelegate methods
