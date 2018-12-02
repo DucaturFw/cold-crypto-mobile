@@ -8,7 +8,30 @@
 
 import UIKit
 
-class Alert : UIView {
+class Alert : PopupVC {
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    class EmptyVC: UIViewController {
+        
+        private weak var mParent: Alert?
+        
+        override var preferredStatusBarStyle: UIStatusBarStyle {
+            return mParent?.preferredStatusBarStyle ?? .lightContent
+        }
+        
+        init(alert: Alert) {
+            super.init(nibName: nil, bundle: nil)
+            mParent = alert
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            return nil
+        }
+        
+    }
     
     enum State {
         case hidden, shown
@@ -17,34 +40,21 @@ class Alert : UIView {
     var boxWidth: CGFloat {
         return 270.0
     }
-
-    private var state: State = .hidden {
-        didSet {
-            updateState()
-        }
-    }
     
     var value: String {
         return mView?.value ?? ""
     }
     
-    private var mIsInAnimation: Bool = true
+    private var alertWindow: UIWindow?
     
-    private let mBlur = UIVisualEffectView()
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        alertWindow?.removeFromSuperview()
+        alertWindow?.isHidden = true
+        alertWindow = nil
+    }
     
-    private lazy var mName = UILabel.new(font: .sfProSemibold(17), lines: 0, color: 0x32325D.color, alignment: .center)
-    
-    private lazy var mBox: UIView = { [weak self] in
-        let tmp = UIView(frame: CGRect(x: 0, y: 0, width: self?.boxWidth ?? 300, height: 0))
-        tmp.backgroundColor = Style.Colors.white
-        tmp.layer.cornerRadius = 6
-        tmp.layer.shadowColor = 0x44519E.color.cgColor
-        tmp.layer.shadowOffset = CGSize(width: 0, height: 10)
-        tmp.layer.shadowRadius = 10
-        tmp.layer.shadowOpacity = 0.3
-        tmp.clipsToBounds = true
-        return tmp
-    }()
+    private lazy var mName = UILabel.new(font: .proMedium(17), lines: 0, color: Style.Colors.black, alignment: .center)
     
     private let mView: (UIView & IAlertView)?
     
@@ -56,23 +66,13 @@ class Alert : UIView {
     
     init(_ name: String? = nil, view: (UIView & IAlertView)? = nil) {
         mView = view
-        super.init(frame: UIScreen.main.bounds)
-        mBlur.isUserInteractionEnabled = false
-        mBlur.effect = nil
-        addSubview(mBlur)
-        addSubview(mBox)
-        mBox.addSubview(mName)
-                
+        super.init(nibName: nil, bundle: nil)
         if let n = name?.trimmingCharacters(in: .whitespacesAndNewlines), n.count > 0 {
             mName.isVisible = true
             mName.text = n
         } else {
             mName.isVisible = false
             mName.text = nil
-        }
-        
-        if let v = mView {
-            mBox.addSubview(v)
         }
     }
 
@@ -85,8 +85,8 @@ class Alert : UIView {
         let tmp = Button()
         tmp.backgroundColor = color
         tmp.setTitle(name, for: .normal)
-        tmp.layer.cornerRadius = 0
-        mBox.addSubview(tmp)
+        tmp.layer.cornerRadius = Style.Dims.buttonLarge/2.0
+        content.addSubview(tmp)
         mButtons.append(tmp)
         tmp.click = { [weak self] in
             if let s = self {
@@ -108,48 +108,44 @@ class Alert : UIView {
     }
     
     func show(in window: UIView) {
-        frame = window.bounds
-        window.addSubview(self)
-        mBlur.effect = nil
-        
-        forceLayout()
-        updateState()
-        
-        mIsInAnimation = true
-        UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [], animations: {
-            self.state = .shown
-        }, completion: { _ in
-            self.mIsInAnimation = false
-            self.mView?.focusAtStart()
-        })
-        
-        UIView.animate(withDuration: 0.4, animations: {
-            self.mBlur.effect = UIBlurEffect(style: .dark)
-        })
+        if alertWindow != nil { return }
+        alertWindow = UIWindow(frame: UIScreen.main.bounds)
+        alertWindow?.layer.cornerRadius  = 10.scaled
+        alertWindow?.layer.masksToBounds = true
+        alertWindow?.rootViewController  = EmptyVC(alert: self)
+        alertWindow?.windowLevel = UIWindow.Level(rawValue: (UIApplication.shared.windows.last?.windowLevel.rawValue ?? 0.0) + 1.0)
+        alertWindow?.makeKeyAndVisible()
+        alertWindow?.rootViewController?.present(self, animated: true, completion: nil)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if (mIsInAnimation) { return }
-        forceLayout()
-    }
-    
-    private func forceLayout() {
-        mBlur.frame = bounds
-        
-        let padding = CGFloat(20)
-        var y: CGFloat = padding
-
-        if mName.isVisible {
-            let txtHeight = ceil((mName.text?.heightFor(width: mBox.width - padding * 2, font: mName.font) ?? 0.0))
-            mName.frame = CGRect(x: padding, y: y, width: mBox.width - padding * 2, height: txtHeight)
-            y = mName.maxY + 20
-        }
-
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        content.addSubview(mName)
         if let v = mView {
-            let s = v.sizeFor(width: mBox.width - padding*2.0)
-            v.frame = CGRect(x: padding, y: y, width: s.width, height: s.height)
-            y = v.maxY + 20
+            content.addSubview(v)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setNeedsStatusBarAppearanceUpdate()
+    }
+
+    override func doLayout() -> CGFloat {
+        let p: CGFloat = 20.scaled
+        var y: CGFloat = p
+        let w: CGFloat = view.width
+        
+        if mName.isVisible {
+            let txtHeight = ceil((mName.text?.heightFor(width: w - p * 2, font: mName.font) ?? 0.0))
+            mName.frame = CGRect(x: p, y: y, width: w - p * 2, height: txtHeight)
+            y = mName.maxY + p
+        }
+        
+        if let v = mView {
+            let s = v.sizeFor(width: w - p*2.0)
+            v.frame = CGRect(x: p, y: y, width: s.width, height: s.height)
+            y = v.maxY + p
         }
         
         if mButtons.count < 3 {
@@ -157,36 +153,26 @@ class Alert : UIView {
                 put("ok".loc)
             }
             
-            let w = mBox.width / CGFloat(mButtons.count)
+            let w = (w - p * CGFloat(mButtons.count+1)) / CGFloat(mButtons.count)
             var x = CGFloat(0)
             mButtons.forEach({
-                $0.frame = CGRect(x: x, y: y, width: w, height: CGFloat(45))
+                $0.frame = CGRect(x: x + p, y: y, width: w, height: Style.Dims.buttonLarge)
                 x = $0.maxX
             })
-            y = mButtons.last?.maxY ?? y
+            y = (mButtons.last?.maxY ?? y) + p
         } else {
             mButtons.forEach({
-                $0.frame = CGRect(x: 0, y: y, width: mBox.width, height: CGFloat(45))
-                y = $0.maxY
+                $0.frame = CGRect(x: p, y: y, width: w-40.scaled, height: Style.Dims.buttonLarge)
+                y = $0.maxY + p/2.0
             })
+            y += p/2.0
         }
-
-        mBox.frame = CGRect(x: (width - mBox.width)/2.0, y: (height - y)/2.0, width: mBox.width, height: y)
-    }
-    
-    func updateState() {
-        mBox.transform = CGAffineTransform(translationX: 0, y: state == .shown ? 0 : height)
-    }
-    
-    @objc func hide() {
-        mIsInAnimation = true
-        UIView.animate(withDuration: 0.4, animations: {
-            self.mBlur.effect = nil
-            self.state = .hidden
-        }) { (_) in
-            self.mIsInAnimation = false
-            self.removeFromSuperview()
-        }
-    }
         
+        return y
+    }
+
+    @objc func hide() {
+        dismiss(animated: true, completion: nil)
+    }
+
 }

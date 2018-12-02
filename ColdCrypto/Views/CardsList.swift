@@ -28,10 +28,9 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     private let mLayout: TGLStackedLayout = {
         let tmp = TGLStackedLayout()
         tmp.itemSize = WalletCell.cardSize(width: UIScreen.main.bounds.width)
-        tmp.topReveal = 80.scaled
-        tmp.layoutMargin = .zero
+        tmp.topReveal = 87.scaled
+        tmp.layoutMargin = UIEdgeInsets(top: AppDelegate.statusHeight + 44.0, left: 0, bottom: 0, right: 0)
         tmp.isAlwaysBouncing = true
-        tmp.overwriteContentOffset = false
         return tmp
     }()
     
@@ -41,6 +40,7 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         $0.dataSource = self
         $0.delegate = self
         WalletCell.register(in: $0)
+        $0.contentInsetAdjustmentBehavior = .never
     })
     
     private var mWallets: [IWallet] = [IWallet]()
@@ -292,6 +292,7 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         super.layoutSubviews()
         mList.frame = bounds
         mBlur.frame = bounds
+        mRefresh.bounds = CGRect(x: 0, y: -(AppDelegate.statusHeight + 44), width: width, height: 60)
     }
 
     // MARK: - UICollectionViewDataSource methods

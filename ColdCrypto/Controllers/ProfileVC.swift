@@ -148,7 +148,6 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         mView.frame = view.bounds
-        
         refreshLayout()
 
         let t = mScan.transform
@@ -243,7 +242,8 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         
         dismiss(animated: false, completion: nil)
         present(CheckCodeVC(passcode: mPasscode,
-                            onSuccess: { vc in vc.dismiss(animated: true, completion: nil) }),
+                            forceHide: true,
+                            onSuccess: { vc in vc.dismiss(animated: true, completion: nil) }).inNC,
                 animated: false,
                 completion: nil)
     }

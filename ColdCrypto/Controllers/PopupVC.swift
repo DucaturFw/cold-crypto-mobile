@@ -105,8 +105,14 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         mBlur.frame = view.bounds
         let trans = mContent.transform
         mContent.transform = .identity
-        mContent.frame = CGRect(x: 0, y: topGap, width: view.width, height: view.height - topGap + 100)
+        let size = doLayout()
+        let vert = min(view.height - topGap, size)
+        mContent.frame = CGRect(x: 0, y: view.height - vert, width: view.width, height: vert + 100)
         mContent.transform = trans
+    }
+    
+    public func doLayout() -> CGFloat {
+        return 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
