@@ -31,24 +31,15 @@ class AlertVC : PopupVC {
         }
     }
     
-    var withArrow: Bool = false {
-        didSet {
-            mArrow.alpha = withArrow ? 1.0 : 0.0
+    private var mWithArrow = true
+    var withArrow: Bool {
+        set {
+            mWithArrow = newValue
+            mArrow.alpha = newValue ? 1.0 : 0.0
         }
-    }
-    
-    private var padding: CGFloat {
-        return style == .sheet ? 40.scaled : 20.scaled
-    }
-    
-    private var viewTop: CGFloat {
-        if mArrow.isVisible {
-            return mArrow.maxY + 40.scaled
+        get {
+            return mWithArrow
         }
-        if mName.isVisible {
-            return mName.maxY + padding
-        }
-        return padding
     }
     
     private var mContent = UIView()
@@ -57,7 +48,6 @@ class AlertVC : PopupVC {
         mView = view
         mWithButtons = withButtons
         super.init(nibName: nil, bundle: nil)
-        self.withArrow = arrow
         self.style = style
         if let n = name?.trimmingCharacters(in: .whitespacesAndNewlines), n.count > 0 {
             mName.isVisible = true
@@ -66,6 +56,7 @@ class AlertVC : PopupVC {
             mName.isVisible = false
             mName.text = nil
         }
+        withArrow = arrow
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -98,11 +89,9 @@ class AlertVC : PopupVC {
         super.viewDidLoad()
         content.addSubview(mName)
         content.addSubview(mContent)
+        content.addSubview(mArrow)
         if let v = mView {
             mContent.addSubview(v)
-        }
-        if mArrow.isVisible {
-            content.addSubview(mArrow)
         }
     }
     
@@ -113,7 +102,7 @@ class AlertVC : PopupVC {
 
     @discardableResult
     override func doLayout() -> CGFloat {
-        let p: CGFloat = padding
+        let p: CGFloat = style == .sheet ? 40.scaled : 20.scaled
         var y: CGFloat = p
         let w: CGFloat = width
         

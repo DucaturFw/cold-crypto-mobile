@@ -12,7 +12,12 @@ class DeleteView: UIView, IAlertView {
     
     private let mName = UILabel.new(font: .medium(12), text: "delete_sure".loc, lines: 0, color: Style.Colors.black.alpha(0.6), alignment: .center)
     private let mBody = UILabel.new(font: .regular(12), text: "delete_body".loc, lines: 0, color: Style.Colors.black.alpha(0.6), alignment: .center)
-    
+
+    convenience init(caption: String, body: String) {
+        self.init(frame: .zero)
+        mName.text = caption
+        mBody.text = body
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -75,7 +75,7 @@ class MenuVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
         view.addSubview(mReset)
         view.addSubview(mInfo)
         mReset.click = { [weak self] in
-            AlertVC("sure_reset".loc, style: .alert)
+            AlertVC(view: DeleteView(caption: "reset_caption".loc, body: "reset_body".loc), style: .alert, arrow: false)
                 .put("reset_no".loc)
                 .put("reset_yes".loc, color: Style.Colors.red, do: { [weak self] _ in
                     self?.dismiss(animated: true, completion: nil)
