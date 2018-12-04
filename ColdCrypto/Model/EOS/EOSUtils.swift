@@ -41,4 +41,41 @@ class EOSUtils {
         return context?.evaluateScript(js)
     }
     
+    static func getTransactions2(account: String, completion: @escaping ([ITransaction]?)->Void) {
+        guard let url = URL(string: "https://junglehistory.cryptolions.io/v1/history/get_actions") else {
+            completion([])
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = "{\"pos\":-1, \"offset\": -1000, \"account_name\": \"\(account)\"}".toData()
+        
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        session.dataTask(with: request, completionHandler: { data, response, error in
+            DispatchQueue.global().async {
+                let actions: EOSActions? = data?.convert()
+                var result: [EOSTransaction]?
+                
+                var cache: [String: Bool] = [:]
+                actions?.actions?.compactMap({ $0.action_trace }).forEach({ t in
+                    if let id = t.trx_id, cache[id] == nil, let d = t.act?.data {
+                        cache[id] = true
+                        d.id = t.trx_id
+                        d.time = t.block_time
+                        
+                        if result == nil {
+                            result = [EOSTransaction]()
+                        }
+                        
+                        result?.insert(EOSTransaction(account: account, source: d), at: 0)
+                    }
+                })
+                DispatchQueue.main.async {
+                    completion(result)
+                }
+            }
+        }).resume()
+    }
+    
 }

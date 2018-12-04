@@ -17,6 +17,13 @@ class ScanBlock: UIView {
         $0.layer.cornerRadius  = Style.Dims.buttonMiddle/2.0
     })
     
+    private lazy var mGradient: CAGradientLayer = {
+        let tmp = CAGradientLayer()
+        tmp.colors = [0xFFFFFF.color.alpha(0.0).cgColor, 0xFFFFFF.color.alpha(0.8).cgColor, 0xFFFFFF.color.cgColor]
+        tmp.locations = [0.0, 0.6, 1.0]
+        return tmp
+    }()
+    
     private let mScan = Button().apply({
         $0.setTitleColor(Style.Colors.white, for: .normal)
         $0.backgroundColor = Style.Colors.blue
@@ -28,6 +35,7 @@ class ScanBlock: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        layer.insertSublayer(mGradient, at: 0)
         addSubview(mScan)
         addSubview(mMore)
         mMore.tap({ [weak self] in
@@ -42,8 +50,13 @@ class ScanBlock: UIView {
         return nil
     }
     
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return subviews.first(where: { $0.point(inside: convert(point, to: $0), with: event) }) != nil
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
+        mGradient.frame = bounds
         mMore.frame = CGRect(x: 40.scaled, y: 80.scaled, width: Style.Dims.buttonMiddle, height: Style.Dims.buttonMiddle)
         mScan.frame = CGRect(x: mMore.maxX + 20.scaled, y: mMore.minY, width: width - 60.scaled - mMore.maxX, height: mMore.height)
     }

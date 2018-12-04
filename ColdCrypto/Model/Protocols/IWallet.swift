@@ -12,8 +12,13 @@ enum ConnectionState {
     case start, stop, success
 }
 
+protocol IWalletDelegate: class {
+    func on(history: [ITransaction], of: IWallet)
+}
+
 protocol IWallet : class {
     
+    var delegate: IWalletDelegate? { get set }
     var blockchain: Blockchain { get }
     var privateKey: String { get }
     var address: String { get }
@@ -32,6 +37,7 @@ protocol IWallet : class {
     func getBalance(completion: @escaping (String?, String?)->Void)
     func getAmount(tx: ApiParamsTx) -> String
     func getTo(tx: ApiParamsTx) -> String
+    func getHistory(force: Bool)
     func flushCache()
 
 }

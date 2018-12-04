@@ -69,6 +69,17 @@ extension UIColor {
     
 }
 
+extension UIScrollView {
+    
+    func pull(animated: Bool, hud: UIRefreshControl) {
+        if !hud.isRefreshing {
+            hud.beginRefreshing()
+        }
+        scrollRectToVisible(CGRect(x: 0, y: -1, width: 1, height: 1), animated: animated)
+    }
+    
+}
+
 extension UILabel {
     
     static func new(font: UIFont? = nil,
@@ -97,7 +108,11 @@ extension Int {
     }
     
     var scaled: CGFloat {
-        return floor((CGFloat(self) / 375.0 * UIScreen.main.bounds.width))
+        return floor(scaledRaw)
+    }
+    
+    var scaledRaw: CGFloat {
+        return (CGFloat(self) / 375.0 * UIScreen.main.bounds.width)
     }
     
 }
@@ -280,9 +295,14 @@ extension String {
     }
     
     var trimmed: String {
-        let gg = self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            .replacingOccurrences(of: "[0\\.]+$", with: "", options: .regularExpression)
-        return gg.isEmpty ? "0" : gg
+        if self.range(of: ".") != nil {
+            let gg = self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                .replacingOccurrences(of: "[0]+$", with: "", options: .regularExpression)
+            let gg2 = gg.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                .replacingOccurrences(of: "[\\.]+$", with: "", options: .regularExpression)
+            return gg2.isEmpty ? "0" : gg2
+        }
+        return self
     }
     
     var withoutPrefix: String {
@@ -357,6 +377,13 @@ struct Utils {
     public static let formatter: DateFormatter = {
         let tmp = DateFormatter()
         tmp.dateFormat = "dd.MM.yyyy HH:mm"
+        return tmp
+    }()
+    
+    public static let EOSformatter: DateFormatter = {
+        let tmp = DateFormatter()
+        tmp.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        tmp.timeZone = TimeZone(secondsFromGMT: 0)
         return tmp
     }()
     
@@ -638,4 +665,34 @@ extension Notification {
             block(frameEnd, duration, UInt(curve))
         }
     }
+}
+
+extension Data {
+    
+    var utf8: String? {
+        return String(data: self, encoding: String.Encoding.utf8)
+    }
+    
+    func convert<T: HandyJSON>(path: String? = nil) -> T? {
+        if let str = String(data: self, encoding: .utf8) {
+            return T.deserialize(from: str, designatedPath: path)
+        }
+        return nil
+    }
+    
+    func convert<T: HandyJSON>(path: String? = nil) -> [T]? {
+        if let str = String(data: self, encoding: .utf8) {
+            return [T].deserialize(from: str, designatedPath: path)?.compactMap({ $0 })
+        }
+        return nil
+    }
+    
+}
+
+extension CGRect {
+    
+    var center: CGPoint {
+        return CGPoint(x: minX + width/2.0, y: minY + height/2.0)
+    }
+    
 }

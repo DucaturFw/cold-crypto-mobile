@@ -22,7 +22,7 @@ class ETHWallet : IWallet {
             endpoint = e
         }
     }
-
+    
     private var mCachedETH: Decimal?
     private var mCachedRate: Double?
     private var mBalance: String?
@@ -85,7 +85,10 @@ class ETHWallet : IWallet {
     }
     
     func flushCache() {
-        mBalance = nil
+        mBalance     = nil
+        mCachedRate  = nil
+        mCachedETH   = nil
+        mCachedTrans = nil
     }
 
     func getBalance(completion: @escaping (String?, String?)->Void) {
@@ -141,6 +144,8 @@ class ETHWallet : IWallet {
     
     var id: String
     
+    weak var delegate: IWalletDelegate?
+    
     private(set) var time: TimeInterval
 
     var privateKey: String {
@@ -170,6 +175,73 @@ class ETHWallet : IWallet {
     var connectionStatus: ConnectionState = .stop {
         didSet {
             onConnected?(connectionStatus)
+        }
+    }
+    
+    func getTokens(completion: @escaping ([ITransaction]?)->Void) {
+        mNet.getTokenHistory { (trans, error) in
+            completion(trans)
+            if let e = error {
+                print("get tokens failed. reason \(e)")
+            }
+        }
+    }
+    
+    private func getTransactions(completion: @escaping ([ITransaction]?)->Void) {
+        mNet.getHistory { (items, e) in
+            completion(items)
+            if let e = e {
+                print("get transactions failed. reason \(e)")
+            }
+        }
+    }
+    
+    private var mCachedTrans: [ITransaction]?
+    
+    func getHistory(force: Bool) {
+        if force {
+            mCachedTrans = nil
+        }
+        if let h = mCachedTrans {
+            delegate?.on(history: h, of: self)
+            return
+        }
+        
+        var newItems = [ITransaction]()
+        let group = Group(2) { [weak self] in
+            DispatchQueue.global().async { [weak self] in
+                newItems.sort { (one, two) -> Bool in
+                    one.order > two.order
+                }
+                DispatchQueue.main.async { [weak self] in
+                    self?.mCachedTrans = newItems
+                    if let s = self {
+                        s.delegate?.on(history: newItems, of: s)
+                    }
+                }
+            }
+        }
+
+        let queue = DispatchQueue(label: "merge")
+        getTransactions(completion: { items in
+            queue.async {
+                newItems.append(contentsOf: items ?? [])
+                group.done()
+            }
+        })
+        getTokens { [weak self] trans in
+            let tkns = ETHToken.tokens(wallet: self)
+            var fast = Dictionary<String, IToken>()
+            tkns.forEach({ fast[$0.symbol] = $0 })
+            trans?.forEach({ (t) in
+                if let amount = Int64(t.val) {
+                    fast[t.tokenSymbol]?.amount += (t.positive ? amount : -amount)
+                }
+            })
+            queue.async {
+                newItems.append(contentsOf: trans ?? [])
+                group.done()
+            }
         }
     }
     

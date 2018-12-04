@@ -91,6 +91,7 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
             }, completion: { _ in
                 AppDelegate.unlock()
                 self.mList.setContentOffset(.zero, animated: true)
+                self.mList.reloadData()
             })
         }
         
@@ -121,7 +122,17 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         })
     }
     
+    private var mHistory: HistoryView?
+    
     private func show(index: IndexPath) -> UIViewPropertyAnimator {
+        let top  = CGFloat(AppDelegate.statusHeight + 30.scaled)
+        let pad  = WalletCell.cardSize(width: width).height - WalletCell.padding
+        let view = HistoryView(frame: CGRect(x: 0, y: top + pad, width: width, height: height - top - pad),
+                               wallet: wallets[index.item],
+                               padding: Style.Dims.bottomScan + AppDelegate.bottomGap)
+        view.alpha = 0
+        insertSubview(view, at: 0)
+        mHistory = view
         return UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut, animations: {
             (self.mList.cellForItem(at: index) as? WalletCell)?.fullVisible = self.detailsForCard
             self.mList.visibleCells.forEach({ cell in
@@ -129,7 +140,7 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
                     let y = c.card.convert(.zero, to: self).y
                     let s = doit {
                         if let i = self.mList.indexPath(for: cell), i.item == index.item {
-                            return AppDelegate.statusHeight - y + 30.scaled
+                            return top - y
                         } else {
                             return self.height - y
                         }
@@ -139,12 +150,14 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
             })
             self.mActive = self.wallets[index.row]
             self.onActive(self.mActive)
+            self.mHistory?.alpha = 1.0
         })
     }
     
     private func hide(index: IndexPath) -> UIViewPropertyAnimator {
         let cell = (self.mList.cellForItem(at: index) as? WalletCell)
         let anim = UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut, animations: {
+            self.mHistory?.alpha = 0
             cell?.fullVisible = false
             self.mList.visibleCells.forEach({ cell in
                 (cell as? WalletCell)?.card.transform = .identity
@@ -153,6 +166,8 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         })
         anim.addCompletion({ p in
             if p == .end {
+                self.mHistory?.removeFromSuperview()
+                self.mHistory = nil
                 self.mList.isUserInteractionEnabled = true
                 self.mSelected = nil
                 self.mActive = nil

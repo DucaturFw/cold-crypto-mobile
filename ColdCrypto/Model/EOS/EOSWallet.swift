@@ -12,6 +12,8 @@ class EOSWallet: IWallet {
     
     var seed: String?
 
+    weak var delegate: IWalletDelegate?
+    
     var blockchain: Blockchain = .EOS
     var privateKey: String
     var address: String
@@ -20,7 +22,7 @@ class EOSWallet: IWallet {
     var name: String
     var id: String
     private(set) var time: TimeInterval
-    
+
     var onConnected: ((ConnectionState)->Void)?
     var connectionStatus: ConnectionState = .stop {
         didSet {
@@ -28,6 +30,7 @@ class EOSWallet: IWallet {
         }
     }
     
+    private var cachedTrans: [ITransaction] = []
     private var cachedRate: Double?
     private var cachedAmount: Decimal?
     private var cachedBalance: String?
@@ -141,6 +144,22 @@ class EOSWallet: IWallet {
     
     func parseContract(contract: ApiSignContractCall) -> IContract? {
         return EOSContract(contract: contract)
+    }
+    
+    func getHistory(force: Bool) {
+        if force {
+            cachedTrans = []
+        }
+        if cachedTrans.count > 0 {
+            delegate?.on(history: cachedTrans, of: self)
+            return
+        }
+        EOSUtils.getTransactions2(account: name, completion: { [weak self] trans in
+            if let s = self, let t = trans {
+                s.cachedTrans = t
+                s.delegate?.on(history: s.cachedTrans, of: s)
+            }
+        })
     }
     
 }

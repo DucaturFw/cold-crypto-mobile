@@ -21,7 +21,9 @@ class MoreVC: AlertVC {
                 self?.withButtons = true
                 self?.put("delete_no".loc)
                 self?.put("delete_yes".loc, color: Style.Colors.red, do: { [weak self] _ in
-                    self?.onDelete(wallet)
+                    DispatchQueue.main.async {
+                        self?.onDelete(wallet)
+                    }
                 })
             }, animate: { [weak self] in
                 self?.style = .alert

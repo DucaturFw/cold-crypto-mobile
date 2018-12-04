@@ -42,6 +42,31 @@ class ETHTransaction : ITransaction, HandyJSON {
         self.contract  = contract
         self.tokenSymbol = token
         self.blockchain = blockchain
+        
+        if let t = ETHToken.token(transaction: self) {
+            mValue = t.symbol
+            var gg = input
+            if gg.starts(with: "0x") {
+                let range = gg.startIndex...gg.index(gg.startIndex, offsetBy: 1)
+                gg.replaceSubrange(range, with: "")
+                
+                let nameRange = gg.startIndex...gg.index(gg.startIndex, offsetBy: 7)
+                gg.replaceSubrange(nameRange, with: "")
+                
+                let paramRange = gg.startIndex...gg.index(gg.startIndex, offsetBy: 63)
+                mWhere = String(gg[paramRange])
+                mWhere?.removingRegexMatches(pattern: "^0+", replaceWith: "")
+                if let x = mWhere {
+                    mWhere?.insert(contentsOf: "0x", at: x.startIndex)
+                }
+                
+                gg.replaceSubrange(paramRange, with: "")
+                
+                if let amount = Int64(String(gg[paramRange]), radix: 16) {
+                    mValue = "\(t.description(for: amount).trimmed) \(t.symbol)"
+                }
+            }
+        }
     }
     
     required init() {}
@@ -62,10 +87,13 @@ class ETHTransaction : ITransaction, HandyJSON {
     }
     
     var value: String {
+        let sign = positive ? "+" : "-"
         if let token = mValue {
-            return token
+            return sign + token
+        } else if tokenSymbol.count > 0, let wei = Int64(val) {
+            return "\(sign)\(ETHToken.description(for: wei, decimal: 18).trimmed) \(tokenSymbol)"
         } else if let wei = Wei(val), let eth = try? Converter.toEther(wei: wei) {
-            return "\(eth.description.trimmed) \(blockchain.symbol())"
+            return "\(sign)\(eth.description.trimmed) \(blockchain.symbol())"
         }
         return "--"
     }
