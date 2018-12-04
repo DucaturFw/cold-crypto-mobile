@@ -14,16 +14,8 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     private var mSelected: IndexPath?
     
     var detailsForCard: Bool = true
-
-    var onBackUp: (IWallet)->Void = { _ in }
-    
-    var onDelete: (IWallet)->Void = { _ in }
     
     var onActive: (IWallet?)->Void = { _ in }
-    
-    private let mBlur = UIVisualEffectView(effect: nil).apply({
-        $0.isUserInteractionEnabled = false
-    })
     
     private let mLayout: TGLStackedLayout = {
         let tmp = TGLStackedLayout()
@@ -76,7 +68,6 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(mList)
-        addSubview(mBlur)
         mList.insertSubview(mRefresh, at: 0)
         mRefresh.addTarget(self, action: #selector(refresh), for: .valueChanged)
     }
@@ -130,33 +121,41 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         })
     }
     
-    private var mOldFrame: CGRect = .zero
-    
-    private func showBlur() {
-        guard let s = mSelected, let c = mList.cellForItem(at: s) as? WalletCell else { return }
-
-        mOldFrame = convert(c.card.bounds, from: c.card)
-        addSubview(c.card)
-        c.card.frame = mOldFrame
-        
-        AppDelegate.lock()
-        UIView.animate(withDuration: 0.35, animations: {
-            self.mBlur.effect = UIBlurEffect(style: .dark)
-            c.card.origin = CGPoint(x: (self.width - c.card.width)/2.0, y: (self.height - c.card.height)/2.0 - 100.scaled)
-        }, completion: { _ in
-            AppDelegate.unlock()
+    private func show(index: IndexPath) -> UIViewPropertyAnimator {
+        return UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut, animations: {
+            (self.mList.cellForItem(at: index) as? WalletCell)?.fullVisible = self.detailsForCard
+            self.mList.visibleCells.forEach({ cell in
+                if let c = cell as? WalletCell {
+                    let y = c.card.convert(.zero, to: self).y
+                    let s = doit {
+                        if let i = self.mList.indexPath(for: cell), i.item == index.item {
+                            return AppDelegate.statusHeight - y + 30.scaled
+                        } else {
+                            return self.height - y
+                        }
+                        } as CGFloat
+                    c.card.transform = CGAffineTransform(translationX: 0, y: s)
+                }
+            })
+            self.mActive = self.wallets[index.row]
+            self.onActive(self.mActive)
         })
     }
     
-    private func hideBlur(s: IndexPath, c: WalletCell) -> UIViewPropertyAnimator {
+    private func hide(index: IndexPath) -> UIViewPropertyAnimator {
+        let cell = (self.mList.cellForItem(at: index) as? WalletCell)
         let anim = UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut, animations: {
-            c.card.frame = self.mOldFrame
-            self.mBlur.effect = nil
+            cell?.fullVisible = false
+            self.mList.visibleCells.forEach({ cell in
+                (cell as? WalletCell)?.card.transform = .identity
+            })
+            self.onActive(nil)
         })
         anim.addCompletion({ p in
             if p == .end {
-                c.card.frame = c.card.convert(c.card.bounds, to: c)
-                c.addSubview(c.card)
+                self.mList.isUserInteractionEnabled = true
+                self.mSelected = nil
+                self.mActive = nil
             }
         })
         return anim
@@ -168,21 +167,11 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         if let s = selected {
             mSelected = s
             mList.isUserInteractionEnabled = false
-            mActive = wallets[s.row]
-            anim = UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut, animations: { [weak self] in
-                self?.showFirst(s: s, wallet: self?.mActive)
-            })
-            anim?.addCompletion({ [weak self] _ in
-                self?.showBlur()
-            })
+            anim = show(index: s)
             addGestureRecognizer(mTap)
             addGestureRecognizer(mPan)
-        } else if let s = mSelected, let c = mList.cellForItem(at: s) as? WalletCell {
-            mActive = nil
-            anim = hideBlur(s: s, c: c)
-            anim?.addCompletion({ [weak self] _ in
-                self?.afterBlur(s: s)
-            })
+        } else if let s = mSelected {
+            anim = hide(index: s)
             removeGestureRecognizer(mTap)
             removeGestureRecognizer(mPan)
         } else {
@@ -198,40 +187,6 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         }
         return anim
     }
-    
-    private func afterBlur(s: IndexPath) {
-        AppDelegate.lock()
-        let anim = UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut, animations: { [weak self] in
-            self?.hideFirst(s: s)
-        })
-        anim.addCompletion({ _ in
-            AppDelegate.unlock()
-            self.mList.isUserInteractionEnabled = true
-            self.mSelected = nil
-        })
-        anim.startAnimation()
-    }
-
-    private func hideFirst(s: IndexPath) {
-        (mList.cellForItem(at: s) as? WalletCell)?.fullVisible = false
-        mList.visibleCells.forEach({ cell in
-            if let c = cell as? WalletCell {
-                c.card.transform = .identity
-            }
-        })
-        onActive(nil)
-    }
-
-    private func showFirst(s: IndexPath, wallet: IWallet?) {
-        (mList.cellForItem(at: s) as? WalletCell)?.fullVisible = detailsForCard
-        let shift = mLayout.itemSize.height - mLayout.topReveal
-        mList.visibleCells.forEach({ cell in
-            if let i = self.mList.indexPath(for: cell), i.item > s.item, let c = cell as? WalletCell {
-                c.card.transform = CGAffineTransform(translationX: 0, y: shift)
-            }
-        })
-        onActive(wallet)
-    }
 
     @objc private func hideTapped() {
         set(selected: nil)
@@ -244,13 +199,12 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @objc private func panned(_ s: UIPanGestureRecognizer) {
         guard let selected = mSelected else { return }
-        guard let c = mList.cellForItem(at: selected) as? WalletCell else { return }
         
         let newFraction = s.translation(in: self).y / height
         switch s.state {
         case .began:
             mCloseAnimation = false
-            mAnimator = hideBlur(s: selected, c: c)
+            mAnimator = hide(index: selected)
             mAnimator.startAnimation()
             mAnimator.pauseAnimation()
         case .changed:
@@ -266,12 +220,15 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
             mAnimator.isReversed = !mCloseAnimation
             if mCloseAnimation {
                 AppDelegate.lock()
-                mAnimator.addCompletion { [weak self] (p) in
-                    self?.afterBlur(s: selected)
+                mAnimator.addCompletion { (p) in
                     AppDelegate.unlock()
                 }
                 removeGestureRecognizer(mPan)
                 removeGestureRecognizer(mTap)
+            } else {
+                mAnimator.addCompletion { (p) in
+                    self.onActive(self.mActive)
+                }
             }
             mAnimator.startAnimation()
         default: break
@@ -287,7 +244,6 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     override func layoutSubviews() {
         super.layoutSubviews()
         mList.frame = bounds
-        mBlur.frame = bounds
         mRefresh.bounds = CGRect(x: 0, y: -(AppDelegate.statusHeight + 44), width: width, height: 60)
     }
 
@@ -304,12 +260,6 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ cv: UICollectionView, cellForItemAt p: IndexPath) -> UICollectionViewCell {
         let cell = WalletCell.get(from: cv, at: p)
         cell.wallet = wallets[p.row]
-        cell.onBackUp = { [weak self] w in
-            self?.onBackUp(w)
-        }
-        cell.onDelete = { [weak self] w in
-            self?.onDelete(w)
-        }
         return cell
     }
     

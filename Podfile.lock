@@ -1,6 +1,6 @@
 PODS:
   - BlockiesSwift (0.1.2)
-  - GoogleWebRTC (1.1.25544)
+  - GoogleWebRTC (1.1.25821)
   - HandyJSON (4.2.1)
   - HockeySDK (5.1.4):
     - HockeySDK/DefaultLib (= 5.1.4)
@@ -39,7 +39,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   BlockiesSwift: 22d8d56dd187e6bfd16cb8c8fbd4fd4896c3e65d
-  GoogleWebRTC: b73841295d587468f368d146144753b138ed8014
+  GoogleWebRTC: 2cd3a1a664777f8690afbf657b5f89bd28dd211f
   HandyJSON: d0c5fc80204f29056d59d3e5c4587fa0b16b60a8
   HockeySDK: 15afe6bc0a5bfe3a531fd73dbf082095f37dac3b
   KeychainAccess: b3816fddcf28aa29d94b10ec305cd52be14c472b

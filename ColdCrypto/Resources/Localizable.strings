@@ -57,7 +57,8 @@
 "use" = "USE";
 "no_wallets" = "You have no wallets\nfor selected blockchain";
 
-"sure_delete" = "You can lose your wallet and funds on it forever.\nDon't delete it if you didn't make a backup, as there will be no way to restore your wallet after deletion without backup. Deleting wallet will remove all keys saved in the local vault.";
+"delete_sure" = "You can lose your wallet and funds on it forever.";
+"delete_body" = "Don't delete it if you didn't make a backup, as there will be no way to restore your wallet after deletion without backup.\n\nDeleting wallet will remove all keys saved in the local vault.";
 "delete_yes" = "Delete";
 "delete_no" = "Cancel";
 

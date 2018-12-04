@@ -8,6 +8,10 @@
 
 import UIKit
 
+extension Notification.Name {
+    static let hideAllPopups: Notification.Name = NSNotification.Name(rawValue: "_hideAllPopups")
+}
+
 class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover {
     
     enum PresentationStyle {
@@ -31,6 +35,10 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
             return nil
         }
         
+    }
+    
+    static func hideAll() {
+        NotificationCenter.default.post(name: .hideAllPopups, object: nil)
     }
     
     private var alertWindow: UIWindow?
@@ -59,6 +67,10 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         show(in: w)
     }
     
+    @objc private func hideForce() {
+        dismiss(animated: false, completion: nil)
+    }
+    
     func show(in window: UIView) {
         if alertWindow != nil { return }
         alertWindow = UIWindow(frame: UIScreen.main.bounds)
@@ -74,6 +86,7 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         $0.backgroundColor = Style.Colors.white
         $0.layer.cornerRadius = 14.scaled
         $0.clipsToBounds = true
+        $0.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     })
     
     var content: UIView {
@@ -88,22 +101,15 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         return style == .sheet ? view.width : 300
     }
     
-    private let mBlur: UIVisualEffectView = UIVisualEffectView(effect: nil)
+    private let mBlur = UIView()
 
     private var mAnimator = UIViewPropertyAnimator()
     
-    var style: PresentationStyle = .sheet {
-        didSet {
-            if style == .sheet {
-                mContent.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
-            } else {
-                mContent.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            }
-        }
-    }
+    var style: PresentationStyle = .sheet
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hideForce), name: .hideAllPopups, object: nil)
         transitioningDelegate  = self
         modalPresentationStyle = .custom
     }
@@ -115,7 +121,7 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(mBlur)
-        mBlur.contentView.addSubview(mContent)
+        mBlur.addSubview(mContent)
         if dragable {
             mContent.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(PopupVC.panned(_:))))
         }
@@ -129,7 +135,7 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
             mAnimator.stopAnimation(true)
             mAnimator = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut, animations: { [weak self] in
                 if let s = self {
-                    s.mBlur.effect = nil
+                    s.mBlur.backgroundColor = .clear
                     s.mContent.transform = CGAffineTransform(translationX: 0, y: s.view.height)
                 }
             })
@@ -186,7 +192,7 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if !animated {
-            mBlur.effect = UIBlurEffect(style: .dark)
+            mBlur.backgroundColor = Style.Colors.tint
         }
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -212,7 +218,7 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
     func show(container: UIView, completion: @escaping ()->Void) {
         view.frame = container.bounds
         mContent.transform = CGAffineTransform(translationX: 0, y: container.height)
-        mBlur.effect = nil
+        mBlur.backgroundColor = .clear
         container.addSubview(view)
         view.setNeedsLayout()
         view.layoutIfNeeded()
@@ -225,14 +231,14 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
             completion()
         })
         UIView.animate(withDuration: 0.25, animations: {
-            self.mBlur.effect = UIBlurEffect(style: .dark)
+            self.mBlur.backgroundColor = Style.Colors.tint
         })
     }
     
     func hide(completion: @escaping  ()->Void) {
         AppDelegate.lock()
         UIView.animate(withDuration: 0.4, animations: {
-            self.mBlur.effect = nil
+            self.mBlur.backgroundColor = .clear
             self.mContent.transform = CGAffineTransform(translationX: 0, y: self.view.height)
         }, completion: { _ in
             AppDelegate.unlock()

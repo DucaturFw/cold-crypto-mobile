@@ -10,8 +10,9 @@ import UIKit
 
 struct Style {
     struct Colors {
-        static let red = 0xF33C29.color
-        static let blue = 0x00BCF9.color
+        static let red   = 0xF33C29.color
+        static let blue  = 0x00BCF9.color
+        static let tint  = 0x000000.color.withAlphaComponent(0.6)
         static let white = 0xFFFFFF.color
         static let light = 0xF3F2F4.color
         static let black = 0x160A2E.color
@@ -23,5 +24,6 @@ struct Style {
         static let buttonSmall  = 30.scaled
         static let buttonMiddle = 40.scaled
         static let buttonLarge  = 50.scaled
+        static let bottomScan   = 160.scaled
     }
 }

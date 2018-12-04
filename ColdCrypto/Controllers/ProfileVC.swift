@@ -13,7 +13,16 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
 
     private var mWebRTC: RTC? = nil
     
-    private let mScan = ScanButton()
+    private lazy var mScan = ScanBlock().apply({
+        $0.onScan = { [weak self] in
+            self?.startScanning()
+        }
+        $0.onMore = { [weak self] in
+            if let w = self?.mActiveWallet {
+                self?.showMore(for: w)
+            }
+        }
+    })
 
     private let mProfile: Profile
     
@@ -23,7 +32,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         if let p = presentedViewController, !p.isBeingDismissed {
             return p.preferredStatusBarStyle
         }
-        return mActiveWallet != nil ? .lightContent : .default
+        return .default
     }
     
     private lazy var mRightAdd = JTHamburgerButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30)).apply({
@@ -46,7 +55,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     })
     
     private var scanMinY: CGFloat {
-        return 84.scaled + AppDelegate.bottomGap
+        return Style.Dims.bottomScan + AppDelegate.bottomGap
     }
     
     private var defaultCatchBlock: (String)->Void {
@@ -58,12 +67,6 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     }
     
     private lazy var mView = CardsList(frame: UIScreen.main.bounds).apply({ [weak self] v in
-        v.onBackUp = { [weak self] w in
-            self?.backup(wallet: w)
-        }
-        v.onDelete = { [weak self] w in
-            self?.delete(wallet: w)
-        }
         v.onActive = { [weak self] w in
             self?.mActiveWallet = w
             self?.setNeedsStatusBarAppearanceUpdate()
@@ -105,14 +108,6 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         view.backgroundColor = Style.Colors.white
         view.addSubview(mView)
         view.addSubview(mScan)
-        mScan.onScan = { [weak self] in
-            self?.startScanning()
-        }
-        mScan.onReceive = { [weak self] in
-            if let w = self?.mActiveWallet {
-                self?.show(qr: w.address, share: true)
-            }
-        }
     }
     
     override func sideMenuDidAppear(animated: Bool) {
@@ -154,7 +149,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
 
         let t = mScan.transform
         mScan.transform = .identity
-        mScan.frame = CGRect(x: 40.scaled, y: view.height - scanMinY, width: view.width - 80.scaled, height: Style.Dims.buttonMiddle)
+        mScan.frame = CGRect(x: 0, y: view.height - scanMinY, width: view.width, height: Style.Dims.bottomScan + AppDelegate.bottomGap)
         mScan.transform = t
     }
     
@@ -167,6 +162,14 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
             }
         }
         present(vc, animated: true, completion: nil)
+    }
+    
+    private func showMore(for wallet: IWallet) {
+        present(MoreVC(passcode: mPasscode, wallet: wallet).apply({ [weak self] in
+            $0.onDelete = { [weak self] wallet in
+                self?.sureDelete(wallet: wallet)
+            }
+        }), animated: true, completion: nil)
     }
 
     private func webrtcLogin(json: String) -> Bool {
@@ -192,15 +195,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         }
         vc.show()
     }
-    
-    private func delete(wallet: IWallet) {
-        AlertVC("sure_delete".loc, style: .alert)
-            .put("delete_no".loc)
-            .put("delete_yes".loc, color: Style.Colors.red, do: { [weak self] _ in
-                self?.sureDelete(wallet: wallet)
-            }).show()
-    }
-    
+        
     private func sureDelete(wallet: IWallet) {
         present(CheckCodeVC(passcode: mPasscode, authAtStart: true, onSuccess: { [weak self] vc in
             vc.dismiss(animated: true, completion: { [weak self] in
@@ -219,24 +214,10 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         }).inNC, animated: true, completion: nil)
     }
     
-    private func backup(wallet: IWallet) {
-        present(CheckCodeVC(passcode: mPasscode, authAtStart: true, onSuccess: { vc in
-            vc.dismiss(animated: true, completion: {
-                if let seed = wallet.seed {
-                    BackupVC(seed: seed).show()
-                } else {
-                    BackupVC(pk: wallet.privateKey)?.show()
-                }
-            })
-        }).apply({
-            $0.hintText = "confirm_hint".loc
-        }).inNC, animated: true, completion: nil)
-    }
-    
     @objc private func close() {
         mWebRTC?.close()
         mWebRTC = nil
-        
+        PopupVC.hideAll()
         dismiss(animated: false, completion: nil)
         present(CheckCodeVC(passcode: mPasscode,
                             forceHide: true,

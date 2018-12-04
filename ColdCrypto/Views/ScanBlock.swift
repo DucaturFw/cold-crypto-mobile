@@ -8,12 +8,13 @@
 
 import UIKit
 
-class ScanButton: UIView {
+class ScanBlock: UIView {
     
-    private let mReceive = Button().apply({
-        $0.setTitleColor(Style.Colors.white, for: .normal)
-        $0.backgroundColor = Style.Colors.blue
-        $0.setTitle("receive".loc, for: .normal)
+    private let mMore = UIImageView(image: UIImage(named: "dots")).apply({
+        $0.contentMode = .center
+        $0.backgroundColor = Style.Colors.darkGrey
+        $0.layer.masksToBounds = true
+        $0.layer.cornerRadius  = Style.Dims.buttonMiddle/2.0
     })
     
     private let mScan = Button().apply({
@@ -23,14 +24,14 @@ class ScanButton: UIView {
     })
 
     var onScan: ()->Void = {}
-    var onReceive: ()->Void = {}
+    var onMore: ()->Void = {}
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(mScan)
-        addSubview(mReceive)
-        mReceive.tap({ [weak self] in
-            self?.onReceive()
+        addSubview(mMore)
+        mMore.tap({ [weak self] in
+            self?.onMore()
         })
         mScan.tap({ [weak self] in
             self?.onScan()
@@ -43,9 +44,8 @@ class ScanButton: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let w = floor((width - 40.scaled)/2.0)
-        mReceive.frame = CGRect(x: 0, y: 0, width: w, height: height)
-        mScan.frame = CGRect(x: width - w, y: 0, width: w, height: height)
+        mMore.frame = CGRect(x: 40.scaled, y: 80.scaled, width: Style.Dims.buttonMiddle, height: Style.Dims.buttonMiddle)
+        mScan.frame = CGRect(x: mMore.maxX + 20.scaled, y: mMore.minY, width: width - 60.scaled - mMore.maxX, height: mMore.height)
     }
     
 }

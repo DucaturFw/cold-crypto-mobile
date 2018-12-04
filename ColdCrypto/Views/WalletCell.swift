@@ -12,7 +12,7 @@ import BlockiesSwift
 class WalletCell: UICollectionViewCell {
 
     static func cardSize(width: CGFloat) -> CGSize {
-        return CGSize(width: width, height: ceil(width / 330.0 * 200.0))
+        return CGSize(width: width, height: ceil((width - 40.scaled) / 330.0 * 200.0) + 20.scaled)
     }
         
     private let mCard = UIImageView(image: UIImage(named: "card0")).apply({
@@ -27,10 +27,6 @@ class WalletCell: UICollectionViewCell {
     
     var fullVisible: Bool = false {
         didSet {
-            mDelete.isUserInteractionEnabled = fullVisible
-            mBackup.isUserInteractionEnabled = fullVisible
-            mDelete.alpha = fullVisible ? 1.0 : 0.0
-            mBackup.alpha = fullVisible ? 1.0 : 0.0
             checkBadge()
         }
     }
@@ -42,28 +38,9 @@ class WalletCell: UICollectionViewCell {
     private let mHUD = UIActivityIndicatorView(style: .white).apply({
         $0.hidesWhenStopped = true
     })
-    
-    var onBackUp: (IWallet)->Void = { _ in }
-    var onDelete: (IWallet)->Void = { _ in }
-    
+        
     private let mOverlay = UIView().apply({
         $0.backgroundColor = UIColor.black.alpha(0.2)
-    })
-    
-    private let mBackup = Button().apply({
-        $0.setTitleColor(Style.Colors.white, for: .normal)
-        $0.backgroundColor = Style.Colors.darkGrey
-        $0.setTitle("backup".loc, for: .normal)
-        $0.isUserInteractionEnabled = false
-        $0.alpha = 0.0
-    })
-    
-    private let mDelete = Button().apply({
-        $0.setTitleColor(Style.Colors.white, for: .normal)
-        $0.backgroundColor = Style.Colors.darkGrey
-        $0.setTitle("delete".loc, for: .normal)
-        $0.isUserInteractionEnabled = false
-        $0.alpha = 0.0
     })
     
     private let mLan = UILabel.new(font: UIFont.bold(12.scaled), text: "connected".loc, lines: 1, color: .white, alignment: .center).apply({
@@ -124,20 +101,7 @@ class WalletCell: UICollectionViewCell {
         mCard.addSubview(mAmount)
         mCard.addSubview(mMoney)
         mCard.addSubview(mHUD)
-        mCard.addSubview(mBackup)
-        mCard.addSubview(mDelete)
         mCard.addSubview(mLan)
-
-        mBackup.click = { [weak self] in
-            if let s = self, let w = s.wallet {
-                s.onBackUp(w)
-            }
-        }
-        mDelete.click = { [weak self] in
-            if let s = self, let w = s.wallet {
-                s.onDelete(w)
-            }
-        }
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
@@ -155,11 +119,9 @@ class WalletCell: UICollectionViewCell {
         super.layoutSubviews()
         if mCard.superview == self {
             let s = WalletCell.cardSize(width: width)
-            let i = 23.scaled
-            
             let t = mCard.transform
             mCard.transform = .identity
-            mCard.frame = CGRect(origin: .zero, size: s).insetBy(dx: i, dy: i)
+            mCard.frame = CGRect(origin: .zero, size: s).insetBy(dx: 20.scaled, dy: 10.scaled).offsetBy(dx: 0, dy: 10.scaled).integral
             mCard.transform = t
         }
         
@@ -170,13 +132,6 @@ class WalletCell: UICollectionViewCell {
         mMoney.frame   = CGRect(x: 22.scaled, y: mAmount.maxY + 7.scaled, width: mCard.width - 44.scaled, height: mMoney.font.lineHeight)
         mAddress.frame = CGRect(x: 22.scaled, y: mMoney.maxY + 7.scaled, width: mCard.width - 44.scaled, height: mAddress.font.lineHeight)
         mLan.origin    = CGPoint(x: mCard.width - mLan.width - 5.scaled, y: 5.scaled)
-        
-        let p = 20.scaled
-        let w = (mCard.width - p * 3)/2.0
-        let y = mCard.height - Style.Dims.buttonMiddle - 20.scaled
-        
-        mDelete.frame = CGRect(x: p, y: y, width: w, height: Style.Dims.buttonMiddle)
-        mBackup.frame = CGRect(x: mDelete.maxX + p, y: mDelete.minY, width: w, height: mDelete.height)
     }
     
     private func checkBadge() {
