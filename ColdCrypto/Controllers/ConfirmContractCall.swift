@@ -97,10 +97,10 @@ class ConfirmContractCall: PopupVC {
         
         let w = (width - 76.scaled)/2.0
         if mConfirm.isVisible {
-            mDecline.frame = CGRect(x: 30.scaled, y: t, width: w, height: 64.scaled)
+            mDecline.frame = CGRect(x: 30.scaled, y: t, width: w, height: Style.Dims.buttonMiddle)
             mConfirm.frame = CGRect(x: mDecline.maxX + 16.scaled, y: mDecline.minY, width: mDecline.width, height: mDecline.height)
         } else {
-            mDecline.frame = CGRect(x: 30.scaled, y: t, width: width - 60.scaled, height: 64.scaled)
+            mDecline.frame = CGRect(x: 30.scaled, y: t, width: width - 60.scaled, height: Style.Dims.buttonMiddle)
         }
         t = ceil(mDecline.maxY + 34.scaled)
         

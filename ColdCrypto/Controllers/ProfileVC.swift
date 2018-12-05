@@ -250,11 +250,13 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     func signContractCall(json: String, id: Int, completion: @escaping (String)->Void) -> Bool {
         guard let w = mActiveWallet else { return false }
         guard let p = ApiSignContractCall.deserialize(from: json) else { return false }
+        guard p.wallet?.blockchain.lowercased() == w.blockchain.rawValue.lowercased() else { return false }
+        guard w.address == p.wallet?.address else { return false }
         DispatchQueue.main.async {
             self.present(ConfirmContractCall(contract: p, wallet: w, passcode: self.mPasscode, completion: { [weak self] signed in
                 if let s = signed {
                     self?.dismiss(animated: true, completion: nil)
-                    completion("|\(id)|\"\(s)\"")
+                    completion("|\(id)|\(s)")
                 } else {
                     AlertVC("cant_signed".loc).show()
                 }
@@ -317,14 +319,15 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     
     @discardableResult
     func signTransferTx(json: String, id: Int, completion: @escaping (String)->Void) -> Bool {
-        guard let tx = ApiSignTransferTx.deserialize(from: json) else { return false }
-        guard let b = tx.wallet, let to = tx.tx else { return false }
-        guard let blockchain = Blockchain(rawValue: b.blockchain.uppercased()) else { return false }
-        guard let wallet = mProfile.chains.first(where: { $0.id == blockchain })?.wallets.first(where: { $0.address == b.address }) else { return false }
+        guard let w = mActiveWallet else { return false }
+        guard let t = ApiSignTransferTx.deserialize(from: json) else { return false }
+        guard let p = t.wallet, let to = t.tx else { return false }
+        guard t.wallet?.blockchain.lowercased() == w.blockchain.rawValue.lowercased() else { return false }
+        guard w.address == t.wallet?.address else { return false }
         DispatchQueue.main.async {
-            self.present(ConfirmationVC(to: wallet.getTo(tx: to), amount: wallet.getAmount(tx: to), onConfirm: { [weak self] in
+            self.present(ConfirmationVC(to: w.getTo(tx: to), amount: w.getAmount(tx: to), onConfirm: { [weak self] in
                 self?.dismiss(animated: true, completion: nil)
-                wallet.sign(transaction: to, wallet: b, completion: { tx in
+                w.sign(transaction: to, wallet: p, completion: { tx in
                     if let tx = tx {
                         completion("|\(id)|\(tx)")
                     }
