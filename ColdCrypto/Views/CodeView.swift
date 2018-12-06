@@ -13,7 +13,7 @@ class CodeView : UIView {
     private lazy var mDots: [UIView] = {
         var tmp: [UIView] = []
         for i in 0...3 {
-            let dot = UIView(frame: CGRect(x: 0, y: 0, width: 20.scaled, height: 20.scaled))
+            let dot = UIView(frame: CGRect(x: 0, y: 0, width: Style.Dims.small, height: Style.Dims.small))
             dot.layer.borderWidth  = 4.scaled
             dot.layer.borderColor  = Style.Colors.blue.cgColor
             dot.layer.cornerRadius = dot.width/2.0

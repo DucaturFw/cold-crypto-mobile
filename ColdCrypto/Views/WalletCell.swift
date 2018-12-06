@@ -11,7 +11,7 @@ import BlockiesSwift
 
 class WalletCell: UICollectionViewCell {
     
-    static let padding = 20.scaled
+    static let padding = Style.Dims.small
 
     static func cardSize(width: CGFloat) -> CGSize {
         return CGSize(width: width, height: ceil((width - 40.scaled) / 330.0 * 200.0) + padding)
@@ -124,7 +124,7 @@ class WalletCell: UICollectionViewCell {
             let t = mCard.transform
             let p = WalletCell.padding
             mCard.transform = .identity
-            mCard.frame = CGRect(origin: .zero, size: s).insetBy(dx: 20.scaled, dy: p/2.0).offsetBy(dx: 0, dy: p/2.0).integral
+            mCard.frame = CGRect(origin: .zero, size: s).insetBy(dx: Style.Dims.small, dy: p/2.0).offsetBy(dx: 0, dy: p/2.0).integral
             mCard.transform = t
         }
         

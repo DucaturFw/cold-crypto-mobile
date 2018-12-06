@@ -14,7 +14,7 @@ class ScanBlock: UIView {
         $0.contentMode = .center
         $0.backgroundColor = Style.Colors.darkGrey
         $0.layer.masksToBounds = true
-        $0.layer.cornerRadius  = Style.Dims.buttonMiddle/2.0
+        $0.layer.cornerRadius  = Style.Dims.middle/2.0
     })
     
     private lazy var mGradient: CAGradientLayer = {
@@ -57,8 +57,8 @@ class ScanBlock: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         mGradient.frame = bounds
-        mMore.frame = CGRect(x: 40.scaled, y: 80.scaled, width: Style.Dims.buttonMiddle, height: Style.Dims.buttonMiddle)
-        mScan.frame = CGRect(x: mMore.maxX + 20.scaled, y: mMore.minY, width: width - 60.scaled - mMore.maxX, height: mMore.height)
+        mMore.frame = CGRect(x: 40.scaled, y: 80.scaled, width: Style.Dims.middle, height: Style.Dims.middle)
+        mScan.frame = CGRect(x: mMore.maxX + Style.Dims.small, y: mMore.minY, width: width - 60.scaled - mMore.maxX, height: mMore.height)
     }
     
 }

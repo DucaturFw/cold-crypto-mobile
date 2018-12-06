@@ -21,9 +21,9 @@ struct Style {
         static let darkLight = 0xBAB6C1.color
     }
     struct Dims {
-        static let buttonSmall  = 30.scaled
-        static let buttonMiddle = 40.scaled
-        static let buttonLarge  = 50.scaled
-        static let bottomScan   = 160.scaled
+        static let small  = 20.scaled
+        static let middle = 40.scaled
+        static let large  = 50.scaled
+        static let bottomScan = 160.scaled
     }
 }

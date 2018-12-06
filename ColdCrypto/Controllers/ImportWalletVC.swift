@@ -121,7 +121,7 @@ class ImportWalletVC: PopupVC {
         let p = 40.scaled
         let w = (width - p * 3.0)/2.0
         
-        mCancel.frame = CGRect(x: p, y: y, width: w, height: Style.Dims.buttonMiddle)
+        mCancel.frame = CGRect(x: p, y: y, width: w, height: Style.Dims.middle)
         mImport.frame = CGRect(x: mCancel.maxX + p, y: mCancel.minY, width: w, height: mCancel.height)
         return mCancel.maxY + p
     }

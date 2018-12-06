@@ -28,7 +28,7 @@ class Button : UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        layer.cornerRadius = 20.scaled
+        layer.cornerRadius = Style.Dims.small
         setTitleColor(Style.Colors.white, for: .normal)
         titleLabel?.font = .medium(15.scaled)
         addTarget(self, action: #selector(clicked), for: .touchUpInside)

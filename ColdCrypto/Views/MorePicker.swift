@@ -10,6 +10,11 @@ import UIKit
 
 class MorePicker: UIView, IAlertView {
     
+    private let mSend = Button().apply {
+        $0.backgroundColor = Style.Colors.darkGrey
+        $0.setTitle("send".loc, for: .normal)
+    }
+    
     private let mReceive = Button().apply {
         $0.backgroundColor = Style.Colors.darkGrey
         $0.setTitle("receive".loc, for: .normal)
@@ -28,12 +33,17 @@ class MorePicker: UIView, IAlertView {
     var onDelete: ()->Void = {}
     var onReceive: ()->Void = {}
     var onBackup: ()->Void = {}
+    var onSend: ()->Void = {}
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        addSubview(mSend)
         addSubview(mReceive)
         addSubview(mBackup)
         addSubview(mDelete)
+        mSend.click = { [weak self] in
+            self?.onSend()
+        }
         mReceive.click = { [weak self] in
             self?.onReceive()
         }
@@ -50,7 +60,8 @@ class MorePicker: UIView, IAlertView {
     }
     
     func layout(width: CGFloat, origin o: CGPoint) {
-        mReceive.frame = CGRect(x: 0, y: 0, width: width, height: Style.Dims.buttonMiddle)
+        mSend.frame = CGRect(x: 0, y: 0, width: width, height: Style.Dims.middle)
+        mReceive.frame = mSend.frame.offsetBy(dx: 0, dy: mSend.height + 20.scaled)
         mBackup.frame = mReceive.frame.offsetBy(dx: 0, dy: mReceive.height + 20.scaled)
         mDelete.frame = mBackup.frame.offsetBy(dx: 0, dy: mBackup.height + 20.scaled)
         

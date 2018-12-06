@@ -102,7 +102,7 @@ class AlertVC : PopupVC {
 
     @discardableResult
     override func doLayout() -> CGFloat {
-        let p: CGFloat = style == .sheet ? 40.scaled : 20.scaled
+        let p: CGFloat = style == .sheet ? Style.Dims.middle : Style.Dims.small
         var y: CGFloat = p
         let w: CGFloat = width
         
@@ -133,7 +133,7 @@ class AlertVC : PopupVC {
             let w = (w - p * CGFloat(mButtons.count+1)) / CGFloat(mButtons.count)
             var x = CGFloat(0)
             mButtons.forEach({
-                $0.frame = CGRect(x: x + p, y: y, width: w, height: Style.Dims.buttonMiddle)
+                $0.frame = CGRect(x: x + p, y: y, width: w, height: Style.Dims.middle)
                 $0.setNeedsLayout()
                 $0.layoutIfNeeded()
                 $0.layer.cornerRadius = $0.height/2.0
@@ -142,7 +142,7 @@ class AlertVC : PopupVC {
             y = (mButtons.last?.maxY ?? y) + p
         } else if mWithButtons {
             mButtons.forEach({
-                $0.frame = CGRect(x: p, y: y, width: w-40.scaled, height: Style.Dims.buttonMiddle)
+                $0.frame = CGRect(x: p, y: y, width: w-40.scaled, height: Style.Dims.middle)
                 $0.setNeedsLayout()
                 $0.layoutIfNeeded()
                 $0.layer.cornerRadius = $0.height/2.0

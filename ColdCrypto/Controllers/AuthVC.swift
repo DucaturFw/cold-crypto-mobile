@@ -58,7 +58,7 @@ class AuthVC : UIViewController {
         mNewOne.frame = CGRect(x: floor((view.width - 307.scaled)/2.0),
                                y: floor(view.height - AppDelegate.bottomGap - 135.scaled),
                                width: 307.scaled,
-                               height: Style.Dims.buttonLarge)
+                               height: Style.Dims.large)
         mNewOne.transform = t
     }
     

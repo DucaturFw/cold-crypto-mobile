@@ -77,7 +77,7 @@ class ConfirmationVC: PopupVC {
         let p = 40.scaled
         let w = (width - p * 3.0)/2.0
 
-        mDecline.frame = CGRect(x: p, y: mAmount.maxY + p, width: w, height: Style.Dims.buttonMiddle)
+        mDecline.frame = CGRect(x: p, y: mAmount.maxY + p, width: w, height: Style.Dims.middle)
         mConfirm.frame = CGRect(x: mDecline.maxX + p, y: mDecline.minY, width: mDecline.width, height: mDecline.height)
         
         return mDecline.maxY + p

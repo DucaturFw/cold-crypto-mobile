@@ -23,7 +23,7 @@ class EOSForm: UIView, UITextFieldDelegate {
         $0.autocorrectionType = .no
         $0.autocapitalizationType = .none
         $0.backgroundColor = Style.Colors.light
-        $0.layer.cornerRadius = Style.Dims.buttonMiddle/2.0
+        $0.layer.cornerRadius = Style.Dims.middle/2.0
         $0.layer.borderWidth = 0.0
         $0.delegate = self
         $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
@@ -86,7 +86,7 @@ class EOSForm: UIView, UITextFieldDelegate {
     override func layoutSubviews() {
         super.layoutSubviews()
         mCaption.origin = CGPoint(x: (width - mCaption.width)/2.0, y: 0)
-        mField.frame = CGRect(x: 40.scaled, y: mCaption.maxY + 30.scaled, width: width - 80.scaled, height: Style.Dims.buttonMiddle)
+        mField.frame = CGRect(x: 40.scaled, y: mCaption.maxY + 30.scaled, width: width - 80.scaled, height: Style.Dims.middle)
         mNoAcc.origin = CGPoint(x: (width - mNoAcc.width)/2.0, y: mField.maxY + 30.scaled)
         mList.frame = CGRect(x: 40.scaled, y: mField.maxY + 30.scaled, width: width - 80.scaled, height: mList.height)
         frame.size.height = mNoAcc.alpha > 0 ? mNoAcc.maxY : mList.maxY

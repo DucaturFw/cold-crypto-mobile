@@ -94,3 +94,9 @@
 "connected" = "Connected";
 "not_connected" = "Not connected";
 "connecting" = "Connecting";
+"send" = "Send";
+"new_trans" = "New Transaction";
+"send_to" = "Enter the address you are sending to:";
+"amount" = "Enter the amount of the transfer:";
+"fee" = "Fee of the transaction:";
+"send" = "Send";

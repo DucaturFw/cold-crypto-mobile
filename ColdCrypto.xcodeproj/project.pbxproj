@@ -16,6 +16,9 @@
 		EB02B9E421B7433000C1B30F /* EOSTransactionRaw.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB02B9E321B7433000C1B30F /* EOSTransactionRaw.swift */; };
 		EB02B9E621B7435300C1B30F /* EOSActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB02B9E521B7435300C1B30F /* EOSActions.swift */; };
 		EB0B1CFD21B088710037C594 /* JTHamburgerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0B1CFB21B088710037C594 /* JTHamburgerButton.m */; };
+		EB19D13621B9BAE800AA0D47 /* NewTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB19D13521B9BAE800AA0D47 /* NewTransaction.swift */; };
+		EB19D13821B9BC6500AA0D47 /* ScanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB19D13721B9BC6500AA0D47 /* ScanButton.swift */; };
+		EB19D13A21B9C0C700AA0D47 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB19D13921B9C0C700AA0D47 /* Field.swift */; };
 		EB1A0BF0218A27D300C43E72 /* CardsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1A0BEF218A27D300C43E72 /* CardsList.swift */; };
 		EB1F3B972198B1D60052E5A7 /* AlertImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B962198B1D60052E5A7 /* AlertImage.swift */; };
 		EB1F3B9B2198D07F0052E5A7 /* SeedWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1F3B9A2198D07F0052E5A7 /* SeedWord.swift */; };
@@ -240,6 +243,9 @@
 		EB02B9E521B7435300C1B30F /* EOSActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EOSActions.swift; sourceTree = "<group>"; };
 		EB0B1CFB21B088710037C594 /* JTHamburgerButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTHamburgerButton.m; sourceTree = "<group>"; };
 		EB0B1CFC21B088710037C594 /* JTHamburgerButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTHamburgerButton.h; sourceTree = "<group>"; };
+		EB19D13521B9BAE800AA0D47 /* NewTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTransaction.swift; sourceTree = "<group>"; };
+		EB19D13721B9BC6500AA0D47 /* ScanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanButton.swift; sourceTree = "<group>"; };
+		EB19D13921B9C0C700AA0D47 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		EB1A0BEF218A27D300C43E72 /* CardsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsList.swift; sourceTree = "<group>"; };
 		EB1F3B962198B1D60052E5A7 /* AlertImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertImage.swift; sourceTree = "<group>"; };
 		EB1F3B9A2198D07F0052E5A7 /* SeedWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedWord.swift; sourceTree = "<group>"; };
@@ -547,6 +553,9 @@
 				EB34C64F21B70D6C003F4C51 /* MorePicker.swift */,
 				EB34C65121B718D7003F4C51 /* DeleteView.swift */,
 				EB02B9DF21B7385400C1B30F /* HistoryCell.swift */,
+				EB19D13521B9BAE800AA0D47 /* NewTransaction.swift */,
+				EB19D13721B9BC6500AA0D47 /* ScanButton.swift */,
+				EB19D13921B9C0C700AA0D47 /* Field.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1221,6 +1230,7 @@
 				EB3ECC5D2180E8CD00D14656 /* Checkbox.swift in Sources */,
 				EB64509B21810CAD008397DF /* ApiWebRTC.swift in Sources */,
 				EBA5938B217A813F00F3CB65 /* Button.swift in Sources */,
+				EB19D13821B9BC6500AA0D47 /* ScanButton.swift in Sources */,
 				EBA593CE217A8B6400F3CB65 /* Chain.swift in Sources */,
 				EB02B9D221B7327900C1B30F /* ETHToken.swift in Sources */,
 				EBEDA2A021AB4FF3004FCB75 /* ResourceUtil.swift in Sources */,
@@ -1262,6 +1272,7 @@
 				EBAC21C621A5C7AA002CF61B /* ETHabi.swift in Sources */,
 				EB2676DD21B43980003B254F /* EOSForm.swift in Sources */,
 				EB2676CD21B3008B003B254F /* CardProvider.swift in Sources */,
+				EB19D13A21B9C0C700AA0D47 /* Field.swift in Sources */,
 				EBC9F78421822FC000150883 /* ApiMessage.swift in Sources */,
 				EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */,
 				EB2676DF21B4731E003B254F /* BackupView.swift in Sources */,
@@ -1302,6 +1313,7 @@
 				EB34C64E21B70C71003F4C51 /* MoreVC.swift in Sources */,
 				EBEDA2AA21AB4FF3004FCB75 /* PublicKey.swift in Sources */,
 				EBA59393217A815300F3CB65 /* Extensions.swift in Sources */,
+				EB19D13621B9BAE800AA0D47 /* NewTransaction.swift in Sources */,
 				EBEDA2A721AB4FF3004FCB75 /* EOSRPC.swift in Sources */,
 				EB34C65221B718D7003F4C51 /* DeleteView.swift in Sources */,
 				EBF620C2218BA2AA005C6141 /* RepeatPassVC.swift in Sources */,
