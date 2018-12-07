@@ -10,7 +10,7 @@ import Foundation
 
 class NewTransaction: UIView, IAlertView, UITextFieldDelegate {
     
-    private let mName = UILabel.new(font: UIFont.medium(25.scaled), text: "new_trans".loc, lines: 1, color: Style.Colors.black, alignment: .center)
+    private let mName   = UILabel.new(font: UIFont.medium(25.scaled), text: "new_trans".loc, lines: 1, color: Style.Colors.black, alignment: .center)
     private let mSendTo = UILabel.new(font: UIFont.medium(15.scaled), text: "send_to".loc, lines: 1, color: Style.Colors.darkGrey, alignment: .center)
     private let mAmount = UILabel.new(font: UIFont.medium(15.scaled), text: "amount".loc, lines: 1, color: Style.Colors.darkGrey, alignment: .center)
     private let mFeeCap = UILabel.new(font: UIFont.medium(15.scaled), text: "fee".loc, lines: 1, color: Style.Colors.darkGrey, alignment: .center)

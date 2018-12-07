@@ -24,23 +24,24 @@ class WebRTCClient: NSObject {
     
     private static let constraints = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: nil)
     
-    private static var config: RTCConfiguration = {
+    init(servers: [ApiIceServer]) {
         let config = RTCConfiguration()
-        
-        // We use Google's public stun/turn server. For production apps you should deploy your own stun/turn servers.
-        config.iceServers = [RTCIceServer(urlStrings: ["stun:stun.l.google.com:19302"])]
-        //        config.iceServers = [RTCIceServer(urlStrings: ["stun:global.stun.twilio.com:3478?transport=udp"])]
-        
-        // Unified plan is more superior than planB
+        let mapped: [RTCIceServer] = servers.compactMap({
+            if let urls = $0.urls,
+                let username = $0.username,
+                let credentials = $0.credential,
+                username.count > 0 && credentials.count > 0 {
+                return RTCIceServer(urlStrings: urls, username: username, credential: credentials)
+            } else if let urls = $0.urls {
+                return RTCIceServer(urlStrings: urls)
+            }
+            return nil
+        })
+        config.iceServers = mapped
         config.sdpSemantics = .unifiedPlan
-        
-        // gatherContinually will let WebRTC to listen to any network changes and send any new candidates to the other client
         config.continualGatheringPolicy = .gatherContinually
-        return config
-    }()
-    
-    override init() {
-        peerConnection = factory.peerConnection(with: WebRTCClient.config,
+
+        peerConnection = factory.peerConnection(with: config,
                                                 constraints: WebRTCClient.constraints,
                                                 delegate: nil)
         super.init()

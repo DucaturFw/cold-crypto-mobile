@@ -16,6 +16,8 @@
 		EB02B9E421B7433000C1B30F /* EOSTransactionRaw.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB02B9E321B7433000C1B30F /* EOSTransactionRaw.swift */; };
 		EB02B9E621B7435300C1B30F /* EOSActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB02B9E521B7435300C1B30F /* EOSActions.swift */; };
 		EB0B1CFD21B088710037C594 /* JTHamburgerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0B1CFB21B088710037C594 /* JTHamburgerButton.m */; };
+		EB107E0D21BA750200497C6E /* ApiIceServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB107E0C21BA750200497C6E /* ApiIceServer.swift */; };
+		EB107E0F21BA7C3800497C6E /* ApiFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB107E0E21BA7C3800497C6E /* ApiFallback.swift */; };
 		EB19D13621B9BAE800AA0D47 /* NewTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB19D13521B9BAE800AA0D47 /* NewTransaction.swift */; };
 		EB19D13821B9BC6500AA0D47 /* ScanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB19D13721B9BC6500AA0D47 /* ScanButton.swift */; };
 		EB19D13A21B9C0C700AA0D47 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB19D13921B9C0C700AA0D47 /* Field.swift */; };
@@ -243,6 +245,8 @@
 		EB02B9E521B7435300C1B30F /* EOSActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EOSActions.swift; sourceTree = "<group>"; };
 		EB0B1CFB21B088710037C594 /* JTHamburgerButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTHamburgerButton.m; sourceTree = "<group>"; };
 		EB0B1CFC21B088710037C594 /* JTHamburgerButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTHamburgerButton.h; sourceTree = "<group>"; };
+		EB107E0C21BA750200497C6E /* ApiIceServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiIceServer.swift; sourceTree = "<group>"; };
+		EB107E0E21BA7C3800497C6E /* ApiFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiFallback.swift; sourceTree = "<group>"; };
 		EB19D13521B9BAE800AA0D47 /* NewTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTransaction.swift; sourceTree = "<group>"; };
 		EB19D13721B9BC6500AA0D47 /* ScanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanButton.swift; sourceTree = "<group>"; };
 		EB19D13921B9C0C700AA0D47 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
@@ -584,6 +588,7 @@
 				EB976CED217BA75900B8DC95 /* ApiParamsTx.swift */,
 				EB3ECC642180F74600D14656 /* ApiSignTransferTx.swift */,
 				EB64509A21810CAD008397DF /* ApiWebRTC.swift */,
+				EB107E0E21BA7C3800497C6E /* ApiFallback.swift */,
 				EB64509C2181152E008397DF /* ApiOffer.swift */,
 				EB64509E21811684008397DF /* ApiJoin.swift */,
 				EBC9F77B21822F4900150883 /* ApiAnswer.swift */,
@@ -593,6 +598,7 @@
 				EBAC21CC21A5D0E5002CF61B /* ApiSignContractCall.swift */,
 				EBAC21CE21A5D255002CF61B /* ApiAbi.swift */,
 				EB2F617D21AC00340029219A /* ApiEOSTx.swift */,
+				EB107E0C21BA750200497C6E /* ApiIceServer.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1206,6 +1212,8 @@
 				EBEDA28921AB4FF3004FCB75 /* platform-specific.inc in Sources */,
 				EBA593BD217A88EF00F3CB65 /* EthereumAddress.swift in Sources */,
 				EBEDA2B121AB4FF3004FCB75 /* EOSBalance.swift in Sources */,
+				EB107E0F21BA7C3800497C6E /* ApiFallback.swift in Sources */,
+				EB107E0D21BA750200497C6E /* ApiIceServer.swift in Sources */,
 				EBAC21CD21A5D0E5002CF61B /* ApiSignContractCall.swift in Sources */,
 				EB2F617E21AC00340029219A /* ApiEOSTx.swift in Sources */,
 				EB64509921810BBC008397DF /* RTC.swift in Sources */,

@@ -12,7 +12,9 @@ import WebRTC
 class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelDelegate {
         
     private let signalClient: SignalClient
-    private let webRTCClient = WebRTCClient()
+    private var webRTCClient = WebRTCClient(servers: [ApiIceServer().apply({
+        $0.urls = ["stun:stun.l.google.com:19302"]
+    })])
     
     private let mSID: String
     
@@ -77,6 +79,24 @@ class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelD
             webRTCClient.set(remoteCandidate: RTCIceCandidate(sdp: ice.candidate,
                                                               sdpMLineIndex: Int32(ice.sdpMLineIndex),
                                                               sdpMid: ice.sdpMid))
+        } else if parts.count >= 3, parts[0] == ApiIceServer.method,
+            let servers = [ApiIceServer].deserialize(from: String(parts[2])) {
+            webRTCClient.delegate = nil
+            webRTCClient.close()
+            webRTCClient = WebRTCClient(servers: servers.compactMap({ $0 }))
+            webRTCClient.delegate = self
+        } else if parts.count >= 3, parts[0] == ApiFallback.method, let obj = ApiFallback.deserialize(from: String(parts[2]))?.msg {
+            DispatchQueue.main.async {
+                self.mDelegate?.parse(request: obj, supportRTC: false, block: { [weak client] send in
+                    client?.send(json: send)
+                })
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.mDelegate?.parse(request: receive, supportRTC: false, block: { [weak client] send in
+                    client?.send(json: send)
+                })
+            }
         }
     }
     
