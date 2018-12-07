@@ -154,9 +154,15 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     }
     
     private func startScanning() {
+        guard let a = mActiveWallet else { return }
         let vc = ScannerVC()
         vc.onFound = { [weak self, weak vc] json in
-            if let s = self, s.parse(request: json.trimmingCharacters(in: .whitespacesAndNewlines), supportRTC: true, block: s.defaultCatchBlock) == true {
+            guard let s = self else { return }
+            if let address = a.isValid(address: json) {
+                vc?.stop()
+                vc?.dismiss(animated: true, completion: nil)
+                s.present(SendVC(wallet: a, to: address), animated: true, completion: nil)
+            } else if s.parse(request: json.trimmingCharacters(in: .whitespacesAndNewlines), supportRTC: true, block: s.defaultCatchBlock) == true {
                 vc?.stop()
                 vc?.dismiss(animated: true, completion: nil)
             }

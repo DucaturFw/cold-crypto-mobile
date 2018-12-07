@@ -9,7 +9,7 @@
 import UIKit
 
 class EOSWallet: IWallet {
-    
+
     var seed: String?
 
     weak var delegate: IWalletDelegate?
@@ -28,6 +28,10 @@ class EOSWallet: IWallet {
         didSet {
             onConnected?(connectionStatus)
         }
+    }
+    
+    var isFeeSupport: Bool {
+        return false
     }
     
     private var cachedTrans: [ITransaction] = []
@@ -160,6 +164,47 @@ class EOSWallet: IWallet {
                 s.delegate?.on(history: s.cachedTrans, of: s)
             }
         })
+    }
+    
+    func isValid(address: String?) -> String? {
+        guard let a = address?.lowercased(), a.count == 12 else { return nil }
+        do {
+            let regex = try NSRegularExpression(pattern: "^[a-z1-5]{12}$", options: [])
+            let match = regex.firstMatch(in: a, options: [], range: NSRange(location: 0, length: a.count))
+            guard let range = match?.range else { return nil }
+            return (range.location == 0 && range.length == 12) ? a : nil
+        } catch {
+            return nil
+        }
+    }
+    
+    func getFee(completion: @escaping (String?) -> Void) {
+        completion(nil)
+    }
+    
+    private func send(value: Decimal, to: String, symbol: String, completion: @escaping (String?) -> Void) {
+        guard
+            let pk = try? PrivateKey(keyString: privateKey),
+            let pk2 = pk,
+            let amount = value.EOSCompactValue
+            else {
+                completion(nil)
+                return
+        }
+        
+        let transfer = Transfer()
+        transfer.from = name
+        transfer.to = to
+        transfer.quantity = "\(amount) \(symbol)"
+        transfer.memo = "ColdCrypto"
+        
+        Currency.transferCurrency(transfer: transfer, code: "eosio.token", privateKey: pk2, completion: { (result, error) in
+            completion(result?.transactionId)
+        })
+    }
+    
+    func send(value: Decimal, to: String, completion: @escaping (String?) -> Void) {
+        send(value: value, to: to, symbol: blockchain.symbol(), completion: completion)
     }
     
 }

@@ -558,6 +558,18 @@ extension Decimal {
     var money: String? {
         return Decimal.moneyFormatter.string(for: self)?.trimmed
     }
+    
+    private static let EOSformatter: NumberFormatter = {
+        let tmp = NumberFormatter()
+        tmp.minimumFractionDigits = 4
+        tmp.minimumIntegerDigits  = 1
+        tmp.decimalSeparator = "."
+        return tmp
+    }()
+    
+    var EOSCompactValue: String? {
+        return Decimal.EOSformatter.string(for: self)
+    }
 }
 
 extension MBProgressHUD {
@@ -657,12 +669,14 @@ public extension UIResponder {
 }
 
 extension Notification {
-    func keyboard(block: (CGRect, TimeInterval, UInt)->Void) {
+    func keyboard(block: @escaping (CGRect, TimeInterval, UInt)->Void) {
         guard let frameEnd: CGRect = self.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
         guard let duration: TimeInterval = self.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else { return }
         guard let curve: Int = self.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else { return }
-        if (duration > 0.0 && curve > 0) {
-            block(frameEnd, duration, UInt(curve))
+        if (duration > 0 && curve > 0) {
+            DispatchQueue.main.async {
+                block(frameEnd, duration, UInt(curve))
+            }
         }
     }
 }

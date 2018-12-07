@@ -245,4 +245,53 @@ class ETHWallet : IWallet {
         }
     }
     
+    var isFeeSupport: Bool {
+        return true
+    }
+    
+    func isValid(address: String?) -> String? {
+        guard let a1 = address else { return nil }
+        return EthereumAddress.isValid(address: a1)
+    }
+    
+    func getFee(completion: @escaping (String?)->Void) {
+        let symbol = blockchain.symbol()
+        getGasPrice(completion: { p in
+            if let w = p, let eth = try? Converter.toEther(wei: w) {
+                let price = eth * 21000
+                if price > 0.00001 {
+                    completion("\(price) \(symbol)")
+                } else {
+                    completion("\(price * 1000000000) GWei")
+                }
+            } else {
+                completion(nil)
+            }
+        })
+    }
+    
+    private func getGasPrice(completion: ((Wei?)->Void)? = nil) {
+        mNet.getGasPrice { [weak self] price, error in
+            self?.gasPrice = price
+            completion?(price)
+        }
+    }
+    
+    func send(value: Decimal, to: String, completion: @escaping (String?)->Void) {
+        guard let wei = try? Converter.toWei(ether: value) else {
+            completion(nil)
+            return
+        }
+
+        let lim: Int
+        if let pp = gasPrice?.description, let i = Int(pp) {
+            lim = i
+        } else {
+            lim = Converter.toWei(GWei: 10)
+        }
+        mNet.send(value: wei, to: to, gasPrice: lim, gasLimit: gasLimit, data: Data()) { (hash, error) in
+            completion(hash)
+        }
+    }
+    
 }

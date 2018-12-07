@@ -18,7 +18,7 @@ class MoreVC: AlertVC {
         super.init(nil, view: v, style: .sheet, arrow: true, withButtons: false)
         v.onSend = { [weak self] in
             if let s = self {
-                self?.update(view: NewTransaction(parent: s), configure: {})
+                self?.update(view: NewTransaction(parent: s, wallet: wallet), configure: {})
             }
         }
         v.onDelete = { [weak self] in

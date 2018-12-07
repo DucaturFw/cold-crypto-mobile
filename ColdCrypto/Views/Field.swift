@@ -10,6 +10,21 @@ import UIKit
 
 class Field: UITextField {
     
+    var useTopDone = false {
+        didSet {
+            if useTopDone {
+                let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
+                toolbar.items = [
+                    UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+                    UIBarButtonItem(title: "done".loc, style: .done, target: self, action: #selector(doneTapped))
+                ]
+                inputAccessoryView = toolbar
+            } else {
+                inputAccessoryView = nil
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         returnKeyType = .search
@@ -27,6 +42,10 @@ class Field: UITextField {
     
     required init?(coder aDecoder: NSCoder) {
         return nil
+    }
+    
+    @objc private func doneTapped() {
+        endEditing(true)
     }
     
 }

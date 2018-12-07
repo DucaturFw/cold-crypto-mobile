@@ -30,7 +30,11 @@ protocol IWallet : class {
     var time: TimeInterval { get }
     var connectionStatus: ConnectionState { get set }
     var onConnected: ((ConnectionState)->Void)? { get set }
+    var isFeeSupport: Bool { get }
     
+    func getFee(completion: @escaping (String?)->Void)
+    func isValid(address: String?) -> String?
+    func send(value: Decimal, to: String, completion: @escaping (String?)->Void)
     func sign(transaction: ApiParamsTx, wallet: ApiParamsWallet, completion: @escaping (String?)->Void)
     func pay(to: ApiParamsTx, completion: @escaping (String?)->Void)
     func parseContract(contract: ApiSignContractCall) -> IContract?

@@ -100,3 +100,6 @@
 "amount" = "Enter the amount of the transfer:";
 "fee" = "Fee of the transaction:";
 "send" = "Send";
+"send_destination" = "Account";
+"done" = "Done";
+"cant_send_tx" = "Can't process the transaction.";

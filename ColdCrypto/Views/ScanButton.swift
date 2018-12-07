@@ -12,6 +12,7 @@ class ScanButton: UIImageView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        isUserInteractionEnabled = true
         backgroundColor = Style.Colors.darkGrey
         layer.masksToBounds = true
         image = UIImage(named: "scanWhite")
