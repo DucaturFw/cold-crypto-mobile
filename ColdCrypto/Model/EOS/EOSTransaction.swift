@@ -31,17 +31,11 @@ class EOSTransaction: ITransaction {
         val = (tmp.count > 1 ? String(tmp[0]) : "0").trimmed
         hash = source.id ?? ""
         tokenSymbol = (tmp.count > 1 ? String(tmp[1]) : "")
-        
+
         positive = account != source.from
-        if positive {
-            from = source.from ?? ""
-            to   = source.to ?? ""
-            name = from
-        } else {
-            from = source.to ?? ""
-            to   = source.from ?? ""
-            name = to
-        }
+        from = source.from ?? ""
+        to   = source.to ?? ""
+        name = positive ? from : to
         
         if let t = source.time, let date = Utils.EOSformatter.date(from: t) {
             text = Utils.formatter.string(from: date)

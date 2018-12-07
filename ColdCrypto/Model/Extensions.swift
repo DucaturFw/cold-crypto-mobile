@@ -668,6 +668,10 @@ public extension UIResponder {
     }
 }
 
+extension NSNotification.Name {
+    static let coinsSent = NSNotification.Name(rawValue: "_coins.sent")
+}
+
 extension Notification {
     func keyboard(block: @escaping (CGRect, TimeInterval, UInt)->Void) {
         guard let frameEnd: CGRect = self.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }

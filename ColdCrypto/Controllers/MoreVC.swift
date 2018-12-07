@@ -39,16 +39,10 @@ class MoreVC: AlertVC {
             self?.backup(passcode: passcode, wallet: wallet)
         }
         v.onReceive = { [weak self] in
-            guard var qr = QRCode(wallet.address) else {
-                self?.dismiss(animated: true)
-                return
-            }
-            qr.size = CGSize(width: 300, height: 300)
-            self?.update(view: AlertImage(image: qr.image), configure: { [weak self] in
+            let qr = QRView(name: nil, value: wallet.address)
+            self?.update(view: qr, configure: { [weak self] in
                 self?.put("share".loc) { _ in
-                    DispatchQueue.main.async {
-                        AppDelegate.share(image: qr.image, text: wallet.address)
-                    }
+                    AppDelegate.share(image: qr.image, text: qr.value)
                 }
             })
         }
@@ -65,13 +59,11 @@ class MoreVC: AlertVC {
                     self?.update(view: BackupView(seed: seed), configure: { [weak self] in
                         self?.put("done".loc)
                     })
-                } else if var qr = QRCode(wallet.privateKey) {
-                    qr.size = CGSize(width: 300, height: 300)
-                    self?.update(view: AlertImage(image: qr.image), configure: { [weak self] in
+                } else {
+                    let qr = QRView(name: nil, value: wallet.privateKey)
+                    self?.update(view: qr, configure: { [weak self] in
                         self?.put("share".loc, do: { _ in
-                            DispatchQueue.main.async {
-                                AppDelegate.share(image: qr.image, text: wallet.privateKey)
-                            }
+                            AppDelegate.share(image: qr.image, text: qr.value)
                         })
                     })
                 }

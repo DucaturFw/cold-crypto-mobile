@@ -65,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.layer.masksToBounds = true
         window?.rootViewController  = NavigatorVC(rootViewController: AuthVC())
         window?.makeKeyAndVisible()
+                
         return true
     }
     
@@ -106,15 +107,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     static func share(image: UIImage?, text: String) {
-        var shareItems: [Any] = [text]
-        if let i = image {
-            shareItems.append(i)
+        DispatchQueue.main.async {
+            var shareItems: [Any] = [text]
+            if let i = image {
+                shareItems.append(i)
+            }
+            let vc = (UIApplication.shared.delegate as? AppDelegate)?.window?.rootViewController
+            vc?.present(UIActivityViewController(activityItems: shareItems,
+                                                 applicationActivities: nil),
+                        animated: true,
+                        completion: nil)
         }
-        let vc = (UIApplication.shared.delegate as? AppDelegate)?.window?.rootViewController
-        vc?.present(UIActivityViewController(activityItems: shareItems,
-                                             applicationActivities: nil),
-                    animated: true,
-                    completion: nil)
     }
 
 }

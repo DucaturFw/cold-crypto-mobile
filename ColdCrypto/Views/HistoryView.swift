@@ -39,10 +39,22 @@ class HistoryView: UITableView, IWalletDelegate, UITableViewDelegate, UITableVie
         wallet.delegate = self
         wallet.getHistory(force: false)
         insertSubview(mEmpty, at: 0)
+        NotificationCenter.default.addObserver(self, selector: #selector(coinsSent(_:)), name: .coinsSent, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     required init?(coder aDecoder: NSCoder) {
         return nil
+    }
+    
+    @objc private func coinsSent(_ n: Any?) {
+        guard let id = ((n as? Notification)?.object as? String) else { return }
+        if id == mWallet.id {
+            refresh()
+        }
     }
     
     @objc private func refresh() {

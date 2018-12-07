@@ -65,29 +65,32 @@ class WalletCell: UICollectionViewCell {
             mAddress.text = wallet?.address
             mLogo.image   = wallet?.blockchain.largeIcon()
             mCard.image   = CardProvider.getCard(mAddress.text ?? "")
-
-            mHUD.startAnimating()
-            let cache = UUID().uuidString
-            let units = wallet?.blockchain.symbol() ?? ""
-            mCache = cache
-            
-            mMoney.text  = ""
-            mAmount.text = ""
-            wallet?.getBalance(completion: { [weak self] b, r in
-                if let s = self, cache == s.mCache {
-                    s.mAmount.isHidden = false
-                    s.mHUD.stopAnimating()
-                    s.mAmount.text = "\(b ?? "--") \(units)"
-                    s.mMoney.text = "\(r ?? "--") USD"
-                }
-            })
             wallet?.onConnected = { [weak self] v in
                 UIView.animate(withDuration: 0.25, animations: {
                     self?.checkBadge()
                 })
             }
+            refreshBalance()
             checkBadge()
         }
+    }
+    
+    private func refreshBalance() {
+        mHUD.startAnimating()
+        let cache = UUID().uuidString
+        let units = wallet?.blockchain.symbol() ?? ""
+        mCache = cache
+        
+        mMoney.text  = ""
+        mAmount.text = ""
+        wallet?.getBalance(completion: { [weak self] b, r in
+            if let s = self, cache == s.mCache {
+                s.mAmount.isHidden = false
+                s.mHUD.stopAnimating()
+                s.mAmount.text = "\(b ?? "--") \(units)"
+                s.mMoney.text = "\(r ?? "--") USD"
+            }
+        })
     }
     
     override var withTint: Bool {
@@ -104,6 +107,7 @@ class WalletCell: UICollectionViewCell {
         mCard.addSubview(mMoney)
         mCard.addSubview(mHUD)
         mCard.addSubview(mLan)
+        NotificationCenter.default.addObserver(self, selector: #selector(coinsSent(_:)), name: .coinsSent, object: nil)
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
@@ -135,6 +139,14 @@ class WalletCell: UICollectionViewCell {
         mMoney.frame   = CGRect(x: 22.scaled, y: mAmount.maxY + 7.scaled, width: mCard.width - 44.scaled, height: mMoney.font.lineHeight)
         mAddress.frame = CGRect(x: 22.scaled, y: mMoney.maxY + 7.scaled, width: mCard.width - 44.scaled, height: mAddress.font.lineHeight)
         mLan.origin    = CGPoint(x: mCard.width - mLan.width - 5.scaled, y: 5.scaled)
+    }
+    
+    @objc private func coinsSent(_ n: Any?) {
+        guard let id = (n as? Notification)?.object as? String else { return }
+        if id == wallet?.id {
+            wallet?.flushCache()
+            refreshBalance()
+        }
     }
     
     private func checkBadge() {

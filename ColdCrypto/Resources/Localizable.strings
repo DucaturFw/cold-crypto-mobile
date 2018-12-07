@@ -103,3 +103,4 @@
 "send_destination" = "Account";
 "done" = "Done";
 "cant_send_tx" = "Can't process the transaction.";
+"success" = "Success";

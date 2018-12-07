@@ -202,15 +202,14 @@ class NewTransaction: UIView, IAlertView, UITextFieldDelegate {
             let hud = mParent?.view.hud
             mWallet.send(value: amount, to: to, completion: { [weak self] tx in
                 hud?.hide(animated: true)
-                if let tx = tx, var qr = QRCode(tx) {
-                    qr.size = CGSize(width: 300, height: 300)
-                    self?.mParent?.update(view: AlertImage(image: qr.image), configure: { [weak self] in
+                if let tx = tx {
+                    let qr = QRView(name: "success".loc, value: tx)
+                    self?.mParent?.update(view: qr, configure: { [weak self] in
                         self?.mParent?.put("share".loc, do: { _ in
-                            DispatchQueue.main.async {
-                                AppDelegate.share(image: qr.image, text: tx)
-                            }
+                            AppDelegate.share(image: qr.image, text: qr.value)
                         })
                     })
+                    NotificationCenter.default.post(name: .coinsSent, object: self?.mWallet.id)
                 } else {
                     "cant_send_tx".loc.show()
                 }

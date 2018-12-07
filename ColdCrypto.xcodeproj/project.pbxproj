@@ -41,6 +41,7 @@
 		EB34C65021B70D6C003F4C51 /* MorePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB34C64F21B70D6C003F4C51 /* MorePicker.swift */; };
 		EB34C65221B718D7003F4C51 /* DeleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB34C65121B718D7003F4C51 /* DeleteView.swift */; };
 		EB34C7F621BAB0FA002BB129 /* SendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB34C7F521BAB0FA002BB129 /* SendVC.swift */; };
+		EB34C7F821BAB8EB002BB129 /* QRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB34C7F721BAB8EB002BB129 /* QRView.swift */; };
 		EB3ECC5D2180E8CD00D14656 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */; };
 		EB3ECC652180F74600D14656 /* ApiSignTransferTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC642180F74600D14656 /* ApiSignTransferTx.swift */; };
 		EB3F8AFE218357D5004E6CFB /* WalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3F8AFD218357D5004E6CFB /* WalletCell.swift */; };
@@ -271,6 +272,7 @@
 		EB34C64F21B70D6C003F4C51 /* MorePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorePicker.swift; sourceTree = "<group>"; };
 		EB34C65121B718D7003F4C51 /* DeleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteView.swift; sourceTree = "<group>"; };
 		EB34C7F521BAB0FA002BB129 /* SendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendVC.swift; sourceTree = "<group>"; };
+		EB34C7F721BAB8EB002BB129 /* QRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRView.swift; sourceTree = "<group>"; };
 		EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		EB3ECC642180F74600D14656 /* ApiSignTransferTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSignTransferTx.swift; sourceTree = "<group>"; };
 		EB3F8AFD218357D5004E6CFB /* WalletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCell.swift; sourceTree = "<group>"; };
@@ -563,6 +565,7 @@
 				EB19D13521B9BAE800AA0D47 /* NewTransaction.swift */,
 				EB19D13721B9BC6500AA0D47 /* ScanButton.swift */,
 				EB19D13921B9C0C700AA0D47 /* Field.swift */,
+				EB34C7F721BAB8EB002BB129 /* QRView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1202,6 +1205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBEDA22121AB4273004FCB75 /* CryptoList.swift in Sources */,
+				EB34C7F821BAB8EB002BB129 /* QRView.swift in Sources */,
 				EBA593AF217A844E00F3CB65 /* ScannerVC.swift in Sources */,
 				EB6450892181069F008397DF /* SignalClient.swift in Sources */,
 				EBEDA2A421AB4FF3004FCB75 /* EOSRPC+Chain.swift in Sources */,
