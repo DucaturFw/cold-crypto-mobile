@@ -236,7 +236,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     // -------------------------------------------------------------------------
     @discardableResult
     func parse(request: String, supportRTC: Bool, block: @escaping (String)->Void) -> Bool {
-        let parts = request.split(separator: "|", maxSplits: Int.max, omittingEmptySubsequences: false)
+        let parts = request.split(separator: "|", maxSplits: 2, omittingEmptySubsequences: false)
         var catched: Bool = false
         if parts.count > 2, let id = Int(parts[1]) {
             let json = String(parts[2])

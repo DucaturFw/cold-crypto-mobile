@@ -70,20 +70,23 @@ class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelD
     }
     
     func signalClient(_ client: SignalClient, receive: String) {
-        let parts = receive.split(separator: "|", maxSplits: Int.max, omittingEmptySubsequences: false)
+        let parts = receive.split(separator: "|", maxSplits: 2, omittingEmptySubsequences: false)
         if parts.count >= 3, parts[0] == "" && Int(parts[1]) == ApiJoin.id,
             let offer = ApiOffer.deserialize(from: String(parts[2])), let str = offer.offer {
             DispatchQueue.main.async {
                 self.received(offer: str)
             }
-        } else if parts.count >= 3, parts[0] == ApiIce.method,
+            return
+        }
+        if parts.count >= 3, parts[0] == ApiIce.method,
             let ice = ApiIce.deserialize(from: String(parts[2]))?.ice {
             DispatchQueue.main.async {
                 self.webRTCClient.set(remoteCandidate: RTCIceCandidate(sdp: ice.candidate,
                                                                        sdpMLineIndex: Int32(ice.sdpMLineIndex),
                                                                        sdpMid: ice.sdpMid))
             }
-        } else if parts.count >= 3, parts[0] == ApiIceServer.method,
+        }
+        if parts.count >= 3, parts[0] == ApiIceServer.method,
             let servers = [ApiIceServer].deserialize(from: String(parts[2])) {
             DispatchQueue.main.async {
                 self.webRTCClient.delegate = nil
@@ -91,18 +94,23 @@ class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelD
                 self.webRTCClient = WebRTCClient(servers: servers.compactMap({ $0 }))
                 self.webRTCClient.delegate = self
             }
-        } else if parts.count >= 3, parts[0] == ApiFallback.method, let obj = ApiFallback.deserialize(from: String(parts[2]))?.msg {
+            return
+        }
+        if parts.count >= 3, parts[0] == ApiFallback.method, let obj = ApiFallback.deserialize(from: String(parts[2]))?.msg {
             DispatchQueue.main.async {
                 self.mDelegate?.parse(request: obj, supportRTC: false, block: { [weak client] send in
-                    client?.send(json: send)
+                    let json = ApiFallback().apply({
+                        $0.msg = send
+                    }).toJSONString() ?? ""
+                    client?.send(json: ApiFallback.method+"|"+parts[1]+"|"+json)
                 })
             }
-        } else {
-            DispatchQueue.main.async {
-                self.mDelegate?.parse(request: receive, supportRTC: false, block: { [weak client] send in
-                    client?.send(json: send)
-                })
-            }
+            return
+        }
+        DispatchQueue.main.async {
+            self.mDelegate?.parse(request: receive, supportRTC: false, block: { [weak client] send in
+                client?.send(json: send)
+            })
         }
     }
     
@@ -128,7 +136,7 @@ class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelD
         }
     }
     
-    func webRTCClient(_ client: WebRTCClient, didOpenChannel channel: RTCDataChannel) {        
+    func webRTCClient(_ client: WebRTCClient, didOpenChannel channel: RTCDataChannel) {
         DispatchQueue.main.async {
             self.mChannel = channel
             self.mChannel?.delegate = self

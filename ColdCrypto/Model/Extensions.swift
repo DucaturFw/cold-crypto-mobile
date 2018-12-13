@@ -282,6 +282,10 @@ extension UIView: HasApply {
 
 extension String {
     
+    func escape(symbol: String) -> String {
+        return self.replacingOccurrences(of: symbol, with: "\\"+symbol)
+    }
+    
     func toData() -> Data {
         return decomposedStringWithCompatibilityMapping.data(using: .utf8)!
     }
