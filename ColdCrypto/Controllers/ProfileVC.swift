@@ -66,7 +66,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         }
     }
     
-    private lazy var mView = CardsList(frame: UIScreen.main.bounds).apply({ [weak self] v in
+    private lazy var mView = WalletList(frame: UIScreen.main.bounds).apply({ [weak self] v in
         v.onActive = { [weak self] w in
             self?.mActiveWallet = w
             self?.setNeedsStatusBarAppearanceUpdate()

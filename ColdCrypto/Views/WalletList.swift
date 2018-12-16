@@ -9,7 +9,7 @@
 import UIKit
 import TGLStackedViewController
 
-class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
+class WalletList: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate {
     
     private var mSelected: IndexPath?
     
@@ -68,6 +68,8 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(mList)
+        mTap.cancelsTouchesInView = false
+        mTap.delegate = self
         mList.insertSubview(mRefresh, at: 0)
         mRefresh.addTarget(self, action: #selector(refresh), for: .valueChanged)
     }
@@ -281,5 +283,5 @@ class CardsList: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         set(selected: mSelected == nil ? indexPath : nil)
     }
-
+    
 }

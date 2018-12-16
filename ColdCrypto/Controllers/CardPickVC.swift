@@ -30,7 +30,7 @@ class CardPickVC: PopupVC {
         $0.alpha = 0.0
     })
     
-    private let mView = CardsList(frame: UIScreen.main.bounds).apply({
+    private let mView = WalletList(frame: UIScreen.main.bounds).apply({
         $0.detailsForCard = false
     })
     

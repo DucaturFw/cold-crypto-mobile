@@ -8,7 +8,8 @@
 
 import Foundation
 
-class HistoryView: UITableView, IWalletDelegate, UITableViewDelegate, UITableViewDataSource {
+class HistoryView: UITableView, IWalletDelegate, UITableViewDelegate,
+UITableViewDataSource, HistoryCellDelegate {
 
     private let mWallet: IWallet
     
@@ -18,6 +19,8 @@ class HistoryView: UITableView, IWalletDelegate, UITableViewDelegate, UITableVie
         $0.transform = CGAffineTransform(scaleX: 1.scaledRaw, y: 1.scaledRaw)
         $0.alpha = 0
     })
+    
+    private var mSelected: IndexPath?
     
     private lazy var mPull = UIRefreshControl().apply({ [weak self] in
         $0.addTarget(self, action: #selector(refresh), for: .valueChanged)
@@ -78,16 +81,56 @@ class HistoryView: UITableView, IWalletDelegate, UITableViewDelegate, UITableVie
     // -------------------------------------------------------------------------
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         mEmpty.center = CGPoint(x: width/2.0, y: height * 0.44 + scrollView.contentOffset.y)
+        if (scrollView.isTracking || scrollView.isDragging) && mSelected != nil {
+            mSelected = nil
+            beginUpdates()
+            endUpdates()
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return mItems.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return HistoryCell.defHeight + (indexPath == mSelected ? HistoryDetails.defHeight : 0.0)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = HistoryCell.get(from: self, at: indexPath)
         cell.transaction = mItems[indexPath.row]
+        cell.delegate = self
         return cell
+    }
+    
+    // MARK:- HistoryCellDelegate methods
+    // -------------------------------------------------------------------------
+    func onSelected(cell: HistoryCell) {
+        let i = indexPath(for: cell)
+        mSelected = i == mSelected ? nil : i
+        beginUpdates()
+        endUpdates()
+        if let i = mSelected {
+            scrollToRow(at: i, at: .top, animated: true)
+            let view = HistoryDetails(frame: CGRect(x: 0, y: 0, width: width, height: HistoryDetails.defHeight))
+            view.transaction = cell.transaction
+            view.alpha = 0.0
+            cell.bottomView = view
+            AppDelegate.lock()
+            UIView.animate(withDuration: 0.25, animations: {
+                view.alpha = 1.0
+            }) { (_) in
+                AppDelegate.unlock()
+            }
+        } else {
+            AppDelegate.lock()
+            UIView.animate(withDuration: 0.25, animations: {
+                cell.bottomView?.alpha = 0.0
+            }) { (_) in
+                cell.bottomView = nil
+                AppDelegate.unlock()
+            }
+        }
     }
     
 }

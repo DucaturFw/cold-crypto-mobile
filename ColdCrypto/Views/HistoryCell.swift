@@ -8,8 +8,16 @@
 
 import UIKit
 
+protocol HistoryCellDelegate: class {
+    func onSelected(cell: HistoryCell)
+}
+
 class HistoryCell: UITableViewCell {
 
+    static let defHeight = 68.scaled
+    
+    weak var delegate: HistoryCellDelegate?
+    
     var isLast: Bool = false {
         didSet {
             mLine.isHidden = isLast
@@ -39,8 +47,19 @@ class HistoryCell: UITableViewCell {
         $0.backgroundColor = Style.Colors.darkLight
     })
     
+    var bottomView: UIView? {
+        didSet {
+            oldValue?.removeFromSuperview()
+            if let v = bottomView {
+                addSubview(v)
+                layout()
+            }
+        }
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        clipsToBounds   = true
         backgroundColor = .clear
         backgroundView  = UIView()
         selectionStyle  = .none
@@ -49,6 +68,10 @@ class HistoryCell: UITableViewCell {
         addSubview(mName)
         addSubview(mText)
         addSubview(mValue)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        tap.delegate = self
+        addGestureRecognizer(tap)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -57,11 +80,22 @@ class HistoryCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        layout()
+    }
+    
+    @objc private func tapped() {
+        delegate?.onSelected(cell: self)
+    }
+    
+    @objc private func layout() {
         let p = 40.scaled
         mLine.frame   = CGRect(x: p, y: height - 1, width: width-80.scaled, height: 1)
         mName.frame   = CGRect(x: p, y: 20.scaled, width: width - p*2.0, height: mName.font.lineHeight)
         mText.origin  = CGPoint(x: p, y: 40.scaled)
         mValue.origin = CGPoint(x: width - p - mValue.width, y: mText.minY)
+        if let v = bottomView {
+            v.frame = CGRect(x: 0, y: HistoryCell.defHeight, width: width, height: v.height)
+        }
     }
-    
+            
 }
