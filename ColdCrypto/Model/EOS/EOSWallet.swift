@@ -18,10 +18,10 @@ class EOSWallet: IWallet {
     var privateKey: String
     var address: String
     var index: UInt32 = 0
+    var chain: String
     var data: String
     var name: String
     var id: String
-    private(set) var time: TimeInterval
 
     var onConnected: ((ConnectionState)->Void)?
     var connectionStatus: ConnectionState = .stop {
@@ -40,31 +40,31 @@ class EOSWallet: IWallet {
     private var cachedBalance: String?
     private let mPKObject: PrivateKey
    
-    init?(name: String, data: String, privateKey: String, time: TimeInterval) {
+    init?(network: INetwork, name: String, data: String, privateKey: String) {
         guard let pk = try? PrivateKey(keyString: privateKey),
             let pk2 = pk else {
                 return nil
         }
         self.privateKey = pk2.rawPrivateKey()
         self.address = name
+        self.chain = network.value
         self.name = name
         self.data = data
-        self.time = time
         mPKObject = pk2
         id = UUID().uuidString
     }
     
-    init?(name: String, data: String, seed: String, index: UInt32, time: TimeInterval) {
+    init?(network: INetwork, name: String, data: String, seed: String, index: UInt32) {
         guard let pk = try? PrivateKey(mnemonicString: seed, index: index),
             let pk2 = pk else {
                 return nil
         }
         self.privateKey = pk2.rawPrivateKey()
         self.address = name
+        self.chain = network.value
         self.seed = seed
         self.name = name
         self.data = data
-        self.time = time
         mPKObject = pk2
         id = UUID().uuidString
     }

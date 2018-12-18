@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EOSForm: UIView, UITextFieldDelegate {
+class EOSForm: UIView, UITextFieldDelegate, IWithValue {
     
     private let mCaption = UILabel.new(font: UIFont.medium(25.scaled), text: "enter_seed_pk".loc, lines: 0, color: Style.Colors.black, alignment: .center)
     

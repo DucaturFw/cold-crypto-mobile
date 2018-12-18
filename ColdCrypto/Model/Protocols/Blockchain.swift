@@ -11,16 +11,71 @@ import UIKit
 
 enum Blockchain : String, CaseIterable {
     
+    class Network {
+
+        enum ETH : String, INetwork, CaseIterable {
+            case MainNet = "1"
+            case RinkeBy = "4"
+            
+            var name: String {
+                switch self {
+                case .MainNet: return "MainNet"
+                case .RinkeBy: return "RinkeBy"
+                }
+            }
+            
+            var value: String {
+                return rawValue
+            }
+            
+            var isTest: Bool {
+                switch self {
+                case .MainNet: return false
+                case .RinkeBy: return true
+                }
+            }
+        }
+        
+        enum EOS : String, INetwork, CaseIterable {
+            case Jungle = "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
+            
+            var name: String {
+                switch self {
+                case .Jungle: return "Jungle"
+                }
+            }
+            
+            var value: String {
+                return rawValue
+            }
+            
+            var isTest: Bool {
+                switch self {
+                case .Jungle: return true
+                }
+            }
+        }
+        
+    }
+    
     case ETH = "ETH"
     case EOS = "EOS"
     
-    var chainId: String {
+    var networks: [INetwork] {
         switch self {
-        case .ETH: return "4"
-        case .EOS: return "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
+        case .ETH: return Network.ETH.allCases
+        case .EOS: return Network.EOS.allCases
         }
     }
     
+    func network(from: String?) -> INetwork? {
+        guard let f = from else { return nil }
+        switch self {
+        case .ETH: return Network.ETH(rawValue: f)
+        case .EOS: return Network.EOS(rawValue: f)
+        }
+    }
+
     func name() -> String {
         switch self {
         case .ETH: return "etherium".loc
@@ -66,26 +121,26 @@ enum Blockchain : String, CaseIterable {
     }
         
     
-    func newWallet(seed: String, name: String?, data: String?, segwit: Bool?, time: TimeInterval) -> IWallet? {
+    func newWallet(seed: String, name: String?, data: String?, segwit: Bool?, network: INetwork) -> IWallet? {
         guard let data = data, data.count > 2 else { return nil }
 
         let nam = name ?? "\(self.name()) Wallet"
         let key = data.replacingCharacters(in: data.startIndex ..< data.index(data.startIndex, offsetBy: 2), with: "")
         if data.hasPrefix("00") { // private key
             switch self {
-            case .ETH:  return ETHWallet(blockchain: self, name: nam, data: data, privateKey: key, time: time)
-            case .EOS:  return EOSWallet(name: nam, data: data, privateKey: key, time: time)
+            case .ETH:  return ETHWallet(blockchain: self, network: network, name: nam, data: data, privateKey: key)
+            case .EOS:  return EOSWallet(network: network, name: nam, data: data, privateKey: key)
             }
         } else if data.hasPrefix("01"), let phrase = String(data: Data(hex: key), encoding: .utf8) { // custom seed
             switch self {
-            case .ETH:  return ETHWallet(blockchain: self, name: nam, data: data, index: 0, seed: phrase, time: time)
-            case .EOS:  return EOSWallet(name: nam, data: data, seed: phrase, index: 0, time: time)
+            case .ETH:  return ETHWallet(blockchain: self, network: network, name: nam, data: data, index: 0, seed: phrase)
+            case .EOS:  return EOSWallet(network: network, name: nam, data: data, seed: phrase, index: 0)
             }
         } else if data.hasPrefix("02") { // derived hd wallet
             guard let index = UInt32(key, radix: 16) else { return nil }
             switch self {
-            case .ETH:  return ETHWallet(blockchain: self, name: nam, data: data, index: index, seed: seed, time: time)
-            case .EOS:  return EOSWallet(name: nam, data: data, seed: seed, index: index, time: time)
+            case .ETH:  return ETHWallet(blockchain: self, network: network, name: nam, data: data, index: index, seed: seed)
+            case .EOS:  return EOSWallet(network: network, name: nam, data: data, seed: seed, index: index)
             }
         } else {
             return nil

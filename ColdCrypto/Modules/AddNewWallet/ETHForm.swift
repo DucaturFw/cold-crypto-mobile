@@ -8,10 +8,9 @@
 
 import UIKit
 
-class ETHForm: UIView, UITextFieldDelegate {
+class ETHForm: UIView, UITextFieldDelegate, IWithValue {
     
     private let mCaption = UILabel.new(font: UIFont.medium(25.scaled), text: "enter_seed_pk".loc, lines: 0, color: Style.Colors.black, alignment: .center)
-    private let mMiddle  = UILabel.new(font: UIFont.medium(25.scaled), text: "or".loc, lines: 0, color: Style.Colors.black, alignment: .center)
 
     private lazy var mField  = UITextField().apply({ [weak self] in
         $0.returnKeyType = .done
@@ -56,7 +55,6 @@ class ETHForm: UIView, UITextFieldDelegate {
         super.init(frame: frame)
         addSubview(mCaption)
         addSubview(mField)
-        addSubview(mMiddle)
         addSubview(mDerive)
         mDerive.click = { [weak self] in
             self?.onDerive()
@@ -80,9 +78,8 @@ class ETHForm: UIView, UITextFieldDelegate {
     override func layoutSubviews() {
         super.layoutSubviews()
         mCaption.origin = CGPoint(x: (width - mCaption.width)/2.0, y: 0)
-        mField.frame    = CGRect(x: 40.scaled, y: mCaption.maxY + 30.scaled, width: width - 80.scaled, height: Style.Dims.middle)
-        mMiddle.origin  = CGPoint(x: (width - mMiddle.width)/2.0, y: mField.maxY + 30.scaled)
-        mDerive.frame   = CGRect(x: 40.scaled, y: mMiddle.maxY + 30.scaled.scaled, width: width - 80.scaled, height: Style.Dims.middle)
+        mField.frame    = CGRect(x: 0, y: mCaption.maxY + 30.scaled, width: width, height: Style.Dims.middle)
+        mDerive.frame   = CGRect(x: 0, y: mField.maxY + Style.Dims.small, width: width, height: Style.Dims.middle)
         frame.size.height = mDerive.maxY
     }
     

@@ -11,6 +11,10 @@ import TGLStackedViewController
 
 class WalletList: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate {
     
+    private let mNoWallets = UIImageView(image: UIImage(named: "noWallets")).apply({
+        $0.contentMode = .center
+    })
+    
     private var mSelected: IndexPath?
     
     var detailsForCard: Bool = true
@@ -37,7 +41,7 @@ class WalletList: UIView, UICollectionViewDataSource, UICollectionViewDelegate, 
     
     var wallets: [IWallet] = [] {
         didSet {
-            mList.reloadData()
+            reload()
         }
     }
     
@@ -67,6 +71,7 @@ class WalletList: UIView, UICollectionViewDataSource, UICollectionViewDelegate, 
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        addSubview(mNoWallets)
         addSubview(mList)
         mTap.cancelsTouchesInView = false
         mTap.delegate = self
@@ -77,6 +82,11 @@ class WalletList: UIView, UICollectionViewDataSource, UICollectionViewDelegate, 
     @objc private func refresh() {
         mRefresh.endRefreshing()
         wallets.forEach({ $0.flushCache() })
+        reload()
+    }
+    
+    private func reload() {
+        mNoWallets.isVisible = wallets.count == 0
         mList.reloadData()
     }
     
@@ -93,7 +103,7 @@ class WalletList: UIView, UICollectionViewDataSource, UICollectionViewDelegate, 
             }, completion: { _ in
                 AppDelegate.unlock()
                 self.mList.setContentOffset(.zero, animated: true)
-                self.mList.reloadData()
+                self.reload()
             })
         }
         
@@ -260,6 +270,7 @@ class WalletList: UIView, UICollectionViewDataSource, UICollectionViewDelegate, 
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        mNoWallets.frame = bounds
         mList.frame = bounds
         mRefresh.bounds = CGRect(x: 0, y: -(AppDelegate.statusHeight + 44), width: width, height: 60)
     }

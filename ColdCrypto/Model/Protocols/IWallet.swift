@@ -23,11 +23,11 @@ protocol IWallet : class {
     var privateKey: String { get }
     var address: String { get }
     var index: UInt32 { get }
+    var chain: String { get }
     var data: String { get }
     var name: String { get }
     var seed: String? { get }
     var id: String { get }
-    var time: TimeInterval { get }
     var connectionStatus: ConnectionState { get set }
     var onConnected: ((ConnectionState)->Void)? { get set }
     var isFeeSupport: Bool { get }

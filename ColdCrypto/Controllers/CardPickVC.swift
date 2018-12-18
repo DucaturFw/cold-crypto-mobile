@@ -38,7 +38,7 @@ class CardPickVC: PopupVC {
     
     init(profile: Profile, blockchain: Blockchain, completion: @escaping (IWallet?)->Void) {
         super.init(nibName: nil, bundle: nil)
-        mView.wallets  = profile.chains.first(where: { $0.id == blockchain })?.wallets ?? []
+        mView.wallets  = profile.wallets.filter({ $0.blockchain == blockchain })
         mView.onActive = { [weak self] w in
             if let s = self {
                 s.mConfirm.alpha = (w == nil ? 0.0 : 1.0)

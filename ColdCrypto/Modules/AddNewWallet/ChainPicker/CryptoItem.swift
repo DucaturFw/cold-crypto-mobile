@@ -10,14 +10,12 @@ import UIKit
 
 class CryptoItem: UIView {
     
-    static let width:  CGFloat = 95.scaled
-    static let height: CGFloat = 65.scaled
+    static let width:  CGFloat = 60.scaled
+    static let height: CGFloat = 60.scaled
     
-    private let mIcon: UIImageView = {
-        let tmp = UIImageView(frame: CGRect(x: 0, y: 0, width: 60.scaled, height: 60.scaled))
-        tmp.contentMode = .scaleAspectFit
-        return tmp
-    }()
+    private let mIcon: UIImageView = UIImageView().apply({
+        $0.contentMode = .scaleAspectFit
+    })
     
     let blockchain: Blockchain
     

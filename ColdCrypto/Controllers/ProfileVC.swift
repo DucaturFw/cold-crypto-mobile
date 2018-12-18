@@ -42,7 +42,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         $0.lineHeight = 4.scaled
         $0.setCurrentModeWithAnimation(.cross, duration: 0)
     }).tap({ [weak self] in
-        self?.present(ImportWalletVC(delegate: self), animated: true, completion: nil)
+        self?.present(AddNewWalletVC(delegate: self), animated: true, completion: nil)
     })
     
     private lazy var mLeftMenu = JTHamburgerButton(frame: CGRect(x: 0, y: 0, width: 18, height: 16)).apply({
@@ -94,7 +94,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         mParams   = params
         super.init(nibName: nil, bundle: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(close), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        mView.wallets = mProfile.chains.flatMap({ $0.wallets }).sorted(by: { $0.time > $1.time })
+        mView.wallets = mProfile.wallets
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -207,9 +207,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
             vc.dismiss(animated: true, completion: { [weak self] in
                 if let s = self {
                     s.mView.close {
-                        s.mProfile.chains.forEach({
-                            $0.wallets.removeAll(where: { $0.id == wallet.id })
-                        })
+                        s.mProfile.wallets.removeAll(where: { $0.id == wallet.id })
                         Settings.profile = s.mProfile
                         s.mView.delete(wallet: wallet)
                     }
@@ -318,7 +316,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         guard let w = mActiveWallet else { return false }
         guard let s = [ApiParamsWallet(b: w.blockchain.rawValue.lowercased(),
                                        a: w.address,
-                                       c: w.blockchain.chainId)].toJSONString() else { return false }
+                                       c: w.chain)].toJSONString() else { return false }
         completion("|\(id)|\(s)")
         return true
     }

@@ -10,6 +10,8 @@ import UIKit
 
 class CryptoList: UIView {
     
+    private var mIsCollapsed = false
+    
     private var mItems: [CryptoItem] = Blockchain.allCases.compactMap({
         CryptoItem(blockchain: $0)
     })
@@ -23,7 +25,7 @@ class CryptoList: UIView {
     }
     
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: frame)        
         mItems.enumerated().forEach { i in
             let idx = i.offset
             addSubview(i.element)
@@ -39,8 +41,9 @@ class CryptoList: UIView {
     
     private func select(index: Int) {
         mItems.enumerated().forEach { i in
+            let s = i.element.selected
             i.element.selected = index == i.offset
-            if i.element.selected {
+            if i.element.selected && !s {
                 onSelect(i.element.blockchain)
             }
         }
@@ -49,15 +52,17 @@ class CryptoList: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let w  = width - 15.scaled
-        let iw = CryptoItem.width + 15.scaled
+        let gg = 15.scaled
+        
+        let w  = width - gg
+        let iw = CryptoItem.width + gg
         
         let h = Int(floor(w / iw))
         let v = (mItems.count - mItems.count % h) / h + 1
         
         let p = (width - CGFloat(h) * CryptoItem.width) / CGFloat(h + 1)
         
-        var y = p
+        var y = CGFloat(0)
         var i = 0
         let g = (width - CGFloat(mItems.count % h) * CryptoItem.width - CGFloat(mItems.count % h-1) * p)/2.0
         var x = (1 == v ? g : p)
@@ -71,8 +76,18 @@ class CryptoList: UIView {
             } else {
                 x = $0.element.maxX + p
             }
+            if mIsCollapsed && $0.element.selected {
+                $0.element.origin = CGPoint(x: (width - $0.element.width)/2.0, y: 0)
+                $0.element.alpha  = 1.0
+            } else {
+                $0.element.alpha = mIsCollapsed ? 0.0 : 1.0
+            }
         })
-        frame.size.height = (mItems.last?.maxY ?? 0) + p
+        frame.size.height = mIsCollapsed ? CryptoItem.height : (mItems.last?.maxY ?? 0)
+    }
+    
+    func collapse() {
+        mIsCollapsed = true
     }
     
 }
