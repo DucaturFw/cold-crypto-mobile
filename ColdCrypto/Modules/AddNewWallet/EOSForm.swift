@@ -24,12 +24,19 @@ class EOSForm: UIView, UITextFieldDelegate, IWithValue {
         $0.autocapitalizationType = .none
         $0.backgroundColor = Style.Colors.light
         $0.layer.cornerRadius = Style.Dims.middle/2.0
-        $0.layer.borderWidth = 0.0
+        $0.layer.borderWidth = 1.0
+        $0.layer.borderColor = Style.Colors.darkGrey.cgColor
         $0.delegate = self
         $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         $0.leftViewMode = .always
         $0.font = UIFont.medium(13)
         $0.textColor = Style.Colors.black
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
+        toolbar.setItems([
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "done".loc, style: .done, target: self, action: #selector(hideKB))
+            ], animated: false)
+        $0.inputAccessoryView = toolbar
     })
     
     var onValid: (Bool)->Void = { _ in }
@@ -86,14 +93,18 @@ class EOSForm: UIView, UITextFieldDelegate, IWithValue {
     override func layoutSubviews() {
         super.layoutSubviews()
         mCaption.origin = CGPoint(x: (width - mCaption.width)/2.0, y: 0)
-        mField.frame = CGRect(x: 40.scaled, y: mCaption.maxY + 30.scaled, width: width - 80.scaled, height: Style.Dims.middle)
+        mField.frame = CGRect(x: 0, y: mCaption.maxY + 30.scaled, width: width, height: Style.Dims.middle)
         mNoAcc.origin = CGPoint(x: (width - mNoAcc.width)/2.0, y: mField.maxY + 30.scaled)
-        mList.frame = CGRect(x: 40.scaled, y: mField.maxY + 30.scaled, width: width - 80.scaled, height: mList.height)
+        mList.frame = CGRect(x: 0, y: mField.maxY + 30.scaled, width: width, height: mList.height)
         frame.size.height = mNoAcc.alpha > 0 ? mNoAcc.maxY : mList.maxY
     }
 
     func shakeField() {
         mField.shake()
+    }
+    
+    @objc private func hideKB() {
+        mField.resignFirstResponder()
     }
     
     func update(pk: String, accounts: [String], completion: @escaping ()->Void) {

@@ -10,4 +10,5 @@ import Foundation
 
 protocol IWithValue: class {
     var value: String { get set }
+    func shakeField()
 }

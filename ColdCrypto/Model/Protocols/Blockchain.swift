@@ -10,7 +10,7 @@ import EthereumKit
 import UIKit
 
 enum Blockchain : String, CaseIterable {
-    
+
     class Network {
 
         enum ETH : String, INetwork, CaseIterable {
@@ -34,14 +34,23 @@ enum Blockchain : String, CaseIterable {
                 case .RinkeBy: return true
                 }
             }
+            
+            var node: String {
+                switch self {
+                case .MainNet: return "https://mainnet.infura.io/8d9fdb63b80048e5b31c5b8e2650434e"
+                case .RinkeBy: return "https://rinkeby.infura.io/8d9fdb63b80048e5b31c5b8e2650434e"
+                }
+            }
         }
         
         enum EOS : String, INetwork, CaseIterable {
-            case Jungle = "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
+            case Jungle  = "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
+            case MainNet = "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906"
             
             var name: String {
                 switch self {
-                case .Jungle: return "Jungle"
+                case .Jungle:  return "Jungle"
+                case .MainNet: return "MainNet"
                 }
             }
             
@@ -51,7 +60,15 @@ enum Blockchain : String, CaseIterable {
             
             var isTest: Bool {
                 switch self {
+                case .MainNet: return false
                 case .Jungle: return true
+                }
+            }
+            
+            var node: String {
+                switch self {
+                case .MainNet: return "https://eos.greymass.com"
+                case .Jungle:  return "https://jungle2.cryptolions.io:443"
                 }
             }
         }

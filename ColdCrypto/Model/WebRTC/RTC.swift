@@ -18,13 +18,13 @@ class RTC: NSObject, SignalClientDelegate, WebRTCClientDelegate, RTCDataChannelD
     
     private let mSID: String
     
-    private weak var mDelegate: Signer?
+    private weak var mDelegate: ISigner?
     
     private var mChannel: RTCDataChannel?
     
     let wallet: IWallet
     
-    init(wallet: IWallet, url: URL, sid: String, delegate: Signer) {
+    init(wallet: IWallet, url: URL, sid: String, delegate: ISigner) {
         mSID = sid
         self.wallet = wallet
         mDelegate = delegate

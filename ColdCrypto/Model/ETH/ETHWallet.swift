@@ -26,6 +26,8 @@ class ETHWallet : IWallet {
     private var mBalance: String?
     private var mSeed: String?
     private lazy var mNet = ETHNet(wallet: self)
+    
+    let net: INetwork
 
     let network: Network
     let wallet: Wallet
@@ -39,8 +41,8 @@ class ETHWallet : IWallet {
     
     init?(blockchain: Blockchain, network: INetwork, name: String, data: String, privateKey: String) {
         guard let chainId = Int(network.value) else { return nil }
-        
         self.network = Network.private(chainID: chainId, testUse: chainId == 1)
+        self.net   = network
         self.chain = network.value
         self.name  = name
         self.data  = data
@@ -57,6 +59,8 @@ class ETHWallet : IWallet {
         self.network = Network.private(chainID: chainId, testUse: chainId == 1)
         
         guard let w = try? Wallet(seed: seed, index: index, network: self.network, debugPrints: false) else { return nil }
+        
+        self.net   = network
         self.chain = network.value
         self.name  = name
         self.data  = data

@@ -74,12 +74,14 @@ class Profile {
         ]
     }
     
-    func newWallet(chain: Blockchain, name: String, data: String, segwit: Bool) -> IWallet? {
-//        guard let current = chains.first(where: { $0.id == chain }) else { return nil }
-//        guard let wallet  = chain.newWallet(seed: seed, name: name, data: data, segwit: segwit, time: Date().timeIntervalSince1970) else { return nil }
-//        current.wallets.append(wallet)
-//        return wallet
-        return nil
+    func newWallet(chain: Blockchain, name: String, data: String, segwit: Bool, network: INetwork) -> IWallet? {
+        guard let wallet = chain.newWallet(seed: seed,
+                                           name: name,
+                                           data: data,
+                                           segwit: segwit,
+                                           network: network) else { return nil }
+        wallets.insert(wallet, at: 0)
+        return wallet
     }
     
     func addWallet(wallet: IWallet) {

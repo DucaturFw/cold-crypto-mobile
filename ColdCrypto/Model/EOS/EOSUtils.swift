@@ -41,12 +41,23 @@ class EOSUtils {
         return context?.evaluateScript(js)
     }
     
-    static func getTransactions2(account: String, completion: @escaping ([ITransaction]?)->Void) {
-        guard let url = URL(string: "https://junglehistory.cryptolions.io/v1/history/get_actions") else {
+    static func getTransactions2(network: INetwork, account: String, completion: @escaping ([ITransaction]?)->Void) {
+        guard let n = network as? Blockchain.Network.EOS else {
             completion([])
             return
         }
         
+        var base: String
+        switch n {
+        case .Jungle:  base = "https://junglehistory.cryptolions.io"
+        case .MainNet: base = n.node
+        }
+
+        guard let url = URL(string: "\(base)/v1/history/get_actions") else {
+            completion([])
+            return
+        }
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = "{\"pos\":-1, \"offset\": -1000, \"account_name\": \"\(account)\"}".toData()
@@ -59,7 +70,7 @@ class EOSUtils {
                 
                 var cache: [String: Bool] = [:]
                 actions?.actions?.compactMap({ $0.action_trace }).forEach({ t in
-                    if let id = t.trx_id, cache[id] == nil, let d = t.act?.data {
+                    if let id = t.trx_id, cache[id] == nil, let d = t.act?.data, d.quantity != nil {
                         cache[id] = true
                         d.id = t.trx_id
                         d.time = t.block_time

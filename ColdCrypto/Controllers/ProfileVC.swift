@@ -9,10 +9,8 @@
 import QRCode
 import UIKit
 
-class ProfileVC: UIViewController, Signer, ImportDelegate {
+class ProfileVC: UIViewController, ImportDelegate, ISignerDelegate {
 
-    private var mWebRTC: RTC? = nil
-    
     private lazy var mScan = ScanBlock().apply({
         $0.onScan = { [weak self] in
             self?.startScanning()
@@ -73,12 +71,11 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         }
     })
     
+    private lazy var mSigner = Signer(delegate: self)
+    
     private var mActiveWallet: IWallet? {
         didSet {
-            if mActiveWallet == nil {
-                mWebRTC?.close()
-                mWebRTC = nil
-            }
+            mSigner.activeWallet = mActiveWallet
             if let nb = navigationController?.navigationBar {
                 nb.transform = CGAffineTransform(translationX: 0, y: mActiveWallet == nil ? 0 : -(nb.height + AppDelegate.statusHeight))
             }
@@ -131,7 +128,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     
     func check(params: String?) {
         if let p = params {
-            parse(request: p, supportRTC: true, block: defaultCatchBlock)
+            mSigner.parse(request: p, supportRTC: true, block: defaultCatchBlock)
         }
     }
     
@@ -158,11 +155,12 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         let vc = ScannerVC()
         vc.onFound = { [weak self, weak vc] json in
             guard let s = self else { return }
-            if let address = a.isValid(address: json) {
+            let value = json.trimmingCharacters(in: .whitespacesAndNewlines)
+            if let address = a.isValid(address: value) {
                 vc?.stop()
                 vc?.dismiss(animated: true, completion: nil)
                 s.present(SendVC(wallet: a, to: address), animated: true, completion: nil)
-            } else if s.parse(request: json.trimmingCharacters(in: .whitespacesAndNewlines), supportRTC: true, block: s.defaultCatchBlock) == true {
+            } else if s.mSigner.parse(request: value, supportRTC: true, block: s.defaultCatchBlock) {
                 vc?.stop()
                 vc?.dismiss(animated: true, completion: nil)
             }
@@ -176,16 +174,6 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
                 self?.sureDelete(wallet: wallet)
             }
         }), animated: true, completion: nil)
-    }
-
-    private func webrtcLogin(json: String) -> Bool {
-        guard let w = mActiveWallet else { return false }
-        guard let obj = ApiWebRTC.deserialize(from: json) else { return false }
-        guard let sid = obj.sid, let str = obj.url, let url = URL(string: str) else { return false }
-        mWebRTC?.close()
-        mWebRTC = RTC(wallet: w, url: url, sid: sid, delegate: self)
-        mWebRTC?.connect()
-        return true
     }
     
     private func show(qr text: String, share: Bool = false) {
@@ -219,8 +207,7 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
     }
     
     @objc private func close() {
-        mWebRTC?.close()
-        mWebRTC = nil
+        mSigner.closeRTC()
         PopupVC.hideAll()
         dismiss(animated: false, completion: nil)
         present(CheckCodeVC(passcode: mPasscode,
@@ -230,133 +217,24 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
                 completion: nil)
     }
 
-    // MARK: - Signer methods
-    // -------------------------------------------------------------------------
-    @discardableResult
-    func parse(request: String, supportRTC: Bool, block: @escaping (String)->Void) -> Bool {
-        let parts = request.split(separator: "|", maxSplits: 2, omittingEmptySubsequences: false)
-        var catched: Bool = false
-        if parts.count > 2, let id = Int(parts[1]) {
-            let json = String(parts[2])
-            switch parts[0] {
-            case "payToAddress": catched = payToAddress(json: json, id: id, completion: block)
-            case "signTransferTx": catched = signTransferTx(json: json, id: id, completion: block)
-            case "getWalletList": catched = getWalletList(json: json, id: id, completion: block)
-            case "webrtcLogin": if supportRTC { catched = webrtcLogin(json: json) }
-            case "signContractCall": catched = signContractCall(json: json, id: id, completion: block)
-            default: catched = false
-            }
-        }
-        return catched
-    }
-    
-    @discardableResult
-    func signContractCall(json: String, id: Int, completion: @escaping (String)->Void) -> Bool {
-        guard let w = mActiveWallet else { return false }
-        guard let p = ApiSignContractCall.deserialize(from: json) else { return false }
-        guard p.wallet?.blockchain.lowercased() == w.blockchain.rawValue.lowercased() else { return false }
-        guard w.address == p.wallet?.address else { return false }
-        DispatchQueue.main.async {
-            self.present(ConfirmContractCall(contract: p, wallet: w, passcode: self.mPasscode, completion: { [weak self] signed in
-                if let s = signed {
-                    self?.dismiss(animated: true, completion: nil)
-                    completion("|\(id)|\(s)")
-                } else {
-                    AlertVC("cant_signed".loc).show()
-                }
-            }), animated: true, completion: nil)
-        }
-        return true
-    }
-    
-    @discardableResult
-    func payToAddress(json: String, id: Int, completion: @escaping (String)->Void) -> Bool {
-        guard let c = ApiParamsTx.deserialize(from: json) else { return false }
-        let bb = (c.blockchain ?? "eth").uppercased()
-        guard let b = Blockchain(rawValue: bb) else { return false }
-        if let w = mActiveWallet {
-            DispatchQueue.main.async {
-                self.pay(c: c, from: w, json: json, id: id, completion: completion)
-            }
-        } else {
-            DispatchQueue.main.async {
-                self.present(CardPickVC(profile: self.mProfile, blockchain: b, completion: { [weak self] w in
-                    if let w = w {
-                        self?.pay(c: c, from: w, json: json, id: id, completion: completion)
-                    }
-                }), animated: true, completion: nil)
-            }
-        }
-        return true
-    }
-    
-    private func pay(c: ApiParamsTx, from: IWallet, json: String, id: Int, completion: @escaping (String)->Void) {
-        self.present(ConfirmationVC(to: from.getTo(tx: c), amount: from.getAmount(tx: c), onConfirm: { [weak self] in
-            guard let s = self else { return }
-            s.dismiss(animated: true, completion: {
-                let hud = s.view.window?.hud
-                from.pay(to: c, completion: { txHash in
-                    hud?.hide(animated: true)
-                    if let tx = txHash {
-                        if let callback = c.callback, let url = URL(string: callback) {
-                            UIApplication.shared.open(url.append("txHash", value: tx), options: [:], completionHandler: nil)
-                        } else {
-                            completion("|\(id)|\"\(tx)\"")
-                        }
-                    } else {
-                        AlertVC("Can't pay").show()
-                    }
-                })
-            })
-        }), animated: true, completion: nil)
-    }
-    
-    @discardableResult
-    func getWalletList(json: String, id: Int, completion: @escaping (String)->Void) -> Bool {
-        guard let w = mActiveWallet else { return false }
-        guard let s = [ApiParamsWallet(b: w.blockchain.rawValue.lowercased(),
-                                       a: w.address,
-                                       c: w.chain)].toJSONString() else { return false }
-        completion("|\(id)|\(s)")
-        return true
-    }
-    
-    @discardableResult
-    func signTransferTx(json: String, id: Int, completion: @escaping (String)->Void) -> Bool {
-        guard let w = mActiveWallet else { return false }
-        guard let t = ApiSignTransferTx.deserialize(from: json) else { return false }
-        guard let p = t.wallet, let to = t.tx else { return false }
-        guard t.wallet?.blockchain.lowercased() == w.blockchain.rawValue.lowercased() else { return false }
-        guard w.address == t.wallet?.address else { return false }
-        DispatchQueue.main.async {
-            self.present(ConfirmationVC(to: w.getTo(tx: to), amount: w.getAmount(tx: to), onConfirm: { [weak self] in
-                self?.dismiss(animated: true, completion: nil)
-                w.sign(transaction: to, wallet: p, completion: { tx in
-                    if let tx = tx {
-                        completion("|\(id)|\(tx)")
-                    }
-                })
-            }), animated: true, completion: nil)
-        }
-        return true
-    }
-    
     // MARK: - ImportDelegate methods
     // -------------------------------------------------------------------------
-    func onNew(chain: Blockchain, name: String, data: String, segwit: Bool) {
+    func onNew(chain: Blockchain, name: String, data: String, segwit: Bool, network: INetwork) {
         guard let w = mProfile.newWallet(chain: chain,
                                          name: name,
                                          data: data,
-                                         segwit: segwit) else { return }
+                                         segwit: segwit,
+                                         network: network) else { return }
         Settings.profile = mProfile
         mView.add(wallet: w)
     }
     
-    func onNewHDWallet(chain: Blockchain) {
+    func onNewHDWallet(chain: Blockchain, network: INetwork) {
         guard let w = mProfile.newWallet(chain: chain,
                                          name: "",
                                          data: String(format: "02%02x", mProfile.index + 1),
-                                         segwit: false) else { return }
+                                         segwit: false,
+                                         network: network) else { return }
         mProfile.index += 1
         Settings.profile = mProfile
         mView.add(wallet: w)
@@ -366,6 +244,34 @@ class ProfileVC: UIViewController, Signer, ImportDelegate {
         mProfile.addWallet(wallet: wallet)
         Settings.profile = mProfile
         mView.add(wallet: wallet)
+    }
+    
+    // MARK:-
+    // -------------------------------------------------------------------------
+    func confirm(contract: ApiSignContractCall, wallet: IWallet, from: Signer, success: @escaping (String) -> Void) {
+        present(ConfirmContractCall(contract: contract, wallet: wallet, passcode: mPasscode, completion: { [weak self] signed in
+            if let s = signed {
+                if let me = self {
+                    me.dismiss(animated: true, completion: {
+                        success(s)
+                    })
+                } else {
+                    success(s)
+                }
+            } else {
+                AlertVC("cant_signed".loc).show()
+            }
+        }), animated: true, completion: nil)
+    }
+    
+    func confirm(to: String, amount: String, success: @escaping ()->Void) {
+        present(ConfirmationVC(to: to, amount: amount, onConfirm: { [weak self] in
+            if let me = self {
+                me.dismiss(animated: true, completion: success)
+            } else {
+                success()
+            }
+        }), animated: true, completion: nil)
     }
     
 }

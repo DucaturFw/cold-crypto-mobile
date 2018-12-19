@@ -40,6 +40,8 @@ class AddNewWalletView: UIView, IAlertView {
     weak var delegate: AddWalletDelegate?
     
     private var mViews: [UIView] = []
+    
+    var onImport: ()->Void = {}
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -70,31 +72,7 @@ class AddNewWalletView: UIView, IAlertView {
     }
     
     private func doImport() {
-        //        guard let b = mBlockchain else { return }
-        //        switch b {
-        //        case .ETH:
-        //            let name = mETHForm.value
-        //            if name.count > 0, (name.split(separator: " ").count == 12 || name.split(separator: " ").count == 24) {
-        //                onNew(chain: b, name: "", seed: name)
-        //            } else if name.count > 0, name.range(of: " ") == nil {
-        //                onNew(chain: b, name: "", privateKey: name)
-        //            } else {
-        //                mETHForm.shakeField()
-        //            }
-        //        case .EOS:
-        //            if
-        //                let p = mEOSForm.privateKey,
-        //                let a = mEOSForm.selected,
-        //                let w = EOSWallet(name: a, data: "00\(p)", privateKey: p, time: Date().timeIntervalSince1970) {
-        //                AppDelegate.lock()
-        //                dismiss(animated: true, completion: {
-        //                    self.mDelegate?.onNew(wallet: w)
-        //                    AppDelegate.unlock()
-        //                })
-        //            } else {
-        //                mEOSForm.shakeField()
-        //            }
-        //        }
+        onImport()
     }
     
     private func selected(blockchain: Blockchain) {

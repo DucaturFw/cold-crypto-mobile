@@ -12,4 +12,5 @@ protocol INetwork {
     var name: String { get }
     var value: String { get }
     var isTest: Bool { get }
+    var node: String { get }
 }

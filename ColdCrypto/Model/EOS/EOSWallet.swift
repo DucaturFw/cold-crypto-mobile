@@ -39,6 +39,8 @@ class EOSWallet: IWallet {
     private var cachedAmount: Decimal?
     private var cachedBalance: String?
     private let mPKObject: PrivateKey
+    
+    private let mNetwork: INetwork
    
     init?(network: INetwork, name: String, data: String, privateKey: String) {
         guard let pk = try? PrivateKey(keyString: privateKey),
@@ -51,6 +53,7 @@ class EOSWallet: IWallet {
         self.name = name
         self.data = data
         mPKObject = pk2
+        mNetwork = network
         id = UUID().uuidString
     }
     
@@ -66,6 +69,7 @@ class EOSWallet: IWallet {
         self.name = name
         self.data = data
         mPKObject = pk2
+        mNetwork = network
         id = UUID().uuidString
     }
 
@@ -86,6 +90,7 @@ class EOSWallet: IWallet {
                 return (a * Decimal(r)).money
             })
         }
+        EOSRPC.endpoint = mNetwork.node
         EOSRPC.sharedInstance.getTableRows(scope: name,
                                            code: "eosio.token",
                                            table: "accounts",
@@ -133,6 +138,7 @@ class EOSWallet: IWallet {
         transfer.to = to.to
         transfer.quantity = to.value
         transfer.memo = "ColdCrypto"
+        EOSRPC.endpoint = mNetwork.node
         Currency.transferCurrency(transfer: transfer, code: "eosio.token", privateKey: mPKObject, completion: { (result, error) in
             completion(result?.transactionId)
         })
@@ -158,7 +164,8 @@ class EOSWallet: IWallet {
             delegate?.on(history: cachedTrans, of: self)
             return
         }
-        EOSUtils.getTransactions2(account: name, completion: { [weak self] trans in
+        EOSRPC.endpoint = mNetwork.node
+        EOSUtils.getTransactions2(network: mNetwork, account: name, completion: { [weak self] trans in
             if let s = self, let t = trans {
                 s.cachedTrans = t
                 s.delegate?.on(history: s.cachedTrans, of: s)
@@ -197,7 +204,8 @@ class EOSWallet: IWallet {
         transfer.to = to
         transfer.quantity = "\(amount) \(symbol)"
         transfer.memo = "ColdCrypto"
-        
+
+        EOSRPC.endpoint = mNetwork.node
         Currency.transferCurrency(transfer: transfer, code: "eosio.token", privateKey: pk2, completion: { (result, error) in
             completion(result?.transactionId)
         })
@@ -205,6 +213,21 @@ class EOSWallet: IWallet {
     
     func send(value: Decimal, to: String, completion: @escaping (String?) -> Void) {
         send(value: value, to: to, symbol: blockchain.symbol(), completion: completion)
+    }
+    
+    static func getAccounts(pub: String, network: INetwork, completion: @escaping ([String]?, String?) -> ()) {
+        do {
+            EOSRPC.endpoint = network.node
+            let parts = pub.split(separator: " ")
+            let pk = parts.count == 1 ? try PrivateKey(keyString: pub) : try PrivateKey(mnemonicString: pub, index: 0)
+            guard let pk2 = pk else { throw "Invalid private key" }
+            EOSRPC.sharedInstance.getKeyAccounts(pub: PublicKey(privateKey: pk2).rawPublicKey(), completion: { r, e in
+                completion(r?.accountNames, pk2.rawPrivateKey())
+            })
+        } catch let e {
+            print("getAccounts -> \(e)")
+            completion(nil, nil)
+        }
     }
     
 }

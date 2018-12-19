@@ -10,8 +10,8 @@ import UIKit
 import EthereumKit
 
 protocol ImportDelegate: class {
-    func onNew(chain: Blockchain, name: String, data: String, segwit: Bool)
-    func onNewHDWallet(chain: Blockchain)
+    func onNew(chain: Blockchain, name: String, data: String, segwit: Bool, network: INetwork)
+    func onNewHDWallet(chain: Blockchain, network: INetwork)
     func onNew(wallet: IWallet)
 }
 
@@ -43,48 +43,9 @@ class AddNewWalletVC: AlertVC, AddWalletDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIApplication.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIApplication.keyboardWillHideNotification, object: nil)
     }
-    
-//    override func doLayout() -> CGFloat {
-//        mArrow.origin = CGPoint(x: (width - mArrow.width)/2.0, y: 40.scaled)
-//        mBlock.alpha  = mBlockchain == nil ? 1.0 : 0.0
-//        mBlock.origin = CGPoint(x: (width - mBlock.width)/2.0, y: mArrow.maxY + 40.scaled)
-//        mPicker.frame = CGRect(x: 0, y:  mBlockchain == nil ? mBlock.maxY : mArrow.maxY, width: width, height: 0)
-//        mPicker.setNeedsLayout()
-//        mPicker.layoutIfNeeded()
-
-//        mETHForm.frame = CGRect(x: 0, y: mPicker.maxY, width: width, height: 0)
-//        mETHForm.setNeedsLayout()
-//        mETHForm.layoutIfNeeded()
-//
-//        mEOSForm.frame = CGRect(x: 0, y: mPicker.maxY, width: width, height: 0)
-//        mEOSForm.setNeedsLayout()
-//        mEOSForm.layoutIfNeeded()
-//
-//        mETHForm.alpha = mBlockchain == .ETH ? 1.0 : 0.0
-//        mEOSForm.alpha = mBlockchain == .EOS ? 1.0 : 0.0
-//        mBlock.textColor = mBlockchain != nil ? Style.Colors.blue : Style.Colors.black
-//        mImport.isActive = mBlockchain == .ETH ? mETHForm.isValid : mEOSForm.isValid
-        
-//        let y = doit {
-//            switch mBlockchain {
-//            case .none: return mPicker.maxY
-//            case .some(.ETH): return mETHForm.maxY
-//            case .some(.EOS): return mEOSForm.maxY
-//            }
-//        } + 30.scaled
-//        let y = mPicker.maxY + 30.scaled
-//
-//        let p = 40.scaled
-//        let w = (width - p * 3.0)/2.0
-//
-//        mCancel.frame = CGRect(x: p, y: y, width: w, height: Style.Dims.middle)
-//        mImport.frame = CGRect(x: mCancel.maxX + p, y: mCancel.minY, width: w, height: mCancel.height)
-//        return mCancel.maxY + p
-//    }
     
     @objc private func keyboardWillShow(_ n: Any?) {
         (n as? Notification)?.keyboard { (rect, time, curve) in
@@ -107,30 +68,30 @@ class AddNewWalletVC: AlertVC, AddWalletDelegate {
         }
     }
     
-    private func onNew(chain: Blockchain, name: String, seed: String) {
-//        guard let s = try? Mnemonic.createSeed(mnemonic: seed.split(separator: " ").map({ String($0) })) else {
-//            mETHForm.shakeField()
-//            return
-//        }
-//        AppDelegate.lock()
-//        dismiss(animated: true, completion: {
-//            self.mDelegate?.onNew(chain: chain, name: name, data: "01\(s.toHexString())", segwit: false)
-//            AppDelegate.unlock()
-//        })
+    private func onNew(chain: Blockchain, name: String, seed: String, network: INetwork) {
+        guard let s = try? Mnemonic.createSeed(mnemonic: seed.split(separator: " ").map({ String($0) })) else {
+            mActive?.shakeField()
+            return
+        }
+        AppDelegate.lock()
+        dismiss(animated: true, completion: {
+            self.mDelegate?.onNew(chain: chain, name: name, data: "01\(s.toHexString())", segwit: false, network: network)
+            AppDelegate.unlock()
+        })
     }
     
-    private func onNew(chain: Blockchain, name: String, privateKey: String) {
-//        AppDelegate.lock()
-//        dismiss(animated: true, completion: {
-//            self.mDelegate?.onNew(chain: chain, name: name, data: "00\(privateKey.withoutPrefix)", segwit: false)
-//            AppDelegate.unlock()
-//        })
+    private func onNew(chain: Blockchain, name: String, privateKey: String, network: INetwork) {
+        AppDelegate.lock()
+        dismiss(animated: true, completion: {
+            self.mDelegate?.onNew(chain: chain, name: name, data: "00\(privateKey.withoutPrefix)", segwit: false, network: network)
+            AppDelegate.unlock()
+        })
     }
     
     private func derive() {
-        guard let b = mBlockchain else { return }
+        guard let b = mBlockchain, let n = mNetwork else { return }
         dismiss(animated: true) {
-            self.mDelegate?.onNewHDWallet(chain: b)
+            self.mDelegate?.onNewHDWallet(chain: b, network: n)
         }
     }
     
@@ -143,27 +104,23 @@ class AddNewWalletVC: AlertVC, AddWalletDelegate {
         present(vc, animated: true, completion: nil)
     }
     
-    private func searchEOS(_ pk: String) -> Bool {
-//        do {
-//            let parts = pk.split(separator: " ")
-//            let pk = parts.count == 1 ? try PrivateKey(keyString: pk) : try PrivateKey(mnemonicString: pk, index: 0)
-//            guard let pk2 = pk else { throw "PK is null" }
-//            let hud = HUD.show()
-//            EOSRPC.sharedInstance.getKeyAccounts(pub: PublicKey(privateKey: pk2).rawPublicKey(), completion: { [weak self] r, e in
-//                hud?.hide(animated: true)
-//                self?.mEOSForm.update(pk: pk2.rawPrivateKey(),
-//                                      accounts: r?.accountNames ?? [],
-//                                      completion: { [weak self] in
-//                                        self?.view.setNeedsLayout()
-//                                        self?.view.layoutIfNeeded() })
-//            })
-//            return true
-//        } catch let e {
-//            print("\(e)")
-//            mEOSForm.shakeField()
-//            return false
-//        }
-        return false
+    private func searchEOS(_ pk: String, view form: EOSForm) -> Bool {
+        guard let n = mNetwork else { return false }
+        
+        let hud = HUD.show()
+        EOSWallet.getAccounts(pub: pk, network: n, completion: { accounts, privateKey in
+            hud?.hide(animated: true)
+            
+            if let accs = accounts, let pk = privateKey {
+                form.update(pk: pk, accounts: accs, completion: { [weak self] in
+                    self?.view.setNeedsLayout()
+                    self?.view.layoutIfNeeded()
+                })
+            } else {
+                form.shakeField()
+            }
+        })
+        return true
     }
     
     private func onSelected(network: INetwork) {
@@ -172,39 +129,64 @@ class AddNewWalletVC: AlertVC, AddWalletDelegate {
         
         switch b {
         case .ETH:
-            let mETHForm = ETHForm()
-            mETHForm.alpha = 0.0
-            mETHForm.onValid = { [weak self] v in
+            let form = ETHForm()
+            form.onValid = { [weak self] v in
                 self?.mView.isActive = v
             }
-            mETHForm.onDerive = { [weak self] in
+            form.onDerive = { [weak self] in
                 self?.derive()
             }
-            mETHForm.onScan = { [weak self] in
+            form.onScan = { [weak self] in
                 self?.startScanner()
             }
-            mActive = mETHForm
+            mActive = form
+            mView.onImport = { [weak self, weak form] in
+                let name = form?.value ?? ""
+                if name.count > 0, (name.split(separator: " ").count == 12 || name.split(separator: " ").count == 24) {
+                    self?.onNew(chain: b, name: "", seed: name, network: network)
+                } else if name.count > 0, name.range(of: " ") == nil {
+                    self?.onNew(chain: b, name: "", privateKey: name, network: network)
+                } else {
+                    form?.shakeField()
+                }
+            }
         case .EOS:
-            let mEOSForm = EOSForm()
-            mEOSForm.onScan = { [weak self] in
+            let form = EOSForm()
+            form.onScan = { [weak self] in
                 self?.startScanner()
             }
-            mEOSForm.onSearch = { [weak self] s -> Bool in
-                return self?.searchEOS(s) ?? true
+            form.onSearch = { [weak self, weak form] s -> Bool in
+                guard let f = form else { return true }
+                return self?.searchEOS(s, view: f) ?? true
             }
-            mEOSForm.onValid = { [weak self] v in
+            form.onValid = { [weak self] v in
                 self?.mView.isActive = v
             }
-            mActive = mEOSForm
+            mActive = form
+            mView.onImport = { [weak self, weak form] in
+                if
+                    let p = form?.privateKey,
+                    let a = form?.selected,
+                    let w = EOSWallet(network: network, name: a, data: "00\(p)", privateKey: p) {
+                    AppDelegate.lock()
+                    self?.dismiss(animated: true, completion: { [weak self] in
+                        self?.mDelegate?.onNew(wallet: w)
+                        AppDelegate.unlock()
+                    })
+                } else {
+                    form?.shakeField()
+                }
+            }
         }
         if let v = mActive {
+            v.alpha = 0.0
             mView.append(view: v)
+            UIView.animate(withDuration: 0.25, animations: {
+                v.alpha = 1.0
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
+            })
         }
-        UIView.animate(withDuration: 0.25, animations: {
-            self.mActive?.alpha = 1.0
-            self.view.setNeedsLayout()
-            self.view.layoutIfNeeded()
-        })
     }
     
     // MAARK:- AddWalletDelegate methods
@@ -226,5 +208,5 @@ class AddNewWalletVC: AlertVC, AddWalletDelegate {
     func onCancel(sender: AddNewWalletView) {
         dismiss(animated: true, completion: nil)
     }
-    
+
 }

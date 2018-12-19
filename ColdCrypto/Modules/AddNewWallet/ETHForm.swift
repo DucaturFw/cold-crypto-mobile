@@ -18,7 +18,8 @@ class ETHForm: UIView, UITextFieldDelegate, IWithValue {
         $0.autocapitalizationType = .none
         $0.backgroundColor = Style.Colors.light
         $0.layer.cornerRadius = Style.Dims.middle/2.0
-        $0.layer.borderWidth = 0.0
+        $0.layer.borderWidth  = 1.0
+        $0.layer.borderColor  = Style.Colors.darkGrey.cgColor
         $0.delegate = self
         $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         $0.leftViewMode = .always
@@ -26,9 +27,10 @@ class ETHForm: UIView, UITextFieldDelegate, IWithValue {
         $0.textColor = Style.Colors.black
         $0.addTarget(self, action: #selector(changed), for: .editingChanged)
     })
+    
     private let mDerive = Button().apply({
         $0.setTitle("derive".loc, for: .normal)
-        $0.backgroundColor = Style.Colors.blue
+        $0.backgroundColor = Style.Colors.darkGrey
     })
     
     var onValid: (Bool)->Void = { _ in }
