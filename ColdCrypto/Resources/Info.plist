@@ -28,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>39</string>
+	<string>41</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -47,13 +47,13 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string></string>
+	<string>For scanning QR-codes.</string>
 	<key>NSFaceIDUsageDescription</key>
-	<string></string>
+	<string>For protecting the access to the app.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string></string>
+	<string>For saving and reading QR-codes.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
+	<string>For saving and reading QR-codes.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SF-Pro-Display-Medium.otf</string>

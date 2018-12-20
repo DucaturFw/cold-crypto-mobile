@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EOSForm: UIView, UITextFieldDelegate, IWithValue {
+class EOSForm: UIView, ImportFieldDelegate, IWithValue {
     
     private let mCaption = UILabel.new(font: UIFont.medium(25.scaled), text: "enter_seed_pk".loc, lines: 0, color: Style.Colors.black, alignment: .center)
     
@@ -18,26 +18,9 @@ class EOSForm: UIView, UITextFieldDelegate, IWithValue {
                                      color: .black,
                                      alignment: .center).apply({ $0.alpha = 0.0 })
     
-    private lazy var mField = UITextField().apply({ [weak self] in
-        $0.returnKeyType = .search
-        $0.autocorrectionType = .no
-        $0.autocapitalizationType = .none
-        $0.backgroundColor = Style.Colors.light
-        $0.layer.cornerRadius = Style.Dims.middle/2.0
-        $0.layer.borderWidth = 1.0
-        $0.layer.borderColor = Style.Colors.darkGrey.cgColor
-        $0.delegate = self
-        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-        $0.leftViewMode = .always
-        $0.font = UIFont.medium(13)
-        $0.textColor = Style.Colors.black
-        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
-        toolbar.setItems([
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(title: "done".loc, style: .done, target: self, action: #selector(hideKB))
-            ], animated: false)
-        $0.inputAccessoryView = toolbar
-    })
+    private lazy var mField = ImportField(delegate: self).apply {
+        $0.searchVisible = true
+    }
     
     var onValid: (Bool)->Void = { _ in }
     var onScan: ()->Void = {}
@@ -57,10 +40,10 @@ class EOSForm: UIView, UITextFieldDelegate, IWithValue {
     
     var value: String {
         get {
-            return (mField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+            return mField.value
         }
         set {
-            mField.text = newValue
+            mField.value = newValue
             if newValue.count > 0 {
                 let _ = onSearch(newValue)
                 endEditing(true)
@@ -74,16 +57,6 @@ class EOSForm: UIView, UITextFieldDelegate, IWithValue {
         addSubview(mField)
         addSubview(mNoAcc)
         addSubview(mList)
-        mField.rightView = UIImageView(image: UIImage(named: "scanIcon")).apply({
-            $0.contentMode = .center
-            $0.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2.0)
-            $0.frame = $0.frame.insetBy(dx: -15, dy: -15)
-        }).tap({ [weak self] in
-            self?.onScan()
-        })
-        mField.rightViewMode = .always
-        mField.attributedPlaceholder = NSAttributedString(string: "your_pk".loc,
-                                                          attributes: [.font: UIFont.medium(13), .foregroundColor: Style.Colors.darkLight])
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -141,13 +114,24 @@ class EOSForm: UIView, UITextFieldDelegate, IWithValue {
         })
     }
 
-    // MARK: - UITextFieldDelegate methods
+    // MARK: - ImportFieldDelegate methods
     // -------------------------------------------------------------------------
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if onSearch(mField.text ?? "") {
+    func onScan(from: ImportField) {
+        onScan()
+    }
+    
+    func onReturn(from: ImportField) -> Bool {
+        if onSearch(from.value) {
             mField.endEditing(true)
         }
         return false
+    }
+    
+    func onChanged(from: ImportField) {}
+    
+    func onSearch(from: ImportField) {
+        let _ = onSearch(from.value)
+        endEditing(true)
     }
     
 }

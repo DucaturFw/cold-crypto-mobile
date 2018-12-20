@@ -8,25 +8,11 @@
 
 import UIKit
 
-class ETHForm: UIView, UITextFieldDelegate, IWithValue {
+class ETHForm: UIView, ImportFieldDelegate, IWithValue {
     
     private let mCaption = UILabel.new(font: UIFont.medium(25.scaled), text: "enter_seed_pk".loc, lines: 0, color: Style.Colors.black, alignment: .center)
 
-    private lazy var mField  = UITextField().apply({ [weak self] in
-        $0.returnKeyType = .done
-        $0.autocorrectionType = .no
-        $0.autocapitalizationType = .none
-        $0.backgroundColor = Style.Colors.light
-        $0.layer.cornerRadius = Style.Dims.middle/2.0
-        $0.layer.borderWidth  = 1.0
-        $0.layer.borderColor  = Style.Colors.darkGrey.cgColor
-        $0.delegate = self
-        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-        $0.leftViewMode = .always
-        $0.font = UIFont.medium(13)
-        $0.textColor = Style.Colors.black
-        $0.addTarget(self, action: #selector(changed), for: .editingChanged)
-    })
+    private lazy var mField = ImportField(delegate: self)
     
     private let mDerive = Button().apply({
         $0.setTitle("derive".loc, for: .normal)
@@ -45,14 +31,13 @@ class ETHForm: UIView, UITextFieldDelegate, IWithValue {
     
     var value: String {
         get {
-            return (mField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+            return mField.value
         }
         set {
-            mField.text = newValue
-            changed()
+            mField.value = newValue
         }
     }
-    
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(mCaption)
@@ -61,16 +46,6 @@ class ETHForm: UIView, UITextFieldDelegate, IWithValue {
         mDerive.click = { [weak self] in
             self?.onDerive()
         }
-        mField.rightView = UIImageView(image: UIImage(named: "scanIcon")).apply({
-            $0.contentMode = .center
-            $0.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2.0)
-            $0.frame = $0.frame.insetBy(dx: -15, dy: -15)
-        }).tap({ [weak self] in
-            self?.onScan()
-        })
-        mField.rightViewMode = .always
-        mField.attributedPlaceholder = NSAttributedString(string: "your_pk".loc,
-                                                                attributes: [.font: UIFont.medium(13), .foregroundColor: Style.Colors.darkLight])
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -85,19 +60,25 @@ class ETHForm: UIView, UITextFieldDelegate, IWithValue {
         frame.size.height = mDerive.maxY
     }
     
-    @objc private func changed() {
-        isValid = (mField.text?.count ?? 0) > 0
-    }
-    
     func shakeField() {
         mField.shake()
     }
     
-    // MARK: - UITextFieldDelegate methods
+    // MARK: - ImportFieldDelegate methods
     // -------------------------------------------------------------------------
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.endEditing(true)
+    func onScan(from: ImportField) {
+        onScan()
+    }
+    
+    func onChanged(from: ImportField) {
+        isValid = from.value.count > 0
+    }
+    
+    func onReturn(from: ImportField) -> Bool {
+        from.endEditing(true)
         return false
     }
     
+    func onSearch(from: ImportField) {}
+
 }

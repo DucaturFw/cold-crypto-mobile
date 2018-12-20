@@ -46,6 +46,7 @@
 		EB3ECC652180F74600D14656 /* ApiSignTransferTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC642180F74600D14656 /* ApiSignTransferTx.swift */; };
 		EB3F8AFE218357D5004E6CFB /* WalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3F8AFD218357D5004E6CFB /* WalletCell.swift */; };
 		EB4743FB21C6E69500A07CE3 /* HistoryDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4743FA21C6E69500A07CE3 /* HistoryDetails.swift */; };
+		EB4D571821CC3806000F000A /* ImportField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4D571721CC3806000F000A /* ImportField.swift */; };
 		EB5529F621A5EE8400EB11ED /* ContractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5529F521A5EE8400EB11ED /* ContractView.swift */; };
 		EB6450892181069F008397DF /* SignalClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6450882181069F008397DF /* SignalClient.swift */; };
 		EB64509321810736008397DF /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64509221810736008397DF /* WebRTCClient.swift */; };
@@ -283,6 +284,7 @@
 		EB3ECC642180F74600D14656 /* ApiSignTransferTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSignTransferTx.swift; sourceTree = "<group>"; };
 		EB3F8AFD218357D5004E6CFB /* WalletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCell.swift; sourceTree = "<group>"; };
 		EB4743FA21C6E69500A07CE3 /* HistoryDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetails.swift; sourceTree = "<group>"; };
+		EB4D571721CC3806000F000A /* ImportField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportField.swift; sourceTree = "<group>"; };
 		EB5529F521A5EE8400EB11ED /* ContractView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractView.swift; sourceTree = "<group>"; };
 		EB6450882181069F008397DF /* SignalClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalClient.swift; sourceTree = "<group>"; };
 		EB64509221810736008397DF /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
@@ -664,6 +666,7 @@
 				EBC3A6CB21C82A29008695DD /* AddNewWalletView.swift */,
 				EBC3A6D221C904F0008695DD /* NetworkPicker.swift */,
 				EBC3A6D421C90FCA008695DD /* NetworkCell.swift */,
+				EB4D571721CC3806000F000A /* ImportField.swift */,
 			);
 			path = AddNewWallet;
 			sourceTree = "<group>";
@@ -1311,6 +1314,7 @@
 				EBA593E0217A8D1900F3CB65 /* AlertVC.swift in Sources */,
 				EBA593BE217A88EF00F3CB65 /* ETHNet.swift in Sources */,
 				EB2676D421B313B5003B254F /* Group.swift in Sources */,
+				EB4D571821CC3806000F000A /* ImportField.swift in Sources */,
 				EBEDA2B721AB561F004FCB75 /* AccountPicker.swift in Sources */,
 				EBEDA28F21AB4FF3004FCB75 /* curves.c in Sources */,
 				EBA593D6217A8C1B00F3CB65 /* CodeVC.swift in Sources */,

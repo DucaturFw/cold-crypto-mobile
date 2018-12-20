@@ -13,6 +13,7 @@ class AuthVC : UIViewController {
     private let mNewOne = Button().apply({
         $0.backgroundColor = Style.Colors.blue
         $0.setTitle("new_wallet".loc, for: .normal)
+        $0.layer.cornerRadius = Style.Dims.large/2.0
     })
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

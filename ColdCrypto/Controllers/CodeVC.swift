@@ -60,7 +60,7 @@ class CodeVC : UIViewController {
     internal func authComplete() {
         let type = mAuth.authType
         if Settings.useBio == nil && type != .none {
-            AlertVC((type == .face ? "ask_use_face" : "ask_use_touch").loc)
+            AlertVC((type == .face ? "ask_use_face" : "ask_use_touch").loc, draggable: false)
                 .put(negative: "no".loc, do: { [weak self] a in
                     Settings.useBio = false
                     self?.moveNext()

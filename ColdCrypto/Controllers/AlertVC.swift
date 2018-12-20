@@ -44,8 +44,19 @@ class AlertVC : PopupVC {
     
     private var mContent = UIView()
     
-    init(_ name: String? = nil, view: (UIView & IAlertView)? = nil, style: PresentationStyle = .sheet, arrow: Bool = false, withButtons: Bool = true) {
+    private var mDragable = true
+    override var dragable: Bool {
+        return mDragable
+    }
+    
+    init(_ name: String? = nil,
+         view: (UIView & IAlertView)? = nil,
+         style: PresentationStyle = .sheet,
+         arrow: Bool = false,
+         withButtons: Bool = true,
+         draggable: Bool = true) {
         mView = view
+        mDragable = draggable
         mWithButtons = withButtons
         super.init(nibName: nil, bundle: nil)
         self.style = style
@@ -116,7 +127,7 @@ class AlertVC : PopupVC {
         
         if mName.isVisible {
             let txtHeight = ceil((mName.text?.heightFor(width: w - p * 2, font: mName.font) ?? 0.0))
-            mName.frame = CGRect(x: p, y: y, width: w - p * 2, height: txtHeight)
+            mName.frame = CGRect(x: p, y: y+p, width: w - p * 2, height: txtHeight)
             y = mName.maxY + p
         }
         
