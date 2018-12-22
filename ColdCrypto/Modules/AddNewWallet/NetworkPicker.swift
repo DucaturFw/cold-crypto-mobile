@@ -89,30 +89,5 @@ class NetworkPicker: UIView {
         addSubview(view)
         onSelected(network)
     }
-    
-//    // MARK:- UICollectionViewDelegate, UICollectionViewDataSource methods
-//    // -------------------------------------------------------------------------
-//    func collectionView(_ collectionView: UICollectionView,
-//                        numberOfItemsInSection section: Int) -> Int {
-//        return networks.count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView,
-//                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = NetworkCell.get(from: collectionView, at: indexPath)
-//        cell.network = networks[indexPath.row]
-//        return cell
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: 120.scaled, height: height)
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let n = networks[indexPath.item]
-//        networks = [n]
-//    }
-    
+        
 }

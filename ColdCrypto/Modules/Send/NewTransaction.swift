@@ -21,7 +21,14 @@ class NewTransaction: UIView, IAlertView, UITextFieldDelegate {
         $0.layer.cornerRadius = Style.Dims.middle/2.0
     })
     
-    private let mScan = ScanButton(frame: CGRect(origin: .zero, size: CGSize(width: Style.Dims.middle, height: Style.Dims.middle)))
+    private let mScan = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: Style.Dims.middle, height: Style.Dims.middle))).apply({
+        $0.layer.cornerRadius = Style.Dims.middle/2.0
+        $0.isUserInteractionEnabled = true
+        $0.backgroundColor = Style.Colors.darkGrey
+        $0.layer.masksToBounds = true
+        $0.image = UIImage(named: "scanWhite")
+        $0.contentMode = .center
+    })
     
     private lazy var mField = Field().apply({ [weak self] in
         $0.delegate = self

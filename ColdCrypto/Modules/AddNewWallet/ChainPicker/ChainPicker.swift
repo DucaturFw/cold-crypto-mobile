@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CryptoList: UIView {
+class ChainPicker: UIView {
     
     private var mIsCollapsed = false
     

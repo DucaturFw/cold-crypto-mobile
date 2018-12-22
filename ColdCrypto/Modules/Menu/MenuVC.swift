@@ -15,7 +15,6 @@ class MenuVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         case contact = "contact"
         case userGuide = "user_guide"
-        case knowledge = "knowledge"
         case privacy = "privacy"
         case about = "about"
         
@@ -27,7 +26,6 @@ class MenuVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
             switch self {
             case .contact: return "iconContact"
             case .userGuide: return "userGuide"
-            case .knowledge: return "knowledge"
             case .privacy: return "privacy"
             case .about: return "about"
             }
@@ -35,11 +33,10 @@ class MenuVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         var url: String {
             switch self {
-            case .contact: return "http://coldcrypto.app/contact"
-            case .userGuide: return "http://coldcrypto.app/guide"
-            case .knowledge: return "http://coldcrypto.app/knowledge"
-            case .privacy: return "http://coldcrypto.app/privacy"
-            case .about: return "http://coldcrypto.app/about"
+            case .contact: return "mailto://cold@duxi.io"
+            case .userGuide: return "http://duxi.io/cold/guide/"
+            case .privacy: return "http://duxi.io/cold/privacy"
+            case .about: return "http://duxi.io"
             }
         }
         

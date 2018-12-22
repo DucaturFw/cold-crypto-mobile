@@ -15,21 +15,22 @@ protocol ImportDelegate: class {
     func onNew(wallet: IWallet)
 }
 
-class AddNewWalletVC: AlertVC, AddWalletDelegate {
+class NewWalletVC: AlertVC, AddWalletDelegate {
 
     private var mBlockchain: Blockchain?
     private var mNetwork: INetwork?
     private var mActive: (UIView & IWithValue)?
     
-    private let mView: AddNewWalletView
+    private let mView = NewWalletView()
     
     private let mPicker = NetworkPicker()
     
     private weak var mDelegate: ImportDelegate?
+    
+    private var mScanner: ScannerView?
 
     init(delegate: ImportDelegate?) {
         mDelegate = delegate
-        mView = AddNewWalletView()
         super.init(nil, view: mView, style: .sheet, arrow: true, withButtons: false)
         mView.delegate = self
         mPicker.onSelected = { [weak self] network in
@@ -96,12 +97,40 @@ class AddNewWalletVC: AlertVC, AddWalletDelegate {
     }
     
     private func startScanner() {
-        let vc = ScannerVC()
-        vc.onFound = { [weak self, weak vc] json in
+        let newView = ScannerView()
+        newView.withHint = false
+        newView.onFound  = { [weak self] json in
             self?.mActive?.value = json.trimmingCharacters(in: .whitespacesAndNewlines)
-            vc?.dismiss(animated: true, completion: nil)
+            self?.popToRoot()
         }
-        present(vc, animated: true, completion: nil)
+        
+        mScanner?.stop()
+        mScanner = newView
+        update(view: newView, configure: { [weak self] in
+            self?.put("delete_no".loc, hide: false, do: { [weak self] _ in
+                self?.popToRoot()
+            })
+            newView.start()
+        })
+    }
+    
+    private func popToRoot() {
+        mScanner?.stop()
+        mScanner = nil
+        update(view: mView, configure: { [weak self] in
+            self?.withButtons = false
+            self?.clearButtons()
+        })
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        mScanner?.start()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        mScanner?.stop()
     }
     
     private func searchEOS(_ pk: String, view form: EOSForm) -> Bool {
@@ -205,7 +234,7 @@ class AddNewWalletVC: AlertVC, AddWalletDelegate {
         })
     }
     
-    func onCancel(sender: AddNewWalletView) {
+    func onCancel(sender: NewWalletView) {
         dismiss(animated: true, completion: nil)
     }
 

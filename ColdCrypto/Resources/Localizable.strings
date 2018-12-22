@@ -40,7 +40,7 @@
 "repeat_pass_bot" = "Since you’re going to be your own bank, we won’t be able to help if you lose your password.";
 "back" = "Back";
 "error" = "Error";
-"error_desc" = "Camera access is denied";
+"error_desc" = "Camera access is denied.\n\nTap to open settings.";
 "go_settings" = "Go to settings";
 
 "contact" = "Contact";

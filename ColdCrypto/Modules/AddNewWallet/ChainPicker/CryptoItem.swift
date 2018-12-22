@@ -13,6 +13,10 @@ class CryptoItem: UIView {
     static let width:  CGFloat = 60.scaled
     static let height: CGFloat = 60.scaled
     
+    override var withTint: Bool {
+        return false
+    }
+    
     private let mIcon: UIImageView = UIImageView().apply({
         $0.contentMode = .scaleAspectFit
     })

@@ -40,7 +40,7 @@ class ProfileVC: UIViewController, ImportDelegate, ISignerDelegate {
         $0.lineHeight = 4.scaled
         $0.setCurrentModeWithAnimation(.cross, duration: 0)
     }).tap({ [weak self] in
-        self?.present(AddNewWalletVC(delegate: self), animated: true, completion: nil)
+        self?.present(NewWalletVC(delegate: self), animated: true, completion: nil)
     })
     
     private lazy var mLeftMenu = JTHamburgerButton(frame: CGRect(x: 0, y: 0, width: 18, height: 16)).apply({
@@ -179,7 +179,7 @@ class ProfileVC: UIViewController, ImportDelegate, ISignerDelegate {
     private func show(qr text: String, share: Bool = false) {
         guard var qr = QRCode(text) else { return }
         qr.size = CGSize(width: 300, height: 300)
-        let vc = AlertVC(view: AlertImage(image: qr.image), arrow: true)
+        let vc = AlertVC(view: UIImageView(image: qr.image), arrow: true)
         if share {
             vc.put("share".loc) { _ in
                 AppDelegate.share(image: qr.image, text: text)

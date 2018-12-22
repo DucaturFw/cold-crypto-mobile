@@ -10,14 +10,14 @@ import UIKit
 
 protocol AddWalletDelegate: class {
     func onSelected(blockchain: Blockchain)
-    func onCancel(sender: AddNewWalletView)
+    func onCancel(sender: NewWalletView)
 }
 
-class AddNewWalletView: UIView, IAlertView {
+class NewWalletView: UIView, IAlertView {
 
     private var mBlockchain: Blockchain?
     
-    private let mPicker  = CryptoList()
+    private let mPicker  = ChainPicker()
     private let mBlock   = UILabel.new(font: UIFont.medium(25.scaled), text: "select_chain".loc, lines: 1, color: Style.Colors.black, alignment: .center)
 
     private let mCancel = Button().apply({

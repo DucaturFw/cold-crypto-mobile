@@ -12,6 +12,16 @@ protocol IAlertView: class {
     func layout(width: CGFloat, origin: CGPoint)
 }
 
+extension UIImageView: IAlertView {
+    func layout(width: CGFloat, origin o: CGPoint) {
+        if self.width > 0 && self.height > 0 {
+            let w = self.width > width ? width : self.width
+            let h = w * self.height / self.width
+            frame = CGRect(x: o.x + (width - w)/2.0, y: o.y, width: w, height: h)
+        }
+    }
+}
+
 class AlertVC : PopupVC {
     
     private let mArrow = UIImageView(image: UIImage(named: "arrowDown"))
@@ -74,8 +84,15 @@ class AlertVC : PopupVC {
         return nil
     }
     
+    func clearButtons() {
+        mButtons.forEach({
+            $0.removeFromSuperview()
+        })
+        mButtons.removeAll()
+    }
+    
     @discardableResult
-    func put(_ name: String, color: UIColor = Style.Colors.blue, do block: ((AlertVC)->Void)? = nil) -> Self {
+    func put(_ name: String, color: UIColor = Style.Colors.blue, hide: Bool = true, do block: ((AlertVC)->Void)? = nil) -> Self {
         withButtons = true
         let tmp = Button()
         tmp.backgroundColor = color
@@ -85,7 +102,9 @@ class AlertVC : PopupVC {
         tmp.click = { [weak self] in
             if let s = self {
                 block?(s)
-                s.hide()
+                if hide {
+                    s.hide()
+                }
             }
         }
         return self
