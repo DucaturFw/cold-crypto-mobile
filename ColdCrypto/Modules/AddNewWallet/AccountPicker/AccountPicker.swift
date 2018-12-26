@@ -17,6 +17,8 @@ class AccountPicker: UITableView, UITableViewDelegate, UITableViewDataSource {
     init(accounts: [String]) {
         mAccounts = accounts
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat(min(mAccounts.count, 4)) * 40.scaled), style: .plain)
+        backgroundColor = .clear
+        backgroundView = UIView()
         rowHeight = 40.scaled
         estimatedRowHeight = 0
         separatorStyle = .none

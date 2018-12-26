@@ -149,7 +149,7 @@ class EOSWallet: IWallet {
     }
     
     func getTo(tx: ApiParamsTx) -> String {
-        return tx.transaction?.actions?.first?.data?["to"] as? String ?? "--"
+        return isValid(address: tx.transaction?.actions?.first?.data?["to"] as? String) ?? "--"
     }
     
     func parseContract(contract: ApiSignContractCall) -> IContract? {

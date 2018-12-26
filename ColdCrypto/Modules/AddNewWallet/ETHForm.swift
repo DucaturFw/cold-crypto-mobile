@@ -71,7 +71,7 @@ class ETHForm: UIView, ImportFieldDelegate, IWithValue {
     }
     
     func onChanged(from: ImportField) {
-        isValid = from.value.count > 0
+        isValid = from.value.count > 0 && Data(hex: from.value).count > 0
     }
     
     func onReturn(from: ImportField) -> Bool {

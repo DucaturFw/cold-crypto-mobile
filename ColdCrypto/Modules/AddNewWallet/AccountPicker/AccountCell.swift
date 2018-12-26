@@ -15,6 +15,7 @@ class AccountCell: UITableViewCell {
         textLabel?.font = UIFont.regular(15)
         textLabel?.highlightedTextColor = Style.Colors.blue
         selectedBackgroundView = UIView()
+        backgroundColor = .clear
     }
     
     required init?(coder aDecoder: NSCoder) {

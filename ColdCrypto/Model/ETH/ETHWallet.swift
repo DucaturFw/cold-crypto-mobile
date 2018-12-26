@@ -49,8 +49,8 @@ class ETHWallet : IWallet {
         self.index = 0
         self.mSeed = nil
         self.id    = UUID().uuidString
-        self.wallet   = Wallet(network: self.network, privateKey: privateKey, debugPrints: false)
-        self.address  = self.wallet.address().lowercased()
+        self.wallet  = Wallet(network: self.network, privateKey: privateKey, debugPrints: false)
+        self.address = self.wallet.address().lowercased()
         self.blockchain = blockchain
     }
     
@@ -67,8 +67,8 @@ class ETHWallet : IWallet {
         self.index = index
         self.id    = UUID().uuidString
         self.mSeed = String(data: seed, encoding: .utf8)
-        self.wallet   = w
-        self.address  = w.address().lowercased()
+        self.wallet  = w
+        self.address = w.address().lowercased()
         self.blockchain = blockchain
     }
 
@@ -216,7 +216,7 @@ class ETHWallet : IWallet {
         }
         
         var newItems = [ITransaction]()
-        let group = Group(2) { [weak self] in
+        let group = Group(1) { [weak self] in
             DispatchQueue.global().async { [weak self] in
                 newItems.sort { (one, two) -> Bool in
                     one.order > two.order
@@ -237,20 +237,20 @@ class ETHWallet : IWallet {
                 group.done()
             }
         })
-        getTokens { [weak self] trans in
-            let tkns = ETHToken.tokens(wallet: self)
-            var fast = Dictionary<String, IToken>()
-            tkns.forEach({ fast[$0.symbol] = $0 })
-            trans?.forEach({ (t) in
-                if let amount = Int64(t.val) {
-                    fast[t.tokenSymbol]?.amount += (t.positive ? amount : -amount)
-                }
-            })
-            queue.async {
-                newItems.append(contentsOf: trans ?? [])
-                group.done()
-            }
-        }
+//        getTokens { [weak self] trans in
+//            let tkns = ETHToken.tokens(wallet: self)
+//            var fast = Dictionary<String, IToken>()
+//            tkns.forEach({ fast[$0.symbol] = $0 })
+//            trans?.forEach({ (t) in
+//                if let amount = Int64(t.val) {
+//                    fast[t.tokenSymbol]?.amount += (t.positive ? amount : -amount)
+//                }
+//            })
+//            queue.async {
+//                newItems.append(contentsOf: trans ?? [])
+//                group.done()
+//            }
+//        }
     }
     
     var isFeeSupport: Bool {
