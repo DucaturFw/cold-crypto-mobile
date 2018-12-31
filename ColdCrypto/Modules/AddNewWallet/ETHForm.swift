@@ -71,7 +71,14 @@ class ETHForm: UIView, ImportFieldDelegate, IWithValue {
     }
     
     func onChanged(from: ImportField) {
-        isValid = from.value.count > 0 && Data(hex: from.value).count > 0
+        let parts = from.value.split(separator: " ")
+        if parts.count <= 1 {
+            isValid = from.value.count > 0 && Data(hex: from.value).count > 0
+        } else if parts.count == 12 || parts.count == 24 {
+            isValid = ETHWallet.makeSeed(from: from.value) != nil
+        } else {
+            isValid = false
+        }
     }
     
     func onReturn(from: ImportField) -> Bool {

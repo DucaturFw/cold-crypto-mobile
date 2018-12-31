@@ -34,8 +34,12 @@ class ETHWallet : IWallet {
     var gasLimit: Int = 21000
     var gasPrice: Wei?
     
+    static func makeSeed(from seed: String) -> Data? {
+        return try? Mnemonic.createSeed(mnemonic: seed.split(separator: " ").map({ String($0) }))
+    }
+    
     convenience init?(blockchain: Blockchain, network: INetwork, name: String, data: String, index: UInt32, seed: String) {
-        guard let s = try? Mnemonic.createSeed(mnemonic: seed.split(separator: " ").map({ String($0) })) else { return nil }
+        guard let s = ETHWallet.makeSeed(from: seed) else { return nil }
         self.init(blockchain: blockchain, network: network, name: name, data: data, index: index, seed: s)
     }
     
