@@ -29,6 +29,7 @@
 		EB2676DD21B43980003B254F /* EOSForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2676DC21B43980003B254F /* EOSForm.swift */; };
 		EB2676DF21B4731E003B254F /* BackupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2676DE21B4731E003B254F /* BackupView.swift */; };
 		EB26C31C21924083005D3525 /* CardPickVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB26C31B21924083005D3525 /* CardPickVC.swift */; };
+		EB29A81A21ED0D4100FB229D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB29A81921ED0D4100FB229D /* GoogleService-Info.plist */; };
 		EB2DFECD21CED36400AE0E0E /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2DFECC21CED36400AE0E0E /* ScannerView.swift */; };
 		EB2F617A21ABE7EB0029219A /* eos.js in Resources */ = {isa = PBXBuildFile; fileRef = EB2F617921ABE7EB0029219A /* eos.js */; };
 		EB2F617C21ABE8030029219A /* EOSUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F617B21ABE8030029219A /* EOSUtils.swift */; };
@@ -265,6 +266,7 @@
 		EB2676DC21B43980003B254F /* EOSForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EOSForm.swift; sourceTree = "<group>"; };
 		EB2676DE21B4731E003B254F /* BackupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupView.swift; sourceTree = "<group>"; };
 		EB26C31B21924083005D3525 /* CardPickVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPickVC.swift; sourceTree = "<group>"; };
+		EB29A81921ED0D4100FB229D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EB2DFECC21CED36400AE0E0E /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		EB2F617921ABE7EB0029219A /* eos.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = eos.js; sourceTree = "<group>"; };
 		EB2F617B21ABE8030029219A /* EOSUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EOSUtils.swift; sourceTree = "<group>"; };
@@ -632,6 +634,7 @@
 		EB74B443217C75E8006AE00F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EB29A81921ED0D4100FB229D /* GoogleService-Info.plist */,
 				EB2F617921ABE7EB0029219A /* eos.js */,
 				EBA593A6217A831800F3CB65 /* Localizable.strings */,
 				EBA59394217A816800F3CB65 /* Fonts */,
@@ -1187,6 +1190,7 @@
 				EBAC21D321A5D916002CF61B /* abi_mock.json in Resources */,
 				EBA5939C217A816800F3CB65 /* SF-Pro-Display-Semibold.otf in Resources */,
 				EBE484DB217928C0006879F7 /* LaunchScreen.storyboard in Resources */,
+				EB29A81A21ED0D4100FB229D /* GoogleService-Info.plist in Resources */,
 				EBA59399217A816800F3CB65 /* SF-Pro-Display-Regular.otf in Resources */,
 				EBAC21C221A5C774002CF61B /* abi.js in Resources */,
 				EBA5262721B1C83200A29A08 /* GothamPro.ttf in Resources */,
@@ -1213,6 +1217,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BlockiesSwift/BlockiesSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${PODS_ROOT}/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework",
 				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
@@ -1221,10 +1226,12 @@
 				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/TGLStackedViewController/TGLStackedViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BlockiesSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
@@ -1233,6 +1240,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TGLStackedViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

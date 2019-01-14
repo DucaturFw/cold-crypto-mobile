@@ -79,7 +79,7 @@ class WalletList: UIView, UICollectionViewDataSource, UICollectionViewDelegate, 
         mRefresh.addTarget(self, action: #selector(refresh), for: .valueChanged)
     }
     
-    @objc private func refresh() {
+    @objc func refresh() {
         mRefresh.endRefreshing()
         wallets.forEach({ $0.flushCache() })
         reload()
@@ -136,17 +136,31 @@ class WalletList: UIView, UICollectionViewDataSource, UICollectionViewDelegate, 
     
     private var mHistory: HistoryView?
     
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if let s = mSelected,
+            let cell = mList.cellForItem(at: s) as? WalletCell,
+            cell.button.point(inside: convert(point, to: cell.button), with: nil) {
+            return cell.button
+        }
+        return super.hitTest(point, with: event)
+    }
+    
     private func show(index: IndexPath) -> UIViewPropertyAnimator {
         let top  = CGFloat(AppDelegate.statusHeight + 30.scaled)
         let pad  = WalletCell.cardSize(width: width).height - WalletCell.padding
+        let cell = (self.mList.cellForItem(at: index) as? WalletCell)
         let view = HistoryView(frame: CGRect(x: 0, y: top + pad, width: width, height: height - top - pad),
                                wallet: wallets[index.item],
                                padding: Style.Dims.bottomScan + AppDelegate.bottomGap)
+        view.onRefreshed = {
+            cell?.wallet?.flushCache()
+            cell?.refreshBalance()
+        }
         view.alpha = 0
         insertSubview(view, at: 0)
         mHistory = view
         return UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut, animations: {
-            (self.mList.cellForItem(at: index) as? WalletCell)?.fullVisible = self.detailsForCard
+            cell?.fullVisible = self.detailsForCard
             self.mList.visibleCells.forEach({ cell in
                 if let c = cell as? WalletCell {
                     let y = c.card.convert(.zero, to: self).y
@@ -156,7 +170,7 @@ class WalletList: UIView, UICollectionViewDataSource, UICollectionViewDelegate, 
                         } else {
                             return self.height - y
                         }
-                        } as CGFloat
+                    } as CGFloat
                     c.card.transform = CGAffineTransform(translationX: 0, y: s)
                 }
             })

@@ -34,7 +34,7 @@ class ProfileVC: UIViewController, ImportDelegate, ISignerDelegate {
     }
     
     private lazy var mRightAdd = JTHamburgerButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30)).apply({
-        $0.lineColor = Style.Colors.darkGrey
+        $0.lineColor = Style.Colors.blue
         $0.lineSpacing = 4.scaled
         $0.lineWidth = 21.scaled
         $0.lineHeight = 4.scaled
@@ -44,7 +44,7 @@ class ProfileVC: UIViewController, ImportDelegate, ISignerDelegate {
     })
     
     private lazy var mLeftMenu = JTHamburgerButton(frame: CGRect(x: 0, y: 0, width: 18, height: 16)).apply({
-        $0.lineColor = Style.Colors.darkGrey
+        $0.lineColor = Style.Colors.blue
         $0.lineSpacing = 4.scaled
         $0.lineWidth = 21.scaled
         $0.lineHeight = 4.scaled
@@ -91,6 +91,7 @@ class ProfileVC: UIViewController, ImportDelegate, ISignerDelegate {
         mParams   = params
         super.init(nibName: nil, bundle: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(close), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: UIApplication.willEnterForegroundNotification, object: nil)
         mView.wallets = mProfile.wallets
     }
     
@@ -101,6 +102,7 @@ class ProfileVC: UIViewController, ImportDelegate, ISignerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: mRightAdd)
+        navigationItem.title = "caption".loc
         navigationItem.leftBarButtonItem  = UIBarButtonItem(customView: mLeftMenu)
         view.backgroundColor = Style.Colors.white
         view.addSubview(mView)
@@ -117,6 +119,10 @@ class ProfileVC: UIViewController, ImportDelegate, ISignerDelegate {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc private func refresh() {
+        mView.refresh()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -209,6 +215,7 @@ class ProfileVC: UIViewController, ImportDelegate, ISignerDelegate {
     @objc private func close() {
         mSigner.closeRTC()
         PopupVC.hideAll()
+        mView.close {}
         dismiss(animated: false, completion: nil)
         present(CheckCodeVC(passcode: mPasscode,
                             forceHide: true,
@@ -219,7 +226,7 @@ class ProfileVC: UIViewController, ImportDelegate, ISignerDelegate {
 
     // MARK: - ImportDelegate methods
     // -------------------------------------------------------------------------
-    func onNew(chain: Blockchain, name: String, data: String, segwit: Bool, network: INetwork) {
+    func onNew(chain: Blockchain, name: String, data: String, segwit: Bool, network: INetwork, backup: Bool) {
         guard let w = mProfile.newWallet(chain: chain,
                                          name: name,
                                          data: data,
@@ -227,17 +234,14 @@ class ProfileVC: UIViewController, ImportDelegate, ISignerDelegate {
                                          network: network) else { return }
         Settings.profile = mProfile
         mView.add(wallet: w)
-    }
-    
-    func onNewHDWallet(chain: Blockchain, network: INetwork) {
-        guard let w = mProfile.newWallet(chain: chain,
-                                         name: "",
-                                         data: String(format: "02%02x", mProfile.index + 1),
-                                         segwit: false,
-                                         network: network) else { return }
-        mProfile.index += 1
-        Settings.profile = mProfile
-        mView.add(wallet: w)
+        
+        if data.hasPrefix("01"), let seed = w.seed, backup { // seed
+            let vc = AlertVC(nil, view: BackupView(seed: seed), style: .sheet, arrow: true, withButtons: true, draggable: true)
+            vc.put("share".loc, color: Style.Colors.blue, hide: false, do: { alert in
+                AppDelegate.share(image: nil, text: seed, from: alert)
+            })
+            present(vc, animated: true, completion: nil)
+        }
     }
     
     func onNew(wallet: IWallet) {

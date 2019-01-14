@@ -22,15 +22,15 @@ class EOSForm: UIView, ImportFieldDelegate, IWithValue {
         $0.searchVisible = true
     }
     
-    var onValid: (Bool)->Void = { _ in }
-    var onScan: ()->Void = {}
-    var onSearch: (String)->Bool = { _ in return true }
+    private let mImport = Button().apply({
+        $0.setTitle("import".loc, for: .normal)
+        $0.backgroundColor = Style.Colors.blue
+        $0.isActive = false
+    })
     
-    private(set) var isValid: Bool = false {
-        didSet {
-            onValid(isValid)
-        }
-    }
+    var onScan: ()->Void = {}
+    var onImport: ()->Void = {}
+    var onSearch: (String)->Bool = { _ in return true }
 
     private(set) var privateKey: String?
     
@@ -57,6 +57,10 @@ class EOSForm: UIView, ImportFieldDelegate, IWithValue {
         addSubview(mField)
         addSubview(mNoAcc)
         addSubview(mList)
+        addSubview(mImport)
+        mImport.click = { [weak self] in
+            self?.onImport()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -69,7 +73,10 @@ class EOSForm: UIView, ImportFieldDelegate, IWithValue {
         mField.frame = CGRect(x: 0, y: mCaption.maxY + 30.scaled, width: width, height: Style.Dims.middle)
         mNoAcc.origin = CGPoint(x: (width - mNoAcc.width)/2.0, y: mField.maxY + 30.scaled)
         mList.frame = CGRect(x: 0, y: mField.maxY + 30.scaled, width: width, height: mList.height)
-        frame.size.height = mNoAcc.alpha > 0 ? mNoAcc.maxY : mList.maxY
+        
+        let t = mNoAcc.alpha > 0 ? mNoAcc.maxY : mList.maxY
+        mImport.frame = CGRect(x: 0, y: t + 30.scaled, width: width, height: Style.Dims.middle)
+        frame.size.height = mImport.maxY
     }
 
     func shakeField() {
@@ -82,9 +89,8 @@ class EOSForm: UIView, ImportFieldDelegate, IWithValue {
     
     func update(pk: String, accounts: [String], completion: @escaping ()->Void) {
         privateKey = pk
-        isValid = false
+        mImport.isActive = false
         selected = nil
-        onValid(false)
         AppDelegate.lock()
         UIView.animate(withDuration: 0.25, animations: {
             self.mList.alpha = 0.0
@@ -100,7 +106,7 @@ class EOSForm: UIView, ImportFieldDelegate, IWithValue {
         mList.frame = CGRect(x: 40.scaled, y: mField.maxY + 30.scaled, width: width - 80.scaled, height: mList.height)
         mList.onPicked = { [weak self] p in
             self?.selected = p
-            self?.onValid(true)
+            self?.mImport.isActive = true
         }
         addSubview(mList)
         UIView.animate(withDuration: 0.25, animations: {

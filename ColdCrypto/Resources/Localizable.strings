@@ -20,8 +20,8 @@
 "confirm_hint" = "For guaranteeing\nyour authority";
 "enter_access_code" = "Enter the access code";
 "scan_line_2" = "Scan QR code";
-"scan" = "Scan";
-"scan_hint" = "1. Go to coldcrypto.io on your computer and choose Send Ether and Token option.\n\n2. Select ColdCrypto connect option on How would you like access your wallet screen.\n\n3. Ckick access with ColdCrypto and scan the QR code on the screen that will flow";
+"scan" = "Scan QR code";
+"scan_hint" = "1. Go to duxi.io on your computer and choose the \"Send Ether and Tokens\" option\n\n2. On the \"How would you like to access your wallet\" screen, select the \"ColdCrypto connect\" option\n\n3. Click \"Access with ColdCrypto\"";
 "verify" = "Verify transaction";
 "decline" = "Decline";
 "confirm" = "Confirm";
@@ -65,7 +65,7 @@
 
 "import_seed_phrase" = "Import a seed phrase";
 "import_private_key" = "Import a private key";
-"new_hd_wallet" = "Derive HD Wallet";
+"new_hd_wallet" = "Create cold wallet";
 "phrase_text" = "Enter seed phrase:";
 "import" = "Import";
 "key_text" = "Enter private key:";
@@ -89,7 +89,7 @@
 "select_chain" = "Choose a blockchain";
 "enter_seed_pk" = "Enter the seed phrase\nor the private key";
 "or" = "OR";
-"derive" = "Derive HD Wallet";
+"derive" = "Create cold wallet";
 "your_pk" = "Your seed or key";
 "connected" = "Connected";
 "not_connected" = "Not connected";
@@ -104,3 +104,5 @@
 "done" = "Done";
 "cant_send_tx" = "Can't process the transaction.";
 "success" = "Success";
+"caption" = "My Wallets";
+"copy_card" = "Share address";

@@ -19,15 +19,15 @@ class ETHForm: UIView, ImportFieldDelegate, IWithValue {
         $0.backgroundColor = Style.Colors.darkGrey
     })
     
-    var onValid: (Bool)->Void = { _ in }
-    var onDerive: ()->Void = {}
-    var onScan: ()->Void = {}
+    private let mImport = Button().apply({
+        $0.setTitle("import".loc, for: .normal)
+        $0.backgroundColor = Style.Colors.blue
+        $0.isActive = false
+    })
     
-    private(set) var isValid: Bool = false {
-        didSet {
-            onValid(isValid)
-        }
-    }
+    var onDerive: ()->Void = {}
+    var onImport: ()->Void = {}
+    var onScan: ()->Void = {}
     
     var value: String {
         get {
@@ -43,8 +43,12 @@ class ETHForm: UIView, ImportFieldDelegate, IWithValue {
         addSubview(mCaption)
         addSubview(mField)
         addSubview(mDerive)
+        addSubview(mImport)
         mDerive.click = { [weak self] in
             self?.onDerive()
+        }
+        mImport.click = { [weak self] in
+            self?.onImport()
         }
     }
     
@@ -56,7 +60,8 @@ class ETHForm: UIView, ImportFieldDelegate, IWithValue {
         super.layoutSubviews()
         mCaption.origin = CGPoint(x: (width - mCaption.width)/2.0, y: 0)
         mField.frame    = CGRect(x: 0, y: mCaption.maxY + 30.scaled, width: width, height: Style.Dims.middle)
-        mDerive.frame   = CGRect(x: 0, y: mField.maxY + Style.Dims.small, width: width, height: Style.Dims.middle)
+        mImport.frame   = CGRect(x: 0, y: mField.maxY + Style.Dims.small, width: width, height: Style.Dims.middle)
+        mDerive.frame   = CGRect(x: 0, y: mImport.maxY + Style.Dims.small, width: width, height: Style.Dims.middle)
         frame.size.height = mDerive.maxY
     }
     
@@ -73,11 +78,11 @@ class ETHForm: UIView, ImportFieldDelegate, IWithValue {
     func onChanged(from: ImportField) {
         let parts = from.value.split(separator: " ")
         if parts.count <= 1 {
-            isValid = from.value.count > 0 && Data(hex: from.value).count > 0
+            mImport.isActive = from.value.count > 0 && Data(hex: from.value).count > 0
         } else if parts.count == 12 || parts.count == 24 {
-            isValid = ETHWallet.makeSeed(from: from.value) != nil
+            mImport.isActive = ETHWallet.makeSeed(from: from.value) != nil
         } else {
-            isValid = false
+            mImport.isActive = false
         }
     }
     

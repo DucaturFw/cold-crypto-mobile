@@ -49,6 +49,9 @@ class ConfirmationVC: PopupVC {
         content.addSubview(mAmount)
         content.addSubview(mArrow)
         
+        mArrow.tap { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
         mAmount.onChecked = { [weak self] _ in
             self?.checkConfirm()
         }

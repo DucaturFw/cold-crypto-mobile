@@ -19,47 +19,17 @@ class NewWalletView: UIView, IAlertView {
     
     private let mPicker  = ChainPicker()
     private let mBlock   = UILabel.new(font: UIFont.medium(25.scaled), text: "select_chain".loc, lines: 1, color: Style.Colors.black, alignment: .center)
-
-    private let mCancel = Button().apply({
-        $0.setTitle("cancel".loc, for: .normal)
-        $0.backgroundColor = Style.Colors.darkGrey
-    })
-    
-    private let mImport = Button().apply({
-        $0.setTitle("import".loc, for: .normal)
-        $0.backgroundColor = Style.Colors.blue
-        $0.isActive = false
-    })
-    
-    var isActive: Bool = false {
-        didSet {
-            mImport.isActive = isActive
-        }
-    }
     
     weak var delegate: AddWalletDelegate?
     
     private var mViews: [UIView] = []
     
-    var onImport: ()->Void = {}
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(mPicker)
         addSubview(mBlock)
-        addSubview(mImport)
-        addSubview(mCancel)
-        
         mPicker.onSelect = { [weak self] b in
             self?.selected(blockchain: b)
-        }
-        mCancel.click = { [weak self] in
-            if let s = self {
-                s.delegate?.onCancel(sender: s)
-            }
-        }
-        mImport.click = { [weak self] in
-            self?.doImport()
         }
     }
     
@@ -70,11 +40,7 @@ class NewWalletView: UIView, IAlertView {
     func collapseBlockchain() {
         mPicker.collapse()
     }
-    
-    private func doImport() {
-        onImport()
-    }
-    
+
     private func selected(blockchain: Blockchain) {
         mBlockchain = blockchain
         delegate?.onSelected(blockchain: blockchain)
@@ -94,13 +60,7 @@ class NewWalletView: UIView, IAlertView {
             $0.layoutIfNeeded()
             y = $0.maxY + 30.scaled
         })
-        let p = 40.scaled
-        let w = (width - p)/2.0
-        
-        mCancel.frame = CGRect(x: 0, y: y, width: w, height: Style.Dims.middle)
-        mImport.frame = CGRect(x: mCancel.maxX + p, y: mCancel.minY, width: w, height: mCancel.height)
-
-        frame = CGRect(origin: o, size: CGSize(width: width, height: mCancel.maxY))
+        frame = CGRect(origin: o, size: CGSize(width: width, height: y))
     }
     
     func append(view: UIView) {

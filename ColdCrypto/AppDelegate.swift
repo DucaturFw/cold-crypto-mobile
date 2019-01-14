@@ -10,6 +10,7 @@ import UIKit
 import SideMenu
 import HockeySDK
 import EthereumKit
+import FirebaseCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -40,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         BITHockeyManager.shared().configure(withIdentifier: "fd96c74c233a4c328c2d4f7df741ab9a")
         BITHockeyManager.shared().start()
         BITHockeyManager.shared().authenticator.authenticateInstallation()
+        
+        FirebaseApp.configure()
         
         if Settings.isFirstStart {
             Settings.isFirstStart = false
@@ -104,13 +107,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-    static func share(image: UIImage?, text: String) {
+    static func share(image: UIImage?, text: String, from: UIViewController? = nil) {
         DispatchQueue.main.async {
             var shareItems: [Any] = [text]
             if let i = image {
                 shareItems.append(i)
             }
-            let vc = (UIApplication.shared.delegate as? AppDelegate)?.window?.rootViewController
+            let vc = from ?? (UIApplication.shared.delegate as? AppDelegate)?.window?.rootViewController
             vc?.present(UIActivityViewController(activityItems: shareItems,
                                                  applicationActivities: nil),
                         animated: true,

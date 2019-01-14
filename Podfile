@@ -11,5 +11,6 @@ target 'ColdCrypto' do
   pod 'HockeySDK'
   pod 'SideMenu'
   pod 'QRCode'
+  pod 'Firebase/Core'
 
 end

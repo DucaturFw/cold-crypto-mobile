@@ -10,8 +10,7 @@ import UIKit
 import EthereumKit
 
 protocol ImportDelegate: class {
-    func onNew(chain: Blockchain, name: String, data: String, segwit: Bool, network: INetwork)
-    func onNewHDWallet(chain: Blockchain, network: INetwork)
+    func onNew(chain: Blockchain, name: String, data: String, segwit: Bool, network: INetwork, backup: Bool)
     func onNew(wallet: IWallet)
 }
 
@@ -69,14 +68,16 @@ class NewWalletVC: AlertVC, AddWalletDelegate {
         }
     }
     
-    private func onNew(chain: Blockchain, name: String, seed: String, network: INetwork) {
+    private func onNew(chain: Blockchain, name: String, seed: String, network: INetwork, backup: Bool) {
         guard let s = try? Mnemonic.createSeed(mnemonic: seed.split(separator: " ").map({ String($0) })) else {
             mActive?.shakeField()
             return
         }
         AppDelegate.lock()
         dismiss(animated: true, completion: {
-            self.mDelegate?.onNew(chain: chain, name: name, data: "01\(s.toHexString())", segwit: false, network: network)
+            let d = "01\(s.toHexString())"
+            self.mDelegate?.onNew(chain: chain, name: name, data: d, segwit: false,
+                                  network: network, backup: backup)
             AppDelegate.unlock()
         })
     }
@@ -84,16 +85,16 @@ class NewWalletVC: AlertVC, AddWalletDelegate {
     private func onNew(chain: Blockchain, name: String, privateKey: String, network: INetwork) {
         AppDelegate.lock()
         dismiss(animated: true, completion: {
-            self.mDelegate?.onNew(chain: chain, name: name, data: "00\(privateKey.withoutPrefix)", segwit: false, network: network)
+            let d = "00\(privateKey.withoutPrefix)"
+            self.mDelegate?.onNew(chain: chain, name: name, data: d, segwit: false,
+                                  network: network, backup: false)
             AppDelegate.unlock()
         })
     }
     
     private func derive() {
         guard let b = mBlockchain, let n = mNetwork else { return }
-        dismiss(animated: true) {
-            self.mDelegate?.onNewHDWallet(chain: b, network: n)
-        }
+        onNew(chain: b, name: "", seed: Mnemonic.create().joined(separator: " "), network: n, backup: true)
     }
     
     private func startScanner() {
@@ -159,26 +160,23 @@ class NewWalletVC: AlertVC, AddWalletDelegate {
         switch b {
         case .ETH:
             let form = ETHForm()
-            form.onValid = { [weak self] v in
-                self?.mView.isActive = v
-            }
             form.onDerive = { [weak self] in
                 self?.derive()
             }
             form.onScan = { [weak self] in
                 self?.startScanner()
             }
-            mActive = form
-            mView.onImport = { [weak self, weak form] in
+            form.onImport = { [weak self, weak form] in
                 let name = form?.value ?? ""
                 if name.count > 0, (name.split(separator: " ").count == 12 || name.split(separator: " ").count == 24) {
-                    self?.onNew(chain: b, name: "", seed: name, network: network)
+                    self?.onNew(chain: b, name: "", seed: name, network: network, backup: false)
                 } else if name.count > 0, name.range(of: " ") == nil {
                     self?.onNew(chain: b, name: "", privateKey: name, network: network)
                 } else {
                     form?.shakeField()
                 }
             }
+            mActive = form
         case .EOS:
             let form = EOSForm()
             form.onScan = { [weak self] in
@@ -188,11 +186,7 @@ class NewWalletVC: AlertVC, AddWalletDelegate {
                 guard let f = form else { return true }
                 return self?.searchEOS(s, view: f) ?? true
             }
-            form.onValid = { [weak self] v in
-                self?.mView.isActive = v
-            }
-            mActive = form
-            mView.onImport = { [weak self, weak form] in
+            form.onImport = { [weak self, weak form] in
                 if
                     let p = form?.privateKey,
                     let a = form?.selected,
@@ -206,6 +200,7 @@ class NewWalletVC: AlertVC, AddWalletDelegate {
                     form?.shakeField()
                 }
             }
+            mActive = form
         }
         if let v = mActive {
             v.alpha = 0.0

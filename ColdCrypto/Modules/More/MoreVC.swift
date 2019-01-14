@@ -55,19 +55,18 @@ class MoreVC: AlertVC {
     private func backup(passcode: String, wallet: IWallet) {
         present(CheckCodeVC(passcode: passcode, authAtStart: true, onSuccess: { [weak self] vc in
             vc.dismiss(animated: true, completion: { [weak self] in
-//                if let seed = wallet.seed {
-//                    self?.update(view: BackupView(seed: seed), configure: { [weak self] in
-//                        self?.put("done".loc)
-//                    })
-//                } else {
-//
-//                }
-                let qr = QRView(name: nil, value: wallet.privateKey)
-                self?.update(view: qr, configure: { [weak self] in
-                    self?.put("share".loc, do: { _ in
-                        AppDelegate.share(image: qr.image, text: qr.value)
+                if let seed = wallet.seed {
+                    self?.update(view: BackupView(seed: seed), configure: { [weak self] in
+                        self?.put("done".loc)
                     })
-                })
+                } else {
+                    let qr = QRView(name: nil, value: wallet.privateKey)
+                    self?.update(view: qr, configure: { [weak self] in
+                        self?.put("share".loc, do: { _ in
+                            AppDelegate.share(image: qr.image, text: qr.value)
+                        })
+                    })
+                }
             })
         }).apply({
             $0.hintText = "confirm_hint".loc

@@ -11,6 +11,8 @@ import Foundation
 class HistoryView: UITableView, IWalletDelegate, UITableViewDelegate,
 UITableViewDataSource, HistoryCellDelegate {
 
+    var onRefreshed: ()->Void = {}
+    
     private let mWallet: IWallet
     
     private var mItems: [ITransaction] = []
@@ -59,9 +61,10 @@ UITableViewDataSource, HistoryCellDelegate {
             refresh()
         }
     }
-    
+
     @objc private func refresh() {
         mWallet.getHistory(force: true)
+        onRefreshed()
     }
     
     // MARK:- IWalletDelegate methods

@@ -120,6 +120,9 @@ class AlertVC : PopupVC {
         content.addSubview(mName)
         content.addSubview(mContent)
         content.addSubview(mArrow)
+        mArrow.tap { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
         if let v = mView {
             mContent.addSubview(v)
         }

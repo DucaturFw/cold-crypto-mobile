@@ -16,7 +16,7 @@ class WalletCell: UICollectionViewCell {
     static func cardSize(width: CGFloat) -> CGSize {
         return CGSize(width: width, height: ceil((width - 40.scaled) / 330.0 * 200.0) + padding)
     }
-        
+    
     private let mCard = UIImageView(image: UIImage(named: "card0")).apply({
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
@@ -33,9 +33,21 @@ class WalletCell: UICollectionViewCell {
         }
     }
     
+    private let mButton = Button().apply({
+        $0.backgroundColor = Style.Colors.blue
+        $0.layer.cornerRadius = Style.Dims.middle/2.0
+        $0.setTitle("copy_card".loc, for: UIControl.State.normal)
+    })
+    var button: UIView {
+        return mButton
+    }
+    
+    private let mArrow   = UIImageView(image: UIImage(named: "arrowDown")?.withRenderingMode(.alwaysTemplate)).apply({ $0.tintColor = .white })
     private let mAmount  = UILabel.new(font: UIFont.bold(20.scaled), lines: 1, color: Style.Colors.white, alignment: .left)
     private let mMoney   = UILabel.new(font: UIFont.bold(15.scaled), lines: 1, color: Style.Colors.white.alpha(0.8), alignment: .left)
-    private let mAddress = UILabel.new(font: UIFont.bold(14.scaled), lines: 1, color: Style.Colors.white, alignment: .left)
+    private let mAddress = UILabel.new(font: UIFont.bold(14.scaled), lines: 1, color: Style.Colors.white, alignment: .left).apply({
+        $0.lineBreakMode = .byTruncatingMiddle
+    })
     
     private let mHUD = UIActivityIndicatorView(style: .white).apply({
         $0.hidesWhenStopped = true
@@ -75,7 +87,7 @@ class WalletCell: UICollectionViewCell {
         }
     }
     
-    private func refreshBalance() {
+    func refreshBalance() {
         mHUD.startAnimating()
         let cache = UUID().uuidString
         let units = wallet?.blockchain.symbol() ?? ""
@@ -100,6 +112,7 @@ class WalletCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(mCard)
+        mCard.addSubview(mArrow)
         mCard.addSubview(mOverlay)
         mCard.addSubview(mLogo)
         mCard.addSubview(mAddress)
@@ -107,7 +120,14 @@ class WalletCell: UICollectionViewCell {
         mCard.addSubview(mMoney)
         mCard.addSubview(mHUD)
         mCard.addSubview(mLan)
+        mCard.addSubview(mButton)
         NotificationCenter.default.addObserver(self, selector: #selector(coinsSent(_:)), name: .coinsSent, object: nil)
+        
+        mButton.tap { [weak self] in
+            if let me = self?.wallet?.address {
+                AppDelegate.share(image: nil, text: me)
+            }
+        }
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
@@ -131,13 +151,18 @@ class WalletCell: UICollectionViewCell {
             mCard.frame = CGRect(origin: .zero, size: s).insetBy(dx: Style.Dims.small, dy: p/2.0).offsetBy(dx: 0, dy: p/2.0).integral
             mCard.transform = t
         }
-        
+
         mOverlay.frame = mCard.bounds
+        mArrow.origin  = CGPoint(x: (mCard.width - mArrow.width)/2.0, y: 10.scaled)
+        
+        let shift = mArrow.alpha > 0 ? (mArrow.maxY + 10.scaled) : 20.scaled
+        
         mLogo.origin   = CGPoint(x: mCard.width - mLogo.width + 53, y: (mCard.height - mLogo.height)/2.0)
-        mAmount.frame  = CGRect(x: 20.scaled, y: 20.scaled, width: mCard.width - 40.scaled, height: mAmount.font.lineHeight)
-        mHUD.origin    = CGPoint(x: 19.scaled, y: 14.scaled)
+        mAmount.frame  = CGRect(x: 20.scaled, y: shift, width: mCard.width - 40.scaled, height: mAmount.font.lineHeight)
+        mHUD.origin    = CGPoint(x: 19.scaled, y: mAmount.minY - 6.scaled)
         mMoney.frame   = CGRect(x: 22.scaled, y: mAmount.maxY + 7.scaled, width: mCard.width - 44.scaled, height: mMoney.font.lineHeight)
         mAddress.frame = CGRect(x: 22.scaled, y: mMoney.maxY + 7.scaled, width: mCard.width - 44.scaled, height: mAddress.font.lineHeight)
+        mButton.frame  = CGRect(x: 22.scaled, y: mAddress.maxY + 10.scaled, width: mCard.width - 44.scaled, height: Style.Dims.middle)
         mLan.origin    = CGPoint(x: mCard.width - mLan.width - 5.scaled, y: 5.scaled)
     }
     
@@ -172,7 +197,12 @@ class WalletCell: UICollectionViewCell {
         
         let s = wallet?.connectionStatus
         
-        mLan.alpha = fullVisible && (s == .start || s == .success) ? 1.0 : 0.0
+        mLan.alpha    = fullVisible && (s == .start || s == .success) ? 1.0 : 0.0
+        mArrow.alpha  = fullVisible ? 1.0 : 0.0
+        mButton.alpha = fullVisible ? 1.0 : 0.0
+        
+        setNeedsLayout()
+        layoutIfNeeded()
     }
     
 }
