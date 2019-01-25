@@ -23,18 +23,11 @@ public struct Configuration {
     /// reprensets an etherscan url based on which network to use
     public var etherscanURL: URL {
         switch network {
-        case .mainnet:
-            return URL(string: "https://api.etherscan.io")!
-            
-        case .ropsten:
-            return URL(string: "https://api-ropsten.etherscan.io")!
-            
-        case .kovan:
-            return URL(string: "https://api-kovan.etherscan.io")!
-            
-        case .private:
-            // NOTE: does not get any transactions because of private network.
-            return URL(string: "https://api-rinkeby.etherscan.io")!
+        case .mainnet: return URL(string: "https://api.etherscan.io")!
+        case .ropsten: return URL(string: "https://api-ropsten.etherscan.io")!
+        case .kovan: return URL(string: "https://api-kovan.etherscan.io")!
+        case .private(1, _): return URL(string: "https://api.etherscan.io")!
+        case .private: return URL(string: "https://api-rinkeby.etherscan.io")!
         }
     }
 }

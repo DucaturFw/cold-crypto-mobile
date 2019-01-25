@@ -56,6 +56,7 @@
 		EB64509B21810CAD008397DF /* ApiWebRTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64509A21810CAD008397DF /* ApiWebRTC.swift */; };
 		EB64509D2181152E008397DF /* ApiOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64509C2181152E008397DF /* ApiOffer.swift */; };
 		EB64509F21811684008397DF /* ApiJoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64509E21811684008397DF /* ApiJoin.swift */; };
+		EB6542B221FBA97A009AA3BE /* MoreTxVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6542B121FBA97A009AA3BE /* MoreTxVC.swift */; };
 		EB74B457217CCFFB006AE00F /* ScanBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74B456217CCFFB006AE00F /* ScanBlock.swift */; };
 		EB976CEC217BA6CE00B8DC95 /* ApiParamsWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB976CEB217BA6CE00B8DC95 /* ApiParamsWallet.swift */; };
 		EB976CEE217BA75900B8DC95 /* ApiParamsTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB976CED217BA75900B8DC95 /* ApiParamsTx.swift */; };
@@ -293,6 +294,7 @@
 		EB64509A21810CAD008397DF /* ApiWebRTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiWebRTC.swift; sourceTree = "<group>"; };
 		EB64509C2181152E008397DF /* ApiOffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiOffer.swift; sourceTree = "<group>"; };
 		EB64509E21811684008397DF /* ApiJoin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiJoin.swift; sourceTree = "<group>"; };
+		EB6542B121FBA97A009AA3BE /* MoreTxVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreTxVC.swift; sourceTree = "<group>"; };
 		EB74B456217CCFFB006AE00F /* ScanBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanBlock.swift; sourceTree = "<group>"; };
 		EB976CEB217BA6CE00B8DC95 /* ApiParamsWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiParamsWallet.swift; sourceTree = "<group>"; };
 		EB976CED217BA75900B8DC95 /* ApiParamsTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiParamsTx.swift; sourceTree = "<group>"; };
@@ -524,6 +526,7 @@
 				EB34C65121B718D7003F4C51 /* DeleteView.swift */,
 				EB34C64D21B70C71003F4C51 /* MoreVC.swift */,
 				EB34C64F21B70D6C003F4C51 /* MorePicker.swift */,
+				EB6542B121FBA97A009AA3BE /* MoreTxVC.swift */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -775,8 +778,8 @@
 			isa = PBXGroup;
 			children = (
 				EBC3A6CD21C82A2E008695DD /* Modules */,
-				EB74B443217C75E8006AE00F /* Resources */,
 				EB74B43E217C75AA006AE00F /* Model */,
+				EB74B443217C75E8006AE00F /* Resources */,
 				EBE484D0217928BF006879F7 /* AppDelegate.swift */,
 			);
 			path = ColdCrypto;
@@ -1324,6 +1327,7 @@
 				EBEDA2B121AB4FF3004FCB75 /* EOSBalance.swift in Sources */,
 				EB107E0F21BA7C3800497C6E /* ApiFallback.swift in Sources */,
 				EB107E0D21BA750200497C6E /* ApiIceServer.swift in Sources */,
+				EB6542B221FBA97A009AA3BE /* MoreTxVC.swift in Sources */,
 				EBAC21CD21A5D0E5002CF61B /* ApiSignContractCall.swift in Sources */,
 				EB2F617E21AC00340029219A /* ApiEOSTx.swift in Sources */,
 				EB64509921810BBC008397DF /* RTC.swift in Sources */,

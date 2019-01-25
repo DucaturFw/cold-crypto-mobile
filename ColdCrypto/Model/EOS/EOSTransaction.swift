@@ -24,13 +24,15 @@ class EOSTransaction: ITransaction {
     var from: String
     var val: String
     var to: String
+    let network: INetwork
     
-    init(account: String, source: EOSActions.Data) {
+    init(account: String, source: EOSActions.Data, network: INetwork) {
         let tmp = (source.quantity ?? "0.0000 EOS").split(separator: " ")
         
         val = (tmp.count > 1 ? String(tmp[0]) : "0").trimmed
         hash = source.id ?? ""
         tokenSymbol = (tmp.count > 1 ? String(tmp[1]) : "")
+        self.network = network
 
         positive = account != source.from
         from = source.from ?? ""
@@ -44,11 +46,12 @@ class EOSTransaction: ITransaction {
         }
     }
     
-    init(account: String, source: EOSTransactionRaw) {
+    init(account: String, source: EOSTransactionRaw, network: INetwork) {
         val = source.quantity.trimmed
         hash = source.hash
         tokenSymbol = source.symbol
         positive = source.direction.lowercased() == "in"
+        self.network = network
         if positive {
             from = source.another_account
             to   = account
@@ -69,6 +72,10 @@ class EOSTransaction: ITransaction {
     var value: String {
         let sign = positive ? "+" : "-"
         return "\(sign)\(val) \(tokenSymbol)"
+    }
+    
+    var url: URL? {
+        return network.url(tid: hash)
     }
     
 }

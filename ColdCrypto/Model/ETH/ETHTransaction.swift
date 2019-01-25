@@ -22,6 +22,7 @@ class ETHTransaction : ITransaction, HandyJSON {
     var contract: String = ""
     var tokenSymbol: String = ""
     var blockchain: Blockchain = .ETH
+    let network: INetwork
     
     private var mValue: String?
     private var mWhere: String?
@@ -31,7 +32,9 @@ class ETHTransaction : ITransaction, HandyJSON {
     }
     
     init(hash: String, from: String, to: String, value: String, positive: Bool,
-         timestamp: String, input: String, contract: String, token: String, blockchain: Blockchain) {
+         timestamp: String, input: String, contract: String, token: String,
+         blockchain: Blockchain, network: INetwork) {
+        self.network = network
         self.input = input
         self.hash  = hash
         self.from  = from
@@ -69,7 +72,9 @@ class ETHTransaction : ITransaction, HandyJSON {
         }
     }
     
-    required init() {}
+    required init() {
+        network = Blockchain.Network.ETH.RinkeBy
+    }
     
     var text: String {
         if let time = TimeInterval(timestamp) {
@@ -99,5 +104,9 @@ class ETHTransaction : ITransaction, HandyJSON {
     }
     
     let icon: UIImage? = nil
+    
+    var url: URL? {
+        return network.url(tid: hash)
+    }
     
 }

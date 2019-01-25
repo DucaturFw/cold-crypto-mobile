@@ -250,7 +250,7 @@ class ProfileVC: UIViewController, ImportDelegate, ISignerDelegate {
         mView.add(wallet: wallet)
     }
     
-    // MARK:-
+    // MARK: - ISignerDelegate methods
     // -------------------------------------------------------------------------
     func confirm(contract: ApiSignContractCall, wallet: IWallet, from: Signer, success: @escaping (String) -> Void) {
         present(ConfirmContractCall(contract: contract, wallet: wallet, passcode: mPasscode, completion: { [weak self] signed in

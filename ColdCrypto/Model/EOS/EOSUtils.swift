@@ -79,7 +79,7 @@ class EOSUtils {
                             result = [EOSTransaction]()
                         }
                         
-                        result?.insert(EOSTransaction(account: account, source: d), at: 0)
+                        result?.insert(EOSTransaction(account: account, source: d, network: network), at: 0)
                     }
                 })
                 DispatchQueue.main.async {

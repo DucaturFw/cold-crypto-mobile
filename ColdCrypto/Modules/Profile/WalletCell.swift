@@ -17,6 +17,10 @@ class WalletCell: UICollectionViewCell {
         return CGSize(width: width, height: ceil((width - 40.scaled) / 330.0 * 200.0) + padding)
     }
     
+    private let mShadow = UIView()
+    
+    private let mCardBlock = UIView()
+    
     private let mCard = UIImageView(image: UIImage(named: "card0")).apply({
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
@@ -24,7 +28,7 @@ class WalletCell: UICollectionViewCell {
         $0.isUserInteractionEnabled = true
     })
     var card: UIView {
-        return mCard
+        return mCardBlock
     }
     
     var fullVisible: Bool = false {
@@ -66,6 +70,15 @@ class WalletCell: UICollectionViewCell {
         $0.layer.masksToBounds = true
     })
     
+    private let mModel = UILabel.new(font: UIFont.bold(12.scaled), text: "", lines: 1, color: .white, alignment: .center).apply({
+        $0.backgroundColor = Style.Colors.blue
+        $0.frame = $0.frame.insetBy(dx: -4, dy: -4).integral
+        $0.layer.borderWidth   = 1.0
+        $0.layer.borderColor   = Style.Colors.white.cgColor
+        $0.layer.cornerRadius  = $0.height/2.0
+        $0.layer.masksToBounds = true
+    })
+    
     private var mCache = UUID().uuidString
     
     private let mLogo = UIImageView(image: UIImage(named: "eosLarge"))
@@ -84,6 +97,8 @@ class WalletCell: UICollectionViewCell {
             }
             refreshBalance()
             checkBadge()
+            mModel.text = wallet?.networkInfo.name
+            resizeNetwork()
         }
     }
     
@@ -111,7 +126,11 @@ class WalletCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(mCard)
+        addSubview(mCardBlock)
+        
+        mCardBlock.addSubview(mCard)
+        mCardBlock.addSubview(mShadow)
+        
         mCard.addSubview(mArrow)
         mCard.addSubview(mOverlay)
         mCard.addSubview(mLogo)
@@ -121,7 +140,13 @@ class WalletCell: UICollectionViewCell {
         mCard.addSubview(mHUD)
         mCard.addSubview(mLan)
         mCard.addSubview(mButton)
+        mCard.addSubview(mModel)
         NotificationCenter.default.addObserver(self, selector: #selector(coinsSent(_:)), name: .coinsSent, object: nil)
+        
+        mCardBlock.layer.shadowColor   = UIColor.black.cgColor
+        mCardBlock.layer.shadowOffset  = CGSize(width: 0, height: 5)
+        mCardBlock.layer.shadowRadius  = 4
+        mCardBlock.layer.shadowOpacity = 0.3
         
         mButton.tap { [weak self] in
             if let me = self?.wallet?.address {
@@ -143,13 +168,17 @@ class WalletCell: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        if mCard.superview == self {
+        
+        let t = mCardBlock.transform
+        mCardBlock.transform = .identity
+        
+        if mCardBlock.superview == self {
             let s = WalletCell.cardSize(width: width)
-            let t = mCard.transform
             let p = WalletCell.padding
-            mCard.transform = .identity
-            mCard.frame = CGRect(origin: .zero, size: s).insetBy(dx: Style.Dims.small, dy: p/2.0).offsetBy(dx: 0, dy: p/2.0).integral
-            mCard.transform = t
+            
+            mCardBlock.frame = CGRect(origin: .zero, size: s).insetBy(dx: Style.Dims.small, dy: p/2.0).offsetBy(dx: 0, dy: p/2.0).integral
+            mCard.frame = mCardBlock.bounds
+            mShadow.frame = mCardBlock.bounds
         }
 
         mOverlay.frame = mCard.bounds
@@ -163,7 +192,10 @@ class WalletCell: UICollectionViewCell {
         mMoney.frame   = CGRect(x: 22.scaled, y: mAmount.maxY + 7.scaled, width: mCard.width - 44.scaled, height: mMoney.font.lineHeight)
         mAddress.frame = CGRect(x: 22.scaled, y: mMoney.maxY + 7.scaled, width: mCard.width - 44.scaled, height: mAddress.font.lineHeight)
         mButton.frame  = CGRect(x: 22.scaled, y: mAddress.maxY + 10.scaled, width: mCard.width - 44.scaled, height: Style.Dims.middle)
-        mLan.origin    = CGPoint(x: mCard.width - mLan.width - 5.scaled, y: 5.scaled)
+        mLan.origin    = CGPoint(x: 5.scaled, y: mCard.height - 5.scaled - mLan.height)
+        resizeNetwork()
+        
+        mCardBlock.transform = t
     }
     
     @objc private func coinsSent(_ n: Any?) {
@@ -192,17 +224,24 @@ class WalletCell: UICollectionViewCell {
         
         let w = mLan.width + 8
         let h = mLan.height + 8
-        mLan.frame = CGRect(x: mCard.width - w - 5.scaled, y: 5.scaled, width: w, height: h)
+        mLan.frame = CGRect(x: 5.scaled, y: mCard.height - 5.scaled - h, width: w, height: h)
         mLan.layer.cornerRadius = mLan.height/2.0
         
         let s = wallet?.connectionStatus
-        
-        mLan.alpha    = fullVisible && (s == .start || s == .success) ? 1.0 : 0.0
-        mArrow.alpha  = fullVisible ? 1.0 : 0.0
+        mLan.alpha = fullVisible && (s == .start || s == .success) ? 1.0 : 0.0
+        mArrow.alpha = fullVisible ? 1.0 : 0.0
         mButton.alpha = fullVisible ? 1.0 : 0.0
         
         setNeedsLayout()
         layoutIfNeeded()
+    }
+    
+    private func resizeNetwork() {
+        mModel.sizeToFit()
+        let w = mModel.width + 8
+        let h = mModel.height + 8
+        mModel.frame = CGRect(x: mCard.width - w - 5.scaled, y: 5.scaled, width: w, height: h)
+        mModel.layer.cornerRadius = mModel.height/2.0
     }
     
 }

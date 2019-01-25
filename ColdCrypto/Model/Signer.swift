@@ -48,6 +48,7 @@ class Signer: ISigner {
             case "getWalletList": catched = getWalletList(json: json, id: id, completion: block)
             case "webrtcLogin": if supportRTC { catched = webrtcLogin(json: json) }
             case "signContractCall": catched = signContractCall(json: json, id: id, completion: block)
+            case "getVersion": catched = getVersion(json: json, id: id, completion: block)
             default: catched = false
             }
         }
@@ -61,6 +62,14 @@ class Signer: ISigner {
         mWebRTC?.close()
         mWebRTC = RTC(wallet: w, url: url, sid: sid, delegate: self)
         mWebRTC?.connect()
+        return true
+    }
+    
+    @discardableResult
+    func getVersion(json: String, id: Int, completion: @escaping (String)->Void) -> Bool {
+        DispatchQueue.main.async {
+            completion("|\(id)|\"v0.1i\"")
+        }
         return true
     }
     

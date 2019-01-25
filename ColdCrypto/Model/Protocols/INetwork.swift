@@ -13,4 +13,5 @@ protocol INetwork {
     var value: String { get }
     var isTest: Bool { get }
     var node: String { get }
+    func url(tid: String) -> URL?
 }

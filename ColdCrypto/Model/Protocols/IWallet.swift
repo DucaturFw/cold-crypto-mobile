@@ -31,6 +31,7 @@ protocol IWallet : class {
     var connectionStatus: ConnectionState { get set }
     var onConnected: ((ConnectionState)->Void)? { get set }
     var isFeeSupport: Bool { get }
+    var networkInfo: INetwork { get }
     
     func getFee(completion: @escaping (String?)->Void)
     func isValid(address: String?) -> String?

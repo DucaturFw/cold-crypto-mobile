@@ -17,5 +17,6 @@ protocol ITransaction: IViewable {
     var from: String { get }
     var val: String { get }
     var to: String { get }
+    var url: URL? { get }
     
 }

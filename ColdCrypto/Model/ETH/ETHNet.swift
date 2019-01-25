@@ -23,7 +23,7 @@ class ETHNet {
         mGeth = Geth(configuration: Configuration(
             network: wallet.network,
             nodeEndpoint: wallet.net.node,
-            etherscanAPIKey: "ZC66358FTE2I7NV3YNUVDE2Y4PI8BQKRNB",
+            etherscanAPIKey: "DK8RKII7F3R2RD1CKATXJYZ1Q814BEZ8SC",
             debugPrints: false
         ))
     }
@@ -101,6 +101,7 @@ class ETHNet {
         }
         let own = w.address
         let chain = w.blockchain
+        let network = w.networkInfo
         mGeth.getTokenTransactions(address: own) { result in
             switch result {
             case .success(let trans) :
@@ -116,7 +117,8 @@ class ETHNet {
                                                   input: t.input,
                                                   contract: t.contractAddress,
                                                   token: t.tokenSymbol,
-                                                  blockchain: chain))
+                                                  blockchain: chain,
+                                                  network: network))
                     })
                     DispatchQueue.main.async {
                         completion(tmp, nil)
@@ -135,6 +137,7 @@ class ETHNet {
         }
         let own = w.address
         let chain = w.blockchain
+        let network = w.networkInfo
         mGeth.getTransactions(address: own) { (result) in
             switch result {
             case .success(let trans):
@@ -150,7 +153,8 @@ class ETHNet {
                                                input: $0.input,
                                                contract: $0.contractAddress,
                                                token: "",
-                                               blockchain: chain))
+                                               blockchain: chain,
+                                               network: network))
                     })
                     tmp.sort(by: { (one, two) -> Bool in
                         (Int(one.timestamp) ?? 0) > (Int(two.timestamp) ?? 0)

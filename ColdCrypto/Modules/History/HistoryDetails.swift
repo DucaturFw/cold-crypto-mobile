@@ -19,7 +19,7 @@ class HistoryDetails: UIView {
     
     private let mButton = Button().apply({
         $0.backgroundColor = Style.Colors.darkGrey
-        $0.setTitle("share".loc, for: .normal)
+        $0.setTitle("more".loc, for: .normal)
         $0.layer.cornerRadius = Style.Dims.middle/2.0
     })
     
@@ -41,7 +41,8 @@ class HistoryDetails: UIView {
         addSubview(mButton)
         addSubview(mText)
         mButton.tap { [weak self] in
-            AppDelegate.share(image: self?.mImage.image, text: self?.transaction?.hash ?? "")
+            guard let t = self?.transaction else { return }
+            MoreTxVC(image: self?.mImage.image, transaction: t).show()
         }
         mImage.tap { [weak self] in
             AppDelegate.share(image: self?.mImage.image, text: self?.transaction?.hash ?? "")

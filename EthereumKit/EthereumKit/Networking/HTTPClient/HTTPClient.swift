@@ -36,6 +36,9 @@ public class HTTPClient: HTTPClientType {
     public func send<Request: RequestType>(_ request: Request, completionHandler: @escaping (Result<Request.Response>) -> Void) -> Cancellable? {
         switch request.build() {
         case .success(let urlRequest):
+            
+            print("urlRequest.url = \(urlRequest.url)")
+            
             let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
                 let result = request.buildResponse(from: data, response: response, error: error)
                 DispatchQueue.main.async {

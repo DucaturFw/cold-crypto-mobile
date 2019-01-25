@@ -39,9 +39,12 @@ class EOSWallet: IWallet {
     private var cachedAmount: Decimal?
     private var cachedBalance: String?
     private let mPKObject: PrivateKey
-    
     private let mNetwork: INetwork
    
+    var networkInfo: INetwork {
+        return mNetwork
+    }
+    
     init?(network: INetwork, name: String, data: String, privateKey: String) {
         guard let pk = try? PrivateKey(keyString: privateKey),
             let pk2 = pk else {

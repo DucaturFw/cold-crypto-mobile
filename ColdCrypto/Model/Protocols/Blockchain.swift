@@ -41,6 +41,14 @@ enum Blockchain : String, CaseIterable {
                 case .RinkeBy: return "https://rinkeby.infura.io/8d9fdb63b80048e5b31c5b8e2650434e"
                 }
             }
+            
+            func url(tid: String) -> URL? {
+                switch self {
+                case .MainNet: return URL(string: "https://etherscan.io/tx/\(tid)")
+                case .RinkeBy: return URL(string: "https://rinkeby.etherscan.io/tx/\(tid)")
+                }
+            }
+            
         }
         
         enum EOS : String, INetwork, CaseIterable {
@@ -69,6 +77,13 @@ enum Blockchain : String, CaseIterable {
                 switch self {
                 case .MainNet: return "https://eos.greymass.com"
                 case .Jungle:  return "https://jungle2.cryptolions.io:443"
+                }
+            }
+            
+            func url(tid: String) -> URL? {
+                switch self {
+                case .MainNet: return URL(string: "https://bloks.io/transaction/\(tid)")
+                case .Jungle: return URL(string: "https://jungle.bloks.io/transaction/\(tid)")
                 }
             }
         }

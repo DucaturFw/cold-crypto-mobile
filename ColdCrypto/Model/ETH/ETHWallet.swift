@@ -34,6 +34,10 @@ class ETHWallet : IWallet {
     var gasLimit: Int = 21000
     var gasPrice: Wei?
     
+    var networkInfo: INetwork {
+        return net
+    }
+    
     static func makeSeed(from seed: String) -> Data? {
         return try? Mnemonic.createSeed(mnemonic: seed.split(separator: " ").map({ String($0) }))
     }
@@ -220,7 +224,7 @@ class ETHWallet : IWallet {
         }
         
         var newItems = [ITransaction]()
-        let group = Group(1) { [weak self] in
+        let group = Group(2) { [weak self] in
             DispatchQueue.global().async { [weak self] in
                 newItems.sort { (one, two) -> Bool in
                     one.order > two.order
@@ -241,20 +245,20 @@ class ETHWallet : IWallet {
                 group.done()
             }
         })
-//        getTokens { [weak self] trans in
-//            let tkns = ETHToken.tokens(wallet: self)
-//            var fast = Dictionary<String, IToken>()
-//            tkns.forEach({ fast[$0.symbol] = $0 })
-//            trans?.forEach({ (t) in
-//                if let amount = Int64(t.val) {
-//                    fast[t.tokenSymbol]?.amount += (t.positive ? amount : -amount)
-//                }
-//            })
-//            queue.async {
-//                newItems.append(contentsOf: trans ?? [])
-//                group.done()
-//            }
-//        }
+        getTokens { [weak self] trans in
+            let tkns = ETHToken.tokens(wallet: self)
+            var fast = Dictionary<String, IToken>()
+            tkns.forEach({ fast[$0.symbol] = $0 })
+            trans?.forEach({ (t) in
+                if let amount = Int64(t.val) {
+                    fast[t.tokenSymbol]?.amount += (t.positive ? amount : -amount)
+                }
+            })
+            queue.async {
+                newItems.append(contentsOf: trans ?? [])
+                group.done()
+            }
+        }
     }
     
     var isFeeSupport: Bool {
