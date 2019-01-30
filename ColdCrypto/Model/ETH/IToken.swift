@@ -16,7 +16,6 @@ protocol IToken {
     var amount: Int64 { get set }
     var name: String { get }
     var text: String { get }
-    var icon: UIImage? { get }
     
     func isValid(address: String) -> Bool
     func send(to: String, amount: Decimal, completion: @escaping (String?)->Void)

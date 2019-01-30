@@ -120,9 +120,7 @@ class ETHNet {
                                                   blockchain: chain,
                                                   network: network))
                     })
-                    DispatchQueue.main.async {
-                        completion(tmp, nil)
-                    }
+                    completion(tmp, nil)
                 }
             case .failure(let error) :
                 completion(nil, error)

@@ -31,6 +31,8 @@
 		EB26C31C21924083005D3525 /* CardPickVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB26C31B21924083005D3525 /* CardPickVC.swift */; };
 		EB29A81A21ED0D4100FB229D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB29A81921ED0D4100FB229D /* GoogleService-Info.plist */; };
 		EB2DFECD21CED36400AE0E0E /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2DFECC21CED36400AE0E0E /* ScannerView.swift */; };
+		EB2E836B2201F0E100B25F12 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EB2E836D2201F0E100B25F12 /* Localizable.strings */; };
+		EB2E83732201F17300B25F12 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB2E83722201F17300B25F12 /* LaunchScreen.storyboard */; };
 		EB2F617A21ABE7EB0029219A /* eos.js in Resources */ = {isa = PBXBuildFile; fileRef = EB2F617921ABE7EB0029219A /* eos.js */; };
 		EB2F617C21ABE8030029219A /* EOSUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F617B21ABE8030029219A /* EOSUtils.swift */; };
 		EB2F617E21AC00340029219A /* ApiEOSTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2F617D21AC00340029219A /* ApiEOSTx.swift */; };
@@ -73,7 +75,6 @@
 		EBA5939A217A816800F3CB65 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EBA59396217A816800F3CB65 /* SF-Pro-Display-Bold.otf */; };
 		EBA5939B217A816800F3CB65 /* SF-Pro-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = EBA59397217A816800F3CB65 /* SF-Pro-Display-Medium.otf */; };
 		EBA5939C217A816800F3CB65 /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EBA59398217A816800F3CB65 /* SF-Pro-Display-Semibold.otf */; };
-		EBA593AD217A831900F3CB65 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EBA593A6217A831800F3CB65 /* Localizable.strings */; };
 		EBA593AF217A844E00F3CB65 /* ScannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593AE217A844E00F3CB65 /* ScannerVC.swift */; };
 		EBA593B1217A845E00F3CB65 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA593B0217A845E00F3CB65 /* AVFoundation.framework */; };
 		EBA593B3217A84A000F3CB65 /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593B2217A84A000F3CB65 /* ScanView.swift */; };
@@ -94,6 +95,7 @@
 		EBA593DA217A8CB500F3CB65 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */; };
 		EBA593DE217A8CDC00F3CB65 /* NumberPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */; };
 		EBA593E0217A8D1900F3CB65 /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DF217A8D1900F3CB65 /* AlertVC.swift */; };
+		EBAC20792200718D00F0F86A /* ERCTokens.json in Resources */ = {isa = PBXBuildFile; fileRef = EBAC20782200718D00F0F86A /* ERCTokens.json */; };
 		EBAC21C221A5C774002CF61B /* abi.js in Resources */ = {isa = PBXBuildFile; fileRef = EBAC21C121A5C774002CF61B /* abi.js */; };
 		EBAC21C421A5C78E002CF61B /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBAC21C321A5C78E002CF61B /* JavaScriptCore.framework */; };
 		EBAC21C621A5C7AA002CF61B /* ETHabi.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAC21C521A5C7AA002CF61B /* ETHabi.swift */; };
@@ -121,7 +123,6 @@
 		EBE484D1217928BF006879F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D0217928BF006879F7 /* AppDelegate.swift */; };
 		EBE484D3217928BF006879F7 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE484D2217928BF006879F7 /* ProfileVC.swift */; };
 		EBE484D8217928C0006879F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBE484D7217928C0006879F7 /* Assets.xcassets */; };
-		EBE484DB217928C0006879F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBE484D9217928C0006879F7 /* LaunchScreen.storyboard */; };
 		EBE4850721792FF3006879F7 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE484FE21792FEC006879F7 /* CryptoSwift.framework */; };
 		EBE4850821792FF3006879F7 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EBE484FE21792FEC006879F7 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EBE4850B21792FF3006879F7 /* CryptoEthereumSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE484F021792FE5006879F7 /* CryptoEthereumSwift.framework */; };
@@ -269,6 +270,9 @@
 		EB26C31B21924083005D3525 /* CardPickVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPickVC.swift; sourceTree = "<group>"; };
 		EB29A81921ED0D4100FB229D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EB2DFECC21CED36400AE0E0E /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		EB2E836C2201F0E100B25F12 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EB2E83712201F14200B25F12 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EB2E83722201F17300B25F12 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB2F617921ABE7EB0029219A /* eos.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = eos.js; sourceTree = "<group>"; };
 		EB2F617B21ABE8030029219A /* EOSUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EOSUtils.swift; sourceTree = "<group>"; };
 		EB2F617D21AC00340029219A /* ApiEOSTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEOSTx.swift; sourceTree = "<group>"; };
@@ -311,7 +315,6 @@
 		EBA59396217A816800F3CB65 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
 		EBA59397217A816800F3CB65 /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; };
 		EBA59398217A816800F3CB65 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
-		EBA593A6217A831800F3CB65 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		EBA593AE217A844E00F3CB65 /* ScannerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerVC.swift; sourceTree = "<group>"; };
 		EBA593B0217A845E00F3CB65 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EBA593B2217A84A000F3CB65 /* ScanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
@@ -332,6 +335,7 @@
 		EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberPad.swift; sourceTree = "<group>"; };
 		EBA593DF217A8D1900F3CB65 /* AlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
+		EBAC20782200718D00F0F86A /* ERCTokens.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ERCTokens.json; sourceTree = "<group>"; };
 		EBAC21C121A5C774002CF61B /* abi.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = abi.js; sourceTree = "<group>"; };
 		EBAC21C321A5C78E002CF61B /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EBAC21C521A5C7AA002CF61B /* ETHabi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETHabi.swift; sourceTree = "<group>"; };
@@ -360,7 +364,6 @@
 		EBE484D0217928BF006879F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EBE484D2217928BF006879F7 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		EBE484D7217928C0006879F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		EBE484DA217928C0006879F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EBE484DC217928C0006879F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBE484E321792FCB006879F7 /* EthereumKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EthereumKit.xcodeproj; path = EthereumKit/EthereumKit.xcodeproj; sourceTree = "<group>"; };
 		EBE484E921792FE5006879F7 /* CryptoEthereumSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoEthereumSwift.xcodeproj; path = EthereumKit/Carthage/Checkouts/CryptoEthereumSwift/CryptoEthereumSwift.xcodeproj; sourceTree = "<group>"; };
@@ -637,14 +640,15 @@
 		EB74B443217C75E8006AE00F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EBAC20782200718D00F0F86A /* ERCTokens.json */,
 				EB29A81921ED0D4100FB229D /* GoogleService-Info.plist */,
 				EB2F617921ABE7EB0029219A /* eos.js */,
-				EBA593A6217A831800F3CB65 /* Localizable.strings */,
+				EB2E836D2201F0E100B25F12 /* Localizable.strings */,
 				EBA59394217A816800F3CB65 /* Fonts */,
 				EBE484D7217928C0006879F7 /* Assets.xcassets */,
 				EBA5262A21B1DF3F00A29A08 /* background@2x.png */,
+				EB2E83722201F17300B25F12 /* LaunchScreen.storyboard */,
 				EBA5262921B1DF3F00A29A08 /* background@3x.png */,
-				EBE484D9217928C0006879F7 /* LaunchScreen.storyboard */,
 				EBE484DC217928C0006879F7 /* Info.plist */,
 				EBAC21C121A5C774002CF61B /* abi.js */,
 				EBAC21D221A5D916002CF61B /* abi_mock.json */,
@@ -1135,6 +1139,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = EBE484C4217928BF006879F7;
 			productRefGroup = EBE484CE217928BF006879F7 /* Products */;
@@ -1192,12 +1197,13 @@
 				EB2F617A21ABE7EB0029219A /* eos.js in Resources */,
 				EBAC21D321A5D916002CF61B /* abi_mock.json in Resources */,
 				EBA5939C217A816800F3CB65 /* SF-Pro-Display-Semibold.otf in Resources */,
-				EBE484DB217928C0006879F7 /* LaunchScreen.storyboard in Resources */,
 				EB29A81A21ED0D4100FB229D /* GoogleService-Info.plist in Resources */,
 				EBA59399217A816800F3CB65 /* SF-Pro-Display-Regular.otf in Resources */,
 				EBAC21C221A5C774002CF61B /* abi.js in Resources */,
 				EBA5262721B1C83200A29A08 /* GothamPro.ttf in Resources */,
-				EBA593AD217A831900F3CB65 /* Localizable.strings in Resources */,
+				EBAC20792200718D00F0F86A /* ERCTokens.json in Resources */,
+				EB2E836B2201F0E100B25F12 /* Localizable.strings in Resources */,
+				EB2E83732201F17300B25F12 /* LaunchScreen.storyboard in Resources */,
 				EBA5939A217A816800F3CB65 /* SF-Pro-Display-Bold.otf in Resources */,
 				EBEDA28A21AB4FF3004FCB75 /* secp256k1.table in Resources */,
 				EBE484D8217928C0006879F7 /* Assets.xcassets in Resources */,
@@ -1478,12 +1484,13 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		EBE484D9217928C0006879F7 /* LaunchScreen.storyboard */ = {
+		EB2E836D2201F0E100B25F12 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				EBE484DA217928C0006879F7 /* Base */,
+				EB2E836C2201F0E100B25F12 /* en */,
+				EB2E83712201F14200B25F12 /* ko */,
 			);
-			name = LaunchScreen.storyboard;
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1493,6 +1500,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1553,6 +1561,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

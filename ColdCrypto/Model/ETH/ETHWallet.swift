@@ -245,10 +245,9 @@ class ETHWallet : IWallet {
                 group.done()
             }
         })
-        getTokens { [weak self] trans in
-            let tkns = ETHToken.tokens(wallet: self)
+        getTokens { trans in
             var fast = Dictionary<String, IToken>()
-            tkns.forEach({ fast[$0.symbol] = $0 })
+            ETHToken.tokens.forEach({ fast[$0.symbol] = $0 })
             trans?.forEach({ (t) in
                 if let amount = Int64(t.val) {
                     fast[t.tokenSymbol]?.amount += (t.positive ? amount : -amount)
