@@ -21,6 +21,7 @@ protocol IWallet : class {
     var delegate: IWalletDelegate? { get set }
     var blockchain: Blockchain { get }
     var privateKey: String { get }
+    var canSendToken: Bool { get }
     var address: String { get }
     var index: UInt32 { get }
     var chain: String { get }

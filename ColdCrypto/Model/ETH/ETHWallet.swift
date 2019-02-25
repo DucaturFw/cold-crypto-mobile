@@ -10,7 +10,7 @@ import HandyJSON
 import Foundation
 import EthereumKit
 
-class ETHWallet : IWallet {
+class ETHWallet: IWallet {
 
     class Config {
         let network: Network
@@ -36,6 +36,10 @@ class ETHWallet : IWallet {
     
     var networkInfo: INetwork {
         return net
+    }
+    
+    var canSendToken: Bool {
+        return true
     }
     
     static func makeSeed(from seed: String) -> Data? {
@@ -200,6 +204,18 @@ class ETHWallet : IWallet {
             if let e = error {
                 print("get tokens failed. reason \(e)")
             }
+        }
+    }
+    
+    func sendTokens(to: String, amount: String, token: ERC20, completion: @escaping (String?)->Void) {
+        getGasPrice { [weak self] price in
+            self?.gasPrice = price
+            self?.mNet.sendTokens(to: to, amount: amount, token: token, gasPrice: self?.gasPrice ?? Wei(Converter.toWei(GWei: 10)), completion: { hash, error in
+                completion(hash)
+                if let e = error {
+                    print("send tokens failed. reason \(e)")
+                }
+            })
         }
     }
     

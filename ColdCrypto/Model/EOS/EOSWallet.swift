@@ -23,6 +23,10 @@ class EOSWallet: IWallet {
     var name: String
     var id: String
 
+    var canSendToken: Bool {
+        return false
+    }
+    
     var onConnected: ((ConnectionState)->Void)?
     var connectionStatus: ConnectionState = .stop {
         didSet {

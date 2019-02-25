@@ -95,6 +95,8 @@
 		EBA593DA217A8CB500F3CB65 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */; };
 		EBA593DE217A8CDC00F3CB65 /* NumberPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */; };
 		EBA593E0217A8D1900F3CB65 /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA593DF217A8D1900F3CB65 /* AlertVC.swift */; };
+		EBAA5E5D22247DB100335ABB /* NewTokenTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA5E5C22247DB100335ABB /* NewTokenTransaction.swift */; };
+		EBAA5E5F222480C000335ABB /* TokenPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA5E5E222480C000335ABB /* TokenPicker.swift */; };
 		EBAC20792200718D00F0F86A /* ERCTokens.json in Resources */ = {isa = PBXBuildFile; fileRef = EBAC20782200718D00F0F86A /* ERCTokens.json */; };
 		EBAC21C221A5C774002CF61B /* abi.js in Resources */ = {isa = PBXBuildFile; fileRef = EBAC21C121A5C774002CF61B /* abi.js */; };
 		EBAC21C421A5C78E002CF61B /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBAC21C321A5C78E002CF61B /* JavaScriptCore.framework */; };
@@ -335,6 +337,8 @@
 		EBA593D9217A8CB500F3CB65 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		EBA593DD217A8CDC00F3CB65 /* NumberPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberPad.swift; sourceTree = "<group>"; };
 		EBA593DF217A8D1900F3CB65 /* AlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
+		EBAA5E5C22247DB100335ABB /* NewTokenTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTokenTransaction.swift; sourceTree = "<group>"; };
+		EBAA5E5E222480C000335ABB /* TokenPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenPicker.swift; sourceTree = "<group>"; };
 		EBAC20782200718D00F0F86A /* ERCTokens.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ERCTokens.json; sourceTree = "<group>"; };
 		EBAC21C121A5C774002CF61B /* abi.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = abi.js; sourceTree = "<group>"; };
 		EBAC21C321A5C78E002CF61B /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -579,6 +583,8 @@
 				EB19D13921B9C0C700AA0D47 /* Field.swift */,
 				EB19D13521B9BAE800AA0D47 /* NewTransaction.swift */,
 				EB34C7F521BAB0FA002BB129 /* SendVC.swift */,
+				EBAA5E5C22247DB100335ABB /* NewTokenTransaction.swift */,
+				EBAA5E5E222480C000335ABB /* TokenPicker.swift */,
 			);
 			path = Send;
 			sourceTree = "<group>";
@@ -1126,7 +1132,7 @@
 						CreatedOnToolsVersion = 9.4.1;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -1329,6 +1335,7 @@
 				EBEDA29B21AB4FF3004FCB75 /* Crypto.swift in Sources */,
 				EBC9F7862182321600150883 /* ApiIce.swift in Sources */,
 				EBEDA28921AB4FF3004FCB75 /* platform-specific.inc in Sources */,
+				EBAA5E5D22247DB100335ABB /* NewTokenTransaction.swift in Sources */,
 				EBA593BD217A88EF00F3CB65 /* EthereumAddress.swift in Sources */,
 				EBEDA2B121AB4FF3004FCB75 /* EOSBalance.swift in Sources */,
 				EB107E0F21BA7C3800497C6E /* ApiFallback.swift in Sources */,
@@ -1408,6 +1415,7 @@
 				EBEDA2B021AB4FF3004FCB75 /* SEWallet.swift in Sources */,
 				EBC3A6E621C9A996008695DD /* IWithValue.swift in Sources */,
 				EB976CEC217BA6CE00B8DC95 /* ApiParamsWallet.swift in Sources */,
+				EBAA5E5F222480C000335ABB /* TokenPicker.swift in Sources */,
 				EB3ECC652180F74600D14656 /* ApiSignTransferTx.swift in Sources */,
 				EBEDA2BA21AB56D9004FCB75 /* AccountCell.swift in Sources */,
 				EBEDA29E21AB4FF3004FCB75 /* Contract.swift in Sources */,

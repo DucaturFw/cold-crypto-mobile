@@ -14,11 +14,16 @@ class MoreVC: AlertVC {
     var onDelete: (IWallet)->Void = { _ in }
     
     init(passcode: String, wallet: IWallet) {
-        let v = MorePicker()
+        let v = MorePicker(sendToken: wallet.canSendToken)
         super.init(nil, view: v, style: .sheet, arrow: true, withButtons: false)
         v.onSend = { [weak self] in
             if let s = self {
                 self?.update(view: NewTransaction(parent: s, wallet: wallet), configure: {})
+            }
+        }
+        v.onSendToken = { [weak self] in
+            if let s = self {
+                self?.update(view: NewTokenTransaction(parent: s, wallet: wallet), configure: {})
             }
         }
         v.onDelete = { [weak self] in
