@@ -43,7 +43,8 @@ class MoreTxVC: AlertVC {
     init(image: UIImage?, transaction: ITransaction) {
         let v = Picker()
         super.init(nil, view: v, style: .sheet, arrow: true, withButtons: false)
-        v.share.click = {
+        v.share.click = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
             AppDelegate.share(image: image, text: transaction.hash)
         }
         v.open.click = {

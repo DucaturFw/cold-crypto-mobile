@@ -466,12 +466,16 @@ extension UIViewController: UISideMenuNavigationControllerDelegate {
     
 }
 
-protocol ReusableForTable: class { }
+protocol ReusableForTable: FromNib { }
 
 extension ReusableForTable {
     
     static func register(in table: UITableView) {
         table.register(self, forCellReuseIdentifier: ObjectIdentifier(self).debugDescription)
+    }
+    
+    static func registerNib(in table: UICollectionView) {
+        table.register(self.nib(), forCellWithReuseIdentifier: ObjectIdentifier(self).debugDescription)
     }
     
     static func get(from table: UITableView, at position: IndexPath) -> Self {
@@ -482,7 +486,7 @@ extension ReusableForTable {
 
 extension UITableViewCell: ReusableForTable {}
 
-protocol ReusableForCollection: class { }
+protocol ReusableForCollection: FromNib {}
 
 extension ReusableForCollection {
     
@@ -490,6 +494,10 @@ extension ReusableForCollection {
         table.register(self, forCellWithReuseIdentifier: ObjectIdentifier(self).debugDescription)
     }
     
+    static func registerNib(in table: UICollectionView) {
+        table.register(self.nib(), forCellWithReuseIdentifier: ObjectIdentifier(self).debugDescription)
+    }
+
     static func get(from table: UICollectionView, at position: IndexPath) -> Self {
         return table.dequeueReusableCell(withReuseIdentifier: ObjectIdentifier(self).debugDescription, for: position) as! Self
     }
@@ -717,4 +725,18 @@ extension CGRect {
         return CGPoint(x: minX + width/2.0, y: minY + height/2.0)
     }
     
+}
+
+protocol FromNib: class {}
+
+extension FromNib {
+    static func fromNib() -> Self {
+        let className = NSStringFromClass(self).components(separatedBy: ".").last!
+        return UINib(nibName: className, bundle: nil).instantiate(withOwner: nil, options: nil).first as! Self
+    }
+    
+    static func nib() -> UINib {
+        let className = NSStringFromClass(self).components(separatedBy: ".").last!
+        return UINib(nibName: className, bundle: nil)
+    }
 }

@@ -69,7 +69,6 @@ func customDateFormatter(_ decoder: Decoder) throws -> Date {
         
         let dataTask = URLSession.shared.dataTask(with: request) {
             (data, response, error) in
-            
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     completion(nil, NSError(domain: errorDomain, code: 1,

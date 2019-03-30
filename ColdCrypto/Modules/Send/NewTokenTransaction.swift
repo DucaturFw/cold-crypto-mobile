@@ -82,10 +82,14 @@ class NewTokenTransaction: UIView, IAlertView, UITextFieldDelegate {
     
     private var mToken: ETHToken?
     
-    init(parent: AlertVC?, wallet: IWallet, to: String? = nil) {
+    private let mSelected: TokenObj?
+    
+    init(token: TokenObj? = nil, parent: AlertVC?, wallet: IWallet, to: String? = nil) {
+        mSelected = token
         mParent = parent
         mWallet = wallet
         super.init(frame: .zero)
+
         addSubview(mName)
         addSubview(mSendTo)
         addSubview(mScan)
@@ -94,7 +98,6 @@ class NewTokenTransaction: UIView, IAlertView, UITextFieldDelegate {
         addSubview(mAmountField)
         addSubview(mCancel)
         addSubview(mSend)
-        addSubview(mUnits)
         addSubview(mUnits)
         
         mUnits.text = mWallet.blockchain.symbol()
@@ -108,6 +111,7 @@ class NewTokenTransaction: UIView, IAlertView, UITextFieldDelegate {
         mField.addTarget(self, action: #selector(checked), for: .editingChanged)
         
         mScan.tap({ [weak self] in
+            self?.endEditing(true)
             let vc = ScannerVC()
             vc.onFound = { [weak self, weak vc] json in
                 vc?.stop()
@@ -131,7 +135,14 @@ class NewTokenTransaction: UIView, IAlertView, UITextFieldDelegate {
         mPicker.onSelected = { [weak self] token, _ in
             self?.select(token: token)
         }
-        if let token = mPicker.rows.first {
+        
+        if let token = token {
+            mName.text = "Send \(token.name)"
+            mName.sizeToFit()
+            mUnits.isUserInteractionEnabled = false
+            mUnits.text = token.name
+            mAmountField.text = token.amount.compactValue
+        } else if let token = mPicker.rows.first {
             select(token: token)
         }
     }
@@ -147,7 +158,11 @@ class NewTokenTransaction: UIView, IAlertView, UITextFieldDelegate {
     
     @objc private func checked() {
         if let amount = Decimal(string: mAmountField.text ?? ""), mWallet.isValid(address: mField.text) != nil {
-            mSend.isActive = amount > 0
+            if let token = mSelected {
+                mSend.isActive = 0 < amount && amount <= token.amount
+            } else {
+                mSend.isActive = 0 < amount
+            }
         } else {
             mSend.isActive = false
         }
@@ -209,6 +224,38 @@ class NewTokenTransaction: UIView, IAlertView, UITextFieldDelegate {
     }
     
     private func sendTapped() {
+        guard mToken == nil else {
+            sendTapped2()
+            return
+        }
+        
+        guard let token = mSelected else {
+            mUnits.shake()
+            return
+        }
+
+        if let amount = Decimal(string: mAmountField.text ?? ""), let to = mWallet.isValid(address: mField.text)?.trimmed, to.count > 0, amount > 0 {
+            let hud = mParent?.view.hud
+            mWallet.sendTokens(to: to, amount: amount, token: token) { [weak self] (tx) in
+                hud?.hide(animated: true)
+                if let tx = tx {
+                    let qr = QRView(name: "success".loc, value: tx)
+                    self?.mParent?.update(view: qr, configure: { [weak self] in
+                        self?.mParent?.put("share".loc, do: { _ in
+                            AppDelegate.share(image: qr.image, text: qr.value)
+                        })
+                    })
+                    NotificationCenter.default.post(name: .coinsSent, object: self?.mWallet.id)
+                } else {
+                    "cant_send_tx".loc.show()
+                }
+            }
+        } else {
+            mSend.shake()
+        }
+    }
+    
+    private func sendTapped2() {
         guard let token = mToken else {
             mUnits.shake()
             return

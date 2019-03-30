@@ -49,6 +49,7 @@ class ETHTransaction : ITransaction, HandyJSON {
         if let t = ETHToken.token(transaction: self) {
             mValue = t.symbol
             var gg = input
+
             if gg.starts(with: "0x") {
                 let range = gg.startIndex...gg.index(gg.startIndex, offsetBy: 1)
                 gg.replaceSubrange(range, with: "")
@@ -64,8 +65,9 @@ class ETHTransaction : ITransaction, HandyJSON {
                 }
                 
                 gg.replaceSubrange(paramRange, with: "")
-                
-                if let amount = Int64(String(gg[paramRange]), radix: 16) {
+                gg.removingRegexMatches(pattern: "^0+", replaceWith: "")
+
+                if let amount = BInt(gg, radix: 16) {
                     mValue = "\(t.description(for: amount).trimmed) \(t.symbol)"
                 }
             }
@@ -95,7 +97,7 @@ class ETHTransaction : ITransaction, HandyJSON {
         let sign = positive ? "+" : "-"
         if let token = mValue {
             return sign + token
-        } else if tokenSymbol.count > 0, let wei = Int64(val) {
+        } else if tokenSymbol.count > 0, let wei = BInt(val) {
             return "\(sign)\(ETHToken.description(for: wei, decimal: 18).trimmed) \(tokenSymbol)"
         } else if let wei = Wei(val), let eth = try? Converter.toEther(wei: wei) {
             return "\(sign)\(eth.description.trimmed) \(blockchain.symbol())"

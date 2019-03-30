@@ -207,6 +207,13 @@ class ETHWallet: IWallet {
         }
     }
     
+    func sendTokens(to: String, amount: Decimal, token: TokenObj, completion: @escaping (String?)->Void) {
+        sendTokens(to: to,
+                   amount: amount.description,
+                   token: ERC20(contractAddress: token.address, decimal: token.decimal, symbol: token.name),
+                   completion: completion)
+    }
+    
     func sendTokens(to: String, amount: String, token: ERC20, completion: @escaping (String?)->Void) {
         getGasPrice { [weak self] price in
             self?.gasPrice = price
@@ -229,51 +236,116 @@ class ETHWallet: IWallet {
     }
     
     private var mCachedTrans: [ITransaction]?
+    private var mCachedTokens: [TokenObj]?
     
     func getHistory(force: Bool) {
         if force {
-            mCachedTrans = nil
+            mCachedTrans  = nil
+            mCachedTokens = nil
         }
+
         if let h = mCachedTrans {
             delegate?.on(history: h, of: self)
-            return
-        }
-        
-        var newItems = [ITransaction]()
-        let group = Group(2) { [weak self] in
-            DispatchQueue.global().async { [weak self] in
-                newItems.sort { (one, two) -> Bool in
-                    one.order > two.order
-                }
-                DispatchQueue.main.async { [weak self] in
-                    self?.mCachedTrans = newItems
-                    if let s = self {
-                        s.delegate?.on(history: newItems, of: s)
+        } else {
+            var newItems = [ITransaction]()
+            let group = Group(2) { [weak self] in
+                var filter = [String: ITransaction]()
+                DispatchQueue.global().async { [weak self] in
+                    newItems.sort { (one, two) -> Bool in
+                        one.order > two.order
                     }
+                    var filteredItems = [ITransaction]()
+                    newItems.forEach({
+                        if filter[$0.hash] == nil {
+                            filteredItems.append($0)
+                            filter[$0.hash] = $0
+                        }
+                    })
+                    DispatchQueue.main.async { [weak self] in
+                        self?.mCachedTrans = filteredItems
+                        if let s = self {
+                            s.delegate?.on(history: filteredItems, of: s)
+                        }
+                    }
+                }
+            }
+            
+            let queue = DispatchQueue(label: "merge")
+            getTransactions(completion: { items in
+                queue.async {
+                    newItems.append(contentsOf: items ?? [])
+                    group.done()
+                }
+            })
+            getTokens { trans in
+                queue.async {
+                    newItems.append(contentsOf: trans ?? [])
+                    group.done()
                 }
             }
         }
 
-        let queue = DispatchQueue(label: "merge")
-        getTransactions(completion: { items in
-            queue.async {
-                newItems.append(contentsOf: items ?? [])
-                group.done()
-            }
-        })
-        getTokens { trans in
-            var fast = Dictionary<String, IToken>()
-            ETHToken.tokens.forEach({ fast[$0.symbol] = $0 })
-            trans?.forEach({ (t) in
-                if let amount = Int64(t.val) {
-                    fast[t.tokenSymbol]?.amount += (t.positive ? amount : -amount)
+        if let h = mCachedTokens {
+            delegate?.on(tokens: h)
+        } else {
+            getTokensList(completion: { [weak self] tokens in
+                if let t = tokens {
+                    self?.mCachedTokens = t
+                    self?.delegate?.on(tokens: t)
                 }
             })
-            queue.async {
-                newItems.append(contentsOf: trans ?? [])
-                group.done()
+        }
+    }
+    
+    private func getTokensList(completion: @escaping ([TokenObj]?)->Void) {
+        let deliver: ([TokenObj]?)->Void = { tokens in
+            DispatchQueue.main.async {
+                completion(tokens)
             }
         }
+        
+        guard let url = URL(string: "http://api.ethplorer.io/getAddressInfo/\(address)?apiKey=freekey") else {
+            deliver([])
+            return
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        session.dataTask(with: request, completionHandler: { data, response, error in
+            guard let d = data else {
+                deliver(nil)
+                return
+            }
+            
+            if (response as? HTTPURLResponse)?.statusCode != 200 {
+                deliver(nil)
+                return
+            }
+            
+            DispatchQueue.global().async {
+                do {
+                    let h = try JSONDecoder().decode(TokenHistory.self, from: d)
+                    var tokens = [TokenObj]()
+                    h.tokens?.forEach({
+                        if
+                            let b = $0.balance,
+                            let d = $0.tokenInfo?.decimals?.int,
+                            let name = $0.tokenInfo?.symbol,
+                            let owner = $0.tokenInfo?.address {
+                            tokens.append(TokenObj(name: name,
+                                                   amount: b / pow(10, d),
+                                                   address: owner,
+                                                   decimal: d))
+                        }
+                    })
+                    deliver(tokens)
+                } catch let e {
+                    print("\(e)")
+                    deliver(nil)
+                }
+            }
+        }).resume()
     }
     
     var isFeeSupport: Bool {

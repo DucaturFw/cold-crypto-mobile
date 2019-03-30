@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.layer.masksToBounds = true
         window?.rootViewController  = NavigatorVC(rootViewController: AuthVC())
         window?.makeKeyAndVisible()
-                
+        
         return true
     }
     

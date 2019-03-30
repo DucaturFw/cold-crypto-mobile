@@ -18,7 +18,8 @@ class Token: HandyJSON {
 }
 
 class ETHToken: IToken {
-    
+    var amount: Int64 = 0
+
     static let tokens: [ETHToken] = {
         if let path = Bundle.main.path(forResource: "ERCTokens", ofType: "json") {
             let tmp = try? String(contentsOfFile: path)
@@ -53,9 +54,12 @@ class ETHToken: IToken {
     var token: ERC20 {
         return mToken
     }
-    
-    var amount: Int64 = 0
 
+    init(token: TokenObj) {
+        mToken = ERC20(contractAddress: token.address, decimal: token.decimal, symbol: token.name)
+        mName = token.name
+    }
+    
     init(name: String, token: ERC20) {
         mToken = token
         mName = name
@@ -74,7 +78,7 @@ class ETHToken: IToken {
     }
     
     var balance: String {
-        return description(for: amount)
+        return description(for: 0)
     }
     
     var text: String {
@@ -93,24 +97,18 @@ class ETHToken: IToken {
         return ""
     }
     
-    func description(for amount: Int64) -> String {
+    func description(for amount: BInt) -> String {
         return ETHToken.description(for: amount, decimal: mToken.decimal)
     }
     
-    static func description(for amount: Int64, decimal: Int) -> String {
-        if let bb = Decimal(string: amount.description),
-            let gg = Decimal(string: (BInt(10)**decimal).description),
-            let hh = ETHToken.formatter.string(for: bb / gg) {
-            return  hh
-        }
-        return  "\(BInt(amount) / (BInt(10)**decimal))"
+    static func description(for amount: BInt, decimal: Int) -> String {
+        return  "\(amount / (BInt(10)**decimal))"
     }
     
     func isValid(address: String) -> Bool {
         return EthereumAddress.isValid(address: address) != nil
     }
     
-    func send(to: String, amount: Decimal, completion: @escaping (String?)->Void) {
-    }
+    func send(to: String, amount: Decimal, completion: @escaping (String?)->Void) {}
     
 }

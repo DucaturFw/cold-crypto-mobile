@@ -1,50 +1,51 @@
 PODS:
   - BlockiesSwift (0.1.2)
-  - Firebase/Core (5.15.0):
+  - Firebase/Core (5.20.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 5.4.0)
-  - Firebase/CoreOnly (5.15.0):
-    - FirebaseCore (= 5.1.10)
-  - FirebaseAnalytics (5.4.0):
-    - FirebaseCore (~> 5.1)
-    - FirebaseInstanceID (~> 3.3)
-    - GoogleAppMeasurement (= 5.4.0)
+    - FirebaseAnalytics (= 5.8.0)
+  - Firebase/CoreOnly (5.20.0):
+    - FirebaseCore (= 5.4.1)
+  - FirebaseAnalytics (5.8.0):
+    - FirebaseCore (~> 5.4)
+    - FirebaseInstanceID (~> 3.8)
+    - GoogleAppMeasurement (= 5.8.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - FirebaseCore (5.1.10):
+  - FirebaseCore (5.4.1):
+    - GoogleUtilities/Environment (~> 5.2)
     - GoogleUtilities/Logger (~> 5.2)
-  - FirebaseInstanceID (3.3.0):
-    - FirebaseCore (~> 5.1)
-    - GoogleUtilities/Environment (~> 5.3)
-    - GoogleUtilities/UserDefaults (~> 5.3)
-  - GoogleAppMeasurement (5.4.0):
+  - FirebaseInstanceID (3.8.1):
+    - FirebaseCore (~> 5.2)
+    - GoogleUtilities/Environment (~> 5.2)
+    - GoogleUtilities/UserDefaults (~> 5.2)
+  - GoogleAppMeasurement (5.8.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - GoogleUtilities/AppDelegateSwizzler (5.3.6):
+  - GoogleUtilities/AppDelegateSwizzler (5.5.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (5.3.6)
-  - GoogleUtilities/Logger (5.3.6):
+  - GoogleUtilities/Environment (5.5.0)
+  - GoogleUtilities/Logger (5.5.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (5.3.6):
+  - GoogleUtilities/MethodSwizzler (5.5.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (5.3.6):
+  - GoogleUtilities/Network (5.5.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (5.3.6)"
-  - GoogleUtilities/Reachability (5.3.6):
+  - "GoogleUtilities/NSData+zlib (5.5.0)"
+  - GoogleUtilities/Reachability (5.5.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (5.3.6):
+  - GoogleUtilities/UserDefaults (5.5.0):
     - GoogleUtilities/Logger
-  - GoogleWebRTC (1.1.25821)
+  - GoogleWebRTC (1.1.27299)
   - HandyJSON (4.2.1)
   - HockeySDK (5.1.4):
     - HockeySDK/DefaultLib (= 5.1.4)
@@ -58,7 +59,7 @@ PODS:
   - nanopb/encode (0.3.901)
   - QRCode (2.0)
   - SideMenu (5.0.3)
-  - Starscream (3.0.6)
+  - Starscream (3.1.0)
   - TGLStackedViewController (2.2.3)
 
 DEPENDENCIES:
@@ -96,13 +97,13 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   BlockiesSwift: 22d8d56dd187e6bfd16cb8c8fbd4fd4896c3e65d
-  Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
-  FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
-  FirebaseCore: 35747502d9e8c6ee217385ad04446c7c2aaf9c5c
-  FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
-  GoogleAppMeasurement: 98b71f5e04142793729a5ef23e5b96651ff4b70f
-  GoogleUtilities: 95996bea7c7d9b8fb811b7507669a4a8762f80c7
-  GoogleWebRTC: 2cd3a1a664777f8690afbf657b5f89bd28dd211f
+  Firebase: 5090da4bb82900179004133bb2b2178919387fd9
+  FirebaseAnalytics: fd72a26bf8dac84cefba2f0864366f718555a5b0
+  FirebaseCore: f1a9a8be1aee4bf71a2fc0f4096df6788bdfda61
+  FirebaseInstanceID: a122b0c258720cf250551bb2bedf48c699f80d90
+  GoogleAppMeasurement: 1624046ab1bcc5e170061a56ef5679000b079c8e
+  GoogleUtilities: 6481e6318c5fcabaaa8513ef8120f329055d7c10
+  GoogleWebRTC: 893a5f2f3635437ec3b05ef240993d5713307804
   HandyJSON: d0c5fc80204f29056d59d3e5c4587fa0b16b60a8
   HockeySDK: 15afe6bc0a5bfe3a531fd73dbf082095f37dac3b
   KeychainAccess: b3816fddcf28aa29d94b10ec305cd52be14c472b
@@ -110,9 +111,9 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   SideMenu: 1dcaabce84538c53325c287f7fe62999379a641c
-  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
+  Starscream: 08172b481e145289c4930cb567230fb55897cfa4
   TGLStackedViewController: 3853e3eaf938a0baab9ad7e63d83d6e8aa576665
 
 PODFILE CHECKSUM: 14f591273dba98a26e881b3873c1120b645aa437
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1

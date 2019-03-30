@@ -41,15 +41,6 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         NotificationCenter.default.post(name: .hideAllPopups, object: nil)
     }
     
-    private var alertWindow: UIWindow?
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        alertWindow?.removeFromSuperview()
-        alertWindow?.isHidden = true
-        alertWindow = nil
-    }
-    
     private lazy var mTransition = PopAnimator(root: self)
     
     private var mCloseAnimation = false
@@ -62,26 +53,10 @@ class PopupVC: UIViewController, UIViewControllerTransitioningDelegate, IPopover
         dismiss(animated: true, completion: nil)
     }
 
-    func show() {
-        guard let w = UIApplication.shared.windows.first else { return }
-        show(in: w)
-    }
-    
     @objc private func hideForce() {
         dismiss(animated: false, completion: nil)
     }
-    
-    func show(in window: UIView) {
-        if alertWindow != nil { return }
-        alertWindow = UIWindow(frame: UIScreen.main.bounds)
-        alertWindow?.layer.cornerRadius  = 10.scaled
-        alertWindow?.layer.masksToBounds = true
-        alertWindow?.rootViewController  = EmptyVC(self)
-        alertWindow?.windowLevel = UIWindow.Level(rawValue: (UIApplication.shared.windows.last?.windowLevel.rawValue ?? 0.0) + 1.0)
-        alertWindow?.makeKeyAndVisible()
-        alertWindow?.rootViewController?.present(self, animated: true, completion: nil)
-    }
-    
+
     private let mContent = UIView().apply({
         $0.backgroundColor = Style.Colors.white
         $0.layer.cornerRadius = 14.scaled

@@ -60,8 +60,17 @@
 		EB64509F21811684008397DF /* ApiJoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64509E21811684008397DF /* ApiJoin.swift */; };
 		EB6542B221FBA97A009AA3BE /* MoreTxVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6542B121FBA97A009AA3BE /* MoreTxVC.swift */; };
 		EB74B457217CCFFB006AE00F /* ScanBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB74B456217CCFFB006AE00F /* ScanBlock.swift */; };
+		EB790972222C543A004646F2 /* TokenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB790971222C543A004646F2 /* TokenCell.swift */; };
+		EB790974222C5450004646F2 /* TokenCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB790973222C5450004646F2 /* TokenCell.xib */; };
+		EB790976222C57BC004646F2 /* Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB790975222C57BC004646F2 /* Gradient.swift */; };
+		EB790978222C6254004646F2 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB790977222C6254004646F2 /* Token.swift */; };
+		EB79097A222C7505004646F2 /* SendTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB790979222C7505004646F2 /* SendTokens.swift */; };
+		EB79097C222C896F004646F2 /* EmptyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB79097B222C896F004646F2 /* EmptyVC.swift */; };
 		EB976CEC217BA6CE00B8DC95 /* ApiParamsWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB976CEB217BA6CE00B8DC95 /* ApiParamsWallet.swift */; };
 		EB976CEE217BA75900B8DC95 /* ApiParamsTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB976CED217BA75900B8DC95 /* ApiParamsTx.swift */; };
+		EB979C57222B33FC00FCFB72 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = EB979C56222B33FC00FCFB72 /* test.json */; };
+		EB979C59222B348700FCFB72 /* TokenHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB979C58222B348700FCFB72 /* TokenHistory.swift */; };
+		EB979C5B222B366D00FCFB72 /* TokenList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB979C5A222B366D00FCFB72 /* TokenList.swift */; };
 		EBA5262621B1C83200A29A08 /* GothamPro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBA5262421B1BFD500A29A08 /* GothamPro-Medium.ttf */; };
 		EBA5262721B1C83200A29A08 /* GothamPro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBA5262321B1BEE200A29A08 /* GothamPro.ttf */; };
 		EBA5262821B1C83200A29A08 /* GothamPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBA5262521B1C74E00A29A08 /* GothamPro-Bold.ttf */; };
@@ -302,8 +311,17 @@
 		EB64509E21811684008397DF /* ApiJoin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiJoin.swift; sourceTree = "<group>"; };
 		EB6542B121FBA97A009AA3BE /* MoreTxVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreTxVC.swift; sourceTree = "<group>"; };
 		EB74B456217CCFFB006AE00F /* ScanBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanBlock.swift; sourceTree = "<group>"; };
+		EB790971222C543A004646F2 /* TokenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCell.swift; sourceTree = "<group>"; };
+		EB790973222C5450004646F2 /* TokenCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenCell.xib; sourceTree = "<group>"; };
+		EB790975222C57BC004646F2 /* Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradient.swift; sourceTree = "<group>"; };
+		EB790977222C6254004646F2 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		EB790979222C7505004646F2 /* SendTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTokens.swift; sourceTree = "<group>"; };
+		EB79097B222C896F004646F2 /* EmptyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyVC.swift; sourceTree = "<group>"; };
 		EB976CEB217BA6CE00B8DC95 /* ApiParamsWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiParamsWallet.swift; sourceTree = "<group>"; };
 		EB976CED217BA75900B8DC95 /* ApiParamsTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiParamsTx.swift; sourceTree = "<group>"; };
+		EB979C56222B33FC00FCFB72 /* test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
+		EB979C58222B348700FCFB72 /* TokenHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenHistory.swift; sourceTree = "<group>"; };
+		EB979C5A222B366D00FCFB72 /* TokenList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenList.swift; sourceTree = "<group>"; };
 		EBA5262321B1BEE200A29A08 /* GothamPro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GothamPro.ttf; sourceTree = "<group>"; };
 		EBA5262421B1BFD500A29A08 /* GothamPro-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamPro-Medium.ttf"; sourceTree = "<group>"; };
 		EBA5262521B1C74E00A29A08 /* GothamPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GothamPro-Bold.ttf"; sourceTree = "<group>"; };
@@ -534,6 +552,7 @@
 				EB34C64D21B70C71003F4C51 /* MoreVC.swift */,
 				EB34C64F21B70D6C003F4C51 /* MorePicker.swift */,
 				EB6542B121FBA97A009AA3BE /* MoreTxVC.swift */,
+				EB790979222C7505004646F2 /* SendTokens.swift */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -596,6 +615,12 @@
 				EB02B9DF21B7385400C1B30F /* HistoryCell.swift */,
 				EB02B9DD21B735C200C1B30F /* HistoryView.swift */,
 				EB4743FA21C6E69500A07CE3 /* HistoryDetails.swift */,
+				EB979C58222B348700FCFB72 /* TokenHistory.swift */,
+				EB979C5A222B366D00FCFB72 /* TokenList.swift */,
+				EB790971222C543A004646F2 /* TokenCell.swift */,
+				EB790973222C5450004646F2 /* TokenCell.xib */,
+				EB790975222C57BC004646F2 /* Gradient.swift */,
+				EB790977222C6254004646F2 /* Token.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -618,6 +643,7 @@
 				EBA5938A217A813F00F3CB65 /* Button.swift */,
 				EB34C7F721BAB8EB002BB129 /* QRView.swift */,
 				EB0B1CFA21B088660037C594 /* Hamburger */,
+				EB79097B222C896F004646F2 /* EmptyVC.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -658,6 +684,7 @@
 				EBE484DC217928C0006879F7 /* Info.plist */,
 				EBAC21C121A5C774002CF61B /* abi.js */,
 				EBAC21D221A5D916002CF61B /* abi_mock.json */,
+				EB979C56222B33FC00FCFB72 /* test.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1203,6 +1230,8 @@
 				EB2F617A21ABE7EB0029219A /* eos.js in Resources */,
 				EBAC21D321A5D916002CF61B /* abi_mock.json in Resources */,
 				EBA5939C217A816800F3CB65 /* SF-Pro-Display-Semibold.otf in Resources */,
+				EB790974222C5450004646F2 /* TokenCell.xib in Resources */,
+				EB979C57222B33FC00FCFB72 /* test.json in Resources */,
 				EB29A81A21ED0D4100FB229D /* GoogleService-Info.plist in Resources */,
 				EBA59399217A816800F3CB65 /* SF-Pro-Display-Regular.otf in Resources */,
 				EBAC21C221A5C774002CF61B /* abi.js in Resources */,
@@ -1230,7 +1259,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BlockiesSwift/BlockiesSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${PODS_ROOT}/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework",
@@ -1259,7 +1288,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B33D9B7B27027B4D878D5AEF /* [CP] Check Pods Manifest.lock */ = {
@@ -1286,7 +1315,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/HockeySDK/HockeySDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -1295,7 +1324,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ColdCrypto/Pods-ColdCrypto-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EB976D0F217BC72400B8DC95 /* ShellScript */ = {
@@ -1328,6 +1357,7 @@
 				EB6450892181069F008397DF /* SignalClient.swift in Sources */,
 				EBEDA2A421AB4FF3004FCB75 /* EOSRPC+Chain.swift in Sources */,
 				EBEDA2A121AB4FF3004FCB75 /* Currency.swift in Sources */,
+				EB790978222C6254004646F2 /* Token.swift in Sources */,
 				EB1A0BF0218A27D300C43E72 /* WalletList.swift in Sources */,
 				EB02B9E221B7431D00C1B30F /* EOSTransaction.swift in Sources */,
 				EBEDA29F21AB4FF3004FCB75 /* AccountUtil.swift in Sources */,
@@ -1338,6 +1368,7 @@
 				EBAA5E5D22247DB100335ABB /* NewTokenTransaction.swift in Sources */,
 				EBA593BD217A88EF00F3CB65 /* EthereumAddress.swift in Sources */,
 				EBEDA2B121AB4FF3004FCB75 /* EOSBalance.swift in Sources */,
+				EB79097A222C7505004646F2 /* SendTokens.swift in Sources */,
 				EB107E0F21BA7C3800497C6E /* ApiFallback.swift in Sources */,
 				EB107E0D21BA750200497C6E /* ApiIceServer.swift in Sources */,
 				EB6542B221FBA97A009AA3BE /* MoreTxVC.swift in Sources */,
@@ -1368,6 +1399,8 @@
 				EBA5938B217A813F00F3CB65 /* Button.swift in Sources */,
 				EB02B9D221B7327900C1B30F /* ETHToken.swift in Sources */,
 				EBEDA2A021AB4FF3004FCB75 /* ResourceUtil.swift in Sources */,
+				EB790972222C543A004646F2 /* TokenCell.swift in Sources */,
+				EB79097C222C896F004646F2 /* EmptyVC.swift in Sources */,
 				EBEDA2A921AB4FF3004FCB75 /* KeyPair.swift in Sources */,
 				EB74B457217CCFFB006AE00F /* ScanBlock.swift in Sources */,
 				EB02B9DE21B735C200C1B30F /* HistoryView.swift in Sources */,
@@ -1386,6 +1419,7 @@
 				EBD4FCCA2190BFC20080D1A9 /* IPopover.swift in Sources */,
 				EBAC21D521A5D958002CF61B /* ConfirmContractCall.swift in Sources */,
 				EBC9F79421824F2B00150883 /* ApiChains.swift in Sources */,
+				EB790976222C57BC004646F2 /* Gradient.swift in Sources */,
 				EB6450952181074D008397DF /* RTCStates.swift in Sources */,
 				EBEDA22321AB4295004FCB75 /* CryptoItem.swift in Sources */,
 				EBEDA29D21AB4FF3004FCB75 /* Transaction.swift in Sources */,
@@ -1441,12 +1475,14 @@
 				EBEDA28821AB4FF3004FCB75 /* curve-specific.inc in Sources */,
 				EBA593C2217A892900F3CB65 /* Blockchain.swift in Sources */,
 				EB0B1CFD21B088710037C594 /* JTHamburgerButton.m in Sources */,
+				EB979C5B222B366D00FCFB72 /* TokenList.swift in Sources */,
 				EBA593C8217A89B800F3CB65 /* ITransaction.swift in Sources */,
 				EBEDA29021AB4FF3004FCB75 /* secp256k1.c in Sources */,
 				EBEDA29C21AB4FF3004FCB75 /* TransactionUtil.swift in Sources */,
 				EBC9F77C21822F4900150883 /* ApiAnswer.swift in Sources */,
 				EBD52EF221CA44CD00D104CF /* ISigner.swift in Sources */,
 				EB02B9E421B7433000C1B30F /* EOSTransactionRaw.swift in Sources */,
+				EB979C59222B348700FCFB72 /* TokenHistory.swift in Sources */,
 				EB64509F21811684008397DF /* ApiJoin.swift in Sources */,
 				EB02B9DC21B732C400C1B30F /* IToken.swift in Sources */,
 				EBEDA28521AB4FF3004FCB75 /* AnyCodable.swift in Sources */,
@@ -1562,6 +1598,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1616,6 +1653,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

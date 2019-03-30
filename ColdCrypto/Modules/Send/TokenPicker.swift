@@ -13,7 +13,7 @@ class TokenPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate {
     let rows: [ETHToken]
     
     var onSelected: (ETHToken, Int)->Void = { _, _ in }
-    
+
     init(range: [ETHToken]) {
         rows = range
         super.init(frame: .zero)
@@ -40,5 +40,5 @@ class TokenPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         onSelected(rows[row], row)
     }
-    
+        
 }

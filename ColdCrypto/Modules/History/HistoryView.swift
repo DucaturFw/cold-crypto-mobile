@@ -28,6 +28,8 @@ UITableViewDataSource, HistoryCellDelegate {
         $0.addTarget(self, action: #selector(refresh), for: .valueChanged)
     })
     
+    private var mTokens = TokenList(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 80))
+
     init(frame: CGRect, wallet: IWallet, padding: CGFloat) {
         mWallet = wallet
         super.init(frame: frame, style: .plain)
@@ -36,15 +38,21 @@ UITableViewDataSource, HistoryCellDelegate {
         separatorStyle = .none
         delegate = self
         dataSource = self
-        contentInset.top = 20.scaled
         contentInset.bottom = padding
+        contentInset.top = 0
         HistoryCell.register(in: self)
+        insertSubview(mEmpty, at: 0)
         insertSubview(mPull, at: 0)
+        mTokens.tint = CardProvider.getTint(wallet.address)
+        mTokens.isUserInteractionEnabled = false
+        mTokens.onToken = { token in
+            SendTokens(token: token, wallet: wallet).show()
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(coinsSent(_:)), name: .coinsSent, object: nil)
         pull(animated: false, hud: mPull)
         wallet.delegate = self
         wallet.getHistory(force: false)
-        insertSubview(mEmpty, at: 0)
-        NotificationCenter.default.addObserver(self, selector: #selector(coinsSent(_:)), name: .coinsSent, object: nil)
     }
     
     deinit {
@@ -76,6 +84,27 @@ UITableViewDataSource, HistoryCellDelegate {
             mPull.endRefreshing()
             UIView.animate(withDuration: 0.25, animations: {
                 self.mEmpty.alpha = self.mItems.count == 0 ? 1.0 : 0.0
+            })
+        }
+    }
+    
+    func on(tokens: [TokenObj]) {
+        mTokens.update(tokens: tokens)
+        mTokens.isUserInteractionEnabled = tokens.count > 0
+
+        if tokens.count > 0 && tableHeaderView == nil {
+            tableHeaderView = mTokens
+        } else if tokens.count == 0 && tableHeaderView != nil {
+            panGestureRecognizer.isEnabled = false
+            panGestureRecognizer.isEnabled = true
+            
+            UIView.animate(withDuration: 0.25, animations: {
+                self.mTokens.alpha = 0.0
+            }, completion: { _ in
+                self.mTokens.alpha = 1.0
+                UIView.animate(withDuration: 0.25, animations: {
+                    self.tableHeaderView = nil
+                })
             })
         }
     }

@@ -14,6 +14,7 @@ enum ConnectionState {
 
 protocol IWalletDelegate: class {
     func on(history: [ITransaction], of: IWallet)
+    func on(tokens: [TokenObj])
 }
 
 protocol IWallet : class {
@@ -37,6 +38,7 @@ protocol IWallet : class {
     func getFee(completion: @escaping (String?)->Void)
     func isValid(address: String?) -> String?
     func send(value: Decimal, to: String, completion: @escaping (String?)->Void)
+    func sendTokens(to: String, amount: Decimal, token: TokenObj, completion: @escaping (String?)->Void)
     func sign(transaction: ApiParamsTx, wallet: ApiParamsWallet, completion: @escaping (String?)->Void)
     func pay(to: ApiParamsTx, completion: @escaping (String?)->Void)
     func parseContract(contract: ApiSignContractCall) -> IContract?

@@ -103,6 +103,7 @@ class NewTransaction: UIView, IAlertView, UITextFieldDelegate {
         mFeeCap.isVisible = wallet.isFeeSupport
 
         mScan.tap({ [weak self] in
+            self?.endEditing(true)
             let vc = ScannerVC()
             vc.onFound = { [weak self, weak vc] json in
                 vc?.stop()

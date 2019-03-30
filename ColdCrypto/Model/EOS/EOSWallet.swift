@@ -163,21 +163,72 @@ class EOSWallet: IWallet {
         return EOSContract(contract: contract)
     }
     
+    private var mCachedTokens: [TokenObj]?
+    
     func getHistory(force: Bool) {
         if force {
             cachedTrans = []
+            mCachedTokens = nil
         }
         if cachedTrans.count > 0 {
             delegate?.on(history: cachedTrans, of: self)
+        } else {
+            EOSRPC.endpoint = mNetwork.node
+            EOSUtils.getTransactions2(network: mNetwork, account: name, completion: { [weak self] trans in
+                if let s = self, let t = trans {
+                    s.cachedTrans = t
+                    s.delegate?.on(history: s.cachedTrans, of: s)
+                }
+            })
+        }
+        
+        if let c = mCachedTokens {
+            delegate?.on(tokens: c)
+        } else {
+            getTokensList(completion: { [weak self] tokens in
+                if let t = tokens {
+                    self?.mCachedTokens = t
+                    self?.delegate?.on(tokens: t)
+                }
+            })
+        }
+    }
+    
+    private func getTokensList(completion: @escaping ([TokenObj]?)->Void) {
+        let deliver: ([TokenObj]?)->Void = { tokens in
+            DispatchQueue.main.async {
+                completion(tokens)
+            }
+        }
+        
+        guard let url = URL(string: "https://api.eospark.com/api?module=account&action=get_token_list&apikey=a9564ebc3289b7a14551baf8ad5ec60a&account=\(address)") else {
+            deliver([])
             return
         }
-        EOSRPC.endpoint = mNetwork.node
-        EOSUtils.getTransactions2(network: mNetwork, account: name, completion: { [weak self] trans in
-            if let s = self, let t = trans {
-                s.cachedTrans = t
-                s.delegate?.on(history: s.cachedTrans, of: s)
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        session.dataTask(with: request, completionHandler: { data, response, error in
+            guard let d = data else {
+                deliver(nil)
+                return
             }
-        })
+            DispatchQueue.global().async {
+                do {
+                    let h = try JSONDecoder().decode(TokenHistoryEOS.self, from: d)
+                    deliver(h.data?.symbol_list?.compactMap({
+                        if let b = $0.balance, let bd = Decimal(string: b), let c = $0.code, let s = $0.symbol {
+                            return TokenObj(name: s, amount: bd, address: c, decimal: 4)
+                        }
+                        return nil
+                    }))
+                } catch let e {
+                    print("\(e)")
+                    deliver(nil)
+                }
+            }
+        }).resume()
     }
     
     func isValid(address: String?) -> String? {
@@ -196,7 +247,11 @@ class EOSWallet: IWallet {
         completion(nil)
     }
     
-    private func send(value: Decimal, to: String, symbol: String, completion: @escaping (String?) -> Void) {
+    func sendTokens(to: String, amount: Decimal, token: TokenObj, completion: @escaping (String?) -> Void) {
+        send(value: amount, to: to, symbol: token.name, token: token.address, completion: completion)
+    }
+    
+    private func send(value: Decimal, to: String, symbol: String, token: String = "eosio.token", completion: @escaping (String?) -> Void) {
         guard
             let pk = try? PrivateKey(keyString: privateKey),
             let pk2 = pk,
@@ -211,9 +266,9 @@ class EOSWallet: IWallet {
         transfer.to = to
         transfer.quantity = "\(amount) \(symbol)"
         transfer.memo = "ColdCrypto"
-
+        
         EOSRPC.endpoint = mNetwork.node
-        Currency.transferCurrency(transfer: transfer, code: "eosio.token", privateKey: pk2, completion: { (result, error) in
+        Currency.transferCurrency(transfer: transfer, code: token, privateKey: pk2, completion: { (result, error) in
             completion(result?.transactionId)
         })
     }
