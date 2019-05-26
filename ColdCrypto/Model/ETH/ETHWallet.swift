@@ -8,7 +8,6 @@
 
 import HandyJSON
 import Foundation
-import EthereumKit
 
 class ETHWallet: IWallet {
 

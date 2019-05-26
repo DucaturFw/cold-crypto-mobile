@@ -9,7 +9,6 @@
 import UIKit
 import SideMenu
 import HockeySDK
-import EthereumKit
 import FirebaseCore
 
 @UIApplicationMain

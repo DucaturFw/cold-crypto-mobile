@@ -6,7 +6,6 @@
 //  Copyright © 2018 Kirill Kozhuhar. All rights reserved.
 //
 
-import EthereumKit
 import Foundation
 import HandyJSON
 

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import EthereumKit
 import HandyJSON
 
 class Token: HandyJSON {

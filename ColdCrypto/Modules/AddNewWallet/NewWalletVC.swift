@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import EthereumKit
 
 protocol ImportDelegate: class {
     func onNew(chain: Blockchain, name: String, data: String, segwit: Bool, network: INetwork, backup: Bool)

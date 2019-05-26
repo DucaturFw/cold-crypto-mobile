@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import EthereumKit
 
 class Profile {
     
