@@ -42,7 +42,7 @@ class EOSWallet: IWallet {
     private var cachedRate: Double?
     private var cachedAmount: Decimal?
     private var cachedBalance: String?
-    private let mPKObject: PrivateKey
+    private let mPKObject: PrivateKey2
     private let mNetwork: INetwork
    
     var networkInfo: INetwork {
@@ -50,7 +50,7 @@ class EOSWallet: IWallet {
     }
     
     init?(network: INetwork, name: String, data: String, privateKey: String) {
-        guard let pk = try? PrivateKey(keyString: privateKey),
+        guard let pk = try? PrivateKey2(keyString: privateKey),
             let pk2 = pk else {
                 return nil
         }
@@ -65,7 +65,7 @@ class EOSWallet: IWallet {
     }
     
     init?(network: INetwork, name: String, data: String, seed: String, index: UInt32) {
-        guard let pk = try? PrivateKey(mnemonicString: seed, index: index),
+        guard let pk = try? PrivateKey2(mnemonicString: seed, index: index),
             let pk2 = pk else {
                 return nil
         }
@@ -253,7 +253,7 @@ class EOSWallet: IWallet {
     
     private func send(value: Decimal, to: String, symbol: String, token: String = "eosio.token", completion: @escaping (String?) -> Void) {
         guard
-            let pk = try? PrivateKey(keyString: privateKey),
+            let pk = try? PrivateKey2(keyString: privateKey),
             let pk2 = pk,
             let amount = value.EOSCompactValue
             else {
@@ -281,9 +281,9 @@ class EOSWallet: IWallet {
         do {
             EOSRPC.endpoint = network.node
             let parts = pub.split(separator: " ")
-            let pk = parts.count == 1 ? try PrivateKey(keyString: pub) : try PrivateKey(mnemonicString: pub, index: 0)
+            let pk = parts.count == 1 ? try PrivateKey2(keyString: pub) : try PrivateKey2(mnemonicString: pub, index: 0)
             guard let pk2 = pk else { throw "Invalid private key" }
-            EOSRPC.sharedInstance.getKeyAccounts(pub: PublicKey(privateKey: pk2).rawPublicKey(), completion: { r, e in
+            EOSRPC.sharedInstance.getKeyAccounts(pub: PublicKey2(privateKey: pk2).rawPublicKey(), completion: { r, e in
                 completion(r?.accountNames, pk2.rawPrivateKey())
             })
         } catch let e {

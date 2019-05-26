@@ -58,7 +58,7 @@ import Foundation
     
     static func stakeResource(account: String, net: Float, cpu: Float, pkString: String, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
         let abiJson = self.stakeResourceAbiJson(account: account, net: net, cpu: cpu)
-        guard let privateKey = try? PrivateKey(keyString: pkString) else {
+        guard let privateKey = try? PrivateKey2(keyString: pkString) else {
             completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid private key"]))
             return
         }
@@ -84,7 +84,7 @@ import Foundation
     
     static func unstakeResource(account: String, net: Float, cpu: Float, pkString: String, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
         let abiJson = self.unstakeResourceAbiJson(account: account, net: net, cpu: cpu)
-        guard let privateKey = try? PrivateKey(keyString: pkString) else {
+        guard let privateKey = try? PrivateKey2(keyString: pkString) else {
             completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid private key"]))
             return
         }
@@ -112,7 +112,7 @@ import Foundation
     
     static func buyRam(account: String, ramEos: Float, pkString: String, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
         let abiJson = self.buyRamAbiJson(account: account, ramEos: ramEos)
-        guard let privateKey = try? PrivateKey(keyString: pkString) else {
+        guard let privateKey = try? PrivateKey2(keyString: pkString) else {
             completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid private key"]))
             return
         }
@@ -135,7 +135,7 @@ import Foundation
     
     static func sellRam(account: String, ramBytes: Float, pkString: String, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
         let abiJson = self.sellRamAbiJson(account: account, ramBytes: ramBytes)
-        guard let privateKey = try? PrivateKey(keyString: pkString) else {
+        guard let privateKey = try? PrivateKey2(keyString: pkString) else {
             completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid private key"]))
             return
         }

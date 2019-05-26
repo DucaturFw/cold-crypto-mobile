@@ -66,7 +66,7 @@ import Foundation
         let buyRamAbiJson = ResourceUtil.buyRamAbiJson(payer: creator, receiver: account, ramEos: ramEos)
         let delegatebwAbiJson = ResourceUtil.stakeResourceAbiJson(from: creator, receiver: account, transfer: transfer ? 1: 0, net: netEos, cpu: cpuEos)
         
-        guard let privateKey = try? PrivateKey(keyString: pkString) else {
+        guard let privateKey = try? PrivateKey2(keyString: pkString) else {
             completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid private key"]))
             return
         }

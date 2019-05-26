@@ -10,7 +10,7 @@ import Foundation
 
 @objcMembers class TransactionUtil: NSObject {
     static func pushTransaction(code: String, action: String, paramsJson: String, account: String, pkString: String, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
-        guard let privateKey = try? PrivateKey(keyString: pkString) else {
+        guard let privateKey = try? PrivateKey2(keyString: pkString) else {
             completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid private key"]))
             return
         }
@@ -32,7 +32,7 @@ import Foundation
     }
     
     static func pushTransaction(abi: AbiJson, account: String, pkString: String, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
-        guard let privateKey = try? PrivateKey(keyString: pkString) else {
+        guard let privateKey = try? PrivateKey2(keyString: pkString) else {
             completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid private key"]))
             return
         }
@@ -40,7 +40,7 @@ import Foundation
         pushTransaction(abi: abi, account: account, privateKey: privateKey!, completion: completion)
     }
     
-    static func pushTransaction(abi: AbiJson, account: String, privateKey: PrivateKey, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
+    static func pushTransaction(abi: AbiJson, account: String, privateKey: PrivateKey2, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
         EOSRPC.sharedInstance.chainInfo { (chainInfo, error) in
             if error != nil {
                 completion(nil, error)
@@ -59,7 +59,7 @@ import Foundation
                     }
                     let auth   = Authorization(actor: account, permission: "active")
                     let action = Action(account: abi.code, name: abi.action, authorization: [auth], data: bin!.binargs)
-                    let rawTx  = Transaction(blockInfo: blockInfo!, actions: [action])
+                    let rawTx  = Transaction2(blockInfo: blockInfo!, actions: [action])
                     
                     var tx = PackedTransaction(transaction: rawTx, compression: "none")
                     tx.sign(pk: privateKey, chainId: chainInfo!.chainId!)
@@ -77,7 +77,7 @@ import Foundation
     }
     
     //TODO:Multiple action combinations
-    static func pushTransaction(abis: [AbiJson], account: String, privateKey: PrivateKey, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
+    static func pushTransaction(abis: [AbiJson], account: String, privateKey: PrivateKey2, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
         EOSRPC.sharedInstance.chainInfo { (chainInfo, error) in
             if error != nil {
                 completion(nil, error)
@@ -123,7 +123,7 @@ import Foundation
                                 }
                             }
                         }
-                        let rawTx = Transaction(blockInfo: blockInfo!, actions: sortActions)
+                        let rawTx = Transaction2(blockInfo: blockInfo!, actions: sortActions)
                         var tx = PackedTransaction(transaction: rawTx, compression: "none")
                         tx.sign(pk: privateKey, chainId: chainInfo!.chainId!)
                         let signedTx = SignedTransaction(packedTx: tx)

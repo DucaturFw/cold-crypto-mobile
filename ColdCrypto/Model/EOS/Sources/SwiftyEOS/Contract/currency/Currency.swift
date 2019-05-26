@@ -16,7 +16,7 @@ import Foundation
 }
 
 @objcMembers class Currency {
-    static func transferCurrency(transfer: Transfer, code: String, privateKey: PrivateKey, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
+    static func transferCurrency(transfer: Transfer, code: String, privateKey: PrivateKey2, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
         let jsonData = try! encoder.encode(transfer)

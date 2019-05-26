@@ -42,20 +42,20 @@ extension String {
     }
 }
 
-struct PrivateKey {
+struct PrivateKey2 {
     static let prefix = "PVT"
     static let delimiter = "_"
     var enclave: SecureEnclave
     var data: Data
     
     init?(keyString: String) throws {
-        if keyString.range(of: PrivateKey.delimiter) == nil {
+        if keyString.range(of: PrivateKey2.delimiter) == nil {
             enclave = .Secp256k1
             data = try keyString.parseWif()!
         } else {
-            let dataParts = keyString.components(separatedBy: PrivateKey.delimiter)
-            guard dataParts[0] == PrivateKey.prefix else {
-                throw NSError(domain: "com.swiftyeos.error", code: 0, userInfo: [NSLocalizedDescriptionKey: "Private Key \(keyString) has invalid prefix: \(PrivateKey.delimiter)"])
+            let dataParts = keyString.components(separatedBy: PrivateKey2.delimiter)
+            guard dataParts[0] == PrivateKey2.prefix else {
+                throw NSError(domain: "com.swiftyeos.error", code: 0, userInfo: [NSLocalizedDescriptionKey: "Private Key \(keyString) has invalid prefix: \(PrivateKey2.delimiter)"])
             }
             
             guard dataParts.count != 2 else {
@@ -114,20 +114,20 @@ struct PrivateKey {
         return self.wif().components(separatedBy: "_").last!
     }
     
-    static func randomPrivateKey(enclave: SecureEnclave = .Secp256k1) -> PrivateKey? {
+    static func randomPrivateKey(enclave: SecureEnclave = .Secp256k1) -> PrivateKey2? {
         var keyData = Data(count: 32)
         let result = keyData.withUnsafeMutableBytes { (mutableBytes: UnsafeMutablePointer<UInt8>) -> Int32 in
             SecRandomCopyBytes(kSecRandomDefault, 32, mutableBytes)
         }
         if result == errSecSuccess {
-            return PrivateKey(enclave: enclave, data: keyData)
+            return PrivateKey2(enclave: enclave, data: keyData)
         } else {
             print("Problem generating random bytes")
             return nil
         }
     }
     
-    static func randomPrivateKeyAndMnemonic() -> (PrivateKey?, String?) {
+    static func randomPrivateKeyAndMnemonic() -> (PrivateKey2?, String?) {
         var data = Data(count: 16)
         let result = data.withUnsafeMutableBytes { (mutableBytes: UnsafeMutablePointer<UInt8>) -> Int32 in
             SecRandomCopyBytes(kSecRandomDefault, 16, mutableBytes)
@@ -136,7 +136,7 @@ struct PrivateKey {
             let mnemonic = data.withUnsafeBytes({ (sourceBytes: UnsafePointer<UInt8>) -> String in
                 return String(cString: mnemonic_from_data(sourceBytes, 16), encoding: .utf8)!
             })
-            return try! (PrivateKey(mnemonicString: mnemonic, index: 0), mnemonic)
+            return try! (PrivateKey2(mnemonicString: mnemonic, index: 0), mnemonic)
         } else {
             print("Problem generating random bytes")
             return (nil, nil)
@@ -144,14 +144,14 @@ struct PrivateKey {
     }
     
     static func literalValid(keyString: String) -> Bool {
-        if keyString.range(of: PrivateKey.delimiter) == nil {
+        if keyString.range(of: PrivateKey2.delimiter) == nil {
             return keyString.count == 51
         } else {
-            let dataParts = keyString.components(separatedBy: PrivateKey.delimiter)
+            let dataParts = keyString.components(separatedBy: PrivateKey2.delimiter)
             guard dataParts.count != 2 else {
                 return false
             }
-            guard dataParts[0] == PrivateKey.prefix else {
+            guard dataParts[0] == PrivateKey2.prefix else {
                 return false
             }
             guard dataParts[1].count == 51 else {

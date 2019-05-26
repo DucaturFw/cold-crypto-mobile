@@ -26,11 +26,11 @@ extension Data {
     }
 }
 
-struct PublicKey {
+struct PublicKey2 {
     var data: Data
     var enclave: SecureEnclave
     
-    init(privateKey: PrivateKey) {
+    init(privateKey: PrivateKey2) {
         var publicBytes: Array<UInt8> = Array(repeating: UInt8(0), count: 64)
         var compressedPublicBytes: Array<UInt8> = Array(repeating: UInt8(0), count: 33)
         

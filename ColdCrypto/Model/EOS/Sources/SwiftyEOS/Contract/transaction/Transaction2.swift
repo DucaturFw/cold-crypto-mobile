@@ -110,7 +110,7 @@ struct Action: Codable {
     var data: String?
 }
 
-@objcMembers class Transaction: NSObject, Codable {
+@objcMembers class Transaction2: NSObject, Codable {
     var refBlockNum: Int
     var refBlockPrefix: Int
     var expiration: Date
@@ -243,20 +243,20 @@ struct DataWriter {
 }
 
 struct PackedTransaction {
-    var transaction: Transaction
+    var transaction: Transaction2
     var signatures: [String] = []
     var compression: String
     
     var packedTrx: String = ""
     
-    init(transaction: Transaction, compression: String) {
+    init(transaction: Transaction2, compression: String) {
         self.transaction = transaction
         self.compression = compression
         
         packedTrx = DataWriter.dataForSignature(chainId: nil, pkt: self).hexEncodedString()
     }
     
-    mutating func sign(pk: PrivateKey, chainId: String) {
+    mutating func sign(pk: PrivateKey2, chainId: String) {
         let packedBytes: [UInt8] = [UInt8](DataWriter.dataForSignature(chainId: chainId, pkt: self))
         
         let digest = Data(bytes: packedBytes, count: packedBytes.count).sha256()
@@ -316,7 +316,7 @@ struct PackedTransaction {
             
             if s != nil {
                 let sigString = String(data: s!, encoding: .utf8)
-                signatures.append(["SIG", pk.enclave.rawValue, sigString!].joined(separator: PrivateKey.delimiter))
+                signatures.append(["SIG", pk.enclave.rawValue, sigString!].joined(separator: PrivateKey2.delimiter))
                 return
             }
         }

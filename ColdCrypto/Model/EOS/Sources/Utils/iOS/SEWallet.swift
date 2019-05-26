@@ -170,7 +170,7 @@ extension String {
     }
     
     static func literalValid(keyString: String) -> Bool {
-        return PrivateKey.literalValid(keyString:keyString)
+        return PrivateKey2.literalValid(keyString:keyString)
     }
 }
 
@@ -260,7 +260,7 @@ struct RawKeystore: Codable {
     var iv: String
     var publicKey: String
     
-    func decrypt(passcode: String) throws -> PrivateKey {
+    func decrypt(passcode: String) throws -> PrivateKey2 {
         let decryptedData = AESCrypt(inData:self.data.data(using: .utf8)!,
                                      keyData:passcode.data(using:String.Encoding.utf8)!,
                                      ivData:self.iv.data(using:String.Encoding.utf8)!,
@@ -269,11 +269,11 @@ struct RawKeystore: Codable {
         if pkString == nil {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
-        let pk = try PrivateKey(keyString: pkString!)
+        let pk = try PrivateKey2(keyString: pkString!)
         if pk == nil {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
-        let pub = PublicKey(privateKey: pk!)
+        let pub = PublicKey2(privateKey: pk!)
         guard pub.wif() == self.publicKey else {
             throw NSError(domain: "", code: 0, userInfo: nil)
         }
@@ -330,17 +330,17 @@ struct RawKeystore: Codable {
     }
     
     convenience init(privateKey: String, passcode: String) throws {
-        let pk = try PrivateKey(keyString: privateKey)
+        let pk = try PrivateKey2(keyString: privateKey)
         self.init(pk: pk!, passcode: passcode)
     }
     
     convenience init(mnemonic: String, passcode: String) throws {
-        let pk = try PrivateKey(mnemonicString: mnemonic, index: 0)
+        let pk = try PrivateKey2(mnemonicString: mnemonic, index: 0)
         self.init(pk: pk!, passcode: passcode)
     }
     
-    init(pk: PrivateKey, passcode: String) {
-        let pub = PublicKey(privateKey: pk)
+    init(pk: PrivateKey2, passcode: String) {
+        let pub = PublicKey2(privateKey: pk)
         publicKey = pub.wif()
         
         let pkData = pk.wif().data(using:String.Encoding.utf8)!
@@ -395,7 +395,7 @@ struct RawKeystore: Codable {
         }
     }
     
-    func decrypt(passcode: String) throws -> PrivateKey {
+    func decrypt(passcode: String) throws -> PrivateKey2 {
         return try rawKeystore.decrypt(passcode:passcode)
     }
     
@@ -444,7 +444,7 @@ struct RawKeystore: Codable {
         tempPass = nil
     }
     
-    private func retrievePrivateKey() throws -> PrivateKey {
+    private func retrievePrivateKey() throws -> PrivateKey2 {
         guard tempKeystore != nil && tempPass != nil else {
             throw NSError(domain: "", code: 90000, userInfo: [NSLocalizedDescriptionKey: "no saved key"])
         }
@@ -459,7 +459,7 @@ struct RawKeystore: Codable {
     }
     
     func pushTransaction(abi: AbiJson, account: String, unlockOncePasscode: String?, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
-        var pk: PrivateKey
+        var pk: PrivateKey2
         
         do {
             if unlockOncePasscode != nil {
@@ -476,7 +476,7 @@ struct RawKeystore: Codable {
     }
     
     func pushTransaction(code: String, action: String, paramsJson: String, account: String, unlockOncePasscode: String?, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
-        var pk: PrivateKey
+        var pk: PrivateKey2
         
         do {
             if unlockOncePasscode != nil {
