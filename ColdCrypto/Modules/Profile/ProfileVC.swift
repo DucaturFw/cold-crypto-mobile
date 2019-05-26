@@ -102,11 +102,26 @@ class ProfileVC: UIViewController, ImportDelegate, ISignerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: mRightAdd)
-        navigationItem.title = "caption".loc
+//        navigationItem.title = "caption".loc
+        navigationItem.titleView = UISwitch().apply({
+            $0.addTarget(self, action: #selector(toggleInternet(_:)), for: .valueChanged)
+            $0.isOn = Settings.isInternetEnabled
+            $0.onTintColor = Style.Colors.blue
+        })
         navigationItem.leftBarButtonItem  = UIBarButtonItem(customView: mLeftMenu)
         view.backgroundColor = Style.Colors.white
         view.addSubview(mView)
         view.addSubview(mScan)
+        syncInternet()
+    }
+    
+    @objc private func toggleInternet(_ s: UISwitch) {
+        Settings.isInternetEnabled = s.isOn
+        syncInternet()
+    }
+    
+    private func syncInternet() {
+        BlockURLProtocol.blocked = !Settings.isInternetEnabled
     }
     
     override func sideMenuDidAppear(animated: Bool) {

@@ -30,6 +30,19 @@ class Settings {
         }
     }
     
+    static var isInternetEnabled: Bool {
+        get {
+            if UserDefaults.standard.object(forKey: "isInternetEnabled") != nil {
+                return UserDefaults.standard.bool(forKey: "isInternetEnabled")
+            }
+            return true
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "isInternetEnabled")
+            UserDefaults.standard.synchronize()
+        }
+    }
+    
     static var profile: Profile? {
         get {
             do {

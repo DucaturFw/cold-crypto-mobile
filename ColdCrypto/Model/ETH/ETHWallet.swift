@@ -310,9 +310,7 @@ class ETHWallet: IWallet {
         }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        
-        let session = URLSession(configuration: URLSessionConfiguration.default)
-        session.dataTask(with: request, completionHandler: { data, response, error in
+        URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
             guard let d = data else {
                 deliver(nil)
                 return

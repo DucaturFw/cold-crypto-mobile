@@ -92,6 +92,7 @@
 		EB367C39229B30F50057D7BE /* SMP.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB367C07229B30F50057D7BE /* SMP.swift */; };
 		EB367C3A229B30F50057D7BE /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB367C08229B30F50057D7BE /* Converter.swift */; };
 		EB367C3B229B30F50057D7BE /* EthereumKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB367C09229B30F50057D7BE /* EthereumKitError.swift */; };
+		EB367C3E229B31DC0057D7BE /* URLBlocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB367C3D229B31DC0057D7BE /* URLBlocker.swift */; };
 		EB3ECC5D2180E8CD00D14656 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */; };
 		EB3ECC652180F74600D14656 /* ApiSignTransferTx.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3ECC642180F74600D14656 /* ApiSignTransferTx.swift */; };
 		EB3F8AFE218357D5004E6CFB /* WalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3F8AFD218357D5004E6CFB /* WalletCell.swift */; };
@@ -239,48 +240,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		EB367BBE229B2FA70057D7BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EBE484E921792FE5006879F7 /* CryptoEthereumSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1AD1D62420B7E822007AFF80;
-			remoteInfo = CryptoEthereumSwiftTests;
-		};
-		EB367BC0229B2FA70057D7BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EBE484E921792FE5006879F7 /* CryptoEthereumSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1AD1D63E20B7EF2F007AFF80;
-			remoteInfo = Example;
-		};
-		EB367BC6229B2FA70057D7BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EBE484F521792FEC006879F7 /* CryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 75211F92207249D8004E41F8;
-			remoteInfo = "CryptoSwift-TestHostApp";
-		};
-		EB367BC8229B2FA70057D7BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EBE484F521792FEC006879F7 /* CryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 754BE46019693E190098E6F3;
-			remoteInfo = Tests;
-		};
-		EB367BCA229B2FA70057D7BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EBE484F521792FEC006879F7 /* CryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7595C14A2072E48C00EA1A5F;
-			remoteInfo = "TestsPerformance-Mac";
-		};
-		EB367BCC229B2FA70057D7BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EBE484F521792FEC006879F7 /* CryptoSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7564F0602072EAEB00CA5A96;
-			remoteInfo = "TestsPerformance-iOS";
-		};
 		EBE484EF21792FE5006879F7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EBE484E921792FE5006879F7 /* CryptoEthereumSwift.xcodeproj */;
@@ -416,6 +375,7 @@
 		EB367C07229B30F50057D7BE /* SMP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMP.swift; sourceTree = "<group>"; };
 		EB367C08229B30F50057D7BE /* Converter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		EB367C09229B30F50057D7BE /* EthereumKitError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumKitError.swift; sourceTree = "<group>"; };
+		EB367C3D229B31DC0057D7BE /* URLBlocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLBlocker.swift; sourceTree = "<group>"; };
 		EB3ECC5C2180E8CD00D14656 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		EB3ECC642180F74600D14656 /* ApiSignTransferTx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSignTransferTx.swift; sourceTree = "<group>"; };
 		EB3F8AFD218357D5004E6CFB /* WalletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCell.swift; sourceTree = "<group>"; };
@@ -928,6 +888,7 @@
 				EBA5262F21B1E40F00A29A08 /* Style.swift */,
 				EB2676CC21B3008B003B254F /* CardProvider.swift */,
 				EB2676D321B313B5003B254F /* Group.swift */,
+				EB367C3D229B31DC0057D7BE /* URLBlocker.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1089,8 +1050,6 @@
 			isa = PBXGroup;
 			children = (
 				EBE484F021792FE5006879F7 /* CryptoEthereumSwift.framework */,
-				EB367BBF229B2FA70057D7BE /* CryptoEthereumSwiftTests.xctest */,
-				EB367BC1229B2FA70057D7BE /* Example.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1099,10 +1058,6 @@
 			isa = PBXGroup;
 			children = (
 				EBE484FE21792FEC006879F7 /* CryptoSwift.framework */,
-				EB367BC7229B2FA70057D7BE /* CryptoSwift-TestHostApp.app */,
-				EB367BC9229B2FA70057D7BE /* Tests.xctest */,
-				EB367BCB229B2FA70057D7BE /* TestsPerformance-Mac.xctest */,
-				EB367BCD229B2FA70057D7BE /* TestsPerformance-iOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1455,48 +1410,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		EB367BBF229B2FA70057D7BE /* CryptoEthereumSwiftTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = CryptoEthereumSwiftTests.xctest;
-			remoteRef = EB367BBE229B2FA70057D7BE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		EB367BC1229B2FA70057D7BE /* Example.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = Example.app;
-			remoteRef = EB367BC0229B2FA70057D7BE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		EB367BC7229B2FA70057D7BE /* CryptoSwift-TestHostApp.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "CryptoSwift-TestHostApp.app";
-			remoteRef = EB367BC6229B2FA70057D7BE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		EB367BC9229B2FA70057D7BE /* Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = Tests.xctest;
-			remoteRef = EB367BC8229B2FA70057D7BE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		EB367BCB229B2FA70057D7BE /* TestsPerformance-Mac.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "TestsPerformance-Mac.xctest";
-			remoteRef = EB367BCA229B2FA70057D7BE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		EB367BCD229B2FA70057D7BE /* TestsPerformance-iOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "TestsPerformance-iOS.xctest";
-			remoteRef = EB367BCC229B2FA70057D7BE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		EBE484F021792FE5006879F7 /* CryptoEthereumSwift.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1810,6 +1723,7 @@
 				EB367C22229B30F50057D7BE /* HDPublicKey.swift in Sources */,
 				EBC9F77C21822F4900150883 /* ApiAnswer.swift in Sources */,
 				EBD52EF221CA44CD00D104CF /* ISigner.swift in Sources */,
+				EB367C3E229B31DC0057D7BE /* URLBlocker.swift in Sources */,
 				EB02B9E421B7433000C1B30F /* EOSTransactionRaw.swift in Sources */,
 				EB979C59222B348700FCFB72 /* TokenHistory.swift in Sources */,
 				EB64509F21811684008397DF /* ApiJoin.swift in Sources */,

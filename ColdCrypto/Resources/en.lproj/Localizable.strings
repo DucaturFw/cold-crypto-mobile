@@ -2,7 +2,7 @@
 "new_wallet" = "Create new wallet";
 "import_prof" = "Import wallet";
 "create_code" = "Create access code";
-"cretae_hint" = "You need it for signung in\nand confirming operations";
+"cretae_hint" = "You need it for signing in\nand confirming operations";
 "cretae_rpt"  = "Repeat new access code";
 "ask_use_face" = "Will you use Face ID for access?";
 "ask_use_touch" = "Will you use Touch ID for access?";

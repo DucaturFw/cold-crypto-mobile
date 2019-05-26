@@ -175,8 +175,10 @@ class EOSWallet: IWallet {
         } else {
             EOSRPC.endpoint = mNetwork.node
             EOSUtils.getTransactions2(network: mNetwork, account: name, completion: { [weak self] trans in
-                if let s = self, let t = trans {
-                    s.cachedTrans = t
+                if let s = self {
+                    if let t = trans {
+                        s.cachedTrans = t
+                    }
                     s.delegate?.on(history: s.cachedTrans, of: s)
                 }
             })
@@ -188,8 +190,8 @@ class EOSWallet: IWallet {
             getTokensList(completion: { [weak self] tokens in
                 if let t = tokens {
                     self?.mCachedTokens = t
-                    self?.delegate?.on(tokens: t)
                 }
+                self?.delegate?.on(tokens: self?.mCachedTokens ?? [])
             })
         }
     }
@@ -207,9 +209,7 @@ class EOSWallet: IWallet {
         }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-
-        let session = URLSession(configuration: URLSessionConfiguration.default)
-        session.dataTask(with: request, completionHandler: { data, response, error in
+        URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
             guard let d = data else {
                 deliver(nil)
                 return

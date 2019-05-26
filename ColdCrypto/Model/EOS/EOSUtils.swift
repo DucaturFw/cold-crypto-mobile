@@ -61,9 +61,7 @@ class EOSUtils {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = "{\"pos\":-1, \"offset\": -1000, \"account_name\": \"\(account)\"}".toData()
-        
-        let session = URLSession(configuration: URLSessionConfiguration.default)
-        session.dataTask(with: request, completionHandler: { data, response, error in
+        URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
             DispatchQueue.global().async {
                 let actions: EOSActions? = data?.convert()
                 var result: [EOSTransaction]?

@@ -38,6 +38,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var params: String? = nil
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        URLProtocol.registerClass(BlockURLProtocol.self)
+        URLSession.shared.configuration.protocolClasses?.insert(BlockURLProtocol.self, at: 0)
+        URLSessionConfiguration.default.protocolClasses?.insert(BlockURLProtocol.self, at: 0)
+        
         BITHockeyManager.shared().configure(withIdentifier: "fd96c74c233a4c328c2d4f7df741ab9a")
         BITHockeyManager.shared().start()
         BITHockeyManager.shared().authenticator.authenticateInstallation()
